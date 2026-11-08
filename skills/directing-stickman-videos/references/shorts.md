@@ -13,7 +13,7 @@ Ask once, record in the project/channel checkpoint, never re-ask per episode:
 - **Recurring character.** One own protagonist (name, silhouette, one signature prop or colour) reused in every episode. This is the channel's identity and its main defence against "mass-produced/templated" judgments. Never reuse a reference channel's character, name or design.
 - **Format family.** 1–3 repeatable formats (for example: "dato raro de animales", "historia random en 40 s", "¿qué pasaría si…?"). Each episode varies topic, scenes and jokes inside the format; the format is not a template to copy-paste.
 - **Audience and "made for kids".** Decide honestly whether the channel is directed at children. Cartoon animals can be read as kids' content. This setting changes comments, recommendations and ads; it is the user's legal decision, not the assistant's. Record it.
-- **Default length.** Start at 25–50 s. Shorts accept up to 3 minutes (since 15 Oct 2024), but a new channel learns faster from short, complete ideas. Longer stories are allowed when the story needs it.
+- **Default length.** Story and fact formats: 40–70 s (in November 2026, 7 of 8 sampled top Shorts from a 7 M-subscriber Spanish animated channel ran 57–80 s). Jokes and fiction lists: 30–45 s. Shorts accept up to 3 minutes (since 15 Oct 2024); length follows the story, never padding.
 
 ## 2. Reference channels: learn patterns, never clone
 
