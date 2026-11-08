@@ -37,8 +37,9 @@ const mergeT = (a, b) => [...(a || []), ...(b || [])].sort((x, y) => x.t - y.t).
  * idle: {dur}                    -> breathing + blinking
  * gestures: [{t0, t1, arm: 'L'|'R', shoulder, elbow}] -> raise an arm for a while
  */
-function humanMotion({walk, idle, gestures = [], dur}) {
+function humanMotion({walk, idle, gestures = [], poses = {}, dur}) {
   const m = {};
+  for (const side of ['L', 'R']) if (poses[side]) m['p' + side] = poses[side];
   if (walk) {
     const p = walk.period || 0.62, a = walk.stride || 22, d = walk.dur;
     m.legL = osc(d, p, a); m.legR = osc(d, p, a, {phase: Math.PI});
@@ -89,8 +90,13 @@ const OUTFITS = {
   civil2: {shirt: '#e6b34a', sleeve: '#e6b34a', pants: '#3f6aa8', shoe: INK, skin: PAPER},
 };
 
-function arm(side, o, motion, swingKeys, gKeys, geKeys) {
+function arm(side, o, motion, swingKeys, gKeys, geKeys, poseKeys) {
   const shoulderAngle = deg(-(o.shoulder || 0) * side), elbowAngle = deg((o.elbow || 0) * side);
+  if (poseKeys) {
+    const hand = E(0, 104, 40, 40, {lineWidth: 8});
+    const fore = G([...tube([[0, 0], [0, 92]], o.forearm || PAPER, 16), hand, ...(o.hold || [])], {y: 100, angle: elbowAngle, pivotX: 0, pivotY: 0, keys: poseKeys.map(k => ({t: k.t, angle: deg((k.elbow ?? 0) * side)}))});
+    return G([...tube([[0, 0], [0, 100]], o.sleeve, 30), fore], {angle: shoulderAngle, pivotX: 0, pivotY: 0, keys: poseKeys.map(k => ({t: k.t, angle: deg(-(k.shoulder ?? 0) * side)}))});
+  }
   const hand = E(0, 104, 40, 40, {lineWidth: 8});
   const fore = G([...tube([[0, 0], [0, 92]], o.forearm || PAPER, 16), hand, ...(o.hold || [])], {y: 100, angle: elbowAngle, pivotX: 0, pivotY: 0, ...(geKeys ? {keys: geKeys.map(k => ({t: k.t, angle: elbowAngle + deg(k.angle) * side}))} : {})});
   const keys = gKeys ? gKeys.map(k => ({t: k.t, angle: shoulderAngle - deg(k.angle) * side})) : swingKeys ? swingKeys.map(k => ({t: k.t, angle: shoulderAngle + k.angle})) : null;
@@ -106,8 +112,8 @@ function leg(side, outfit, swing, knee, stance = 0) {
  * person({who: 'becario'|'granjero'|'civil'|'civil2', x, y, scale, expr, look, armL, armR,
  *         walk:{dur,period,stride}, idle:{dur}, gestures:[...], move: keys for x/y, headTilt, alpha})
  */
-export function person({who = 'becario', x = 0, y = 0, scale = 1, expr = 'cansado', look = 0, armL = {}, armR = {}, walk, idle, gestures, move, headTilt = 0, headKeys, alpha, from, to} = {}) {
-  const o = OUTFITS[who], m = humanMotion({walk, idle, gestures});
+export function person({who = 'becario', x = 0, y = 0, scale = 1, expr = 'cansado', look = 0, armL = {}, armR = {}, walk, idle, gestures, poses, move, headTilt = 0, headKeys, alpha, from, to} = {}) {
+  const o = OUTFITS[who], m = humanMotion({walk, idle, gestures, poses});
   const isFarmer = who === 'granjero';
   const torsoW = isFarmer ? 190 : 160;
   const torso = [R(-torsoW / 2, -470, torsoW, 236, {radius: isFarmer ? 60 : 46, fill: o.shirt})];
@@ -130,8 +136,8 @@ export function person({who = 'becario', x = 0, y = 0, scale = 1, expr = 'cansad
     ...[-60, -20, 20, 60].map(xx => P([['M', xx, -312], ['L', xx + 8, -256]], {stroke: '#c9a24a', lineWidth: 4}))] : [];
   const head = G([...hair, E(0, -130, 272, 250), eyesG, ...f.rest, ...hat],
     {y: -462, angle: deg(headTilt), pivotX: 0, pivotY: 0, ...(headKeys ? {keys: headKeys} : {})});
-  const L = G([arm(-1, {shoulder: 8, ...armL, sleeve: o.sleeve}, m, m.armL, m.gL, m.geL)], {x: -(torsoW / 2) - 6, y: -446});
-  const Rr = G([arm(1, {shoulder: 8, ...armR, sleeve: o.sleeve}, m, m.armR, m.gR, m.geR)], {x: torsoW / 2 + 6, y: -446});
+  const L = G([arm(-1, {shoulder: 8, ...armL, sleeve: o.sleeve}, m, m.armL, m.gL, m.geL, m.pL)], {x: -(torsoW / 2) - 6, y: -446});
+  const Rr = G([arm(1, {shoulder: 8, ...armR, sleeve: o.sleeve}, m, m.armR, m.gR, m.geR, m.pR)], {x: torsoW / 2 + 6, y: -446});
   const body = G([L, ...torso, head, Rr], {...(m.bob ? {keys: m.bob} : m.breath ? {keys: m.breath, pivotX: 0, pivotY: -240} : {})});
   const legs = [leg(-1, o, m.legL, m.kneeL, 3), leg(1, o, m.legR, m.kneeR, 3)];
   return G([...legs, body], {x, y, scaleX: scale, scaleY: scale, ...(move ? {keys: move} : {}), ...(alpha !== undefined ? {alpha} : {}), ...(from !== undefined ? {from} : {}), ...(to !== undefined ? {to} : {})});
@@ -139,7 +145,8 @@ export function person({who = 'becario', x = 0, y = 0, scale = 1, expr = 'cansad
 export const becario = a => person({...a, who: 'becario'});
 export const granjero = ({axe, ...a} = {}) => person({...a, who: 'granjero', armR: {...(a.armR || {}), hold: axe ? [axeProp()] : a.armR?.hold}});
 export function axeProp() {
-  return G([R(-9, -150, 18, 250, {radius: 6, fill: '#a0703c', lineWidth: 6}), S([['M', 6, -150], ['L', 86, -172], ['Q', 104, -120, 80, -78], ['L', 6, -96], ['Z']], '#c9ced3', {lineWidth: 7}), P([['M', 70, -166], ['Q', 86, -122, 72, -84]], {stroke: '#ffffff', lineWidth: 4})], {y: 104});
+  // Handle runs away from the shoulder, so a raised arm lifts the blade overhead.
+  return G([R(-9, -30, 18, 270, {radius: 6, fill: '#a0703c', lineWidth: 6}), S([['M', 6, 160], ['L', 92, 140], ['Q', 112, 196, 90, 248], ['L', 6, 228], ['Z']], '#c9ced3', {lineWidth: 7}), P([['M', 78, 150], ['Q', 96, 196, 80, 238]], {stroke: '#ffffff', lineWidth: 4})], {y: 104});
 }
 
 // ---------- Mike (Wyandotte rooster) ----------
@@ -206,6 +213,52 @@ export function archiveBox({x = 0, y = 0, scale = 1, label = 'EXP. 014', keys, l
     P([['M', -150, -120], ['L', 150, -120]], {stroke: '#a7783f', lineWidth: 5}),
     G([R(-162, -26, 324, 44, {radius: 8, fill: '#d9a86c'})], {y: -170, pivotX: -162, pivotY: 0, ...(lidOpenAt !== undefined ? {keys: [{t: lidOpenAt, angle: 0}, {t: lidOpenAt + 0.35, angle: deg(-70)}]} : {})}),
     R(-70, -110, 140, 56, {radius: 6, lineWidth: 6}),
-    {type: 'text', text: label, x: -58, y: -100, size: 30, bold: true, color: INK},
+    ctext(label, 0, -100, 30),
   ], {x, y, scaleX: scale, scaleY: scale, ...(keys ? {keys} : {})});
+}
+
+// ---------- measured text ----------
+import {createCanvas, GlobalFonts} from '/home/claude/repo/stickman-video-director/skills/directing-stickman-videos/node_modules/@napi-rs/canvas/index.js';
+GlobalFonts.registerFromPath('/home/claude/repo/stickman-video-director/skills/directing-stickman-videos/assets/fonts/NotoSans.ttf', 'KitSans');
+const mctx = createCanvas(10, 10).getContext('2d');
+export function textWidth(text, size, bold = true) { mctx.font = `${bold ? 700 : 400} ${size}px KitSans`; return mctx.measureText(text).width; }
+/** Text centred on cx. With maxW, the size shrinks until the text fits (throws if it cannot). */
+export function ctext(text, cx, y, size, o = {}) {
+  let s = size;
+  if (o.maxW) { while (textWidth(text, s) > o.maxW && s > 14) s -= 2; if (textWidth(text, s) > o.maxW) throw new Error(`Text does not fit: ${text}`); }
+  const w = textWidth(text, s), {maxW, ...rest} = o;
+  return {type: 'text', text, x: Math.round(cx - w / 2), y, size: s, bold: true, color: INK, w: Math.ceil(w) + 40, ...rest};
+}
+/** A sign: rounded box with text centred inside, padded; text auto-shrinks to fit. */
+export function sign(text, x, y, w, h, {size = 60, fill = PAPER, color = INK, stroke = INK, lineWidth = LW, radius = 16, pad = 28, keys} = {}) {
+  const t = ctext(text, x + w / 2, 0, size, {maxW: w - pad * 2, color});
+  t.y = Math.round(y + (h - t.size * 1.36) / 2);
+  return G([R(x, y, w, h, {radius, fill, stroke, lineWidth}), t], keys ? {keys} : {});
+}
+
+// ---------- props for the chop / feeding scenes ----------
+export function choppingBlock(x, y, s = 1) {
+  return G([R(-110, -150, 220, 150, {radius: 10, fill: '#9a6a3c'}), E(0, -150, 220, 60, {fill: '#d9b07a'}), E(0, -150, 120, 30, {fill: 'none', stroke: '#a7783f', lineWidth: 5}), E(0, -150, 50, 12, {fill: 'none', stroke: '#a7783f', lineWidth: 4}), P([['M', -60, -120], ['L', -50, -20]], {stroke: '#7a5230', lineWidth: 5}), P([['M', 40, -110], ['L', 50, -30]], {stroke: '#7a5230', lineWidth: 5})], {x, y, scaleX: s, scaleY: s});
+}
+/** Rooster head (cartoon) that can fly off — no gore. */
+export function roosterHead(o = {}) {
+  return G([E(0, 0, 110, 100, {fill: '#fbf7ec'}), S([['M', -40, -40], ['Q', -38, -80, -18, -50], ['Q', -8, -94, 10, -52], ['Q', 24, -92, 34, -48], ['Q', 52, -76, 48, -34], ['Z']], TIE, {lineWidth: 7}),
+    S([['M', 52, -6], ['L', 98, 8], ['L', 52, 22], ['Z']], '#f0b429', {lineWidth: 7}), E(26, -10, 30, 30, {fill: PAPER, lineWidth: 5}), P([['M', 16, -18], ['L', 36, -2]], {lineWidth: 5}), P([['M', 36, -18], ['L', 16, -2]], {lineWidth: 5})], o);
+}
+/** Feather burst: small feathers fly out from (x,y) at time t and fall. */
+export function featherBurst(x, y, t, n = 7, spread = 260, end = Infinity) {
+  const tEnd = r3(Math.min(t + 1.3, end));
+  return Array.from({length: n}, (_, i) => {
+    const a = (i / n) * Math.PI * 2 + 0.4, dx = Math.cos(a) * spread * (0.6 + (i % 3) * 0.2), dy = -Math.abs(Math.sin(a)) * spread * 0.7;
+    return G([S([['M', 0, -24], ['Q', 16, 0, 0, 24], ['Q', -16, 0, 0, -24], ['Z']], '#fbf7ec', {lineWidth: 5}), P([['M', 0, -20], ['L', 0, 22]], {stroke: '#d9cfbb', lineWidth: 3})],
+      {x, y, from: t, alpha: 0, keys: [{t, x, y, alpha: 1, angle: 0}, {t: r3(t + 0.35), x: x + dx, y: y + dy, angle: deg(90 + i * 40)}, {t: tEnd, x: x + dx * 1.3, y: y + dy + 260, alpha: 0, angle: deg(200 + i * 30)}]});
+  });
+}
+/** Glass dropper drawn in world-vertical orientation inside a hand-held group; drops fall from its tip. */
+export function dropperProp({dropsAt = [], fall = 70, compensate = 0} = {}) {
+  return G([
+    R(-15, 6, 30, 70, {radius: 10, fill: '#d9f1ff', lineWidth: 7}), P([['M', -6, 76], ['L', 0, 92], ['L', 6, 76]], {lineWidth: 6}),
+    E(0, -26, 56, 64, {fill: TIE, lineWidth: 7, keys: dropsAt.flatMap(t => [{t: r3(t - 0.2), scaleX: 1, scaleY: 1}, {t: r3(t - 0.08), scaleX: 0.82, scaleY: 0.82}, {t: r3(t + 0.1), scaleX: 1, scaleY: 1}])}),
+    ...dropsAt.map(t => ({...E(0, 100, 20, 28, {fill: '#5fb7ef', lineWidth: 5}), from: r3(t - 0.08), to: r3(t + 0.42), keys: [{t: r3(t - 0.08), scaleX: 0.3, scaleY: 0.3, y: 92}, {t: r3(t), scaleX: 1, scaleY: 1, y: 96}, {t: r3(t + 0.4), y: 96 + fall}]})),
+  ], {y: 104, angle: compensate, pivotX: 0, pivotY: 0});
 }
