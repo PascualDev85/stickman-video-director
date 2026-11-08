@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import path from 'node:path';
-import {ROOT, STYLES, FFMPEG, FFPROBE, run, probe, loadProject, outputDir, save, json, hashFile, groupWords} from './autopilot-core.mjs';
+import {ROOT, STYLES, FFMPEG, FFPROBE, run, probe, loadProject, outputDir, save, json, hashFile, groupWords, SHORT_CUES} from './autopilot-core.mjs';
 import {BRIAN} from './b4-runtime.mjs';
+import {SHORTS} from './shorts.mjs';
 
 const [command, ...args] = process.argv.slice(2);
 const option = (flag, fallback) => args.includes(flag) ? args[args.indexOf(flag) + 1] : fallback;
@@ -22,12 +23,13 @@ async function main() {
     const dir = path.resolve(args[0]); if (fs.existsSync(dir)) throw new Error('Project directory already exists; will not overwrite');
     if (dir.startsWith(ROOT + path.sep)) throw new Error('Create projects outside the installed Skill');
     fs.mkdirSync(dir, {recursive: true});
-    save(path.join(dir, 'project.json'), {version: 1, style, width: 1280, height: 720, fps: 30, voice: {path: 'narration.wav', lead: 0, tail: 0, ...(style === 'B4' ? BRIAN : {})}, captions: [], shots: [], sfx: [], ...(style === 'B3' ? {television: {enabled: true, intensity: 0.45}} : {}), ...(style === 'B4' ? {ambience: [], dialogue: [], audio_cuts: []} : {})});
+    const size = args.includes('--shorts') ? SHORTS : {width: 1280, height: 720, fps: 30};
+    save(path.join(dir, 'project.json'), {version: 1, style, width: size.width, height: size.height, fps: size.fps, voice: {path: 'narration.wav', lead: 0, tail: 0, ...(style === 'B4' ? BRIAN : {})}, captions: [], shots: [], sfx: [], ...(style === 'B3' ? {television: {enabled: true, intensity: 0.45}} : {}), ...(style === 'B4' ? {ambience: [], dialogue: [], audio_cuts: []} : {})});
     console.log(JSON.stringify({project: path.join(dir, 'project.json'), stage: 'scaffold; add approved narration, aligned captions and authored scenes before rendering'}));
   } else if (command === 'captions') {
     if (!args[0] || !args[1]) throw new Error('Aligned word input and output file required');
     if (fs.existsSync(args[1])) throw new Error('Caption output exists; will not overwrite');
-    save(args[1], groupWords(json(args[0]), Number(option('--lead', 0))));
+    save(args[1], groupWords(json(args[0]), Number(option('--lead', 0)), args.includes('--shorts') ? SHORT_CUES : undefined));
     console.log(JSON.stringify({output: path.resolve(args[1])}));
   } else if (['validate', 'preview', 'approve', 'render'].includes(command)) {
     const scoped = command === 'preview' || command === 'validate' && args.includes('--seconds');
@@ -35,7 +37,13 @@ async function main() {
     if (scoped && (!Number.isFinite(seconds) || seconds <= 0 || seconds > 60)) throw new Error('Preview length must be greater than 0 and at most 60 seconds');
     let p;
     if (command !== 'approve') p = loadProject(args[0], scoped ? {seconds} : {});
-    if (command === 'validate') { const {painter} = await import('./autopilot-render.mjs'); const draw = await painter(p); for (const cue of p.captions) draw(Math.min(p.rangeEnd - 0.001, (cue.start + cue.end) / 2)); console.log(JSON.stringify({valid: true, fingerprint: p.fingerprint, duration: p.duration, checked_seconds: p.rangeEnd, shots: p.shots.length})); return; }
+    if (command === 'validate') {
+      const {painter, safezoneReview} = await import('./autopilot-render.mjs'); const draw = await painter(p);
+      for (const cue of p.captions) draw(Math.min(p.rangeEnd - 0.001, (cue.start + cue.end) / 2));
+      const result = {valid: true, fingerprint: p.fingerprint, duration: p.duration, checked_seconds: p.rangeEnd, shots: p.shots.length};
+      if (p.height > p.width) { const z = safezoneReview(p, draw); result.safezone = {status: z.problems.length ? 'needs_repair' : 'pass', problems: z.problems, notes: z.notes.length}; }
+      console.log(JSON.stringify(result, null, 2)); return;
+    }
     const base = p?.base ?? path.dirname(fs.realpathSync(path.resolve(args[0])));
     const out = outputDir(p ?? {base, inputs: []}), approvalPath = path.join(out, 'approval.json'), reportPath = path.join(out, 'preview-report.json');
     let report, reviewed;
@@ -61,6 +69,12 @@ async function main() {
       if (a.preview_fingerprint !== reviewed.fingerprint || a.preview_seconds !== report.preview_seconds || a.preview_sha256 !== report.output_sha256) throw new Error('Approval invalidated; preview and user approval required again');
     }
     const {render} = await import('./autopilot-render.mjs'); console.log(JSON.stringify(await render(p, {full: command === 'render', seconds, replace: args.includes('--replace')}), null, 2));
-  } else throw new Error('Commands: doctor | probe FILE | init DIR | captions WORDS OUTPUT [--lead N] | validate PROJECT [--seconds N] | preview PROJECT [--seconds N] [--replace] | approve PROJECT --note TEXT | render PROJECT [--replace]');
+  } else if (command === 'safezone') {
+    const p = loadProject(args[0], args.includes('--seconds') ? {seconds: Number(option('--seconds', 60))} : {});
+    if (!(p.height > p.width)) throw new Error('Safe-zone review applies to vertical (9:16) projects');
+    const {painter, safezoneReview} = await import('./autopilot-render.mjs');
+    const sheet = path.join(outputDir(p), 'safezone.png');
+    console.log(JSON.stringify(safezoneReview(p, await painter(p), {sheetPath: sheet}), null, 2));
+  } else throw new Error('Commands: doctor | probe FILE | init DIR [--style B1..B4] [--shorts] | safezone PROJECT [--seconds N] | captions WORDS OUTPUT [--lead N] [--shorts] | validate PROJECT [--seconds N] | preview PROJECT [--seconds N] [--replace] | approve PROJECT --note TEXT | render PROJECT [--replace]');
 }
 main().catch(e => { console.error(e.message); process.exitCode = 1; });

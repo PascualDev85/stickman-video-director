@@ -1,12 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import {spawn} from 'node:child_process';
+import {spawn, spawnSync} from 'node:child_process';
 import {once} from 'node:events';
 import {createCanvas, loadImage, GlobalFonts} from '@napi-rs/canvas';
 import {ROOT, FFMPEG, sha, hashFile, save, probe, run, mediaPath, fontPaths, outputDir, designPlane, loadProject} from './autopilot-core.mjs';
 import {walkLayers, drawB3Shape, televisionFinish} from './b3-graphics.mjs';
 import {appendB4Audio} from './b4-runtime.mjs';
 import {checkOpeningFile} from './b4-opening-audio-check.mjs';
+import {isVertical, safePlane, boxFromTransform, checkBoxes, paintUnsafe, CAPTION_Y, CAPTION_SIZE, LOUDNESS} from './shorts.mjs';
 
 const clamp = x => Math.max(0, Math.min(1, x));
 const ease = x => { x = clamp(x); return x * x * (3 - 2 * x); };
@@ -36,7 +37,14 @@ function wrap(ctx, text, maxWidth) {
 }
 export async function painter(p) {
   const fonts = fontPaths(p);
-  const plane = designPlane(p), captionBand = plane.height - 110;
+  const plane = designPlane(p), vertical = isVertical(p);
+  // Landscape keeps the original bottom caption band; vertical places captions above the platform UI.
+  const captionBand = vertical ? plane.height : plane.height - 110;
+  const captionCenter = plane.width / 2, safe = safePlane(plane);
+  const captionMax = vertical ? safe.right - safe.left - 24 : 1120;
+  const captionY = vertical ? (p.captionY ?? CAPTION_Y) * plane.height : plane.height - 60;
+  let boxes = [], shotIndex = 0, now = 0;
+  const note = (kind, x, y, w, h, text) => boxes.push({kind, t: now, shot: shotIndex, ...(text ? {text} : {}), ...boxFromTransform(ctx, x, y, w, h)});
   if (!GlobalFonts.registerFromPath(fonts.hand, 'B1Hand') || !GlobalFonts.registerFromPath(fonts.caption, 'B1Caption')) throw new Error('Font registration failed');
   const canvas = createCanvas(p.width, p.height), ctx = canvas.getContext('2d');
   const sceneCopy = p.style === 'B3' ? createCanvas(p.width, p.height) : null;
@@ -52,7 +60,8 @@ export async function painter(p) {
     for (let i = 0; i < lengths.length && left > 0; i++) { const f = Math.min(1, left / Math.max(0.001, lengths[i])); ctx.lineTo(points[i][0] + (points[i + 1][0] - points[i][0]) * f, points[i][1] + (points[i + 1][1] - points[i][1]) * f); left -= lengths[i]; }
     ctx.stroke();
   }
-  return function frame(t) {
+  function frame(t) {
+    boxes = []; now = t;
     ctx.resetTransform(); ctx.clearRect(0, 0, p.width, p.height); ctx.scale(p.width / plane.width, p.width / plane.width);
     ctx.fillStyle = ['B3', 'B4'].includes(p.style) ? '#111316' : p.style === 'B2' ? '#f4f0e5' : '#FDFDFC'; ctx.fillRect(0, 0, plane.width, plane.height);
     if (p.style === 'B1' && p.grid !== false) {
@@ -61,6 +70,7 @@ export async function painter(p) {
       for (let y = 16.5; y < captionBand; y += 64) { ctx.moveTo(0, y); ctx.lineTo(plane.width, y); } ctx.stroke();
     }
     const shot = p.shots.find(s => t >= s.start && t < s.end) || p.shots.at(-1);
+    shotIndex = p.shots.indexOf(shot);
     function paintLayers(layers) { for (const layer of layers) {
       const dt = t - shot.start;
       if (dt < (layer.from || 0) || dt >= (layer.to ?? Infinity)) continue;
@@ -74,9 +84,11 @@ export async function painter(p) {
         const img = images.get(mediaPath(p.base, l.path)), h = l.h || w * img.height / img.width;
         const scale = Math.min(w / img.width, h / img.height);
         ctx.drawImage(img, (w - img.width * scale) / 2, (h - img.height * scale) / 2, img.width * scale, img.height * scale);
+        note('image', (w - img.width * scale) / 2, (h - img.height * scale) / 2, img.width * scale, img.height * scale, l.path);
       } else if (l.type === 'pose') {
         const img = images.get(mediaPath(p.base, '@b1/character-pose-sheet-v6.png')), sw = img.width / 3;
         ctx.drawImage(img, l.pose * sw, 0, sw, img.height, 0, 0, w, w * img.height / sw);
+        note('image', 0, 0, w, w * img.height / sw, 'pose');
       } else if (l.type === 'shadow') {
         const gradient = ctx.createLinearGradient(0, 0, w, 0);
         gradient.addColorStop(0, 'rgba(10,12,14,.96)');
@@ -87,6 +99,7 @@ export async function painter(p) {
         const size = l.size || 52; ctx.font = `${l.bold ? 700 : 400} ${size}px ${['B3', 'B4'].includes(p.style) ? 'B1Caption' : 'B1Hand'}`; ctx.fillStyle = l.color || (['B3', 'B4'].includes(p.style) ? '#e9eaea' : '#191916'); ctx.textBaseline = 'top';
         const lines = wrap(ctx, l.text, l.w || 1080 - x);
         lines.forEach((s, i) => ctx.fillText(s, 0, i * size * 1.15));
+        note('text', 0, 0, Math.max(...lines.map(s => ctx.measureText(s).width)), lines.length * size * 1.15, l.text);
       } else {
         let points = l.points;
         if (l.type === 'underline') points = [[0, 1], [w * 0.25, -1], [w * 0.55, 2], [w, -2]];
@@ -103,27 +116,68 @@ export async function painter(p) {
     }
     const cue = p.captions.find(c => t >= c.start && t < c.end);
     if (cue) {
-      ctx.font = `${p.style === 'B2' ? 500 : 600} ${p.captionSize || (p.style === 'B2' ? 40 : 34)}px B1Caption`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      const captionSize = p.captionSize || (vertical ? CAPTION_SIZE : p.style === 'B2' ? 40 : 34);
+      ctx.font = `${p.style === 'B2' ? 500 : 600} ${captionSize}px B1Caption`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       if (/[\r\n]/.test(cue.text)) throw new Error('B captions allow at most one line; split the timed cue at a semantic boundary');
-      const lines = wrap(ctx, p.style === 'B3' ? cue.text.toUpperCase() : cue.text, 1120);
-      if (lines.length > 1) throw new Error('B captions allow at most one line; split the timed cue at a semantic boundary');
-      const cy = plane.height - 60;
+      const lines = wrap(ctx, p.style === 'B3' ? cue.text.toUpperCase() : cue.text, captionMax);
+      if (lines.length > 1) throw new Error(`B captions allow at most one line; split the timed cue at a semantic boundary${vertical ? ' (vertical: about 2–5 words; regenerate with "captions --shorts")' : ''}: "${cue.text}"`);
+      const cy = captionY, lineGap = captionSize * 1.26;
+      const captionWidth = Math.max(...lines.map(s => ctx.measureText(s).width));
+      note('caption', captionCenter - captionWidth / 2, cy - captionSize * 0.6, captionWidth, captionSize * 1.2, cue.text);
       if (p.style === 'B2') {
-        const width = Math.max(...lines.map(s => ctx.measureText(s).width));
-        ctx.fillStyle = 'rgba(249,246,235,.94)'; ctx.beginPath(); ctx.roundRect(640 - width / 2 - 22, cy - 33, width + 44, 66 + (lines.length - 1) * 43, 9); ctx.fill();
-        lines.forEach((s, i) => { ctx.fillStyle = '#38382f'; ctx.fillText(s, 640, cy + i * 43); });
+        const pad = captionSize * 0.55, half = captionSize * 0.83;
+        ctx.fillStyle = 'rgba(249,246,235,.94)'; ctx.beginPath(); ctx.roundRect(captionCenter - captionWidth / 2 - pad, cy - half, captionWidth + pad * 2, half * 2 + (lines.length - 1) * lineGap, 9); ctx.fill();
+        lines.forEach((s, i) => { ctx.fillStyle = '#38382f'; ctx.fillText(s, captionCenter, cy + i * lineGap); });
       } else lines.forEach((s, i) => {
-        const y = cy + i * 43;
+        const y = cy + i * lineGap;
         ctx.strokeStyle = p.style === 'B4' ? '#303234' : p.style === 'B3' ? '#111316' : '#FDFDFC';
-        ctx.lineWidth = ['B3', 'B4'].includes(p.style) ? 3 : 7;
+        ctx.lineWidth = (['B3', 'B4'].includes(p.style) ? 3 : 7) * (vertical ? captionSize / 34 : 1);
         if (p.style === 'B4') { ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 2; ctx.shadowOffsetY = 2; }
-        ctx.strokeText(s, 640, y); ctx.fillStyle = p.style === 'B4' ? '#f8f5ed' : p.style === 'B3' ? '#f4f5f5' : '#20231F'; ctx.fillText(s, 640, y);
+        ctx.strokeText(s, captionCenter, y); ctx.fillStyle = p.style === 'B4' ? '#f8f5ed' : p.style === 'B3' ? '#f4f5f5' : '#20231F'; ctx.fillText(s, captionCenter, y);
         ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
       });
       ctx.textAlign = 'left';
     }
     return canvas;
-  };
+  }
+  // Boxes (output pixels) of text, captions and images painted by the most recent frame.
+  frame.boxes = () => boxes;
+  return frame;
+}
+/**
+ * Vertical safe-zone review: samples every shot start/middle, every caption and every
+ * half second, records what was painted and where, and writes an overlay sheet.
+ */
+export function safezoneReview(p, frame, {duration = p.rangeEnd ?? p.duration, sheetPath} = {}) {
+  const times = new Set();
+  for (let t = 0; t < duration; t += 0.5) times.add(+t.toFixed(3));
+  for (const s of p.shots) if (s.start < duration) { times.add(s.start); times.add(Math.min(duration, s.end) / 2 + s.start / 2); }
+  for (const c of p.captions) if (c.start < duration) times.add((c.start + Math.min(c.end, duration)) / 2);
+  const all = [], seen = new Set();
+  for (const t of [...times].sort((a, b) => a - b)) {
+    frame(Math.min(t, duration - 0.001));
+    for (const issue of checkBoxes(p, frame.boxes())) {
+      const key = `${issue.kind}|${issue.shot}|${issue.text}|${issue.edges.join()}`;
+      if (!seen.has(key)) { seen.add(key); all.push(issue); }
+    }
+  }
+  if (sheetPath) {
+    const tw = 216, th = 384, n = Math.min(10, p.shots.filter(s => s.start < duration).length || 1), cols = Math.min(5, n);
+    const sheet = createCanvas(tw * cols, th * Math.ceil(n / cols)), sc = sheet.getContext('2d');
+    p.shots.filter(s => s.start < duration).slice(0, n).forEach((s, i) => {
+      sc.save(); sc.translate((i % cols) * tw, Math.floor(i / cols) * th);
+      sc.drawImage(frame(Math.min(duration - 0.001, (s.start + Math.min(s.end, duration)) / 2)), 0, 0, tw, th);
+      paintUnsafe(sc, tw, th); sc.restore();
+    });
+    fs.writeFileSync(sheetPath, sheet.toBuffer('image/png'));
+  }
+  return {problems: all.filter(i => i.level === 'problem'), notes: all.filter(i => i.level === 'note'), sampled_frames: times.size, ...(sheetPath ? {sheet: sheetPath} : {})};
+}
+function measureLoudness(file) {
+  const r = spawnSync(FFMPEG, ['-hide_banner', '-nostats', '-i', file, '-map', '0:a:0', '-af', 'ebur128=framelog=quiet', '-f', 'null', '-'], {encoding: 'utf8', maxBuffer: 16 * 1024 * 1024});
+  const m = /Integrated loudness:\s*\n\s*I:\s*(-?[\d.]+) LUFS/.exec(r.stderr || '');
+  if (r.status !== 0 || !m) throw new Error('Loudness measurement failed');
+  return Number(m[1]);
 }
 async function encode(p, frame, start, frames, target) {
   const child = spawn(FFMPEG, ['-v', 'error', '-y', '-f', 'rawvideo', '-pixel_format', 'rgba', '-video_size', `${p.width}x${p.height}`, '-framerate', String(p.fps), '-i', 'pipe:0', '-an', '-c:v', 'libx264', '-preset', 'fast', '-crf', '20', '-pix_fmt', 'yuv420p', target], {stdio: ['pipe', 'ignore', 'pipe']});
@@ -183,7 +237,7 @@ export async function render(p, {full = false, seconds = 20, replace = false} = 
     }
     const cache = path.join(out, 'cache'); fs.mkdirSync(cache, {recursive: true});
     const frame = await painter(p), clips = []; let reused = 0;
-    const rendererHash = sha(['autopilot-render.mjs', 'b3-graphics.mjs'].map(f => hashFile(path.join(ROOT, 'scripts', f))).join(':'));
+    const rendererHash = sha(['autopilot-render.mjs', 'b3-graphics.mjs', 'shorts.mjs'].map(f => hashFile(path.join(ROOT, 'scripts', f))).join(':'));
     for (const [i, shot] of p.shots.entries()) {
       const first = Math.round(shot.start * p.fps), last = Math.min(count, i === p.shots.length - 1 ? count : Math.round(shot.end * p.fps)); if (last <= first) continue;
       const files = new Set(Object.values(fontPaths(p)));
@@ -191,7 +245,7 @@ export async function render(p, {full = false, seconds = 20, replace = false} = 
         if (layer.type === 'image') files.add(mediaPath(p.base, layer.path));
         if (layer.type === 'pose') files.add(mediaPath(p.base, '@b1/character-pose-sheet-v6.png'));
       }
-      const key = sha(JSON.stringify({shot, first, last, style: p.style, television: p.television, width: p.width, height: p.height, fps: p.fps, captions: p.captions.filter(c => c.end > first / p.fps && c.start < last / p.fps), captionSize: p.captionSize, grid: p.grid, inputs: p.inputs.filter(f => files.has(f.path)), rendererHash}));
+      const key = sha(JSON.stringify({shot, first, last, style: p.style, television: p.television, width: p.width, height: p.height, fps: p.fps, captions: p.captions.filter(c => c.end > first / p.fps && c.start < last / p.fps), captionSize: p.captionSize, captionY: p.captionY, grid: p.grid, inputs: p.inputs.filter(f => files.has(f.path)), rendererHash}));
       const clip = path.join(cache, `${key}.mp4`); let valid = false;
       if (fs.existsSync(clip)) try { const info = probe(clip); valid = Number(info.streams[0].nb_frames) === last - first; } catch {}
       if (valid) reused++; else { done(`rendering shot ${i + 1}/${p.shots.length}`); const tmp = path.join(cache, `${key}.partial.mp4`); await encode(p, frame, first, last - first, tmp); fs.renameSync(tmp, clip); }
@@ -211,15 +265,29 @@ export async function render(p, {full = false, seconds = 20, replace = false} = 
       filters.push(`${backgrounds.join('')}amix=inputs=${backgrounds.length}:normalize=0:duration=longest${cuts.length ? ',' + cuts.join(',') : ''}[background]`);
       mixes.push('[background]');
     }
+    // Programme loudness for the whole mix (never per cue): vertical deliveries default to the platform-typical target.
+    const loudness = p.loudness ?? (isVertical(p) ? LOUDNESS : null);
     filters.push(`${mixes.join('')}amix=inputs=${mixes.length}:normalize=0:duration=first,alimiter=limit=0.97:level=false:latency=true[a]`);
     const partial = path.join(out, `${kind}.partial.mp4`);
     args.push('-filter_complex', filters.join(';'), '-map', '0:v:0', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-t', String(count / p.fps), '-movflags', '+faststart', partial);
-    run(FFMPEG, args); run(FFMPEG, ['-v', 'error', '-i', partial, '-f', 'null', '-']); fs.renameSync(partial, target);
+    run(FFMPEG, args);
+    let loudnessReport = null;
+    if (loudness !== null) {
+      // Two-pass programme loudness: measure the finished mix, then one static gain + true-peak limiter.
+      // A single static gain keeps the voice/SFX balance exactly as mixed.
+      const before = measureLoudness(partial), gain = Math.max(-20, Math.min(20, loudness - before));
+      const leveled = path.join(out, `${kind}.leveled.mp4`);
+      run(FFMPEG, ['-v', 'error', '-y', '-i', partial, '-map', '0', '-c:v', 'copy', '-af', `volume=${gain.toFixed(2)}dB,alimiter=limit=0.84:level=false:latency=true`, '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', leveled]);
+      fs.renameSync(leveled, partial);
+      loudnessReport = {target_lufs: loudness, measured_before: before, applied_gain_db: +gain.toFixed(2), measured_after: measureLoudness(partial)};
+    }
+    run(FFMPEG, ['-v', 'error', '-i', partial, '-f', 'null', '-']); fs.renameSync(partial, target);
     const cues = p.captions.filter(c => c.start < duration).map(c => ({...c, end: Math.min(c.end, duration)}));
     fs.writeFileSync(path.join(out, `${kind}.srt`), cues.map((c, i) => `${i + 1}\n${stamp(c.start)} --> ${stamp(c.end)}\n${c.text}\n`).join('\n'));
     fs.writeFileSync(path.join(out, `${kind}.vtt`), 'WEBVTT\n\n' + cues.map(c => `${stamp(c.start, true)} --> ${stamp(c.end, true)}\n${c.text}\n`).join('\n'));
-    const sheet = createCanvas(960, 540), sc = sheet.getContext('2d');
-    for (let i = 0; i < 9; i++) sc.drawImage(frame(Math.min(duration - 1 / p.fps, (i + 0.5) * duration / 9)), (i % 3) * 320, Math.floor(i / 3) * 180, 320, 180);
+    const [tw, th] = isVertical(p) ? [180, 320] : [320, 180];
+    const sheet = createCanvas(tw * 3, th * 3), sc = sheet.getContext('2d');
+    for (let i = 0; i < 9; i++) sc.drawImage(frame(Math.min(duration - 1 / p.fps, (i + 0.5) * duration / 9)), (i % 3) * tw, Math.floor(i / 3) * th, tw, th);
     fs.writeFileSync(path.join(out, `${kind}-contact-sheet.png`), sheet.toBuffer('image/png'));
     const info = probe(target), report = {fingerprint: p.fingerprint, preview_seconds: full ? null : duration, output: target, output_sha256: hashFile(target), original_voice_sha256: hashFile(p.voicePath), original_voice_duration: p.voiceDuration, voice_rate: 'unchanged; leading/trailing padding only', frames: count, duration: Number(info.format.duration), cache_hits: reused, shot_count: clips.length, full_decode: 'pass', caption_count: cues.length, human_review: 'required; technical checks are not acceptance', inputs: p.inputs};
     if (p.style === 'B4') {
@@ -230,6 +298,12 @@ export async function render(p, {full = false, seconds = 20, replace = false} = 
       report.audio_tracks = {ambience: p.ambience.length, dialogue: p.dialogue.length, file_sfx: p.sfx.filter(s => s.kind === 'file').length, cuts: p.audio_cuts.length};
       save(path.join(out, `${kind}-opening-audio.json`), report.opening_audio);
     }
+    if (isVertical(p)) {
+      report.loudness = loudnessReport;
+      report.safezone = safezoneReview(p, frame, {duration, sheetPath: path.join(out, `${kind}-safezone.png`)});
+      report.safezone_status = report.safezone.problems.length ? 'needs_repair' : 'pass';
+    }
+    if (!isVertical(p) && loudnessReport) report.loudness = loudnessReport;
     save(reportPath, report); done('complete'); return report;
   } catch (e) { done(`failed: ${e.message}`); throw e; }
   finally { fs.unlinkSync(lock); }

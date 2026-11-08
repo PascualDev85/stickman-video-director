@@ -71,7 +71,10 @@ export function loadProject(file, {seconds} = {}) {
   if (seconds !== undefined) number(seconds, 'preview length', 0.001, 60);
   const rangeEnd = Math.min(duration, seconds ?? duration);
   const scoped = seconds !== undefined;
-  if (p.captionSize !== undefined) number(p.captionSize, 'caption size', 20, 64);
+  const vertical = p.height > p.width;
+  if (p.captionSize !== undefined) number(p.captionSize, 'caption size', 20, vertical ? 110 : 64);
+  if (p.captionY !== undefined) { if (!vertical) throw new Error('captionY applies to vertical projects only'); number(p.captionY, 'captionY (fraction of height)', 0.3, 0.8); }
+  if (p.loudness !== undefined && p.loudness !== null) number(p.loudness, 'loudness (integrated LUFS)', -24, -9);
   if (!Array.isArray(p.shots) || !p.shots.length) throw new Error('Shots required');
   const shots = scoped ? p.shots.filter(s => s.start < rangeEnd).map(s => ({...s, layers: Array.isArray(s.layers) ? visibleLayers(s.layers, s.start, rangeEnd) : s.layers})) : p.shots;
   if (!shots.length) throw new Error('Shots required in the preview range');
@@ -133,7 +136,7 @@ export function loadProject(file, {seconds} = {}) {
   const project = {...timeline, file, base, voicePath, voiceDuration, voiceTrimStart, lead, tail, duration, rangeEnd};
   for (const f of Object.values(fontPaths(project))) { if (!fs.existsSync(f)) throw new Error(`Missing font: ${f}`); assets.add(f); }
   const inputs = [...assets].sort().map(f => ({path: f, sha256: hashFile(f)}));
-  const engine = ['autopilot-core.mjs', 'autopilot-render.mjs', 'b3-graphics.mjs', ...(p.style === 'B4' ? ['b4-runtime.mjs', 'b4-style-lock.mjs', 'b4-opening-audio-check.mjs'] : [])].map(f => hashFile(path.join(ROOT, 'scripts', f)));
+  const engine = ['autopilot-core.mjs', 'autopilot-render.mjs', 'b3-graphics.mjs', 'shorts.mjs', ...(p.style === 'B4' ? ['b4-runtime.mjs', 'b4-style-lock.mjs', 'b4-opening-audio-check.mjs'] : [])].map(f => hashFile(path.join(ROOT, 'scripts', f)));
   return {...project, inputs, fingerprint: sha(JSON.stringify({project: timeline, rangeEnd, inputs, engine}))};
 }
 export function outputDir(p) {
@@ -151,7 +154,11 @@ export function outputDir(p) {
   if (p.inputs.some(i => i.path.startsWith(fs.realpathSync(output) + path.sep))) throw new Error('Input assets cannot live in output/');
   return output;
 }
-export function groupWords(data, lead = 0) {
+// Vertical/Shorts cues: fewer words per cue so one line fits the safe column at phone-readable size.
+export const SHORT_CUES = {maxWords: 5, maxChars: 26, maxSpan: 2.2, pause: 0.3, breakOnComma: true};
+const LONG_CUES = {maxWords: 8, maxChars: 58, maxSpan: 3.5, pause: 0.4, breakOnComma: false};
+export function groupWords(data, lead = 0, opts = LONG_CUES) {
+  const o = {...LONG_CUES, ...opts};
   number(lead, 'caption lead', 0, 5);
   if (!Array.isArray(data.words) || !data.words.length) throw new Error('Aligned words required');
   const cues = []; let words = [], start, end = 0;
@@ -159,10 +166,10 @@ export function groupWords(data, lead = 0) {
   for (const w of data.words) {
     number(w.start, 'word start', end); number(w.end, 'word end', w.start + 0.001);
     if (typeof w.word !== 'string' || !w.word.trim()) throw new Error('Empty word');
-    if (words.length && (w.start - end > 0.4 || words.length >= 8 || w.end - start > 3.5 || [...words, w.word].join(' ').length > 58)) flush();
+    if (words.length && (w.start - end > o.pause || words.length >= o.maxWords || w.end - start > o.maxSpan || [...words, w.word].join(' ').length > o.maxChars)) flush();
     if (!words.length) start = w.start;
     words.push(w.word.trim()); end = w.end;
-    if (/[.!?]$/.test(w.word)) flush();
+    if (/[.!?…]$/.test(w.word) || o.breakOnComma && /[,;:]$/.test(w.word) && words.length >= 2) flush();
   }
   flush(); return cues;
 }

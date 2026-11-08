@@ -15,6 +15,8 @@ Use the existing brief, script, audience, topic/conflict, selected A/B style, pa
 
 Preserve the actual character drawing grammar, costume and period/scene design. Match lettering to the selected visual language, not one generic font or stick figure across all styles. Choose one true story conflict, clear silhouette and focal point, strong contrast and mobile-readable composition. Do not promise CTR or invent a dramatic event the video does not contain. A video's no-visible-text rule applies to its video prompts, not this separate cover: a short, accurate headline is allowed. Thumbnail changes do not revise the approved video, narration or captions.
 
+For a vertical Short, deliver the Shorts variant described in [Shorts §8](shorts.md#8-shorts-publishing-kit) instead of a landscape cover and long-form titles.
+
 ## Deliver all five items
 
 1. **Thumbnail image**: unless the user requests a different target, generate one landscape 16:9 PNG/JPEG, targeting 1280×720 or a supported 16:9 size. Use the approved reference images with the generation tool when supported. With a suitable available tool and required approvals, generate, inspect and return the image itself; do not stop at a prompt or tell the user to paste it elsewhere. Check anatomy, style/character match, lettering, contrast and cropping at mobile size. Repair only the affected image when authorized. If no usable tool exists, explain that the image is blocked, complete the text items, and ask for a compatible connection only if needed; supply a prompt only if the user requests one. Never label a prompt or an existing demo as a newly generated image. Honor text-only requests without starting generation.

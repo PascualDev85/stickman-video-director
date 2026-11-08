@@ -80,6 +80,10 @@ B4 adds a `shadow` layer with positive `w`/`h` for the left-side feathered half-
 
 Exports include an encoded opening-audio diagnostic. Approval is blocked on a flagged opening unless it is repaired or has a recorded story-motivated exception. Check actual playback and early **narration**, not just a token sound at frame zero. Technical passes do not certify acting, horror, semantic captions or sound quality.
 
+## Vertical / Shorts options
+
+`init DIR --shorts` scaffolds 1080×1920 at 30 fps. Projects with height > width are vertical: captions default to `captionY` 0.68 of the height (allowed 0.3–0.8) at `captionSize` 64 (≤ 110), wrap width follows the safe column, the contact sheet is portrait, and every preview/film gets a safe-zone review (`safezone_status`, `preview-safezone.png`) plus two-pass programme loudness to `loudness` −14 LUFS (−24…−9, `null` disables; horizontal projects may opt in). `captions WORDS OUT --shorts` groups 2–5 word cues. `validate` reports safe-zone problems for vertical projects; `safezone PROJECT [--seconds N]` writes `output/safezone.png`. See [Shorts](shorts.md).
+
 ## Commands
 
 - `doctor`: dependency/font/key presence only; no network and no key values.

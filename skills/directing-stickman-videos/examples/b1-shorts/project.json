@@ -1,0 +1,414 @@
+{
+  "version": 1,
+  "style": "B1",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "voice": {
+    "path": "../b1/narration.m4a",
+    "lead": 0,
+    "tail": 0,
+    "contains_sfx": true
+  },
+  "caption_timing_note": "approximate split for a layout demo; align words for real projects",
+  "captions": [
+    {
+      "start": 0.291,
+      "end": 1.451,
+      "text": "Want a YouTube channel"
+    },
+    {
+      "start": 1.451,
+      "end": 2.716,
+      "text": "without being on camera?"
+    },
+    {
+      "start": 2.957,
+      "end": 4.273,
+      "text": "Start with a stick figure."
+    },
+    {
+      "start": 4.838,
+      "end": 6.079,
+      "text": "No camera crew."
+    },
+    {
+      "start": 6.098,
+      "end": 7.724,
+      "text": "No weeks of animation."
+    },
+    {
+      "start": 8.157,
+      "end": 9.407,
+      "text": "Just a strong hook,"
+    },
+    {
+      "start": 9.595,
+      "end": 10.61,
+      "text": "a clear story,"
+    },
+    {
+      "start": 10.902,
+      "end": 12.011,
+      "text": "and an open-source"
+    },
+    {
+      "start": 12.011,
+      "end": 12.565,
+      "text": "workflow."
+    },
+    {
+      "start": 13.288,
+      "end": 13.925,
+      "text": "Here's how"
+    },
+    {
+      "start": 13.925,
+      "end": 14.943,
+      "text": "to turn one idea"
+    },
+    {
+      "start": 14.943,
+      "end": 15.986,
+      "text": "into a video."
+    }
+  ],
+  "shots": [
+    {
+      "start": 0,
+      "end": 2.85,
+      "layers": [
+        {
+          "type": "text",
+          "text": "YOUR CHANNEL.",
+          "x": 100,
+          "y": 290,
+          "size": 96,
+          "bold": true
+        },
+        {
+          "type": "text",
+          "text": "NOT YOUR FACE.",
+          "x": 100,
+          "y": 400,
+          "size": 96,
+          "bold": true,
+          "color": "#EC4338"
+        },
+        {
+          "type": "pose",
+          "pose": 1,
+          "x": 320,
+          "y": 560,
+          "w": 640
+        },
+        {
+          "type": "image",
+          "path": "@b1/youtube-crayon.png",
+          "x": 90,
+          "y": 1180,
+          "w": 260
+        },
+        {
+          "type": "image",
+          "path": "@b1/camera-handdrawn.png",
+          "x": 880,
+          "y": 1170,
+          "w": 220,
+          "keys": [
+            {
+              "t": 0,
+              "x": 1300
+            },
+            {
+              "t": 0.6,
+              "x": 880
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 2.85,
+      "end": 4.7,
+      "layers": [
+        {
+          "type": "text",
+          "text": "ONE GOOD IDEA.",
+          "x": 100,
+          "y": 300,
+          "size": 100,
+          "bold": true
+        },
+        {
+          "type": "pose",
+          "pose": 0,
+          "x": 330,
+          "y": 500,
+          "w": 640
+        },
+        {
+          "type": "image",
+          "path": "@b1/idea-bulb-crayon.png",
+          "x": 110,
+          "y": 1080,
+          "w": 210
+        },
+        {
+          "type": "image",
+          "path": "@b1/idea-note-crayon.png",
+          "x": 900,
+          "y": 1100,
+          "w": 200,
+          "keys": [
+            {
+              "t": 0.3,
+              "alpha": 0
+            },
+            {
+              "t": 0.8,
+              "alpha": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 4.7,
+      "end": 7.9,
+      "layers": [
+        {
+          "type": "pose",
+          "pose": 2,
+          "x": 330,
+          "y": 300,
+          "w": 620
+        },
+        {
+          "type": "image",
+          "path": "@b1/clapper-crayon.png",
+          "x": 110,
+          "y": 1130,
+          "w": 250,
+          "to": 1.4
+        },
+        {
+          "type": "text",
+          "text": "NO CAMERA CREW.",
+          "x": 400,
+          "y": 1190,
+          "size": 64,
+          "bold": true,
+          "w": 700,
+          "to": 1.4
+        },
+        {
+          "type": "image",
+          "path": "@b1/calendar-crayon.png",
+          "x": 110,
+          "y": 1110,
+          "w": 240,
+          "from": 1.4
+        },
+        {
+          "type": "text",
+          "text": "NO WEEKS OF ANIMATION.",
+          "x": 400,
+          "y": 1170,
+          "size": 60,
+          "bold": true,
+          "w": 700,
+          "from": 1.4
+        },
+        {
+          "type": "line",
+          "points": [
+            [
+              120,
+              1320
+            ],
+            [
+              350,
+              1140
+            ]
+          ],
+          "color": "#EC4338",
+          "lineWidth": 8,
+          "keys": [
+            {
+              "t": 0.4,
+              "progress": 0
+            },
+            {
+              "t": 0.9,
+              "progress": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 7.9,
+      "end": 10.8,
+      "layers": [
+        {
+          "type": "text",
+          "text": "A STRONG HOOK.",
+          "x": 100,
+          "y": 290,
+          "size": 96,
+          "bold": true
+        },
+        {
+          "type": "text",
+          "text": "A CLEAR STORY.",
+          "x": 100,
+          "y": 400,
+          "size": 96,
+          "bold": true,
+          "color": "#EC4338"
+        },
+        {
+          "type": "image",
+          "path": "@b1/idea-bulb-crayon.png",
+          "x": 150,
+          "y": 680,
+          "w": 270
+        },
+        {
+          "type": "arrow",
+          "x": 470,
+          "y": 900,
+          "w": 300,
+          "lineWidth": 6,
+          "keys": [
+            {
+              "t": 0.5,
+              "progress": 0
+            },
+            {
+              "t": 1.3,
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "path": "@b1/idea-note-crayon.png",
+          "x": 820,
+          "y": 640,
+          "w": 280
+        }
+      ]
+    },
+    {
+      "start": 10.8,
+      "end": 13.05,
+      "layers": [
+        {
+          "type": "text",
+          "text": "OPEN SOURCE.",
+          "x": 100,
+          "y": 290,
+          "size": 96,
+          "bold": true
+        },
+        {
+          "type": "text",
+          "text": "YOUR WORKFLOW.",
+          "x": 100,
+          "y": 400,
+          "size": 96,
+          "bold": true,
+          "color": "#EC4338"
+        },
+        {
+          "type": "image",
+          "path": "@b1/open-source-crayon.png",
+          "x": 150,
+          "y": 700,
+          "w": 300
+        },
+        {
+          "type": "arrow",
+          "x": 500,
+          "y": 950,
+          "w": 270,
+          "lineWidth": 6,
+          "keys": [
+            {
+              "t": 0.3,
+              "progress": 0
+            },
+            {
+              "t": 1.0,
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "path": "@b1/script-page-crayon.png",
+          "x": 830,
+          "y": 680,
+          "w": 270
+        }
+      ]
+    },
+    {
+      "start": 13.05,
+      "end": 16.4,
+      "layers": [
+        {
+          "type": "text",
+          "text": "ONE IDEA.",
+          "x": 100,
+          "y": 290,
+          "size": 96,
+          "bold": true
+        },
+        {
+          "type": "text",
+          "text": "A REAL VIDEO.",
+          "x": 100,
+          "y": 400,
+          "size": 96,
+          "bold": true,
+          "color": "#EC4338"
+        },
+        {
+          "type": "pose",
+          "pose": 0,
+          "x": 560,
+          "y": 560,
+          "w": 560
+        },
+        {
+          "type": "image",
+          "path": "@b1/idea-note-crayon.png",
+          "x": 120,
+          "y": 640,
+          "w": 200
+        },
+        {
+          "type": "image",
+          "path": "@b1/youtube-crayon.png",
+          "x": 110,
+          "y": 1080,
+          "w": 380,
+          "keys": [
+            {
+              "t": 0.4,
+              "w": 300
+            },
+            {
+              "t": 1.0,
+              "w": 380
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sfx": []
+}

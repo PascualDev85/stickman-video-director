@@ -1,6 +1,6 @@
 ---
 name: directing-stickman-videos
-description: "Turn topics, requirements, articles or scripts into stickman videos. Director mode creates approved storyboards and standalone video prompts; Autopilot mode produces narrated, captioned illustration-and-micro-animation videos through configured generation tools and a local renderer. Also guide installation handoff, first use and setup of this specific Skill."
+description: "Turn topics, requirements, articles or scripts into stickman videos. Director mode creates approved storyboards and standalone video prompts; Autopilot mode produces narrated, captioned illustration-and-micro-animation videos through configured generation tools and a local renderer, in landscape or vertical 9:16 for YouTube Shorts/Reels/TikTok. Also guide installation handoff, first use and setup of this specific Skill."
 ---
 
 # Directing Stickman Videos
@@ -13,6 +13,8 @@ Keep the existing installation/name. Honor known choices; ask one short question
 - **A6 · Amber Noir:** read [A6](references/amber-noir.md) when selected, before planning; bypass the A1–A5 contract below. It owns reference-guided execution, Gemini Puck narration and finishing.
 - **B · Autopilot:** read [Autopilot](references/autopilot.md), then B1 [Minimal Line Art](references/b1-minimal-handdrawn.md), B2 [Colorful Hand-Drawn](references/b2-colorful-handdrawn.md), or B3 [Retro TV](references/b3-television.md). A finished local video includes narration, semantic captions, illustrations, meaningful motion and SFX. Inspect B3's bundled implementation examples before authoring; original-video excerpts are not redistributed. Disclose missing private-original comparison rather than treating accepted examples as the style authority.
 - **B4 · Survival Thriller:** read [B4](references/b4-survival-storytelling.md), [audio direction](references/b4-audio-direction.md), [opening direction](references/b4-opening-direction.md) and [production check](references/b4-repeatability-check.md). Preserve the white-glove reference lock; limb animation is not a completion requirement. Apply the first-three-second visual escalation gate and, for horror, the story-led horror visibility gate. Use fixed Brian, first-frame sound/early narration, a subtle continuous bed and causal SFX. Select B4 in the shared installed runtime. No silent title pad, automatic narrator substitution or alias to another style.
+
+- **S · Shorts (9:16 vertical) for any B style:** when the user asks for Shorts/Reels/TikTok/vertical, also read [Shorts](references/shorts.md) before planning. It sets the series bible, Spanish/language variant, hook-to-loop script contract, vertical safe-zone layout, `--shorts` runtime options, collapsed approval flow and the Shorts publishing kit. It never replaces the selected B style's identity. Turn "clone this channel" requests into pattern research plus original episodes, as that file describes.
 
 A and B share installation, not production contracts. The rules from **A · Director** to the end apply only to A1–A5, not to A6 or any B style. Each B owns its visuals, captions, voice, pacing and SFX; never default to B1 or import A's setup, ten-second clips, approval or visible-text rules. Preserve unrelated styles when revising one route.
 
