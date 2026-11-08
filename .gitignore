@@ -7,3 +7,4 @@ __pycache__/
 *.pyc
 autopilot-work/
 skills/directing-stickman-videos/examples/*/output/
+proyectos/**/output/

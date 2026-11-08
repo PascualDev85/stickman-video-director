@@ -131,7 +131,9 @@ export async function painter(p) {
       } else lines.forEach((s, i) => {
         const y = cy + i * lineGap;
         ctx.strokeStyle = p.style === 'B4' ? '#303234' : p.style === 'B3' ? '#111316' : '#FDFDFC';
-        ctx.lineWidth = (['B3', 'B4'].includes(p.style) ? 3 : 7) * (vertical ? captionSize / 34 : 1);
+        // Vertical feeds sit over any background: a heavy outline keeps captions legible on light art too.
+        ctx.lineWidth = vertical ? captionSize * (['B3', 'B4'].includes(p.style) ? 0.2 : 0.22) : ['B3', 'B4'].includes(p.style) ? 3 : 7;
+        ctx.lineJoin = 'round'; ctx.miterLimit = 2;
         if (p.style === 'B4') { ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 2; ctx.shadowOffsetY = 2; }
         ctx.strokeText(s, captionCenter, y); ctx.fillStyle = p.style === 'B4' ? '#f8f5ed' : p.style === 'B3' ? '#f4f5f5' : '#20231F'; ctx.fillText(s, captionCenter, y);
         ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;

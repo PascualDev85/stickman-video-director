@@ -155,7 +155,10 @@ export function outputDir(p) {
   return output;
 }
 // Vertical/Shorts cues: fewer words per cue so one line fits the safe column at phone-readable size.
-export const SHORT_CUES = {maxWords: 5, maxChars: 26, maxSpan: 2.2, pause: 0.3, breakOnComma: true};
+export const SHORT_CUES = {maxWords: 5, maxChars: 26, maxSpan: 2.2, pause: 0.3, breakOnComma: true, carryWeak: true};
+// Words that should not end a cue (Spanish + English articles, prepositions, conjunctions,
+// clitics): when a limit forces a break, they move to the start of the next cue.
+const WEAK = new Set('a al ante con contra de del desde el en entre hacia hasta la las le les lo los mi mis o para pero por que se si sin su sus tu tus u un una unos unas y e ni muy más the a an and or of to in on at for with by from but if as that'.split(' '));
 const LONG_CUES = {maxWords: 8, maxChars: 58, maxSpan: 3.5, pause: 0.4, breakOnComma: false};
 export function groupWords(data, lead = 0, opts = LONG_CUES) {
   const o = {...LONG_CUES, ...opts};
@@ -163,13 +166,20 @@ export function groupWords(data, lead = 0, opts = LONG_CUES) {
   if (!Array.isArray(data.words) || !data.words.length) throw new Error('Aligned words required');
   const cues = []; let words = [], start, end = 0;
   function flush() { if (words.length) cues.push({start: start + lead, end: end + lead, text: words.join(' ').replace(/\s+([,.!?;:])/g, '$1')}); words = []; }
+  let times = [];
   for (const w of data.words) {
     number(w.start, 'word start', end); number(w.end, 'word end', w.start + 0.001);
     if (typeof w.word !== 'string' || !w.word.trim()) throw new Error('Empty word');
-    if (words.length && (w.start - end > o.pause || words.length >= o.maxWords || w.end - start > o.maxSpan || [...words, w.word].join(' ').length > o.maxChars)) flush();
+    if (words.length && (w.start - end > o.pause || words.length >= o.maxWords || w.end - start > o.maxSpan || [...words, w.word].join(' ').length > o.maxChars)) {
+      // Carry trailing weak words (e.g. "de", "la", "y") into the next cue when no pause separates them.
+      const carried = [];
+      while (o.carryWeak && words.length > 1 && w.start - end <= o.pause && WEAK.has(words.at(-1).toLowerCase().replace(/[^\p{L}]/gu, ''))) { carried.unshift([words.pop(), times.pop()]); end = times.at(-1)[1]; }
+      flush(); times = [];
+      for (const [cw, ct] of carried) { if (!words.length) start = ct[0]; words.push(cw); times.push(ct); end = ct[1]; }
+    }
     if (!words.length) start = w.start;
-    words.push(w.word.trim()); end = w.end;
-    if (/[.!?…]$/.test(w.word) || o.breakOnComma && /[,;:]$/.test(w.word) && words.length >= 2) flush();
+    words.push(w.word.trim()); times.push([w.start, w.end]); end = w.end;
+    if (/[.!?…]$/.test(w.word) || o.breakOnComma && /[,;:]$/.test(w.word) && words.length >= 2) { flush(); times = []; }
   }
   flush(); return cues;
 }
