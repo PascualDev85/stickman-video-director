@@ -261,6 +261,11 @@ export async function render(p, {full = false, seconds = 20, replace = false} = 
     const effects = p.style === 'B4' ? backgrounds : mixes; let idx = 2;
     if (p.sfx?.some(s => s.kind !== 'file')) { const f = path.join(cache, 'sfx.wav'); makeSfx(p, f, count / p.fps); args.push('-i', f); effects.push(`[${idx++}:a]`); }
     if (p.style === 'B4') idx = appendB4Audio(p, args, filters, mixes, backgrounds, idx);
+    else for (const s of (p.sfx || []).filter(s => s.kind === 'file')) {
+      args.push('-i', mediaPath(p.base, s.path));
+      const chain = [...(s.trim || s.max ? [`atrim=start=${s.trim || 0}${s.max ? `:duration=${s.max}` : ''}`, 'asetpts=PTS-STARTPTS'] : []), `volume=${s.gain}`, ...(s.max ? [`afade=t=out:st=${Math.max(0, s.max - 0.06)}:d=0.06`] : []), `adelay=${Math.round(s.time * 1000)}:all=1`];
+      filters.push(`[${idx}:a]${chain.join(',')}[fx${idx}]`); effects.push(`[fx${idx}]`); idx++;
+    }
     if (p.music) { args.push('-stream_loop', '-1', '-i', mediaPath(p.base, p.music.path)); filters.push(`[${idx++}:a]volume=${p.music.gain}[music]`); effects.push('[music]'); }
     if (backgrounds.length) {
       const cuts = p.audio_cuts.map(cut => `volume=0:enable='gte(t,${cut.start})*lt(t,${cut.end})'`);

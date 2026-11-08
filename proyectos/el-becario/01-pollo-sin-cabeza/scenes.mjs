@@ -76,6 +76,15 @@ function desertNight(dur) {
   ];
 }
 
+const WORDS = (w => w.words || w)(JSON.parse(fs.readFileSync('words.json', 'utf8')));
+/** Mouth spans (shot-local) for the narration words that fall inside [shotStart, shotEnd]. */
+function say(shotStart, shotEnd) {
+  const spans = [];
+  for (const w of WORDS) { if (w.end <= shotStart || w.start >= shotEnd) continue;
+    const a = Math.max(0, w.start - shotStart), b = Math.min(shotEnd - shotStart - 0.01, w.end - shotStart);
+    const last = spans.at(-1); if (last && a - last[1] < 0.22) last[1] = b; else spans.push([a, b]); }
+  return spans;
+}
 const shots = [];
 function shot(start, end, build) { shots.push({start, end, layers: build(Math.floor((end - start) * 1000 - 1) / 1000)}); }
 
@@ -122,17 +131,17 @@ const photo = (d, extra = {}) => G([R(-300, -360, 600, 700, {radius: 8, fill: PA
 shot(0, 0.88, d => [camF([fill('#1d2033'), S([['M', 520, -60], ['L', 760, -60], ['L', 1180, 1560], ['L', 100, 1560], ['Z']], '#2c3150', {stroke: 'none'}), E(640, 1560, 1100, 200, {fill: '#3a4068', stroke: 'none'}),
   mike({x: 640, y: 1620, scale: 2.3, walk: {dur: d, period: 0.36}, flapAt: [0.3], move: lin(d, 380, 700)})], d,
   t => ({s: mix(1.55, 1.04, eOut(t / 0.45)), a: mix(-9, 0, eOut(t / 0.5)), ...shake(t, 0, 0.3, 14)}), 640, 1100),
-  slam('¿Y SU CABEZA?', 640, 380, 104, 0.12, d, {color: PAPER}), flash(0, 0.1, PAPER, 1)]);
+  slam('¿Y SU CABEZA?', 640, 380, 104, 0.12, d, {color: PAPER})]);
 // 1b · "Expediente catorce": box slams on the desk, the Becario sighs, the stamp hits on "catorce" (1.60).
 shot(0.88, 2.72, d => [camF([...office(d), desk(),
-  becario({x: 300, y: GROUND - 20, scale: 1.0, expr: 'cansado', idle: {dur: d}, headKeys: [{t: 0, angle: 0}, {t: 0.25, angle: deg(-4)}, {t: 0.9, angle: deg(6)}, {t: d, angle: deg(4)}]}),
+  becario({x: 300, y: GROUND - 20, scale: 1.0, expr: 'cansado', idle: {dur: d}, talk: say(0.88, 2.72), headKeys: [{t: 0, angle: 0}, {t: 0.25, angle: deg(-4)}, {t: 0.9, angle: deg(6)}, {t: d, angle: deg(4)}]}),
   sighPuff(345, 780, 0.25), sighPuff(360, 800, 0.85),
   archiveBox({x: 860, y: 1150, scale: 0.9, lidOpenAt: 0.85, keys: [{t: 0, y: 640}, {t: 0.16, y: 1150}, {t: 0.24, y: 1110}, {t: 0.32, y: 1150}]}),
 ], d, t => ({s: mix(1.22, 1.32, eInOut(t / d)) + (t > 0.72 ? 0.07 * (1 - eOut((t - 0.72) / 0.25)) : 0), ...shake(t, 0.16, 0.18, 10), ...(t > 0.72 ? shake(t, 0.72, 0.25, 16) : {})}), 640, 1050),
   slam('EXP. 014', 640, 560, 150, 0.72, d, {color: RED, tilt: -8, stamp: true, from: 3})]);
 // 1c · "Este pollo vivió un año y medio…": the photo spins out of the box, camera dives into it.
 shot(2.72, 5.12, d => [camF([...office(d), desk(), archiveBox({x: 860, y: 1150, scale: 0.9}),
-  becario({x: 300, y: GROUND - 20, scale: 1.0, expr: 'sarcastico', look: 1, idle: {dur: d}, gestures: [{t0: 0.2, t1: 1.6, arm: 'R', shoulder: 70, elbow: 20}]}),
+  becario({x: 300, y: GROUND - 20, scale: 1.0, expr: 'sarcastico', look: 1, idle: {dur: d}, talk: say(2.72, 5.12), gestures: [{t0: 0.2, t1: 1.6, arm: 'R', shoulder: 70, elbow: 20}]}),
   photo(d, {x: 700, y: 1060, keys: sample(t => ({x: mix(860, 700, eOut(t / 0.4)), y: mix(1120, 1060, eOut(t / 0.4)), s: mix(0.15, 1, eBack(t / 0.42)), a: mix(-560, -4, eOut(t / 0.42))}), 0, d)}),
 ], d, t => ({s: mix(1.0, 1.42, eInOut((t - 0.5) / 1.8)), x: 0, y: 0}), 700, 1060),
   slam('1 AÑO Y MEDIO', 640, 380, 112, 1.04, d, {color: INK})]);
@@ -145,7 +154,7 @@ shot(5.12, 6.3, d => [camF([...rays(d, '#ffd34d', '#ffe9a0', STX, STY, 25), E(64
   flash(0, 0.12, PAPER, 1), slam('SIN CABEZA', 640, 400, 150, 0.02, d, {color: RED, from: 1.8})]);
 // 1e · "Sí." (6.30): whip-pan to the Becario's deadpan close-up, looking straight at us.
 shot(6.3, 6.88, d => [camF([fill('#d9e8f5'), band(1700, 600, '#c0d3e6'),
-  becario({x: 640, y: 2420, scale: 2.25, expr: 'serio', look: 0, idle: {dur: d}})], d,
+  becario({x: 640, y: 2420, scale: 2.25, expr: 'serio', look: 0, idle: {dur: d}, talk: say(6.3, 6.88)})], d,
   t => ({x: mix(-520, 0, eOut(t / 0.12)), s: mix(1.0, 1.05, t / d)}), 640, 1050), slam('SÍ.', 640, 400, 170, 0.04, d, {color: INK, from: 1.8})]);
 // 1f · "Sin cabeza." (6.88): he struts at the lens, Dutch angle rocking with each step, word-by-word.
 shot(6.88, 8.1, d => [camF([...rays(d, '#ffe08a', '#fff1c2', 640, 1300, -18), E(640, 1700, 1400, 260, {fill: '#f2c85f', stroke: 'none'}),
@@ -177,27 +186,42 @@ shot(14.9, 16.45, d => [cam([...farm(d), choppingBlock(BX, BY, BS),
   granjero({x: 330, y: GROUND, scale: 1.0, expr: 'sorpresa', idle: {dur: d}, axe: true, armR: {shoulder: 5}, armL: {shoulder: 40, elbow: 30}, gestures: [{t0: 0.9, t1: 1.5, arm: 'L', shoulder: 120, elbow: 20}]}),
   ...featherBurst(BX, MY - 200, 0.0, 4, 120),
   mike({x: BX + 40, y: MY, scale: 1.0, idle: {dur: d}, flapAt: [0.9], move: [{t: 0, angle: deg(-82), y: MY + 60}, {t: 0.75, angle: deg(-82), y: MY + 60}, {t: 1.2, angle: 0, y: MY}]})], d), pop(T('SE LEVANTA', 100, 300, 110), 0.7)]);
-// 7 · ...and keeps walking, like nothing happened.
-shot(16.45, 18.6, d => [cam([...farm(d), granjero({x: 240, y: GROUND, scale: 1.0, expr: 'sorpresa', idle: {dur: d}, armL: {shoulder: 150, elbow: 15}, armR: {shoulder: 150, elbow: 15}, headKeys: osc(d, 0.6, 4)}),
-  mike({x: 640, y: GROUND, scale: 1.15, walk: {dur: d}, move: lin(d, 560, 940)})], d), T('COMO SI NADA', 80, 300, 104)]);
-// 8 · "Como yo los lunes": both drag themselves across the office.
+// 7 · "...y sigue caminando, como si nada": the farmer's axe slips out of his hand (boing); camera tracks Mike.
+shot(16.45, 18.6, d => [camF([...farm(d), granjero({x: 240, y: GROUND, scale: 1.0, expr: 'sorpresa', idle: {dur: d}, armL: {shoulder: 150, elbow: 15}, armR: {shoulder: 150, elbow: 15}, headKeys: osc(d, 0.6, 4)}),
+  G([axeProp()], {x: 380, y: 920, keys: [{t: 0, y: 920, angle: deg(-30)}, {t: 0.25, y: 920, angle: deg(-30)}, {t: 0.55, y: 1330, angle: deg(-110)}, {t: 0.65, y: 1300, angle: deg(-100)}, {t: 0.75, y: 1330, angle: deg(-110)}]}),
+  mike({x: 640, y: GROUND, scale: 1.15, walk: {dur: d}, move: lin(d, 560, 940)})], d,
+  t => ({s: 1.12, x: mix(60, -140, eInOut(t / d)), ...shake(t, 0.55, 0.15, 8)}), 640, 1000), slam('COMO SI NADA', 640, 380, 104, 1.23, d)]);
+// 8 · "Como yo los lunes": both drag themselves across the office (the Becario says it).
 shot(18.6, 20.1, d => [cam([...office(d),
-  becario({x: 380, y: GROUND, scale: 1.1, expr: 'cansado', walk: {dur: d, period: 0.85, stride: 14}, move: lin(d, 300, 470), headTilt: 10}),
-  mike({x: 900, y: GROUND + 20, scale: 0.9, walk: {dur: d, period: 0.6}, move: lin(d, 820, 960)})], d), T('LUNES.', 400, 300, 140, {color: RED})]);
-// 9 · Next morning: still alive.
-shot(20.1, 22.45, d => [cam([...farm(d, {sky: '#ffd9a8', sunY: 900, sunTo: 560}), mike({x: 820, y: GROUND, scale: 1.15, idle: {dur: d}, flapAt: [1.4]}),
-  granjero({x: 330, y: GROUND, scale: 1.0, expr: 'sorpresa', walk: {dur: 1.2}, idle: {dur: d}, move: lin(1.2, 120, 330)})], d), T('AL DÍA SIGUIENTE…', 70, 300, 84), pop(T('¡VIVO!', 70, 410, 120, {color: RED}), 1.3)]);
-// 10 · "¿Cómo?"
-shot(22.45, 23.2, d => [cam([...office(d), becario({x: 640, y: 2080, scale: 1.75, expr: 'sorpresa', idle: {dur: d}, armL: {shoulder: 40, elbow: 120}, armR: {shoulder: 40, elbow: 120}})], d, 1.04, 1.12), T('¿CÓMO?', 380, 300, 140, {color: RED})]);
-// 11 · Explainer: the brain stem survived (heart + breathing).
-shot(23.2, 28.85, d => [cam([fill('#eaf4fb'), ...[0, 1, 2, 3, 4, 5].map(i => P([['M', 0, 520 + i * 200], ['L', 1280, 520 + i * 200]], {stroke: '#d6e6f2', lineWidth: 4})),
-  mike({x: 420, y: 1400, scale: 1.4, idle: {dur: d}}),
-  pop(E(580, 1006, 54, 80, {fill: '#f6a6b2', lineWidth: 8}), 0.9, 0.4),
-  {type: 'arrow', x: 330, y: 790, w: 210, lineWidth: 8, color: INK, from: 1.2, keys: [{t: 1.2, progress: 0}, {t: 1.9, progress: 1}]},
-  pop(T('TRONCO DEL CEREBRO', 130, 660, 60), 1.9),
-  pop(G([S([['M', 0, 60], ['C', -110, -10, -60, -90, 0, -30], ['C', 60, -90, 110, -10, 0, 60], ['Z']], RED, {lineWidth: 9})], {x: 930, y: 860, keys: [{t: 3.5, scaleX: 1, scaleY: 1}, ...osc(d, 0.8, 0.08, {prop: 'scaleX', radians: false, base: 1, t0: 3.8}).map(k => ({t: k.t, scaleX: k.scaleX, scaleY: k.scaleX}))]}), 3.5), pop(T('CORAZÓN', 800, 960, 60), 3.6),
-  pop(G([E(-48, 0, 80, 120, {fill: '#f6a6b2', lineWidth: 8}), E(48, 0, 80, 120, {fill: '#f6a6b2', lineWidth: 8}), P([['M', 0, -90], ['L', 0, -30]], {lineWidth: 8})], {x: 928, y: 1170, keys: [{t: 4.6, scaleX: 1, scaleY: 1}, {t: 5.0, scaleX: 1.08, scaleY: 1.08}, {t: 5.4, scaleX: 1, scaleY: 1}]}), 4.6), pop(T('RESPIRACIÓN', 720, 1260, 60), 4.7),
-], d, 1, 1.03), T('SE SALVÓ ESTO', 80, 300, 100)]);
+  becario({x: 380, y: GROUND, scale: 1.1, expr: 'cansado', walk: {dur: d, period: 0.85, stride: 14}, move: lin(d, 300, 470), headTilt: 10, talk: say(18.6, 20.1)}),
+  mike({x: 900, y: GROUND + 20, scale: 0.9, walk: {dur: d, period: 0.6}, move: lin(d, 820, 960)})], d), slam('LUNES.', 640, 380, 150, 0.6, d, {color: RED, tilt: -4})]);
+// 9 · "A la mañana siguiente… seguía vivo": sunrise time-lapse, then a crash zoom on Mike at "vivo".
+shot(20.1, 22.45, d => [camF([...farm(d, {sky: '#ffd9a8', sunY: 900, sunTo: 520}), mike({x: 820, y: GROUND, scale: 1.15, idle: {dur: d}, flapAt: [1.72]}),
+  granjero({x: 330, y: GROUND, scale: 1.0, expr: 'sorpresa', walk: {dur: 1.2}, idle: {dur: d}, move: lin(1.2, 120, 330)}),
+  flash(1.7, 0.1, PAPER, 0.6)], d,
+  t => ({s: t < 1.7 ? mix(1.0, 1.05, t / 1.7) : mix(1.05, 1.5, eOut((t - 1.7) / 0.18)), ...shake(t, 1.7, 0.3, 14)}), 940, 1150),
+  T('AL DÍA SIGUIENTE…', 70, 300, 84), slam('¡VIVO!', 640, 520, 150, 1.7, d, {color: RED, tilt: 6})]);
+// 10 · "¿Cómo?" — record scratch, Dutch crash-zoom on the Becario.
+shot(22.45, 23.2, d => [camF([...office(d), becario({x: 640, y: 2080, scale: 1.75, expr: 'sorpresa', idle: {dur: d}, talk: say(22.45, 23.2), armL: {shoulder: 40, elbow: 120}, armR: {shoulder: 40, elbow: 120}})], d,
+  t => ({s: mix(1.0, 1.22, eOut(t / 0.2)), a: mix(0, -7, eOut(t / 0.2)), ...shake(t, 0, 0.25, 12)}), 640, 1000), slam('¿CÓMO?', 640, 420, 140, 0.02, d, {color: RED, from: 1.5})]);
+// 11a · X-ray: a scan line sweeps Mike; the brain stem lights up on "tronco del cerebro".
+const XR = '#0f2a45', XL = '#6fd3ff';
+shot(23.2, 26.16, d => [camF([fill(XR), ...Array.from({length: 9}, (_, i) => P([['M', 0, 300 + i * 220], ['L', 1280, 300 + i * 220]], {stroke: '#17395c', lineWidth: 4})), ...Array.from({length: 7}, (_, i) => P([['M', 40 + i * 200, 0], ['L', 40 + i * 200, 2300]], {stroke: '#17395c', lineWidth: 4})),
+  mike({x: 520, y: 1700, scale: 2.1, idle: {dur: d}, alpha: 0.9}),
+  G([E(0, 0, 70, 120, {fill: '#ff8fb1', stroke: '#ffffff', lineWidth: 8}), E(0, 0, 150, 220, {fill: 'none', stroke: XL, lineWidth: 6})], {x: 520 + 124 * 2.1, y: 1700 - 300 * 2.1, from: 1.85, keys: sample(t => ({s: mix(0.2, 1, eBack((t - 1.85) / 0.25)) * (1 + 0.06 * Math.sin(t * 9)), alpha: (t - 1.85) / 0.1}), 1.85, d)}),
+  {...band(0, 26, XL), alpha: 0.75, keys: sample(t => ({y: mix(260, 1900, (t % 1.4) / 1.4)}), 0, d)},
+], d, t => ({s: mix(1.0, 1.35, eInOut((t - 1.6) / 0.6))}), 520 + 124 * 2.1, 1700 - 300 * 2.1),
+  T('RAYOS X', 70, 300, 70, {color: XL}), slam('TRONCO DEL CEREBRO', 640, 470, 84, 2.1, d, {color: PAPER})]);
+// 11b · "...la parte que controla el corazón": a big heart beats on the cut, camera pulses with it.
+shot(26.16, 27.72, d => [camF([...rays(d, '#ffe3e3', '#ffd0d0', 640, 1080, 12),
+  G([S([['M', 0, 170], ['C', -330, -30, -180, -270, 0, -90], ['C', 180, -270, 330, -30, 0, 170], ['Z']], RED, {lineWidth: 12}), P([['M', -120, -110], ['Q', -150, -40, -100, 20]], {stroke: '#ff9a9a', lineWidth: 14})],
+    {x: 640, y: 1080, keys: sample(t => { const b = (t - 0.95) % 0.75; return {s: 1.7 * (t < 0.95 ? mix(0.3, 1, eBack(t / 0.25)) : 1) + 1.7 * (t < 0.95 ? 0 : (b < 0.12 ? 0.14 * Math.sin(b / 0.12 * Math.PI) : b > 0.22 && b < 0.34 ? 0.08 * Math.sin((b - 0.22) / 0.12 * Math.PI) : 0))}; }, 0, d)}),
+], d, t => ({s: 1.0 + 0.02 * Math.sin(t * 8)}), 640, 1080), slam('CORAZÓN', 640, 470, 130, 0.95, d, {color: RED})]);
+// 11c · "...y la respiración": lungs inflate and deflate.
+shot(27.72, 28.85, d => [camF([...rays(d, '#e3f1ff', '#d2e7fb', 640, 1080, -12),
+  G([E(-130, 0, 220, 360, {fill: '#f6a6b2', lineWidth: 10}), E(130, 0, 220, 360, {fill: '#f6a6b2', lineWidth: 10}), P([['M', 0, -320], ['L', 0, -150], ['M', 0, -150], ['L', -70, -90], ['M', 0, -150], ['L', 70, -90]], {lineWidth: 12})],
+    {x: 640, y: 1150, keys: sample(t => ({s: 1.35 * (t < 0.2 ? mix(0.3, 1, eBack(t / 0.2)) : 1 + 0.12 * Math.sin((t - 0.2) * Math.PI * 1.6))}), 0, d)}),
+], d, t => ({s: 1.03}), 640, 1080), slam('RESPIRACIÓN', 600, 470, 110, 0.25, d, {color: '#2f6fb0', maxW: 900})]);
 // 12 · "Lo lógico": the farmer feeds him with a dropper from his own hand, Mike on the block.
 const FB = 400, FMS = 0.9, FMY = GROUND, FA = 92, FX = FB + 108 + 214 + 106;
 shot(28.85, 32.5, d => [cam([...farm(d), mike({x: FB, y: FMY, scale: FMS, idle: {dur: d}}),
@@ -220,7 +244,7 @@ shot(33.8, 34.92, d => [cam([fill('#ffe9a8'), E(640, 1380, 800, 140, {fill: '#f2
 // 15 · Magazine star, then on tour.
 shot(34.92, 36.12, d => [cam([fill('#2b2f3a'), ...[0, 1, 2, 3].map(i => E(160 + i * 320, 1500, 40, 40, {fill: '#ffe08a', stroke: 'none', alpha: 0, keys: [{t: 0.2 + i * 0.15, alpha: 0}, {t: 0.3 + i * 0.15, alpha: 1}, {t: 0.5 + i * 0.15, alpha: 0}]})),
   G([R(0, 0, 700, 980, {radius: 6, fill: PAPER}), R(0, 0, 700, 170, {radius: 6, fill: RED}), ctext('REVISTA', 350, 30, 100, {color: PAPER, maxW: 620}), ctext('Nº 1 · 1945', 350, 190, 40, {maxW: 600}), mike({x: 350, y: 780, scale: 1.2}), ctext('¡SIN CABEZA!', 350, 840, 80, {maxW: 620, color: RED})],
-    {x: 290, y: 420, pivotX: 350, pivotY: 490, keys: [{t: 0, angle: deg(-8), scaleX: 0.8, scaleY: 0.8}, {t: 0.35, angle: deg(-3), scaleX: 1, scaleY: 1}, {t: d, angle: deg(-1), scaleX: 1.02, scaleY: 1.02}]})], d)]);
+    {x: 290, y: 420, pivotX: 350, pivotY: 490, keys: [{t: 0, angle: deg(-8), scaleX: 0.8, scaleY: 0.8}, {t: 0.35, angle: deg(-3), scaleX: 1, scaleY: 1}, {t: d, angle: deg(-1), scaleX: 1.02, scaleY: 1.02}]})], d), flash(0.25, 0.1, PAPER, 0.7), flash(0.55, 0.1, PAPER, 0.6), flash(0.85, 0.1, PAPER, 0.5)]);
 shot(36.12, 38.15, d => [cam([fill('#bfe3f7'), cloud(300, 640, 0.7, d, -120), cloud(950, 780, 0.5, d, -160),
   S([['M', -60, 1200], ['L', 200, 1000], ['L', 420, 1160], ['L', 700, 960], ['L', 1000, 1150], ['L', 1340, 1010], ['L', 1340, 1300], ['L', -60, 1300], ['Z']], '#c99a6a', {lineWidth: 8}),
   band(1290, 1000, '#d8c08e'), band(1380, 120, '#4a4a52'), ...[0, 1, 2, 3, 4, 5].map(i => R(i * 260 - 40, 1432, 120, 14, {radius: 4, fill: '#f2d36b', stroke: 'none', keys: lin(d, i * 260 - 40, i * 260 - 300)})),
@@ -264,7 +288,7 @@ shot(46.0, 48.86, d => [cam([fill('#4a3f63'), ...[0, 1, 2, 3, 4, 5, 6].map(i => 
 ], d), T('¿Y EL GOTERO?', 80, 300, 104, {color: PAPER})]);
 // 19 · "...had more fame than me."
 shot(48.86, 51.56, d => [cam([...office(d), G([R(0, 0, 440, 580, {radius: 10, fill: PAPER}), R(0, 0, 440, 110, {radius: 10, fill: RED}), ctext('FAMOSO', 220, 16, 80, {color: PAPER, maxW: 380}), mike({x: 220, y: 500, scale: 0.75})], {x: 680, y: 500, keys: [{t: 0, y: 470}, {t: 0.4, y: 500}]}),
-  becario({x: 320, y: GROUND, scale: 1.1, expr: 'agobiado', idle: {dur: d}, headKeys: [{t: 0.8, angle: 0}, {t: 1.3, angle: deg(-10)}, {t: d, angle: deg(-10)}], gestures: [{t0: 1.6, t1: 2.5, arm: 'R', shoulder: 70, elbow: 20}]}),
+  becario({x: 320, y: GROUND, scale: 1.1, expr: 'agobiado', idle: {dur: d}, talk: say(48.86, 51.56), headKeys: [{t: 0.8, angle: 0}, {t: 1.3, angle: deg(-10)}, {t: d, angle: deg(-10)}], gestures: [{t0: 1.6, t1: 2.5, arm: 'R', shoulder: 70, elbow: 20}]}),
   pop(sign('SEGUIDORES: 3', 470, 1170, 480, 110, {size: 60}), 1.5)], d), T('MÁS FAMA', 80, 300, 110), T('QUE YO', 80, 420, 110, {color: RED})]);
 // 20 · His town still throws him a festival.
 shot(51.56, 54.46, d => [cam([fill('#bfe3f7'), cloud(250, 640, 0.6, d, 60),
@@ -277,23 +301,38 @@ shot(51.56, 54.46, d => [cam([fill('#bfe3f7'), cloud(250, 640, 0.6, d, 60),
   person({who: 'civil2', x: 1090, y: GROUND, scale: 0.75, expr: 'contento', idle: {dur: d}, gestures: [{t0: 0.4, t1: 2.4, arm: 'L', shoulder: 150, elbow: 10}]}),
 ], d), T('FESTIVAL', 80, 300, 110), T('CADA AÑO', 80, 420, 110, {color: RED})]);
 // 21 · Open loop: the next case.
-shot(54.46, 57.2425, d => [cam([fill('#2b2f3a'), band(GROUND - 20, 900, '#3a3550'), R(840, 560, 300, 260, {radius: 8, fill: '#1c2140', lineWidth: 10}),
+shot(54.46, 56.62, d => [cam([fill('#2b2f3a'), band(GROUND - 20, 900, '#3a3550'), R(840, 560, 300, 260, {radius: 8, fill: '#1c2140', lineWidth: 10}),
   archiveBox({x: 820, y: GROUND, scale: 1.15, label: 'EXP. 015', lidOpenAt: 0.8}),
-  becario({x: 330, y: GROUND, scale: 1.12, expr: 'sarcastico', idle: {dur: d}, look: 1, gestures: [{t0: 0.6, t1: 2.6, arm: 'R', shoulder: 60, elbow: 40}]}),
-  ...[0, 1, 2].map(i => mike({x: 690 + i * 150, y: 1180, scale: 0.42, head: false, alpha: 0, from: 1.0 + i * 0.4, move: [{t: 1.0 + i * 0.4, alpha: 0}, {t: 1.4 + i * 0.4, alpha: 0.55}]})),
+  becario({x: 330, y: GROUND, scale: 1.12, expr: 'sarcastico', idle: {dur: d}, look: 1, talk: say(54.46, 56.62), gestures: [{t0: 0.6, t1: 2.0, arm: 'R', shoulder: 60, elbow: 40}]}),
+  ...[0, 1, 2].map(i => mike({x: 690 + i * 150, y: 1180, scale: 0.42, head: false, alpha: 0, from: 1.0 + i * 0.3, move: [{t: 1.0 + i * 0.3, alpha: 0}, {t: 1.3 + i * 0.3, alpha: 0.55}]})),
 ], d), T('¿OTRO POLLO?', 80, 300, 110, {color: PAPER})]);
 
+// 22 · Seamless loop: lights out, a headless rooster struts into the spotlight — the exact first frame of the video.
+shot(56.62, 57.2425, d => [camF([fill('#1d2033'), S([['M', 520, -60], ['L', 760, -60], ['L', 1180, 1560], ['L', 100, 1560], ['Z']], '#2c3150', {stroke: 'none'}), E(640, 1560, 1100, 200, {fill: '#3a4068', stroke: 'none'}),
+  mike({x: 380, y: 1620, scale: 2.3, walk: {dur: d, period: 0.36}, move: lin(d, -120, 380)})], d,
+  t => ({s: mix(1.0, 1.55, eInOut(t / d)), a: mix(0, -9, eInOut(t / d))}), 640, 1100), flash(0, 0.12, '#000000', 1)]);
+
 const captions = JSON.parse(fs.readFileSync('captions.json', 'utf8'));
+const F = (time, name, gain, max) => ({time, kind: 'file', path: `sfx/${name}.wav`, gain, ...(max ? {max} : {})});
 const sfx = [
-  {time: 1.0, kind: 'paper', gain: 0.18}, {time: 5.2, kind: 'pop', gain: 0.12}, {time: 6.9, kind: 'pop', gain: 0.12},
-  {time: 14.18, kind: 'tap', gain: 0.3}, {time: 15.8, kind: 'paper', gain: 0.14}, {time: 21.5, kind: 'chime', gain: 0.1},
-  {time: 25.1, kind: 'pop', gain: 0.1}, {time: 26.7, kind: 'pop', gain: 0.1}, {time: 27.8, kind: 'pop', gain: 0.1},
-  {time: 30.45, kind: 'tap', gain: 0.1}, {time: 31.25, kind: 'tap', gain: 0.1}, {time: 31.95, kind: 'tap', gain: 0.1}, {time: 32.95, kind: 'tap', gain: 0.12},
-  {time: 34.0, kind: 'chime', gain: 0.12}, {time: 35.0, kind: 'paper', gain: 0.15},
-  {time: 38.8, kind: 'jingle', gain: 0.12}, {time: 39.4, kind: 'jingle', gain: 0.1}, {time: 40.0, kind: 'jingle', gain: 0.1},
+  // hook
+  F(0.0, 'whoosh', 0.35), F(0.25, 'flap', 0.35, 0.6), F(0.88, 'whoosh', 0.3), F(1.04, 'stamp', 0.6), F(1.6, 'stamp', 0.9),
+  F(2.72, 'whoosh', 0.35), {time: 3.76, kind: 'pop', gain: 0.14}, F(5.08, 'whoosh', 0.4), F(5.12, 'chop', 0.55), F(5.17, 'flap', 0.4, 0.7),
+  F(6.28, 'whoosh', 0.35), F(6.9, 'stamp', 0.5), F(7.2, 'stamp', 0.6), F(7.38, 'flap', 0.3, 0.5), F(8.1, 'projector', 0.22), F(8.96, 'stamp', 0.7),
+  // farm
+  F(14.18, 'chop', 0.85), F(14.25, 'flap', 0.4, 0.8), F(15.8, 'flap', 0.35, 0.6), F(17.0, 'boing', 0.45),
+  F(18.58, 'whoosh', 0.3), F(21.78, 'whoosh', 0.35), F(21.8, 'stamp', 0.6), F(21.85, 'flap', 0.35, 0.6), F(22.45, 'scratch', 0.55),
+  // explainer
+  {time: 23.3, kind: 'chime', gain: 0.08}, {time: 25.3, kind: 'pop', gain: 0.14}, F(26.14, 'whoosh', 0.3),
+  {time: 27.11, kind: 'tap', gain: 0.3}, {time: 27.23, kind: 'tap', gain: 0.22}, F(27.7, 'whoosh', 0.3),
+  // dropper, name, fame
+  F(30.4, 'drop', 0.6), F(31.2, 'drop', 0.6), F(31.9, 'drop', 0.6), F(33.0, 'drop', 0.7), {time: 34.0, kind: 'chime', gain: 0.12},
+  F(35.17, 'flash', 0.45), F(35.47, 'flash', 0.4), F(35.77, 'flash', 0.35), F(36.1, 'whoosh', 0.3), F(38.3, 'crowd', 0.35),
   {time: 41.5, kind: 'paper', gain: 0.12}, {time: 42.0, kind: 'paper', gain: 0.12}, {time: 42.5, kind: 'paper', gain: 0.12},
   {time: 46.7, kind: 'tap', gain: 0.1}, {time: 47.7, kind: 'tap', gain: 0.1},
-  {time: 50.4, kind: 'pop', gain: 0.1}, {time: 51.7, kind: 'chime', gain: 0.12}, {time: 55.3, kind: 'paper', gain: 0.15},
+  F(51.05, 'boing', 0.35), F(51.6, 'crowd', 0.4), {time: 51.7, kind: 'chime', gain: 0.1},
+  // open loop
+  F(54.44, 'whoosh', 0.3), {time: 55.3, kind: 'paper', gain: 0.15}, F(56.6, 'whoosh', 0.35), F(56.95, 'flap', 0.3, 0.3),
 ];
 fs.writeFileSync('project.json', JSON.stringify({version: 1, style: 'B3', width: 1080, height: 1920, fps: 30, voice: {path: 'narration.mp3', lead: 0, tail: 0.4}, television: {enabled: false}, music: {path: 'music.mp3', gain: 0.1}, captions, shots, sfx}, null, 1));
 console.log('shots', shots.length);

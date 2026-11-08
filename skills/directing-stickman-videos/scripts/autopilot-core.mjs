@@ -129,7 +129,12 @@ export function loadProject(file, {seconds} = {}) {
   }
   const sfx = scoped ? (p.sfx || []).filter(s => s.time < rangeEnd) : p.sfx || [];
   if (p.voice.contains_sfx && sfx.length) throw new Error('Already mixed voice must not receive duplicate SFX');
-  for (const s of sfx) { number(s.time, 'SFX time', 0, duration); number(s.gain, 'SFX gain', 0, p.style === 'B4' && s.kind === 'file' ? 1 : 0.3); if (!['tap', 'paper', 'pop', 'chime', 'jingle', ...(p.style === 'B4' ? ['file'] : [])].includes(s.kind)) throw new Error('Unknown SFX'); }
+  for (const s of sfx) {
+    number(s.time, 'SFX time', 0, duration); number(s.gain, 'SFX gain', 0, s.kind === 'file' ? 1 : 0.3);
+    if (!['tap', 'paper', 'pop', 'chime', 'jingle', 'file'].includes(s.kind)) throw new Error('Unknown SFX');
+    // B1–B3: an audio file played once at `time` (optional `trim` seconds from its start, `max` seconds long).
+    if (s.kind === 'file' && p.style !== 'B4') { assets.add(mediaPath(base, s.path)); if (s.trim !== undefined) number(s.trim, 'SFX trim', 0, 600); if (s.max !== undefined) number(s.max, 'SFX max', 0.05, 600); }
+  }
   if (p.music) { assets.add(mediaPath(base, p.music.path)); number(p.music.gain, 'music gain', 0, 0.2); }
   const b4 = p.style === 'B4' ? prepareB4({...p, sfx}, {base, duration, rangeEnd, assets, mediaPath, probe}) : {};
   const timeline = {...p, shots, captions, sfx, ...b4};
