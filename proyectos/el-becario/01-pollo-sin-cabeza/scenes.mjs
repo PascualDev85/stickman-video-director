@@ -9,7 +9,9 @@ const T = (text, x, y, size = 96, o = {}) => ({type: 'text', text, x, y, size, b
 const fill = c => ({type: 'rect', x: -60, y: -60, w: 1400, h: H + 120, radius: 0, fill: c, stroke: 'none'});
 const band = (y, h, c) => ({type: 'rect', x: -60, y, w: 1400, h, radius: 0, fill: c, stroke: 'none'});
 const lin = (dur, a, b, prop = 'x', t0 = 0) => [{t: t0, [prop]: a}, {t: dur, [prop]: b}];
-const cam = (layers, dur, from = 1, to = 1.05, px = 640, py = 1000) => G(layers, {pivotX: px, pivotY: py, keys: [{t: 0, scaleX: from, scaleY: from}, {t: dur, scaleX: to, scaleY: to}]});
+// every cut lands with a small punch (5% over-zoom settling in 0.18 s), then the slow push
+const cam = (layers, dur, from = 1, to = 1.05, px = 640, py = 1000) => { const m = from + (to - from) * 0.18 / dur;
+  return G(layers, {pivotX: px, pivotY: py, keys: dur > 0.5 ? [{t: 0, scaleX: from * 1.05, scaleY: from * 1.05}, {t: 0.18, scaleX: m, scaleY: m}, {t: dur, scaleX: to, scaleY: to}] : [{t: 0, scaleX: from, scaleY: from}, {t: dur, scaleX: to, scaleY: to}]}); };
 function mergeKeys(keys) {
   const out = [];
   for (const k of [...keys].sort((a, b) => a.t - b.t)) { const last = out.at(-1); if (last && Math.abs(last.t - k.t) < 1e-6) Object.assign(last, k); else out.push({...k}); }
@@ -77,18 +79,85 @@ function desertNight(dur) {
 const shots = [];
 function shot(start, end, build) { shots.push({start, end, layers: build(Math.floor((end - start) * 1000 - 1) / 1000)}); }
 
-// 1 · Hook: big headless Mike struts in; El Becario at his desk opens case 014.
-shot(0, 5.12, d => [cam([
-  ...office(d),
-  archiveBox({x: 420, y: GROUND - 20, scale: 0.6, lidOpenAt: 1.0}),
-  becario({x: 190, y: GROUND - 20, scale: 0.72, expr: 'cansado', idle: {dur: d}, gestures: [{t0: 0.9, t1: 2.4, arm: 'R', shoulder: 55, elbow: 30}]}),
-  mike({x: 840, y: GROUND + 40, scale: 1.35, walk: {dur: 2.6}, idle: {dur: d}, move: lin(2.6, 1080, 800)}),
-], d), T('18 MESES', 70, 290, 130), T('SIN CABEZA', 70, 430, 130, {color: RED})]);
-// 2 · "Sí. Sin cabeza."
-shot(5.12, 6.84, d => [cam([...office(d), becario({x: 640, y: 2080, scale: 1.75, expr: 'sorpresa', idle: {dur: d}, armL: {shoulder: 150, elbow: 15}, armR: {shoulder: 150, elbow: 15}, headKeys: osc(d, 0.5, 3)})], d, 1, 1.08), T('¿SIN CABEZA?', 120, 300, 110)]);
-shot(6.84, 8.1, d => [cam([fill('#ffe9a8'), E(640, 1300, 900, 160, {fill: '#f2d68a', stroke: 'none'}), mike({x: 620, y: 1380, scale: 2.1, walk: {dur: d}, move: lin(d, 560, 690)})], d), T('SIN CABEZA.', 150, 300, 120, {color: RED})]);
-// 3 · Colorado, 1945: establishing farm shot, slow pan.
-shot(8.1, 10.8, d => [cam(farm(d, {sunTo: 300, sunY: 420}), d, 1.08, 1.0, 400, 1000), T('COLORADO', 70, 300, 110), pop(T('1945', 70, 430, 110, {color: RED}), 0.8)]);
+// ---------- motion helpers (v4): frame-sampled keys so we can use easing, punches and shakes ----------
+const clamp01 = v => Math.max(0, Math.min(1, v));
+const eOut = v => 1 - Math.pow(1 - clamp01(v), 3);
+const eInOut = v => { v = clamp01(v); return v < 0.5 ? 4 * v * v * v : 1 - Math.pow(-2 * v + 2, 3) / 2; };
+const eBack = v => { v = clamp01(v); const c = 1.9; return 1 + (c + 1) * Math.pow(v - 1, 3) + c * Math.pow(v - 1, 2); };
+const mix = (a, b, v) => a + (b - a) * v;
+const r3 = v => Math.round(v * 1000) / 1000;
+// deterministic jitter
+const jit = (t, seed) => Math.sin(t * 91.7 + seed * 12.9) * 0.6 + Math.sin(t * 47.3 + seed * 3.1) * 0.4;
+const shake = (t, t0, len, amp) => { const k = t < t0 || t > t0 + len ? 0 : amp * (1 - (t - t0) / len); return {x: jit(t, 1) * k, y: jit(t, 2) * k}; };
+/** Sample f(t) -> {x,y,s,a(deg),alpha} every frame from t0 to t1 into keys. */
+function sample(f, t0, t1, step = 1 / 30) {
+  const keys = []; let t = t0;
+  while (t < t1 - 1e-6) { keys.push(t); t = r3(t + step); }
+  keys.push(t1);
+  return keys.map(t => { const v = f(t), k = {t: r3(t)};
+    if (v.x !== undefined) k.x = r3(v.x); if (v.y !== undefined) k.y = r3(v.y);
+    if (v.s !== undefined) { k.scaleX = r3(v.s); k.scaleY = r3(v.s); } if (v.a !== undefined) k.angle = r3(deg(v.a)); if (v.alpha !== undefined) k.alpha = r3(clamp01(v.alpha)); return k; });
+}
+/** Camera: f(t) -> {s, a, x, y}; zoom/rotation happen around (px, py). */
+const camF = (layers, d, f, px = 640, py = 1000) => G(layers, {pivotX: px, pivotY: py, keys: sample(t => { const v = f(t); return {s: v.s ?? 1, a: v.a ?? 0, x: v.x ?? 0, y: v.y ?? 0}; }, 0, d)});
+/** Text centred at (cx, cy) that slams in (scale 2.4 -> 1, ease back) at t0. */
+function slam(text, cx, cy, size, t0, d, {color = INK, from = 2.4, tilt = 0, maxW = 1040, stamp = false} = {}) {
+  const t = ctext(text, 0, -size * 0.68, size, {maxW, color});
+  const parts = stamp ? [R(-t.w / 2 - 10, -size * 0.85, t.w + 20, size * 1.5, {radius: 14, fill: 'none', stroke: color, lineWidth: 12}), t] : [t];
+  return G(parts, {x: cx, y: cy, from: t0, keys: sample(tt => ({s: mix(from, 1, eBack((tt - t0) / 0.16)), a: tilt, alpha: (tt - t0) / 0.05}), t0, d)});
+}
+const flash = (t0, len = 0.14, color = PAPER, peak = 0.85) => ({...fill(color), from: t0, keys: [{t: t0, alpha: peak}, {t: r3(t0 + len), alpha: 0}]});
+const speedLines = (t0, t1, color = PAPER) => G(Array.from({length: 14}, (_, i) => { const a = i / 14 * Math.PI * 2; return P([['M', 640 + Math.cos(a) * 520, 1000 + Math.sin(a) * 880], ['L', 640 + Math.cos(a) * 1500, 1000 + Math.sin(a) * 2000]], {stroke: color, lineWidth: 18}); }),
+  {from: t0, to: t1, alpha: 0.6});
+const rays = (d, c1, c2, cx = 640, cy = 1000, speed = 20) => [fill(c1), G(Array.from({length: 12}, (_, i) => S([['M', 0, 0], ['L', Math.cos(deg(i * 30 - 7)) * 2600, Math.sin(deg(i * 30 - 7)) * 2600], ['L', Math.cos(deg(i * 30 + 7)) * 2600, Math.sin(deg(i * 30 + 7)) * 2600], ['Z']], c2, {stroke: 'none'})),
+  {x: cx, y: cy, keys: [{t: 0, angle: 0}, {t: d, angle: deg(speed * d)}]})];
+const desk = () => G([R(470, 1150, 720, 44, {radius: 8, fill: '#a9784b'}), R(500, 1194, 34, 230, {radius: 4, fill: '#8a5a33'}), R(1126, 1194, 34, 230, {radius: 4, fill: '#8a5a33'}), R(560, 1194, 520, 120, {radius: 6, fill: '#8a5a33'})]);
+const sighPuff = (x, y, t0) => G([0, 1, 2].map(i => P([['M', i * 34, -i * 10], ['Q', i * 34 + 20, -i * 10 - 22, i * 34 + 40, -i * 10]], {stroke: '#8fa3b8', lineWidth: 8})),
+  {x, y, from: t0, to: t0 + 0.9, keys: [{t: t0, alpha: 0, x, y}, {t: r3(t0 + 0.2), alpha: 1}, {t: r3(t0 + 0.9), alpha: 0, x: x + 90, y: y - 70}]});
+/** Polaroid of Mike (headless, alive inside the photo). */
+const photo = (d, extra = {}) => G([R(-300, -360, 600, 700, {radius: 8, fill: PAPER, lineWidth: 10}), R(-260, -320, 520, 520, {radius: 2, fill: '#ffe08a', lineWidth: 6}),
+  E(0, 150, 420, 70, {fill: '#f2c85f', stroke: 'none'}), mike({x: -20, y: 160, scale: 1.0, idle: {dur: d}}), ctext('MIKE · 1945', 0, 230, 54, {maxW: 500})], extra);
+
+// 1a · COLD OPEN (0–0.88): a headless rooster struts out of the dark into a spotlight; camera crashes in.
+shot(0, 0.88, d => [camF([fill('#1d2033'), S([['M', 520, -60], ['L', 760, -60], ['L', 1180, 1560], ['L', 100, 1560], ['Z']], '#2c3150', {stroke: 'none'}), E(640, 1560, 1100, 200, {fill: '#3a4068', stroke: 'none'}),
+  mike({x: 640, y: 1620, scale: 2.3, walk: {dur: d, period: 0.36}, flapAt: [0.3], move: lin(d, 380, 700)})], d,
+  t => ({s: mix(1.55, 1.04, eOut(t / 0.45)), a: mix(-9, 0, eOut(t / 0.5)), ...shake(t, 0, 0.3, 14)}), 640, 1100),
+  slam('¿Y SU CABEZA?', 640, 380, 104, 0.12, d, {color: PAPER}), flash(0, 0.1, PAPER, 1)]);
+// 1b · "Expediente catorce": box slams on the desk, the Becario sighs, the stamp hits on "catorce" (1.60).
+shot(0.88, 2.72, d => [camF([...office(d), desk(),
+  becario({x: 300, y: GROUND - 20, scale: 1.0, expr: 'cansado', idle: {dur: d}, headKeys: [{t: 0, angle: 0}, {t: 0.25, angle: deg(-4)}, {t: 0.9, angle: deg(6)}, {t: d, angle: deg(4)}]}),
+  sighPuff(345, 780, 0.25), sighPuff(360, 800, 0.85),
+  archiveBox({x: 860, y: 1150, scale: 0.9, lidOpenAt: 0.85, keys: [{t: 0, y: 640}, {t: 0.16, y: 1150}, {t: 0.24, y: 1110}, {t: 0.32, y: 1150}]}),
+], d, t => ({s: mix(1.22, 1.32, eInOut(t / d)) + (t > 0.72 ? 0.07 * (1 - eOut((t - 0.72) / 0.25)) : 0), ...shake(t, 0.16, 0.18, 10), ...(t > 0.72 ? shake(t, 0.72, 0.25, 16) : {})}), 640, 1050),
+  slam('EXP. 014', 640, 560, 150, 0.72, d, {color: RED, tilt: -8, stamp: true, from: 3})]);
+// 1c · "Este pollo vivió un año y medio…": the photo spins out of the box, camera dives into it.
+shot(2.72, 5.12, d => [camF([...office(d), desk(), archiveBox({x: 860, y: 1150, scale: 0.9}),
+  becario({x: 300, y: GROUND - 20, scale: 1.0, expr: 'sarcastico', look: 1, idle: {dur: d}, gestures: [{t0: 0.2, t1: 1.6, arm: 'R', shoulder: 70, elbow: 20}]}),
+  photo(d, {x: 700, y: 1060, keys: sample(t => ({x: mix(860, 700, eOut(t / 0.4)), y: mix(1120, 1060, eOut(t / 0.4)), s: mix(0.15, 1, eBack(t / 0.42)), a: mix(-560, -4, eOut(t / 0.42))}), 0, d)}),
+], d, t => ({s: mix(1.0, 1.42, eInOut((t - 0.5) / 1.8)), x: 0, y: 0}), 700, 1060),
+  slam('1 AÑO Y MEDIO', 640, 380, 112, 1.04, d, {color: INK})]);
+// 1d · "sin cabeza" (5.12): SMASH on the word — rays, flash, punch-in on the stump, shake.
+const SX = 560, SY = 1720, SS = 2.4, STX = SX + 124 * SS, STY = SY - 329 * SS;
+shot(5.12, 6.3, d => [camF([...rays(d, '#ffd34d', '#ffe9a0', STX, STY, 25), E(640, SY, 1300, 220, {fill: '#f2b93a', stroke: 'none'}),
+  mike({x: SX, y: SY, scale: SS, idle: {dur: d}, flapAt: [0.05, 0.6]}),
+  speedLines(0, 0.25, PAPER),
+], d, t => ({s: mix(1.35, 1.0, eOut(t / 0.14)) + mix(0, 0.22, eInOut((t - 0.3) / 0.85)), a: mix(0, 5, eInOut((t - 0.3) / 0.85)), ...shake(t, 0, 0.35, 22)}), STX, STY),
+  flash(0, 0.12, PAPER, 1), slam('SIN CABEZA', 640, 400, 150, 0.02, d, {color: RED, from: 1.8})]);
+// 1e · "Sí." (6.30): whip-pan to the Becario's deadpan close-up, looking straight at us.
+shot(6.3, 6.88, d => [camF([fill('#d9e8f5'), band(1700, 600, '#c0d3e6'),
+  becario({x: 640, y: 2420, scale: 2.25, expr: 'serio', look: 0, idle: {dur: d}})], d,
+  t => ({x: mix(-520, 0, eOut(t / 0.12)), s: mix(1.0, 1.05, t / d)}), 640, 1050), slam('SÍ.', 640, 400, 170, 0.04, d, {color: INK, from: 1.8})]);
+// 1f · "Sin cabeza." (6.88): he struts at the lens, Dutch angle rocking with each step, word-by-word.
+shot(6.88, 8.1, d => [camF([...rays(d, '#ffe08a', '#fff1c2', 640, 1300, -18), E(640, 1700, 1400, 260, {fill: '#f2c85f', stroke: 'none'}),
+  mike({x: 640, y: 1720, scale: 1.4, walk: {dur: d, period: 0.4}, flapAt: [0.5], move: sample(t => ({x: mix(520, 700, t / d), s: mix(1.3, 2.3, eInOut(t / d))}), 0, d)}),
+], d, t => ({a: Math.sin(t * Math.PI / 0.4) * 7, s: 1.14, ...shake(t, 0.32, 0.15, 12)}), 640, 1300),
+  slam('SIN', 640, 380, 150, 0.02, d, {color: INK, from: 1.8}), slam('CABEZA.', 640, 540, 150, 0.32, d, {color: RED})]);
+// 1g · "Colorado, 1945": flashback. Sepia wash + film flicker, crane down from the sky; Mike (with head!) pecks.
+shot(8.1, 10.8, d => [camF([...farm(d, {sunTo: 300, sunY: 420}), mike({x: 1010, y: GROUND + 40, scale: 0.8, head: true, idle: {dur: d}}),
+  {...fill('#b8894a'), keys: [{t: 0, alpha: 0.55}, {t: 1.6, alpha: 0.28}, {t: d, alpha: 0.12}]},
+  {...fill('#000000'), keys: sample(t => ({alpha: 0.05 + 0.04 * Math.abs(jit(t * 3, 5))}), 0, d, 1 / 15)},
+], d, t => ({s: mix(1.45, 1.0, eInOut(t / 1.9)), y: mix(-260, 0, eInOut(t / 1.9))}), 640, 300),
+  flash(0, 0.18, '#000000', 0.9), slam('COLORADO', 640, 380, 120, 0.06, d, {color: PAPER}), slam('1945', 640, 540, 130, 0.86, d, {color: RED, stamp: true, tilt: -6})]);
 // 4 · The farmer walks out with his axe; the chicken (still with head) pecks by the chopping block.
 shot(10.8, 12.8, d => [cam([...farm(d), choppingBlock(800, GROUND + 20, 1.2), mike({x: 1010, y: GROUND + 40, scale: 0.85, head: true, idle: {dur: d}}),
   granjero({x: 430, y: GROUND, scale: 1.05, expr: 'serio', axe: true, walk: {dur: 1.7}, idle: {dur: d}, move: lin(1.7, -140, 430)})], d)]);
