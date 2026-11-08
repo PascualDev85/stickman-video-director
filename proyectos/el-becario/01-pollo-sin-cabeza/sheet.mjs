@@ -1,18 +1,23 @@
 import fs from 'node:fs';
-const R = '/home/claude/repo/stickman-video-director/skills/directing-stickman-videos/scripts/';
-const {painter} = await import(R + 'autopilot-render.mjs');
-const {becario, granjero, mike, archiveBox} = await import('./kit.mjs');
-const W = 1280, H = 1280 * 1920 / 1080;
-const exprs = ['cansado', 'sarcastico', 'sorpresa', 'agobiado', 'contento', 'serio'];
+const R0 = '/home/claude/repo/stickman-video-director/skills/directing-stickman-videos/scripts/';
+const {painter} = await import(R0 + 'autopilot-render.mjs');
+const {becario, granjero, person, mike, archiveBox} = await import('../kit.mjs');
+const H = 1280 * 1920 / 1080;
 const layers = [{type: 'rect', x: -20, y: -20, w: 1320, h: H + 40, radius: 0, fill: '#f4efe4', stroke: 'none'}];
-exprs.forEach((e, i) => {
-  const cx = 230 + (i % 3) * 410, cy = 760 + Math.floor(i / 3) * 760;
-  const arms = [[{shoulder: 10}, {shoulder: 10}], [{shoulder: 20, elbow: 100}, {shoulder: 0}], [{shoulder: 150, elbow: 10}, {shoulder: 150, elbow: 10}], [{shoulder: 60, elbow: 120}, {shoulder: 60, elbow: 120}], [{shoulder: 0}, {shoulder: 120, elbow: 20, hand: 'point'}], [{shoulder: 5}, {shoulder: 30, elbow: 90}]][i];
-  layers.push(becario({x: cx, y: cy, scale: 0.85, expr: e, armL: arms[0], armR: arms[1]}));
-  layers.push({type: 'text', text: e.toUpperCase(), x: cx - 110, y: cy + 20, size: 40, bold: true, color: '#151515'});
-});
-layers.push(archiveBox({x: 230, y: 2230, scale: 0.9}), granjero({x: 640, y: 2230, scale: 0.85, axe: true, armR: {shoulder: 40, elbow: 60}}), mike({x: 1030, y: 2200, scale: 1.1}));
+const ex = ['cansado', 'sarcastico', 'sorpresa', 'agobiado'];
+ex.forEach((e, i) => layers.push(becario({x: 170 + i * 310, y: 720, scale: 0.72, expr: e, armR: i === 1 ? {shoulder: 30, elbow: 100} : {}, armL: i === 2 ? {shoulder: 150} : {}})));
+layers.push(granjero({x: 200, y: 1420, scale: 0.8, expr: 'serio', axe: true, armR: {shoulder: 40, elbow: 50}}), granjero({x: 520, y: 1420, scale: 0.8, expr: 'sorpresa'}));
+layers.push(person({who: 'civil', x: 800, y: 1420, scale: 0.6, expr: 'contento'}), person({who: 'civil2', x: 1020, y: 1420, scale: 0.6, expr: 'sorpresa'}));
+layers.push(mike({x: 330, y: 2150, scale: 1.25, head: true}), mike({x: 900, y: 2150, scale: 1.25}));
+layers.push(archiveBox({x: 640, y: 1640, scale: 0.6}));
 const p = {style: 'B3', width: 1080, height: 1920, fps: 30, base: process.cwd(), television: {enabled: false}, captions: [], shots: [{start: 0, end: 1, layers}]};
 const draw = await painter(p);
 fs.writeFileSync('sheet.png', draw(0.1).toBuffer('image/png'));
+// walk test strip
+const wl = [{type: 'rect', x: -20, y: -20, w: 1320, h: H + 40, radius: 0, fill: '#f4efe4', stroke: 'none'}, becario({x: 300, y: 900, scale: 0.9, walk: {dur: 2}}), granjero({x: 900, y: 900, scale: 0.9, walk: {dur: 2}, expr: 'serio'}), mike({x: 640, y: 1800, scale: 1.4, walk: {dur: 2}})];
+const draw2 = await painter({...p, shots: [{start: 0, end: 2, layers: wl}]});
+const {createCanvas} = await import('/home/claude/repo/stickman-video-director/skills/directing-stickman-videos/node_modules/@napi-rs/canvas/index.js');
+const strip = createCanvas(1080, 480), c = strip.getContext('2d');
+[0.0, 0.155, 0.31, 0.465, 0.62].forEach((t, i) => c.drawImage(draw2(t), i * 216, 0, 216, 384));
+fs.writeFileSync('walk.png', strip.toBuffer('image/png'));
 console.log('ok');
