@@ -80,6 +80,9 @@ export function makeEpisode(wordsPath = 'words.json') {
     return spans; };
   const shot = (start, end, build) => shots.push({start, end, layers: build(Math.floor((end - start) * 1000 - 1) / 1000)});
   const at = word => { const w = WORDS.find(x => x.text.replace(/[^\p{L}\d]/gu, '').toLowerCase() === word.toLowerCase()); if (!w) throw new Error('word not found: ' + word); return w.start; };
-  return {WORDS, shots, say, shot, at};
+  /** Audio-driven mouth for [a, b]: pass as `talk` to a character. Needs mouth-env.json (30 fps, 0..1). */
+  const ENV = fs.existsSync('mouth-env.json') ? JSON.parse(fs.readFileSync('mouth-env.json', 'utf8')) : null;
+  const mouth = (a, b) => ({fps: 30, env: ENV.slice(Math.round(a * 30), Math.round(b * 30) + 1)});
+  return {WORDS, shots, say, shot, at, mouth};
 }
 export const F = (time, name, gain, max) => ({time, kind: 'file', path: `sfx/${name}.wav`, gain, ...(max ? {max} : {})});

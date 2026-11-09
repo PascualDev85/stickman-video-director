@@ -162,6 +162,13 @@ function leg(side, outfit, swing, knee, stance = 0) {
  */
 /** Talking mouth: an open-mouth shape that flaps while any [t0, t1] span in `talk` is active (shot-local seconds). */
 function talkingMouth(talk, dur) {
+  // Audio-driven: `talk` = {env: [open 0..1 per frame], fps} → the mouth follows the real voice energy.
+  if (talk && talk.env) {
+    const fps = talk.fps || 30, keys = [];
+    for (let i = 0; i < talk.env.length && i / fps <= dur + 1e-6; i++) { const o = talk.env[i]; keys.push({t: r3(i / fps), alpha: o > 0.06 ? 1 : 0, scaleX: 1, scaleY: r3(0.25 + 0.75 * o)}); }
+    if (keys.at(-1).t < dur) keys.push({...keys.at(-1), t: r3(dur)});
+    return G([E(0, 0, 54, 40, {fill: '#5a2020', lineWidth: 6}), E(0, 10, 28, 12, {fill: '#e46a6a', stroke: 'none'})], {x: 4, y: -64, pivotX: 0, pivotY: -14, keys});
+  }
   const on = t => talk.some(([a, b]) => t >= a && t <= b);
   const keys = []; for (let t = 0; t < dur - 1e-6; t = r3(t + 1 / 15)) keys.push(t); keys.push(r3(dur));
   return G([E(0, 0, 54, 40, {fill: '#5a2020', lineWidth: 6}), E(0, 10, 28, 12, {fill: '#e46a6a', stroke: 'none'})],
@@ -195,7 +202,7 @@ export function person({who = 'becario', x = 0, y = 0, scale = 1, expr = 'cansad
   const hair = (isFarmer || o.hat) ? [] : [S([['M', -64, -232], ['L', -44, -284], ['L', -22, -240], ['L', 0, -296], ['L', 20, -242], ['L', 48, -280], ['L', 56, -230], ['Z']], INK, {lineWidth: 6})];
   const hat = isFarmer ? [E(0, -232, 380, 66, {fill: '#e9c46a'}), R(-98, -318, 196, 98, {radius: 34, fill: '#e9c46a'}), P([['M', -96, -248], ['L', 96, -248]], {stroke: '#9c4a1a', lineWidth: 14}),
     ...[-60, -20, 20, 60].map(xx => P([['M', xx, -312], ['L', xx + 8, -256]], {stroke: '#c9a24a', lineWidth: 4}))] : hatOf(o);
-  const head = G([...hair, E(0, -130, 272, 250), eyesG, ...f.rest, ...(talk && talk.length ? [talkingMouth(talk, talkDur ?? idle?.dur ?? walk?.dur)] : []), ...hat],
+  const head = G([...hair, E(0, -130, 272, 250), eyesG, ...f.rest, ...(talk && (talk.length || talk.env) ? [talkingMouth(talk, talkDur ?? idle?.dur ?? walk?.dur)] : []), ...hat],
     {y: -462, angle: deg(headTilt), pivotX: 0, pivotY: 0, ...(headKeys ? {keys: headKeys} : {})});
   const L = G([arm(-1, {shoulder: 8, ...armL, sleeve: o.sleeve}, m, m.armL, m.gL, m.geL, m.pL)], {x: -(torsoW / 2) - 6, y: -446});
   const Rr = G([arm(1, {shoulder: 8, ...armR, sleeve: o.sleeve}, m, m.armR, m.gR, m.geR, m.pR)], {x: torsoW / 2 + 6, y: -446});
