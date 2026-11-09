@@ -95,8 +95,11 @@ const signTower = (d, extra = []) => eiffel({x: 690, y: GROUND - 60, scale: 0.86
 // H0 frame / loop target: the tower wearing a SE VENDE sign, close on the sign.
 const hookA = d => [...parisSky(d), ...roofs(GROUND - 120, '#c7b2a3', 2, 200), band(GROUND - 140, 1000, '#d9c9a8'), band(GROUND - 140, 18, '#b8a888'), signTower(d)];
 const HA = {s: 1.55, px: 690, py: 900};
+/** Title card on the very first frames (and the loop end): it is also the frame picked as the YouTube thumbnail. */
+const titleCard = () => G([R(-470, -84, 940, 168, {radius: 16, fill: PAPER, lineWidth: 10}), ctext('VENDIÓ LA', 0, -70, 120, {maxW: 880}),
+  G([R(-480, -86, 960, 172, {radius: 10, fill: RED, lineWidth: 10}), ctext('TORRE EIFFEL', 0, -70, 124, {maxW: 900, color: PAPER})], {y: 190, angle: deg(-2)})], {x: 590, y: 400, angle: deg(-2)});
 // 1a · 0.00–0.56 · "Dicen que…" — the sign has just been hung: dust, shake, push in.
-shot(0, 0.56, d => [camF([...hookA(d), ...dust(560, 920, 0, d), ...dust(820, 900, 0.02, d)], d, t => ({s: mix(HA.s, HA.s * 1.1, eOut(t / d)), ...shake(t, 0, 0.3, 12)}), HA.px, HA.py)]);
+shot(0, 0.56, d => [camF([...hookA(d), ...dust(560, 920, 0.12, d), ...dust(820, 900, 0.14, d)], d, t => ({s: mix(HA.s, HA.s * 1.1, eOut(t / d)), ...shake(t, 0, 0.3, 12)}), HA.px, HA.py), titleCard()]);
 // 1b · 0.56–1.25 · "este hombre" — snap to Lustig: wink, hat tip, name tag.
 shot(0.56, 1.25, d => [camF([...rays(d, '#ffd34d', '#ffe9a0', 640, 900, 30, 14),
   lustig({x: 640, y: GROUND + 700, scale: 1.9, expr: 'picaro', look: 1, idle: {dur: d}, poses: {R: [{t: 0, shoulder: 10, elbow: 0}, {t: 0.22, shoulder: 178, elbow: -8}, {t: d, shoulder: 176, elbow: -6}]}})], d,
@@ -250,7 +253,7 @@ shot(53.95, 57.0, d => [camF([...office(d), desk(),
   emptyWallet(540, 1010, 2.32, d, 0.9)], d,
   t => ({s: t < 1.61 ? mix(1.08, 1.12, t / 1.61) : mix(1.12, 1.32, eInOut((t - 1.61) / 0.6)), ...(t > 0.73 ? shake(t, 0.73, 0.25, 14) : {})}), 520, 1000)]);
 // 17 · 57.00–END · loop: whip back to the first frame (tower + SE VENDE, close on the sign).
-shot(57.0, END, d => [camF(hookA(d), d, t => ({s: mix(1.0, HA.s, eOut(t / d)), a: mix(4, 0, eOut(t / d))}), HA.px, HA.py), flash(0, 0.1, PAPER, 0.7)]);
+shot(57.0, END, d => [camF(hookA(d), d, t => ({s: mix(1.0, HA.s, eOut(t / d)), a: mix(4, 0, eOut(t / d))}), HA.px, HA.py), G([titleCard()], {from: 0.2}), flash(0, 0.1, PAPER, 0.7)]);
 
 function clamp(v) { return Math.max(0, Math.min(1, v)); }
 const captions = JSON.parse(fs.readFileSync('captions.json', 'utf8'));
