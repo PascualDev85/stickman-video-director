@@ -2,7 +2,7 @@
 // Cuts follow the real word timings of narration take A (pauses tightened). Times in comments = narration seconds.
 import fs from 'node:fs';
 import {becario, lustig, poisson, gendarme, chatarrero, caneProp, eiffel, caseFolder, P, E, R, G, S, deg, INK, PAPER, ctext, osc} from '../kit.mjs';
-import {H, GROUND, RED, YEL, fill, band, lin, mix, r3, eOut, eInOut, eBack, shake, jit, sample, camF, cam, slam, popIn, flash, rays, cloud, vignette, office, desk, emptyWallet, makeEpisode, F} from '../lib.mjs';
+import {H, GROUND, RED, YEL, fill, band, lin, mix, r3, eOut, eInOut, eBack, shake, jit, sample, camF, cam, slam, popIn, flash, rays, cloud, vignette, office, desk, emptyWallet, makeEpisode, F, bubble} from '../lib.mjs';
 
 const {shots, say, shot, mouth} = makeEpisode('words.json');
 const VOICE = 57.155918, END = r3(VOICE + 0.4);
@@ -64,9 +64,16 @@ function hotel(dur) {
     P([['M', 900, -60], ['L', 900, 330]], {lineWidth: 6}), G([E(0, 0, 150, 60, {fill: '#e9b93a', lineWidth: 7}), ...[-90, -45, 0, 45, 90].map(x => G([R(-8, -60, 16, 50, {radius: 3, fill: PAPER, lineWidth: 4}), S([['M', 0, -84], ['Q', 12, -66, 0, -58], ['Q', -12, -66, 0, -84], ['Z']], '#ffcf4a', {lineWidth: 3})], {x})), ...[-60, -20, 20, 60].map(x => E(x, 48, 18, 30, {fill: '#d8f1ff', lineWidth: 4}))], {x: 900, y: 380, keys: osc(dur, 2.4, 1.5)})];
 }
 const table = () => G([R(330, 1176, 800, 46, {radius: 6, fill: '#3b6b4a', lineWidth: 8}), R(345, 1222, 770, 210, {radius: 4, fill: '#2f5a3e', lineWidth: 8}), P([['M', 345, 1418], ['L', 1115, 1418]], {stroke: '#e9b93a', lineWidth: 8})]);
-const dealers = (dur, set = 0) => {
+/** The dealers behind the table. They nod while listening; at `react` they switch to `expr2` / `look2` (head jolt). */
+const dealers = (dur, set = 0, react, expr2 = 'sorpresa', look2 = -1) => {
   const looks = set ? [[3, 'serio'], [1, 'sorpresa'], [2, 'contento']] : [[1, 'contento'], [2, 'sorpresa'], [3, 'serio']];
-  return looks.map(([n, e], i) => chatarrero(n, {x: 480 + i * 190, y: GROUND, scale: 0.8, expr: e, look: -1, idle: {dur}}));
+  return looks.flatMap(([n, e], i) => {
+    const base = {x: 480 + i * 190, y: GROUND, scale: 0.8, idle: {dur}};
+    const nod = sample(t => ({a: Math.sin(t * 4 + i * 1.7) * 4}), 0, dur, 1 / 15);
+    if (react === undefined) return [chatarrero(n, {...base, expr: e, look: -1, headKeys: nod})];
+    return [chatarrero(n, {...base, expr: e, look: -1, headKeys: nod, to: react}),
+      chatarrero(n, {...base, expr: expr2, look: look2, from: react, headKeys: sample(t => ({a: t < react + 0.25 ? Math.sin((t - react) * 50) * 6 : Math.sin(t * 3 + i) * 3}), 0, dur, 1 / 30)})];
+  });
 };
 function alcatraz(dur) {
   return [fill('#ffb36b'), band(-60, 420, '#ff8a5c'), band(-60, 200, '#a05a8a'), E(860, 1080, 300, 300, {fill: '#ffe08a', stroke: 'none'}), band(1150, 1200, '#3b5f8a'),
@@ -80,15 +87,36 @@ const jail = () => [fill('#8d929a'), ...Array.from({length: 18}, (_, i) => R((i 
   ...Array.from({length: 22}, (_, r) => Array.from({length: 8}, (_, c) => R(-60 + c * 180 + (r % 2) * 90, 40 + r * 100, 170, 90, {radius: 4, fill: '#9aa0a8', stroke: '#7a7f86', lineWidth: 4}))).flat()];
 const bars = () => [R(-60, 380, 1400, 40, {radius: 6, fill: '#3a3f47', lineWidth: 7}), ...Array.from({length: 8}, (_, i) => R(40 + i * 170, 380, 40, 1600, {radius: 8, fill: '#4a505a', lineWidth: 7}))];
 
-// ---------- hook composition (also the loop target) ----------
-const HOOK_S = 1.3, HOOK_A = -5, HPX = 640, HPY = 900;
-const hookLayers = d => [...parisSky(d), ...roofs(GROUND - 120, '#c7b2a3', 2, 200), band(GROUND - 140, 1000, '#d9c9a8'), band(GROUND - 140, 18, '#b8a888'),
-  eiffel({x: 690, y: GROUND - 60, scale: 0.86, extra: [sellSign()]}),
-  lustig({x: 300, y: GROUND + 140, scale: 1.25, expr: 'picaro', look: 1, idle: {dur: d}, armR: {shoulder: 112, elbow: 6}, armL: {shoulder: 12, elbow: 8, hold: [caneProp()]}})];
-
-// 1 · 0.00–4.00 · "Dicen que este hombre vendió la Torre Eiffel. Y no era suya."
-shot(0, 3.95, d => [camF(hookLayers(d), d, t => ({s: mix(HOOK_S, 1.0, eOut(t / 0.55)), a: mix(HOOK_A, 0, eOut(t / 0.55)), ...shake(t, 0, 0.3, 10), ...(t > 2.97 ? shake(t, 2.97, 0.25, 14) : {})}), HPX, HPY),
-  slam('Y NO ERA SUYA', 590, 430, 118, 2.97, d, {color: RED, stamp: true, tilt: -5, from: 1.6})]);
+// ---------- hook: 4 cuts in 4 s (sign · the man · the sale · the twist) ----------
+const dust = (x, y, t0, d) => Array.from({length: 6}, (_, i) => G([E(0, 0, 50, 40, {fill: '#e8dcc4', lineWidth: 5})], {from: t0, keys: sample(t => { const u = t - t0, a = deg(-160 + i * 28);
+  return {x: x + Math.cos(a) * 160 * eOut(u / 0.4), y: y + Math.sin(a) * 90 * eOut(u / 0.4) - 30 * u, alpha: 1 - u / 0.6, s: 0.6 + u}; }, t0, d)}));
+const vendidaStamp = (t0, d) => G([popIn(G([R(-250, -70, 500, 140, {radius: 12, fill: 'none', stroke: RED, lineWidth: 16}), ctext('VENDIDA', 0, -54, 110, {color: RED, maxW: 450})]), t0, d, 0.12)], {x: 0, y: -560, angle: deg(-14)});
+const signTower = (d, extra = []) => eiffel({x: 690, y: GROUND - 60, scale: 0.86, extra: [sellSign(), ...extra]});
+// H0 frame / loop target: the tower wearing a SE VENDE sign, close on the sign.
+const hookA = d => [...parisSky(d), ...roofs(GROUND - 120, '#c7b2a3', 2, 200), band(GROUND - 140, 1000, '#d9c9a8'), band(GROUND - 140, 18, '#b8a888'), signTower(d)];
+const HA = {s: 1.55, px: 690, py: 900};
+// 1a · 0.00–0.56 · "Dicen que…" — the sign has just been hung: dust, shake, push in.
+shot(0, 0.56, d => [camF([...hookA(d), ...dust(560, 920, 0, d), ...dust(820, 900, 0.02, d)], d, t => ({s: mix(HA.s, HA.s * 1.1, eOut(t / d)), ...shake(t, 0, 0.3, 12)}), HA.px, HA.py)]);
+// 1b · 0.56–1.25 · "este hombre" — snap to Lustig: wink, hat tip, name tag.
+shot(0.56, 1.25, d => [camF([...rays(d, '#ffd34d', '#ffe9a0', 640, 900, 30, 14),
+  lustig({x: 640, y: GROUND + 700, scale: 1.9, expr: 'picaro', look: 1, idle: {dur: d}, poses: {R: [{t: 0, shoulder: 10, elbow: 0}, {t: 0.22, shoulder: 178, elbow: -8}, {t: d, shoulder: 176, elbow: -6}]}})], d,
+  t => ({s: mix(1.25, 1.0, eOut(t / 0.2)), a: mix(6, 0, eOut(t / 0.2)), ...shake(t, 0, 0.2, 14)}), 640, 900),
+  G([popIn(G([R(-260, -54, 520, 108, {radius: 12, fill: INK, stroke: 'none'}), ctext('VICTOR LUSTIG', 0, -40, 72, {color: YEL, maxW: 470})]), 0.12, d)], {x: 590, y: 1250}),
+  flash(0, 0.08, PAPER, 0.8)]);
+// 1c · 1.25–2.95 · "vendió la Torre Eiffel." — wide: the deal, money changes hands, VENDIDA slams on the sign.
+shot(1.25, 2.95, d => [camF([...parisSky(d), ...roofs(GROUND - 120, '#c7b2a3', 2, 200), band(GROUND - 140, 1000, '#d9c9a8'), band(GROUND - 140, 18, '#b8a888'),
+  signTower(d, [G([vendidaStamp(0.87, d)], {})]),
+  lustig({x: 330, y: GROUND + 140, scale: 1.12, expr: 'picaro', look: 1, idle: {dur: d}, armL: {shoulder: 12, hold: [caneProp()]}, armR: {shoulder: 75, elbow: 10}}),
+  poisson({x: 1000, y: GROUND + 140, scale: 1.05, expr: 'contento', look: -1, idle: {dur: d}, armL: {shoulder: 75, elbow: 10}}),
+  G([briefcase()], {keys: sample(t => ({x: mix(860, 520, eInOut((t - 0.15) / 0.5)), y: 1000 - Math.sin(clamp((t - 0.15) / 0.5) * Math.PI) * 80}), 0, d)}),
+  ...coinBurst(560, 960, 0.6, d, 7, 260)], d,
+  t => ({s: mix(1.14, 1.0, eOut(t / 0.25)) + (t > 0.87 ? 0.06 * (1 - eOut((t - 0.87) / 0.3)) : 0), ...shake(t, 0, 0.15, 8), ...(t > 0.87 ? shake(t, 0.87, 0.3, 16) : {})}), 640, 1000),
+  flash(0.87, 0.08, PAPER, 0.5)]);
+// 1d · 2.95–3.95 · "Y no era suya." — record scratch, Dutch snap on Lustig's grin.
+shot(2.95, 3.95, d => [camF([...parisSky(d), signTower(d, [G([R(-250, -70, 500, 140, {radius: 12, fill: 'none', stroke: RED, lineWidth: 16}), ctext('VENDIDA', 0, -54, 110, {color: RED, maxW: 450})], {y: -560, angle: deg(-14)})]), band(GROUND - 140, 1000, '#d9c9a8'),
+  lustig({x: 470, y: GROUND + 420, scale: 1.55, expr: 'picaro', look: 1, idle: {dur: d}, armL: {shoulder: 12, hold: [caneProp()]}, armR: {shoulder: 112, elbow: 6}})], d,
+  t => ({s: mix(1.3, 1.18, eOut(t / d)), a: mix(-8, -5, eOut(t / d)), ...shake(t, 0.02, 0.25, 14)}), 600, 1000),
+  slam('Y NO ERA SUYA', 590, 430, 118, 0.02, d, {color: RED, stamp: true, tilt: -5})]);
 // 2 · 4.00–9.32 · "Expediente 001. Yo llevo meses sin cobrar… así que quiero saber cómo."
 shot(3.95, 9.25, d => [camF([...office(d), desk(),
   becario({x: 290, y: GROUND - 20, scale: 1.0, expr: 'sarcastico', look: 1, idle: {dur: d}, talk: mouth(3.95, 9.25), gestures: [{t0: 2.95, t1: 3.95, arm: 'R', shoulder: 60, elbow: 70}]}),
@@ -137,13 +165,15 @@ shot(21.9, 25.33, d => [camF([...hotel(d), ...dealers(d), poisson({x: 1050, y: G
   t => ({s: 1.08, x: mix(70, -70, eInOut(t / d))}), 640, 1000),
   slam('HOTEL DE LUJO', 590, 450, 108, 2.6, d, {color: YEL, tilt: -3, from: 1.3})]);
 // 7 · 25.42–28.95 · "Su secreto: el Gobierno va a vender la torre como chatarra."
-shot(25.33, 28.87, d => [camF([...hotel(d), poisson({x: 1050, y: GROUND, scale: 0.8, expr: 'contento', look: -1, idle: {dur: d}}), chatarrero(2, {x: 840, y: GROUND, scale: 0.8, expr: 'sorpresa', look: -1, idle: {dur: d}}), table(),
+shot(25.33, 28.87, d => [camF([...hotel(d), poisson({x: 1050, y: GROUND, scale: 0.8, expr: 'serio', look: -1, idle: {dur: d}, to: 2.97}), poisson({x: 1050, y: GROUND, scale: 0.8, expr: 'contento', look: -1, idle: {dur: d}, from: 2.97, headKeys: sample(t => ({a: Math.sin(t * 9) * 5}), 0, d, 1 / 15)}),
+  chatarrero(2, {x: 840, y: GROUND, scale: 0.8, expr: 'serio', look: -1, idle: {dur: d}, to: 2.97}), chatarrero(2, {x: 840, y: GROUND, scale: 0.8, expr: 'sorpresa', look: -1, idle: {dur: d}, from: 2.97}), table(),
   lustig({x: 330, y: GROUND + 60, scale: 1.12, expr: 'picaro', look: 1, idle: {dur: d}, armR: {shoulder: 40, elbow: 90}, armL: {shoulder: 10, hold: [caneProp()]}}),
   G([...lieBubble(780, 640, 300, 230)], {from: 1.11, keys: sample(t => ({alpha: (t - 1.11) / 0.15, s: mix(0.6, 1, eBack((t - 1.11) / 0.25))}), 1.11, d), pivotX: 780, pivotY: 640}),
   G([eiffel({x: 780, y: 820, scale: 0.24})], {from: 1.2, to: 2.97, keys: sample(t => ({alpha: (t - 1.2) / 0.15}), 1.2, 2.97)}),
   G([popIn(scrapPile(), 2.97, d, 0.18)], {x: 780, y: 760}),
   ...coinBurst(840, 900, 3.05, d, 6, 220), ...coinBurst(1050, 920, 3.15, d, 6, 220)], d,
   t => ({s: mix(1.0, 1.1, t / d), x: mix(30, -30, eInOut(t / d)), ...(t > 2.97 ? shake(t, 2.97, 0.25, 12) : {})}), 640, 900),
+  bubble('¡OOOH!', 1010, 1130, 980, 1200, 3.05, d, {size: 54}),
   slam('CHATARRA', 780, 1010, 90, 2.97, d, {color: RED, tilt: -6})]);
 // 8 · 28.95–30.42 · "Pero… discreción."
 shot(28.87, 30.32, d => [camF([fill('#1e0e12'), E(620, 1150, 1100, 1300, {fill: '#4a2228', stroke: 'none'}), E(620, 1150, 760, 900, {fill: '#6a3238', stroke: 'none'}), lustig({x: 640, y: GROUND + 1000, scale: 2.2, expr: 'picaro', look: 1, idle: {dur: d}, poses: {R: [{t: 0, shoulder: 8, elbow: 0}, {t: 0.3, shoulder: -78.8, elbow: 114.1}, {t: d, shoulder: -78.8, elbow: 114.1}]},
@@ -153,24 +183,28 @@ shot(28.87, 30.32, d => [camF([fill('#1e0e12'), E(620, 1150, 1100, 1300, {fill: 
   G([ctext('shhh…', 0, 0, 90, {color: '#c9c3b8', maxW: 400})], {x: 930, y: 560, from: 0.69, keys: sample(t => ({alpha: (t - 0.69) / 0.3, y: 560 - (t - 0.69) * 60}), 0.69, d)})]);
 // 9 · 30.42–34.74 · "André Poisson quiere el trato tanto… que encima le paga un soborno."
 shot(30.32, 34.58, d => [camF([...hotel(d),
-  lustig({x: 320, y: GROUND + 60, scale: 1.12, expr: 'picaro', look: 1, idle: {dur: d}, armL: {shoulder: 10, hold: [caneProp()]}, gestures: [{t0: 2.0, t1: 3.9, arm: 'R', shoulder: 70, elbow: 10}]}),
+  lustig({x: 320, y: GROUND + 60, scale: 1.12, expr: 'serio', look: 1, idle: {dur: d}, armL: {shoulder: 10, hold: [caneProp()]}, gestures: [{t0: 2.0, t1: 3.9, arm: 'R', shoulder: 70, elbow: 10}], to: 3.66}),
+  lustig({x: 320, y: GROUND + 60, scale: 1.12, expr: 'contento', look: 1, idle: {dur: d}, armL: {shoulder: 10, hold: [caneProp()]}, armR: {shoulder: 70, elbow: 10}, from: 3.66}),
   poisson({x: 900, y: GROUND + 60, scale: 1.1, expr: 'nervioso', look: -1, idle: {dur: d}, headKeys: osc(d, 0.5, 4), gestures: [{t0: 1.5, t1: 3.9, arm: 'L', shoulder: 75, elbow: 10}]}),
   G([briefcase()], {from: 1.45, keys: sample(t => ({x: mix(760, 560, eInOut((t - 1.69) / 0.5)), y: 1090 - Math.sin(clamp((t - 1.69) / 0.5) * Math.PI) * 60, alpha: (t - 1.45) / 0.15}), 1.45, d)}),
   G([envelope()], {from: 3.2, keys: sample(t => ({x: mix(780, 520, eInOut((t - 3.25) / 0.4)), y: 1300 + Math.sin(t * 20) * 4, alpha: (t - 3.2) / 0.1}), 3.2, d)}),
+  bubble('¡TRATO HECHO!', 860, 640, 900, 760, 1.75, d, {size: 50, until: 3.5}),
   popIn(G([R(-210, -46, 420, 92, {radius: 10, fill: PAPER, lineWidth: 8}), ctext('ANDRÉ POISSON', 0, -32, 54, {maxW: 380})]), 0.05, d, 0.22, 3.3)].map((l, i, a) => i === a.length - 1 ? G([l], {x: 640, y: 560}) : l), d,
   t => ({s: t < 3.6 ? mix(1.0, 1.06, t / 3.6) : mix(1.06, 1.22, eOut((t - 3.6) / 0.3)), x: t < 3.6 ? mix(20, -20, t / 3.6) : -20, ...(t > 3.66 ? shake(t, 3.66, 0.25, 12) : {})}), 640, 1250),
   slam('+ SOBORNO', 590, 560, 120, 3.66, d, {color: RED, stamp: true, tilt: -6})]);
 // 10 · 34.74–38.24 · "Lustig cobra y, en menos de una hora, va camino de Austria."
-const train = () => G([R(0, -220, 380, 200, {radius: 18, fill: '#2f3a4a', lineWidth: 9}), R(250, -330, 110, 120, {radius: 10, fill: '#3a4a5a', lineWidth: 8}), R(40, -300, 60, 80, {radius: 6, fill: '#2f3a4a', lineWidth: 7}),
+const train = (headFrom = 0) => G([R(0, -220, 380, 200, {radius: 18, fill: '#2f3a4a', lineWidth: 9}), R(250, -330, 110, 120, {radius: 10, fill: '#3a4a5a', lineWidth: 8}), R(40, -300, 60, 80, {radius: 6, fill: '#2f3a4a', lineWidth: 7}),
   S([['M', 380, -20], ['L', 440, -20], ['L', 380, -100], ['Z']], '#c8202a', {lineWidth: 7}), ...[70, 190, 310].map(x => E(x, -10, 90, 90, {fill: '#c8202a', lineWidth: 8})),
   R(-560, -260, 520, 240, {radius: 14, fill: '#7a1f2b', lineWidth: 9}), ...[-500, -340, -180].map(x => R(x, -230, 110, 90, {radius: 8, fill: '#ffe6a0', lineWidth: 6})),
   ...[-480, -120].map(x => E(x, -10, 80, 80, {fill: '#3a3f47', lineWidth: 7})), R(-330, -110, 120, 26, {fill: '#c8202a', lineWidth: 4}), R(-330, -84, 120, 26, {fill: PAPER, lineWidth: 4}), R(-330, -58, 120, 26, {fill: '#c8202a', lineWidth: 4}),
-  G([E(0, 0, 50, 50, {fill: PAPER, lineWidth: 5}), R(-24, -64, 48, 50, {radius: 4, fill: '#15171f', lineWidth: 4}), R(-34, -20, 68, 10, {fill: '#15171f', stroke: 'none'})], {x: -445, y: -180})]);
+  G([E(0, 0, 50, 50, {fill: PAPER, lineWidth: 5}), R(-24, -64, 48, 50, {radius: 4, fill: '#15171f', lineWidth: 4}), R(-34, -20, 68, 10, {fill: '#15171f', stroke: 'none'})], {x: -445, y: -180, from: headFrom})]);
 shot(34.58, 38.1, d => [camF([fill('#cfe6f2'), ...roofs(1100, '#c7b2a3', 6, 220), band(1100, 1200, '#b9b0a0'), band(1330, 26, '#5a5f6a'), band(1390, 26, '#5a5f6a'), ...Array.from({length: 16}, (_, i) => R(-60 + i * 90, 1316, 30, 120, {radius: 2, fill: '#6b4423', stroke: 'none'})),
-  R(-60, GROUND + 40, 1400, 300, {radius: 0, fill: '#d9c9a8', lineWidth: 7}),
-  lustig({x: 300, y: GROUND + 260, scale: 1.0, expr: 'picaro', look: 1, walk: {dur: d, period: 0.36, stride: 30}, move: lin(1.7, 260, 1500), armR: {hold: [G([briefcase()], {y: 160, scaleX: 0.7, scaleY: 0.7})]}}),
-  G([train()], {x: -800, y: 1330, scaleX: 1.5, scaleY: 1.5, from: 1.5, keys: sample(t => ({x: mix(-500, 1900, (t - 1.5) / 1.7)}), 1.5, d)})], d,
-  t => ({s: 1.05, ...(t > 1.6 ? shake(t, 1.6, 1.2, 6) : {})}), 640, 1200),
+  R(-60, GROUND + 40, 1400, 300, {radius: 0, fill: '#d9c9a8', lineWidth: 7}), R(820, 560, 300, 90, {radius: 10, fill: '#1f3c7a', lineWidth: 7}), ctext('VIENA', 970, 572, 60, {color: PAPER, maxW: 260}),
+  // train pulls in (decelerating), waits, leaves with Lustig waving
+  G([train(1.6)], {y: 1330, scaleX: 1.5, scaleY: 1.5, keys: sample(t => ({x: t < 1.0 ? mix(-900, 560, eOut(t / 1.0)) : t < 1.95 ? 560 : mix(560, 2300, Math.pow((t - 1.95) / 1.5, 2))}), 0, d)}),
+  ...Array.from({length: 5}, (_, i) => G([E(0, 0, 110, 90, {fill: PAPER, lineWidth: 6})], {from: 1.95 + i * 0.2, keys: sample(t => { const u = t - 1.95 - i * 0.2; return {x: 700 + i * 60 + u * 200, y: 780 - u * 300, alpha: 1 - u / 1.2, s: 0.6 + u}; }, 1.95 + i * 0.2, d)})),
+  lustig({x: 1300, y: GROUND + 260, scale: 1.0, expr: 'picaro', look: -1, walk: {dur: 1.55, period: 0.3, stride: 34}, to: 1.55, move: sample(t => ({x: mix(1300, 300, eInOut(t / 1.45)), alpha: t > 1.4 ? 1 - (t - 1.4) / 0.15 : 1}), 0, 1.55), armR: {hold: [G([briefcase()], {y: 160, scaleX: 0.7, scaleY: 0.7})]}})], d,
+  t => ({s: 1.06, x: t < 1.4 ? mix(-60, 40, eInOut(t / 1.4)) : 40, ...(t > 1.95 ? shake(t, 1.95, 0.6, 5) : {})}), 640, 1200),
   slam('< 1 HORA', 590, 430, 110, 2.1, d, {color: INK, tilt: 4}), slam('¡A AUSTRIA!', 590, 580, 120, 3.06, d, {color: RED, stamp: true, tilt: -5})]);
 // 11 · 38.10–41.53 · "¿Poisson? Le da tanta vergüenza que ni lo denuncia."
 const blushCheek = (x, y, t0, d) => G([E(0, 0, 150, 84, {fill: '#ff6b7a', stroke: 'none'}), ...[-36, 0, 36].map(dx => P([['M', dx - 14, 16], ['L', dx + 14, -16]], {stroke: '#e0263a', lineWidth: 7}))],
@@ -186,12 +220,12 @@ shot(38.1, 41.53, d => [camF([fill('#f0d9b5'), ...rays(d, '#f0d9b5', '#f5e4c6', 
   t => ({s: t < 1.6 ? mix(1.0, 1.04, t / 1.6) : mix(1.04, 1.16, eInOut((t - 1.6) / 1.2)), ...(t > 2.95 ? shake(t, 2.95, 0.2, 10) : {})}), 640, 1150),
   slam('¿POISSON?', 590, 430, 120, 0.19, d, {color: INK, tilt: -4})]);
 // 12 · 41.66–44.16 · "Así que Lustig vuelve y lo intenta otra vez."
-shot(41.53, 44.15, d => [camF([...hotel(d), ...dealers(d, 1), chatarrero(1, {x: 1050, y: GROUND, scale: 0.72, expr: 'contento', look: -1, idle: {dur: d}}), table(),
+shot(41.53, 44.15, d => [camF([...hotel(d), ...dealers(d, 1, 2.04, 'contento', -1), chatarrero(1, {x: 1050, y: GROUND, scale: 0.72, expr: 'contento', look: -1, idle: {dur: d}}), table(),
   lustig({x: 230, y: GROUND + 40, scale: 0.95, expr: 'picaro', look: 1, idle: {dur: d}, gestures: [{t0: 0.2, t1: 2.3, arm: 'R', shoulder: 80, elbow: 20}], armL: {shoulder: 10, hold: [caneProp()]}})], d,
-  t => ({s: mix(1.12, 1.04, eOut(t / 0.4)), x: mix(-60, 60, eInOut(t / d))}), 640, 1000),
+  t => ({s: mix(1.3, 1.18, eOut(t / d)), x: mix(60, -40, eInOut(t / d))}), 760, 1000),
   slam('¡OTRA VEZ!', 590, 480, 128, 2.04, d, {color: RED, stamp: true, tilt: 5})]);
 // 13 · 44.16–48.10 · "Pero esta vez alguien avisa a la policía… y él escapa por poco."
-shot(44.15, 48.0, d => [camF([...hotel(d), ...dealers(d, 1), table(),
+shot(44.15, 48.0, d => [camF([...hotel(d), ...dealers(d, 1, 1.76, 'sorpresa', 1), table(),
   gendarme({x: 1150, y: GROUND + 40, scale: 1.0, expr: 'serio', look: -1, walk: {dur: 2.2, period: 0.4}, from: 1.5, move: [{t: 1.5, x: 1450}, {t: 2.2, x: 1080}], armL: {shoulder: 95, elbow: 0}}),
   lustig({x: 640, y: GROUND + 40, scale: 1.0, expr: 'sorpresa', look: 1, idle: {dur: d}, to: 2.6}),
   lustig({x: 640, y: GROUND + 40, scale: 1.0, expr: 'picaro', look: -1, walk: {dur: d, period: 0.3, stride: 34}, from: 2.6, to: 3.16, move: sample(t => ({x: mix(640, 200, eInOut((t - 2.6) / 0.5)), y: GROUND + 40 - Math.sin(clamp((t - 2.6) / 0.56) * Math.PI) * 220}), 2.6, 3.16)}),
@@ -215,8 +249,8 @@ shot(53.95, 57.0, d => [camF([...office(d), desk(),
   caseFolder({x: 760, y: 1040, scale: 0.62}), G([popIn(G([R(-190, -60, 380, 120, {radius: 10, fill: 'none', stroke: RED, lineWidth: 14}), ctext('CERRADO', 0, -40, 84, {color: RED, maxW: 340})]), 0.73, d, 0.12)], {x: 760, y: 1070, angle: deg(-12)}),
   emptyWallet(540, 1010, 2.32, d, 0.9)], d,
   t => ({s: t < 1.61 ? mix(1.08, 1.12, t / 1.61) : mix(1.12, 1.32, eInOut((t - 1.61) / 0.6)), ...(t > 0.73 ? shake(t, 0.73, 0.25, 14) : {})}), 520, 1000)]);
-// 17 · 57.16–END · loop: whip back to the hook's first frame.
-shot(57.0, END, d => [camF(hookLayers(d), d, t => ({s: mix(1.0, HOOK_S, eOut(t / d)), a: mix(4, HOOK_A, eOut(t / d))}), HPX, HPY), flash(0, 0.1, PAPER, 0.7)]);
+// 17 · 57.00–END · loop: whip back to the first frame (tower + SE VENDE, close on the sign).
+shot(57.0, END, d => [camF(hookA(d), d, t => ({s: mix(1.0, HA.s, eOut(t / d)), a: mix(4, 0, eOut(t / d))}), HA.px, HA.py), flash(0, 0.1, PAPER, 0.7)]);
 
 function clamp(v) { return Math.max(0, Math.min(1, v)); }
 const captions = JSON.parse(fs.readFileSync('captions.json', 'utf8'));

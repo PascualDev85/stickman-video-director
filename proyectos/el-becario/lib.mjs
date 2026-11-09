@@ -86,3 +86,9 @@ export function makeEpisode(wordsPath = 'words.json') {
   return {WORDS, shots, say, shot, at, mouth};
 }
 export const F = (time, name, gain, max) => ({time, kind: 'file', path: `sfx/${name}.wav`, gain, ...(max ? {max} : {})});
+/** Comic speech bubble with tail pointing to (tx, ty), centred at (x, y). */
+export function bubble(text, x, y, tx, ty, t0, d, {size = 56, maxW = 420, until} = {}) {
+  const t = ctext(text, 0, -size * 0.62, size, {maxW}), w = Math.max(t.w + 60, 200), h = size * 1.6;
+  const body = G([S([['M', -24, h / 2 - 6], ['L', tx - x, ty - y], ['L', 30, h / 2 - 6], ['Z']], PAPER, {lineWidth: 7}), R(-w / 2, -h / 2, w, h, {radius: h / 2, fill: PAPER, lineWidth: 8}), t]);
+  return G([popIn(body, t0, until || d, 0.2)], {x, y, ...(until ? {from: t0, to: until} : {})});
+}
