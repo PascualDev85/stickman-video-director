@@ -68,9 +68,9 @@ Para no repetir pruebas ni gastar créditos/tokens. Todo sale de los EXP 001 y 0
 1. Guion aprobado por David **antes** de gastar créditos. Autocrítica + segunda opinión (otra IA) si es un episodio nuevo.
 2. ElevenLabs `creative_generate_speech`, modelo `eleven_v4`, voz Montero `rXI8ZNc3ZIKyGcQPbQMl`, 2 tomas (~1.000 créditos cada una para ~48 s). Acotaciones en inglés entre corchetes (`[deadpan]`, `[sighs]`, `[serious, slower]`). Números escritos en letra («cero cero dos», «mil novecientos…»).
 3. Tiempos: fijar la toma con `creative_add_flow_asset_node` y `creative_transcribe_audio` (Scribe, 0 créditos). `herramientas/voz.py words` limpia acotaciones y une «cero cero N»; los años hay que dejarlos como «1945.» a mano.
-4. `voz.py mouth` (boca), `autopilot captions words.json captions.json --shorts` y retocar cortes raros (no partir «A mí, ni gratis»).
+4. `voz.py mouth` (boca) y `voz.py caps words.json --skip N --max 20` (subtítulos: bloques de una línea, cortados en puntuación/pausas, nunca terminan en artículo o preposición; `--skip` = palabras que ya dice el título del gancho). `captionSize: 76` en project.json.
 5. Para comparar tomas: transcribir también la B y montar un mp3 con las frases clave A/B (pitido 1 = A, pitido 2 = B). David decide de oído.
-6. `voz.py gaps` para ver pausas; `voz.py retime` para recortar silencios largos (> 0,4 s fuera de los chistes) o **insertar una pausa** donde deba oírse un efecto sin voz encima.
+6. `voz.py silences narration.mp3` para ver los silencios REALES; `voz.py retime` recorta solo dentro de ellos (aborta si no) o **inserta una pausa** donde deba oírse un efecto sin voz encima. Comprobar después con RMS que la primera consonante de la palabra siguiente sigue ahí.
 
 ### Lecciones (no repetir)
 - **Un chiste de sonido necesita silencio.** Si el narrador dice «suena a tubería atascada», el efecto va en una pausa propia antes del remate, nunca debajo de la voz.
@@ -83,6 +83,13 @@ Para no repetir pruebas ni gastar créditos/tokens. Todo sale de los EXP 001 y 0
 - **No repetir arriba lo que dice el subtítulo.** El título de arriba aporta otra cosa (contexto o remate).
 - **Títulos de arriba:** `tag()` de lib.mjs (etiqueta de papel con borde y sombra, estilo expediente). **Rótulos de golpe:** `slam(..., {outline: true})` para que se lean en cualquier fondo.
 - **Pausas largas de la voz** alargan el vídeo: recortar con `voz.py retime` hasta 45-48 s, sin tocar las pausas cómicas.
+- **Recortar e insertar SOLO en silencio medido** (RMS < -42 dB), con 60 ms de margen. Los bordes de palabra de Scribe fallan hasta 0,4 s: así se cortó la «C» de «Colorado» («olorado») y la «S» de «Suena» en la v4.
+- **Ningún efecto encima de una palabra.** Golpes (sello, hacha, caja) en los huecos de la voz o justo antes; ambientes (gente, neón) ≤ 0,2; whooshes ≤ 0,25. Nada de efectos al arrancar el vídeo: el gorgoteo inicial tapaba «Este pollo vivió».
+- **Remate «ni gratis» + grillos:** hace falta ~0,8 s de silencio después (se insertó 0,4 s).
+- **Títulos de arriba solo si aportan** (contexto, número, remate visual): unos 10 por vídeo. Los que repetían el subtítulo (A POR UN POLLO, Y SE VA, RESPIRAR, TUBERÍA ATASCADA, NI UN LUNES…) se quitaron.
+- **Nada desborda, ni durante la animación:** un `slam` entra a escala `from` (1,6 por defecto), así que ancho×from tiene que caber entre x 64 y 1126 del plano. Rótulos grandes: `from` 1,1-1,3. Etiqueta del gancho con `{pop: false}` para que salga entera en el primer fotograma.
+- **Cajas dentro de la escena:** el contador no puede tapar la etiqueta de la carpeta (contador en y≈660).
+- Subtítulos karaoke (palabra en amarillo): `captionTrack` en lib.mjs está listo, pero necesita que el motor permita no quemar sus subtítulos → pendiente de aprobación de David.
 - **Nada de sangre ni corte visible**: el hachazo es corte a negro + «¡ZAS!» + plumas.
 - **Validar siempre** (`autopilot validate`) antes del preview: zona segura `pass` y tiempos de keys dentro del plano (`featherBurst`/`flapAt` cerca del final del plano fallan).
 - Ganancia de SFX máx. 1 (validador): si un efecto se oye poco, comprimir/normalizar el wav, no subir la ganancia.

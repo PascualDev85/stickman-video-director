@@ -1,212 +1,257 @@
 [
  {
-  "start": 0.08,
-  "end": 1.12,
-  "text": "Este pollo vivió"
- },
- {
-  "start": 1.24,
-  "end": 2.68,
+  "start": 1.19,
+  "end": 2.89,
   "text": "dieciocho meses..."
  },
  {
-  "start": 3.04,
-  "end": 3.88,
+  "start": 2.92,
+  "end": 4.08,
   "text": "sin cabeza."
  },
  {
-  "start": 4.13,
-  "end": 6.01,
+  "start": 4.09,
+  "end": 6.08,
   "text": "Expediente 002."
  },
  {
-  "start": 6.256,
-  "end": 8.18,
-  "text": "Colorado, 1945."
+  "start": 6.09,
+  "end": 6.76,
+  "text": "Colorado,"
  },
  {
-  "start": 8.22,
-  "end": 9.42,
-  "text": "Viene a cenar la suegra..."
+  "start": 6.77,
+  "end": 8.44,
+  "text": "1945."
  },
  {
-  "start": 9.66,
-  "end": 10.62,
+  "start": 8.45,
+  "end": 9.0,
+  "text": "Viene a cenar"
+ },
+ {
+  "start": 9.01,
+  "end": 9.76,
+  "text": "la suegra..."
+ },
+ {
+  "start": 9.77,
+  "end": 10.88,
   "text": "y el granjero va"
  },
  {
-  "start": 10.66,
-  "end": 11.54,
+  "start": 10.89,
+  "end": 11.92,
   "text": "a por un pollo."
  },
  {
-  "start": 11.724,
-  "end": 12.34,
+  "start": 11.93,
+  "end": 12.749,
   "text": "Hachazo..."
  },
  {
-  "start": 12.529,
-  "end": 13.66,
-  "text": "y el pollo se levanta."
+  "start": 12.759,
+  "end": 13.2,
+  "text": "y el pollo"
  },
  {
-  "start": 13.82,
-  "end": 14.74,
+  "start": 13.21,
+  "end": 13.99,
+  "text": "se levanta."
+ },
+ {
+  "start": 14.0,
+  "end": 15.13,
   "text": "Y se va andando."
  },
  {
-  "start": 14.94,
-  "end": 15.94,
+  "start": 15.14,
+  "end": 16.36,
   "text": "Al día siguiente..."
  },
  {
-  "start": 16.14,
-  "end": 16.86,
+  "start": 16.37,
+  "end": 17.07,
   "text": "sigue vivo."
  },
  {
-  "start": 17.056,
-  "end": 17.33,
+  "start": 17.08,
+  "end": 17.8,
   "text": "¿Cómo?"
  },
  {
-  "start": 17.57,
-  "end": 18.61,
-  "text": "El hacha le dejó casi"
+  "start": 17.81,
+  "end": 18.62,
+  "text": "El hacha le dejó"
  },
  {
-  "start": 18.69,
-  "end": 19.25,
-  "text": "todo el tronco"
+  "start": 18.63,
+  "end": 19.62,
+  "text": "casi todo el tronco"
  },
  {
-  "start": 19.33,
-  "end": 20.103,
+  "start": 19.63,
+  "end": 20.447,
   "text": "del cerebro:"
  },
  {
-  "start": 20.157,
-  "end": 21.53,
-  "text": "lo justo para respirar..."
+  "start": 20.457,
+  "end": 20.9,
+  "text": "lo justo"
  },
  {
-  "start": 21.57,
-  "end": 22.317,
+  "start": 20.91,
+  "end": 21.8,
+  "text": "para respirar..."
+ },
+ {
+  "start": 21.81,
+  "end": 22.6,
   "text": "y andar."
  },
  {
-  "start": 22.343,
-  "end": 22.77,
+  "start": 22.61,
+  "end": 23.14,
   "text": "Lo alimentan"
  },
  {
-  "start": 22.85,
-  "end": 23.677,
+  "start": 23.15,
+  "end": 23.993,
   "text": "con un gotero..."
  },
  {
-  "start": 23.703,
-  "end": 24.69,
-  "text": "y le limpian la garganta"
+  "start": 24.003,
+  "end": 24.46,
+  "text": "y le limpian"
  },
  {
-  "start": 24.73,
-  "end": 25.661,
+  "start": 24.47,
+  "end": 25.02,
+  "text": "la garganta"
+ },
+ {
+  "start": 25.03,
+  "end": 25.96,
   "text": "con una jeringa."
  },
  {
-  "start": 25.73,
-  "end": 27.13,
-  "text": "Hasta intenta cantar."
+  "start": 25.97,
+  "end": 26.74,
+  "text": "Hasta intenta"
  },
  {
-  "start": 28.334,
-  "end": 29.99,
-  "text": "Suena a tubería atascada."
+  "start": 26.75,
+  "end": 27.56,
+  "text": "cantar."
  },
  {
-  "start": 30.097,
-  "end": 30.937,
+  "start": 28.49,
+  "end": 29.44,
+  "text": "Suena a tubería"
+ },
+ {
+  "start": 29.45,
+  "end": 30.3,
+  "text": "atascada."
+ },
+ {
+  "start": 30.31,
+  "end": 31.253,
   "text": "Lo llaman Mike,"
  },
  {
-  "start": 30.963,
-  "end": 31.63,
+  "start": 31.263,
+  "end": 32.04,
   "text": "y se va de gira"
  },
  {
-  "start": 31.75,
-  "end": 32.777,
+  "start": 32.05,
+  "end": 33.093,
   "text": "por todo el país."
  },
  {
-  "start": 32.803,
-  "end": 34.277,
-  "text": "La gente paga por verlo."
+  "start": 33.103,
+  "end": 33.92,
+  "text": "La gente paga"
  },
  {
-  "start": 34.39,
-  "end": 35.956,
-  "text": "A mí, ni gratis."
+  "start": 33.93,
+  "end": 34.57,
+  "text": "por verlo."
  },
  {
-  "start": 36.025,
-  "end": 36.951,
+  "start": 34.58,
+  "end": 35.307,
+  "text": "A mí,"
+ },
+ {
+  "start": 35.317,
+  "end": 36.36,
+  "text": "ni gratis."
+ },
+ {
+  "start": 36.67,
+  "end": 37.681,
   "text": "Pero una noche,"
  },
  {
-  "start": 36.991,
-  "end": 37.911,
+  "start": 37.691,
+  "end": 38.641,
   "text": "en un motel,"
  },
  {
-  "start": 37.951,
-  "end": 38.951,
+  "start": 38.651,
+  "end": 39.65,
   "text": "se atraganta..."
  },
  {
-  "start": 38.991,
-  "end": 39.631,
+  "start": 39.66,
+  "end": 40.361,
   "text": "y no encuentran"
  },
  {
-  "start": 39.671,
-  "end": 40.551,
+  "start": 40.371,
+  "end": 41.26,
   "text": "la jeringa."
  },
  {
-  "start": 40.705,
-  "end": 41.471,
-  "text": "Hoy su pueblo le hace"
+  "start": 41.27,
+  "end": 41.961,
+  "text": "Hoy su pueblo"
  },
  {
-  "start": 41.511,
-  "end": 42.92,
-  "text": "un festival cada año."
+  "start": 41.971,
+  "end": 42.801,
+  "text": "le hace un festival"
  },
  {
-  "start": 42.991,
-  "end": 44.282,
+  "start": 42.811,
+  "end": 43.61,
+  "text": "cada año."
+ },
+ {
+  "start": 43.62,
+  "end": 44.98,
   "text": "Expediente cerrado."
  },
  {
-  "start": 44.351,
-  "end": 45.231,
+  "start": 44.99,
+  "end": 46.041,
   "text": "Dieciocho meses"
  },
  {
-  "start": 45.351,
-  "end": 46.397,
+  "start": 46.051,
+  "end": 47.14,
   "text": "sin cabeza..."
  },
  {
-  "start": 46.671,
-  "end": 47.231,
+  "start": 47.15,
+  "end": 47.961,
   "text": "y yo no aguanto"
  },
  {
-  "start": 47.271,
-  "end": 48.191,
+  "start": 47.971,
+  "end": 49.3,
   "text": "ni un lunes."
  }
 ]

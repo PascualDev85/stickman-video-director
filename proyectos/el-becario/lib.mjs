@@ -1,7 +1,7 @@
 // Shared episode helpers for "Historias Sin Cabeza" (camera, punches, text slams, transitions, sets).
 // Extracted from EXP 002 (Mike) so every new episode starts from the same toolbox.
 import fs from 'node:fs';
-import {becario, person, osc, P, E, R, G, S, deg, INK, PAPER, ctext} from './kit.mjs';
+import {becario, person, osc, P, E, R, G, S, deg, INK, PAPER, ctext, textWidth} from './kit.mjs';
 
 export const H = 1280 * 1920 / 1080, GROUND = 1420, RED = '#e0261b', YEL = '#ffd21f';
 export const T = (text, x, y, size = 96, o = {}) => ({type: 'text', text, x, y, size, bold: true, color: INK, w: 1120 - x, ...o});
@@ -42,11 +42,12 @@ export function slam(text, cx, cy, size, t0, d, {color = INK, from = 1.6, tilt =
   return G(parts, {x: cx, y: cy, from: t0, ...(until ? {to: end} : {}), keys: sample(tt => ({s: mix(from, 1, eBack((tt - t0) / 0.16)), a: tilt, alpha: (tt - t0) / 0.05}), t0, end)});
 }
 /** Top title as a paper tag (expediente style): centred, ink border, drop shadow, slight tilt, pops in at t0. */
-export function tag(text, y, size = 88, {color = INK, bg = PAPER, tilt = -2, t0 = 0, maxW = 900} = {}) {
+export function tag(text, y, size = 88, {color = INK, bg = PAPER, tilt = -2, t0 = 0, maxW = 900, pop = true} = {}) {
   const t = ctext(text, 0, 0, size, {maxW, color}), w = t.w + 20, h = Math.round(t.size * 1.5);
   t.y = Math.round(-h / 2 + (h - t.size * 1.36) / 2);
   return G([R(-w / 2 + 10, -h / 2 + 12, w, h, {radius: 12, fill: 'rgba(0,0,0,0.28)', stroke: 'none'}), R(-w / 2, -h / 2, w, h, {radius: 12, fill: bg, lineWidth: 8}), t],
-    {x: 640, y, from: t0, keys: sample(tt => ({s: mix(0.6, 1, eBack((tt - t0) / 0.18)), a: tilt}), t0, t0 + 0.2)});
+    // pop: false => entera desde el primer fotograma (gancho = miniatura)
+    {x: 640, y, from: t0, ...(pop ? {keys: sample(tt => ({s: mix(0.6, 1, eBack((tt - t0) / 0.18)), a: tilt}), t0, t0 + 0.2)} : {angle: deg(tilt)})});
 }
 /** Pop a layer in at t0 (scale 0 -> 1 with overshoot) around its own origin. */
 export const popIn = (layer, t0, d, len = 0.22, until) => G([layer], {from: t0, ...(until ? {to: until} : {}), keys: sample(t => ({s: mix(0.05, 1, eBack((t - t0) / len))}), t0, until || d)});
@@ -94,6 +95,51 @@ export function makeEpisode(wordsPath = 'words.json') {
   const ENV = fs.existsSync('mouth-env.json') ? JSON.parse(fs.readFileSync('mouth-env.json', 'utf8')) : null;
   const mouth = (a, b) => ({fps: 30, env: ENV.slice(Math.round(a * 30), Math.round(b * 30) + 1)});
   return {WORDS, shots, say, shot, at, mouth};
+}
+/**
+ * Subtítulos propios (abajo), por bloques cortos tipo karaoke: el bloque entra con un pequeño «pop»,
+ * texto blanco en mayúsculas con contorno de tinta y sombra, y la palabra que se está diciendo en amarillo.
+ * PENDIENTE DE APROBACIÓN: el motor exige y quema sus propios subtítulos (project.captions no puede ir vacío),
+ * así que esto solo se puede usar si se añade al motor una opción para no quemarlos (manteniendo el .srt).
+ * Uso: tras definir los planos,
+ *   const cap = captionTrack(WORDS, {skip: n}); for (const s of shots) s.layers.push(...cap(s.start, s.end));
+ * - skip: número de palabras iniciales que no se subtitulan (p. ej. las que ya dice el título del gancho).
+ * - Bloques de máx. maxChars caracteres; se corta en puntuación o en pausas > gapBreak s.
+ * - Cabe siempre en maxW (se reduce el cuerpo si hace falta); centrado en x=640 => dentro de la zona segura.
+ */
+export function captionTrack(WORDS, {skip = 0, y = 1550, size = 86, maxChars = 17, gapBreak = 0.3, maxW = 900, hi = YEL, color = PAPER, linger = 0.45} = {}) {
+  const ws = WORDS.slice(skip).map(w => ({t: (w.text ?? w.word).toUpperCase(), s: w.start, e: w.end}));
+  const chunks = []; let cur = null;
+  ws.forEach((w, i) => {
+    const prev = ws[i - 1];
+    const brk = !cur || cur.text.length + 1 + w.t.length > maxChars || /[.,:;?!…]$/.test(prev.t) || w.s - prev.e > gapBreak;
+    if (brk) { cur = {words: [], text: ''}; chunks.push(cur); }
+    cur.words.push(w); cur.text = cur.text ? cur.text + ' ' + w.t : w.t;
+  });
+  chunks.forEach((c, i) => { c.start = Math.max(0, c.words[0].s - 0.05); const next = chunks[i + 1]; c.end = next ? Math.min(next.words[0].s - 0.05, c.words.at(-1).e + linger) : c.words.at(-1).e + linger;
+    c.end = Math.max(c.end, c.start + 0.25); if (next) c.end = Math.min(c.end, Math.max(0, next.words[0].s - 0.05)); });
+  return (a, b) => {
+    const d = Math.floor((b - a) * 1000 - 1) / 1000, out = [];
+    for (const c of chunks) {
+      if (c.end <= a || c.start >= b) continue;
+      const t0 = r3(Math.max(0, c.start - a)), t1 = r3(Math.min(d, c.end - a)); if (t1 - t0 < 0.02) continue;
+      let sz = size; while (textWidth(c.text, sz) > maxW && sz > 30) sz -= 2;
+      const w = textWidth(c.text, sz), x0 = -w / 2, ty = -sz * 0.68, k = Math.max(4, sz * 0.07);
+      const base = {type: 'text', text: c.text, x: Math.round(x0), y: ty, size: sz, bold: true, color, w: Math.ceil(w) + 40};
+      const halo = [[1, 0], [-1, 0], [0, 1], [0, -1], [0.7, 0.7], [-0.7, 0.7], [0.7, -0.7], [-0.7, -0.7]].map(([dx, dy]) => ({...base, x: base.x + dx * k, y: base.y + dy * k, color: INK}));
+      const shadow = {...base, x: base.x + k * 0.8, y: base.y + k * 1.6, color: INK, alpha: 0.35};
+      const his = []; let pre = '';
+      c.words.forEach((wd, j) => {
+        const xw = Math.round(x0 + (pre ? textWidth(pre + ' ', sz) : 0)); pre = pre ? pre + ' ' + wd.t : wd.t;
+        const ws0 = r3(Math.max(t0, wd.s - a)), next = c.words[j + 1], we = r3(Math.min(t1, (next ? next.s : c.end) - a));
+        if (we - ws0 < 0.02) return;
+        his.push({...base, text: wd.t, x: xw, w: Math.ceil(textWidth(wd.t, sz)) + 40, color: hi, from: ws0, to: we});
+      });
+      const popStart = c.start >= a;
+      out.push(G([shadow, ...halo, base, ...his], {x: 640, y, from: t0, to: t1, keys: popStart ? sample(t => ({s: mix(0.82, 1, eBack((t - t0) / 0.12))}), t0, r3(Math.min(t1, t0 + 0.14))) : [{t: t0, scaleX: 1, scaleY: 1}]}));
+    }
+    return out;
+  };
 }
 export const F = (time, name, gain, max) => ({time, kind: 'file', path: `sfx/${name}.wav`, gain, ...(max ? {max} : {})});
 /** Comic speech bubble with tail pointing to (tx, ty), centred at (x, y). */

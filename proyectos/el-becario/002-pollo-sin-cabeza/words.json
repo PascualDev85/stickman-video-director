@@ -23,11 +23,11 @@
   {
    "word": "meses...",
    "start": 1.92,
-   "end": 2.68
+   "end": 2.44
   },
   {
    "word": "sin",
-   "start": 3.04,
+   "start": 2.97,
    "end": 3.28
   },
   {
@@ -37,629 +37,629 @@
   },
   {
    "word": "Expediente",
-   "start": 4.13,
-   "end": 4.85
+   "start": 4.14,
+   "end": 4.9
   },
   {
    "word": "002.",
-   "start": 5.01,
-   "end": 6.01
+   "start": 5.06,
+   "end": 5.92
   },
   {
    "word": "Colorado,",
-   "start": 6.256,
-   "end": 6.42
+   "start": 6.14,
+   "end": 6.7
   },
   {
    "word": "1945.",
-   "start": 6.54,
-   "end": 8.18
-  },
-  {
-   "word": "Viene",
-   "start": 8.22,
-   "end": 8.38
-  },
-  {
-   "word": "a",
-   "start": 8.42,
+   "start": 6.82,
    "end": 8.46
   },
   {
+   "word": "Viene",
+   "start": 8.5,
+   "end": 8.66
+  },
+  {
+   "word": "a",
+   "start": 8.7,
+   "end": 8.74
+  },
+  {
    "word": "cenar",
-   "start": 8.54,
-   "end": 8.7
+   "start": 8.82,
+   "end": 8.98
   },
   {
    "word": "la",
-   "start": 8.78,
-   "end": 8.86
+   "start": 9.06,
+   "end": 9.14
   },
   {
    "word": "suegra...",
-   "start": 8.9,
-   "end": 9.42
+   "start": 9.18,
+   "end": 9.54
   },
   {
    "word": "y",
-   "start": 9.66,
-   "end": 9.74
+   "start": 9.82,
+   "end": 10.02
   },
   {
    "word": "el",
-   "start": 9.82,
-   "end": 9.9
+   "start": 10.1,
+   "end": 10.18
   },
   {
    "word": "granjero",
-   "start": 9.98,
-   "end": 10.46
+   "start": 10.26,
+   "end": 10.74
   },
   {
    "word": "va",
-   "start": 10.54,
-   "end": 10.62
+   "start": 10.82,
+   "end": 10.9
   },
   {
    "word": "a",
-   "start": 10.66,
-   "end": 10.7
+   "start": 10.94,
+   "end": 10.98
   },
   {
    "word": "por",
-   "start": 10.78,
-   "end": 10.86
+   "start": 11.06,
+   "end": 11.14
   },
   {
    "word": "un",
-   "start": 10.94,
-   "end": 11.02
+   "start": 11.22,
+   "end": 11.3
   },
   {
    "word": "pollo.",
-   "start": 11.1,
-   "end": 11.54
+   "start": 11.38,
+   "end": 11.69
   },
   {
    "word": "Hachazo...",
-   "start": 11.724,
-   "end": 12.34
+   "start": 11.98,
+   "end": 12.62
   },
   {
    "word": "y",
-   "start": 12.529,
-   "end": 12.54
+   "start": 12.809,
+   "end": 12.82
   },
   {
    "word": "el",
-   "start": 12.62,
-   "end": 12.7
+   "start": 12.9,
+   "end": 12.98
   },
   {
    "word": "pollo",
-   "start": 12.82,
-   "end": 12.94
+   "start": 13.1,
+   "end": 13.22
   },
   {
    "word": "se",
-   "start": 12.98,
-   "end": 13.02
+   "start": 13.26,
+   "end": 13.3
   },
   {
    "word": "levanta.",
-   "start": 13.1,
-   "end": 13.66
+   "start": 13.38,
+   "end": 13.76
   },
   {
    "word": "Y",
-   "start": 13.82,
-   "end": 13.86
+   "start": 14.05,
+   "end": 14.2
   },
   {
    "word": "se",
-   "start": 13.9,
-   "end": 13.98
+   "start": 14.18,
+   "end": 14.26
   },
   {
    "word": "va",
-   "start": 14.02,
-   "end": 14.06
+   "start": 14.3,
+   "end": 14.34
   },
   {
    "word": "andando.",
-   "start": 14.18,
-   "end": 14.74
+   "start": 14.46,
+   "end": 14.82
   },
   {
    "word": "Al",
-   "start": 14.94,
-   "end": 15.02
+   "start": 15.19,
+   "end": 15.34
   },
   {
    "word": "día",
-   "start": 15.1,
-   "end": 15.18
+   "start": 15.38,
+   "end": 15.46
   },
   {
    "word": "siguiente...",
-   "start": 15.26,
-   "end": 15.94
+   "start": 15.54,
+   "end": 16.22
   },
   {
    "word": "sigue",
-   "start": 16.14,
-   "end": 16.38
+   "start": 16.42,
+   "end": 16.66
   },
   {
    "word": "vivo.",
-   "start": 16.46,
-   "end": 16.86
+   "start": 16.74,
+   "end": 16.97
   },
   {
    "word": "¿Cómo?",
-   "start": 17.056,
-   "end": 17.33
+   "start": 17.13,
+   "end": 17.46
   },
   {
    "word": "El",
-   "start": 17.57,
-   "end": 17.65
+   "start": 17.86,
+   "end": 18.01
   },
   {
    "word": "hacha",
-   "start": 17.73,
-   "end": 17.89
+   "start": 18.08,
+   "end": 18.24
   },
   {
    "word": "le",
-   "start": 17.93,
-   "end": 17.97
+   "start": 18.28,
+   "end": 18.32
   },
   {
    "word": "dejó",
-   "start": 18.05,
-   "end": 18.29
+   "start": 18.4,
+   "end": 18.64
   },
   {
    "word": "casi",
-   "start": 18.33,
-   "end": 18.61
+   "start": 18.68,
+   "end": 18.96
   },
   {
    "word": "todo",
-   "start": 18.69,
-   "end": 18.85
+   "start": 19.04,
+   "end": 19.2
   },
   {
    "word": "el",
-   "start": 18.93,
-   "end": 19.01
+   "start": 19.28,
+   "end": 19.36
   },
   {
    "word": "tronco",
-   "start": 19.09,
-   "end": 19.25
+   "start": 19.44,
+   "end": 19.6
   },
   {
    "word": "del",
-   "start": 19.33,
-   "end": 19.41
+   "start": 19.68,
+   "end": 19.76
   },
   {
    "word": "cerebro:",
-   "start": 19.49,
-   "end": 20.103
+   "start": 19.84,
+   "end": 20.453
   },
   {
    "word": "lo",
-   "start": 20.157,
-   "end": 20.21
+   "start": 20.507,
+   "end": 20.56
   },
   {
    "word": "justo",
-   "start": 20.33,
-   "end": 20.53
+   "start": 20.68,
+   "end": 20.88
   },
   {
    "word": "para",
-   "start": 20.61,
-   "end": 20.69
+   "start": 20.96,
+   "end": 21.04
   },
   {
    "word": "respirar...",
-   "start": 20.77,
-   "end": 21.53
+   "start": 21.12,
+   "end": 21.59
   },
   {
    "word": "y",
-   "start": 21.57,
-   "end": 21.61
+   "start": 21.86,
+   "end": 22.01
   },
   {
    "word": "andar.",
-   "start": 21.65,
-   "end": 22.317
+   "start": 22.0,
+   "end": 22.29
   },
   {
    "word": "Lo",
-   "start": 22.343,
-   "end": 22.37
+   "start": 22.66,
+   "end": 22.81
   },
   {
    "word": "alimentan",
-   "start": 22.41,
-   "end": 22.77
+   "start": 22.76,
+   "end": 23.12
   },
   {
    "word": "con",
-   "start": 22.85,
-   "end": 22.93
+   "start": 23.2,
+   "end": 23.28
   },
   {
    "word": "un",
-   "start": 22.97,
-   "end": 23.01
+   "start": 23.32,
+   "end": 23.36
   },
   {
    "word": "gotero...",
-   "start": 23.09,
-   "end": 23.677
+   "start": 23.44,
+   "end": 24.027
   },
   {
    "word": "y",
-   "start": 23.703,
-   "end": 23.73
+   "start": 24.053,
+   "end": 24.08
   },
   {
    "word": "le",
-   "start": 23.77,
-   "end": 23.81
+   "start": 24.12,
+   "end": 24.16
   },
   {
    "word": "limpian",
-   "start": 23.89,
-   "end": 24.13
+   "start": 24.24,
+   "end": 24.48
   },
   {
    "word": "la",
-   "start": 24.17,
-   "end": 24.21
+   "start": 24.52,
+   "end": 24.56
   },
   {
    "word": "garganta",
-   "start": 24.29,
-   "end": 24.69
+   "start": 24.64,
+   "end": 25.04
   },
   {
    "word": "con",
-   "start": 24.73,
-   "end": 24.77
+   "start": 25.08,
+   "end": 25.12
   },
   {
    "word": "una",
-   "start": 24.85,
-   "end": 24.93
+   "start": 25.2,
+   "end": 25.28
   },
   {
    "word": "jeringa.",
-   "start": 25.01,
-   "end": 25.661
+   "start": 25.36,
+   "end": 25.76
   },
   {
    "word": "Hasta",
-   "start": 25.73,
-   "end": 25.97
+   "start": 26.02,
+   "end": 26.32
   },
   {
    "word": "intenta",
-   "start": 26.09,
-   "end": 26.37
+   "start": 26.44,
+   "end": 26.72
   },
   {
    "word": "cantar.",
-   "start": 26.45,
-   "end": 27.13
+   "start": 26.8,
+   "end": 27.11
   },
   {
    "word": "Suena",
-   "start": 28.334,
-   "end": 28.59
+   "start": 28.54,
+   "end": 28.94
   },
   {
    "word": "a",
-   "start": 28.643,
-   "end": 28.697
+   "start": 28.993,
+   "end": 29.047
   },
   {
    "word": "tubería",
-   "start": 28.75,
-   "end": 29.07
+   "start": 29.1,
+   "end": 29.42
   },
   {
    "word": "atascada.",
-   "start": 29.15,
-   "end": 29.99
+   "start": 29.5,
+   "end": 30.03
   },
   {
    "word": "Lo",
-   "start": 30.097,
-   "end": 30.11
+   "start": 30.36,
+   "end": 30.51
   },
   {
    "word": "llaman",
-   "start": 30.15,
-   "end": 30.43
+   "start": 30.5,
+   "end": 30.78
   },
   {
    "word": "Mike,",
-   "start": 30.67,
-   "end": 30.937
+   "start": 31.02,
+   "end": 31.287
   },
   {
    "word": "y",
-   "start": 30.963,
-   "end": 30.99
+   "start": 31.313,
+   "end": 31.34
   },
   {
    "word": "se",
-   "start": 31.07,
-   "end": 31.11
+   "start": 31.42,
+   "end": 31.46
   },
   {
    "word": "va",
-   "start": 31.15,
-   "end": 31.23
+   "start": 31.5,
+   "end": 31.58
   },
   {
    "word": "de",
-   "start": 31.27,
-   "end": 31.31
+   "start": 31.62,
+   "end": 31.66
   },
   {
    "word": "gira",
-   "start": 31.39,
-   "end": 31.63
+   "start": 31.74,
+   "end": 31.98
   },
   {
    "word": "por",
-   "start": 31.75,
-   "end": 31.87
+   "start": 32.1,
+   "end": 32.22
   },
   {
    "word": "todo",
-   "start": 31.95,
-   "end": 32.03
+   "start": 32.3,
+   "end": 32.38
   },
   {
    "word": "el",
-   "start": 32.11,
-   "end": 32.19
+   "start": 32.46,
+   "end": 32.54
   },
   {
    "word": "país.",
-   "start": 32.27,
-   "end": 32.777
+   "start": 32.62,
+   "end": 33.127
   },
   {
    "word": "La",
-   "start": 32.803,
-   "end": 32.83
+   "start": 33.153,
+   "end": 33.18
   },
   {
    "word": "gente",
-   "start": 32.91,
-   "end": 33.23
+   "start": 33.26,
+   "end": 33.58
   },
   {
    "word": "paga",
-   "start": 33.31,
-   "end": 33.55
+   "start": 33.66,
+   "end": 33.9
   },
   {
    "word": "por",
-   "start": 33.63,
-   "end": 33.71
+   "start": 33.98,
+   "end": 34.06
   },
   {
    "word": "verlo.",
-   "start": 33.79,
-   "end": 34.277
+   "start": 34.14,
+   "end": 34.36
   },
   {
    "word": "A",
-   "start": 34.39,
-   "end": 34.43
+   "start": 34.63,
+   "end": 34.78
   },
   {
    "word": "mí,",
-   "start": 34.51,
-   "end": 34.963
+   "start": 34.86,
+   "end": 35.313
   },
   {
    "word": "ni",
-   "start": 35.017,
-   "end": 35.07
+   "start": 35.367,
+   "end": 35.42
   },
   {
    "word": "gratis.",
-   "start": 35.51,
-   "end": 35.956
+   "start": 35.86,
+   "end": 35.91
   },
   {
    "word": "Pero",
-   "start": 36.025,
-   "end": 36.111
+   "start": 36.72,
+   "end": 36.87
   },
   {
    "word": "una",
-   "start": 36.191,
-   "end": 36.351
+   "start": 36.941,
+   "end": 37.101
   },
   {
    "word": "noche,",
-   "start": 36.431,
-   "end": 36.951
+   "start": 37.181,
+   "end": 37.701
   },
   {
    "word": "en",
-   "start": 36.991,
-   "end": 37.071
+   "start": 37.741,
+   "end": 37.821
   },
   {
    "word": "un",
-   "start": 37.111,
-   "end": 37.151
+   "start": 37.861,
+   "end": 37.901
   },
   {
    "word": "motel,",
-   "start": 37.231,
-   "end": 37.911
+   "start": 37.981,
+   "end": 38.661
   },
   {
    "word": "se",
-   "start": 37.951,
-   "end": 37.991
+   "start": 38.701,
+   "end": 38.741
   },
   {
    "word": "atraganta...",
-   "start": 38.031,
-   "end": 38.951
+   "start": 38.781,
+   "end": 39.35
   },
   {
    "word": "y",
-   "start": 38.991,
-   "end": 39.031
+   "start": 39.71,
+   "end": 39.86
   },
   {
    "word": "no",
-   "start": 39.071,
-   "end": 39.151
+   "start": 39.821,
+   "end": 39.901
   },
   {
    "word": "encuentran",
-   "start": 39.231,
-   "end": 39.631
+   "start": 39.981,
+   "end": 40.381
   },
   {
    "word": "la",
-   "start": 39.671,
-   "end": 39.711
+   "start": 40.421,
+   "end": 40.461
   },
   {
    "word": "jeringa.",
-   "start": 39.791,
-   "end": 40.551
+   "start": 40.541,
+   "end": 40.89
   },
   {
    "word": "Hoy",
-   "start": 40.705,
-   "end": 40.751
+   "start": 41.32,
+   "end": 41.501
   },
   {
    "word": "su",
-   "start": 40.831,
-   "end": 40.911
+   "start": 41.581,
+   "end": 41.661
   },
   {
    "word": "pueblo",
-   "start": 40.951,
-   "end": 41.231
+   "start": 41.701,
+   "end": 41.981
   },
   {
    "word": "le",
-   "start": 41.271,
-   "end": 41.311
+   "start": 42.021,
+   "end": 42.061
   },
   {
    "word": "hace",
-   "start": 41.364,
-   "end": 41.471
+   "start": 42.114,
+   "end": 42.221
   },
   {
    "word": "un",
-   "start": 41.511,
-   "end": 41.551
+   "start": 42.261,
+   "end": 42.301
   },
   {
    "word": "festival",
-   "start": 41.631,
-   "end": 42.031
+   "start": 42.381,
+   "end": 42.781
   },
   {
    "word": "cada",
-   "start": 42.111,
-   "end": 42.271
+   "start": 42.861,
+   "end": 43.021
   },
   {
    "word": "año.",
-   "start": 42.351,
-   "end": 42.92
+   "start": 43.101,
+   "end": 43.33
   },
   {
    "word": "Expediente",
-   "start": 42.991,
-   "end": 43.471
+   "start": 43.67,
+   "end": 44.221
   },
   {
    "word": "cerrado.",
-   "start": 43.551,
-   "end": 44.282
+   "start": 44.301,
+   "end": 44.7
   },
   {
    "word": "Dieciocho",
-   "start": 44.351,
-   "end": 44.911
+   "start": 45.04,
+   "end": 45.661
   },
   {
    "word": "meses",
-   "start": 45.031,
-   "end": 45.231
+   "start": 45.781,
+   "end": 45.981
   },
   {
    "word": "sin",
-   "start": 45.351,
-   "end": 45.471
+   "start": 46.101,
+   "end": 46.221
   },
   {
    "word": "cabeza...",
-   "start": 45.511,
-   "end": 46.397
+   "start": 46.261,
+   "end": 46.86
   },
   {
    "word": "y",
-   "start": 46.671,
-   "end": 46.698
+   "start": 47.2,
+   "end": 47.448
   },
   {
    "word": "yo",
-   "start": 46.724,
-   "end": 46.751
+   "start": 47.474,
+   "end": 47.501
   },
   {
    "word": "no",
-   "start": 46.791,
-   "end": 46.831
+   "start": 47.541,
+   "end": 47.581
   },
   {
    "word": "aguanto",
-   "start": 46.911,
-   "end": 47.231
+   "start": 47.661,
+   "end": 47.981
   },
   {
    "word": "ni",
-   "start": 47.271,
-   "end": 47.311
+   "start": 48.021,
+   "end": 48.061
   },
   {
    "word": "un",
-   "start": 47.391,
-   "end": 47.471
+   "start": 48.141,
+   "end": 48.221
   },
   {
    "word": "lunes.",
-   "start": 47.551,
-   "end": 48.191
+   "start": 48.301,
+   "end": 48.941
   }
  ],
- "method": "ElevenLabs Scribe v1 (toma A); números unidos para mostrar; pausa de 1.1s insertada en 28.16s para el canto de Mike; pausas recortadas: 4.05-4.4, 6.4-6.79, 17.62-17.87"
+ "method": "Scribe toma A; silencios insertados [(28.06, 1.1), (35.65, 0.4)] (tiempo toma A); recortes [(4.02, 4.32), (6.3, 6.46), (17.5, 17.68)] solo dentro de silencios RMS<-42dB medidos; inicio de palabra tras silencio ajustado al fin del silencio"
 }
