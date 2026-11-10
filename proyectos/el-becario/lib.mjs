@@ -32,11 +32,21 @@ export const camF = (layers, d, f, px = 640, py = 1000) => G(layers, {pivotX: px
 /** Default camera for a cut: 5% punch settling in 0.18 s, then a slow push. */
 export const cam = (layers, d, from = 1, to = 1.05, px = 640, py = 1000) => camF(layers, d, t => ({s: (t < 0.18 && d > 0.5 ? mix(from * 1.05, from, eOut(t / 0.18)) : mix(from, to, t / d))}), px, py);
 /** Text centred at (cx, cy) that slams in (scale `from` -> 1, ease back) at t0. */
-export function slam(text, cx, cy, size, t0, d, {color = INK, from = 1.6, tilt = 0, maxW = 900, stamp = false, until} = {}) {
+export function slam(text, cx, cy, size, t0, d, {color = INK, from = 1.6, tilt = 0, maxW = 900, stamp = false, until, outline = false} = {}) {
   const t = ctext(text, 0, -size * 0.68, size, {maxW, color});
-  const parts = stamp ? [R(-t.w / 2 - 10, -size * 0.85, t.w + 20, size * 1.5, {radius: 14, fill: 'none', stroke: color, lineWidth: 12}), t] : [t];
+  // outline: 8 offset copies under the text so it reads on any background (the renderer has no text stroke)
+  const oc = typeof outline === 'string' ? outline : [PAPER, '#ffffff', YEL, '#ffd21f', '#6fd3ff'].includes(color) ? INK : PAPER, k = Math.max(3, t.size * 0.055);
+  const halo = outline ? [[1, 0], [-1, 0], [0, 1], [0, -1], [0.7, 0.7], [-0.7, 0.7], [0.7, -0.7], [-0.7, -0.7]].map(([dx, dy]) => ({...t, x: t.x + dx * k, y: t.y + dy * k, color: oc})) : [];
+  const parts = stamp ? [R(-t.w / 2 - 10, -size * 0.85, t.w + 20, size * 1.5, {radius: 14, fill: 'none', stroke: color, lineWidth: 12}), ...halo, t] : [...halo, t];
   const end = until ? Math.min(until, d) : d;
   return G(parts, {x: cx, y: cy, from: t0, ...(until ? {to: end} : {}), keys: sample(tt => ({s: mix(from, 1, eBack((tt - t0) / 0.16)), a: tilt, alpha: (tt - t0) / 0.05}), t0, end)});
+}
+/** Top title as a paper tag (expediente style): centred, ink border, drop shadow, slight tilt, pops in at t0. */
+export function tag(text, y, size = 88, {color = INK, bg = PAPER, tilt = -2, t0 = 0, maxW = 900} = {}) {
+  const t = ctext(text, 0, 0, size, {maxW, color}), w = t.w + 20, h = Math.round(t.size * 1.5);
+  t.y = Math.round(-h / 2 + (h - t.size * 1.36) / 2);
+  return G([R(-w / 2 + 10, -h / 2 + 12, w, h, {radius: 12, fill: 'rgba(0,0,0,0.28)', stroke: 'none'}), R(-w / 2, -h / 2, w, h, {radius: 12, fill: bg, lineWidth: 8}), t],
+    {x: 640, y, from: t0, keys: sample(tt => ({s: mix(0.6, 1, eBack((tt - t0) / 0.18)), a: tilt}), t0, t0 + 0.2)});
 }
 /** Pop a layer in at t0 (scale 0 -> 1 with overshoot) around its own origin. */
 export const popIn = (layer, t0, d, len = 0.22, until) => G([layer], {from: t0, ...(until ? {to: until} : {}), keys: sample(t => ({s: mix(0.05, 1, eBack((t - t0) / len))}), t0, until || d)});

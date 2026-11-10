@@ -253,14 +253,16 @@ export function mike({x = 0, y = 0, scale = 1, head = false, walk, idle, flapAt 
     P([['M', -30, 34], ['Q', -20, 10, -6, 34], ['Q', 6, 8, 20, 30], ['Q', 34, 6, 46, 24], ['Q', 62, 2, 72, 12]], {lineWidth: 6}),
     P([['M', -40, 0], ['Q', 10, -24, 70, -10]], {stroke: LACE, lineWidth: 5}),
   ], {x: -10, y: -170, pivotX: -40, pivotY: -10, keys: flapAt.length ? flapAt.flatMap(t => [{t: r3(t), angle: 0}, {t: r3(t + 0.12), angle: deg(-35)}, {t: r3(t + 0.24), angle: deg(5)}, {t: r3(t + 0.36), angle: deg(-30)}, {t: r3(t + 0.5), angle: 0}]) : undefined});
-  // Neck: cream feathered column with a draped ruff of pointed feathers (no parallel lines: it read as a corn cob).
-  const RUFF = '#e9a640', RUFF2 = '#f4c264', RUFF3 = '#f8dc9a';
-  const feather = (fx, fy, a, c, s = 1) => G([S([['M', -20, 0], ['Q', 0, -10, 20, 0], ['Q', 24, 40, 0, 50], ['Q', -24, 40, -20, 0], ['Z']], c, {lineWidth: 6})], {x: fx, y: fy, angle: deg(a), scaleX: s, scaleY: s});
-  const hackles = S([['M', -50, 40], ['Q', -58, -30, -38, -94], ['Q', 0, -110, 38, -94], ['Q', 60, -30, 52, 40], ['Z']], CREAM, {lineWidth: 8});
+  // Neck v3: one tapered cream shape growing out of the body (no outline at the base, no collar),
+  // with a couple of soft feather arcs like the breast. Read as a chicken neck, not as a tube or a cob.
+  const hackles = G([
+    S([['M', -60, 60], ['Q', -62, -10, -36, -92], ['Q', 0, -104, 36, -92], ['Q', 64, -6, 62, 60], ['Z']], CREAM, {stroke: 'none'}),
+    P([['M', -60, 40], ['Q', -60, -10, -36, -92]], {lineWidth: 8}),
+    P([['M', 60, 74], ['Q', 64, -6, 36, -92]], {lineWidth: 8}),
+  ]);
   const hackleLines = [
-    P([['M', -30, -60], ['Q', 0, -48, 34, -64]], {stroke: RUFF3, lineWidth: 6}),
-    feather(-42, -16, -24, RUFF2, 0.9), feather(-16, -8, -10, RUFF, 1.0), feather(12, -6, 4, RUFF2, 1.0), feather(38, -12, 18, RUFF, 0.92), feather(56, -24, 30, RUFF2, 0.78),
-    P([['M', -24, -86], ['Q', 0, -94, 24, -86]], {stroke: LACE, lineWidth: 5}),
+    P([['M', -30, -44], ['Q', -16, -32, -2, -44]], {stroke: LACE, lineWidth: 5}), P([['M', 6, -46], ['Q', 20, -34, 34, -46]], {stroke: LACE, lineWidth: 5}),
+    P([['M', -40, -6], ['Q', -24, 6, -8, -6]], {stroke: LACE, lineWidth: 5}), P([['M', 0, -8], ['Q', 16, 4, 32, -8]], {stroke: LACE, lineWidth: 5}),
   ];
   const top = head ? [
     E(10, -138, 120, 108, {fill: CREAM}),
@@ -269,8 +271,8 @@ export function mike({x = 0, y = 0, scale = 1, head = false, walk, idle, flapAt 
     S([['M', 52, -108], ['Q', 66, -68, 42, -70], ['Q', 32, -90, 52, -108], ['Z']], TIE, {lineWidth: 6}),
     E(34, -150, 18, 22, {fill: INK, stroke: 'none'}), E(37, -155, 6, 6, {fill: PAPER, stroke: 'none'}),
   ] : [
-    P([['M', -36, -98], ['L', -28, -118], ['L', -16, -104], ['L', -6, -124], ['L', 6, -104], ['L', 16, -122], ['L', 26, -104], ['L', 36, -116], ['L', 38, -96]], {stroke: INK, lineWidth: 6, fill: CREAM}),
-    E(0, -100, 60, 20, {fill: '#f3ddd3', lineWidth: 6}), // neatly feathered stump, no gore
+    E(0, -94, 70, 24, {fill: '#f3ddd3', lineWidth: 7}), // clean, rounded cut: no gore, no crown
+    P([['M', -26, -100], ['Q', -40, -118, -30, -130]], {lineWidth: 5}), P([['M', -14, -104], ['Q', -20, -124, -6, -134]], {lineWidth: 5}),
   ];
   const neck = G([hackles, ...hackleLines, ...top], {x: 100, y: -232, angle: deg(14), pivotX: 0, pivotY: 40,
     keys: walk ? osc(d, p, 9, {phase: Math.PI / 2, base: 14}) : idle ? osc(d, head ? 1.8 : 1.2, head ? 4 : 7, {base: 14}) : undefined});
