@@ -146,3 +146,9 @@ Ignorar: términos de búsqueda (en Shorts son ruido), impresiones/CTR de miniat
 | 001 | El hombre que vendió la Torre Eiffel (Victor Lustig, 1925) | Publicado 9-nov-2026 |
 | 002 | Mike, el pollo sin cabeza (1945–1947) | Final aprobado (v10); publicar mié 11-nov 20:00 |
 | 003 | La guerra de los emús (1932) | En preparación; publicar vie 13-nov 20:00 |
+| 004 | La Guerra de los Pasteles (México–Francia, 1838-39) | Propuesto (semana 16-nov) |
+| 005 | Garbo, el español que engañó a Hitler con 27 espías inventados (Joan Pujol) | Propuesto |
+| 006 | La Guerra del Cerdo (San Juan, 1859-72): la única baja fue un cerdo | Propuesto |
+| reserva | Hiroo Onoda (29 años en la selva): tratar con cuidado, hubo víctimas civiles | Reserva |
+
+Ideas de personajes (más adelante, con datos de ~10 vídeos): secundario recurrente en el Archivo (el Jefe que nunca paga), no un segundo narrador. Los personajes españoles/latinos entran por las historias (Garbo, Remontel/Santa Anna).
