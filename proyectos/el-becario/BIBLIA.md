@@ -95,7 +95,8 @@ Para no repetir pruebas ni gastar créditos/tokens. Todo sale de los EXP 001 y 0
 ### Motor y ahorro (acordado con David, 10-nov-2026)
 - Si una mejora del motor es buena para los Shorts, **se hace** y se le cuenta a David (qué, por qué, coste). Las propuestas de mejora del motor se le van diciendo para ir mejorándolo.
 - Ahorrar tokens/créditos en cada vídeo: reutilizar lib.mjs/kit.mjs/voz.py, QA con una sola hoja de fotogramas, no regenerar voz si basta con recortar/insertar silencios, Scribe (0 créditos) para tiempos.
-- Hecho: `burnCaptions` (opción del motor). Propuestas pendientes: ver la lista en el último mensaje del EXP 002.
+- Hecho: `burnCaptions` (opción del motor).
+- Propuestas pendientes: (1) preview de un tramo (`--from/--to`) para no renderizar 49 s por un cambio de 2 s; (2) contorno real de texto en el render en vez de 8 copias (menos capas, render más rápido); (3) que la revisión de zona segura compruebe el tamaño máximo de cada animación, no solo instantes sueltos.
 - **Nada de sangre ni corte visible**: el hachazo es corte a negro + «¡ZAS!» + plumas.
 - **Validar siempre** (`autopilot validate`) antes del preview: zona segura `pass` y tiempos de keys dentro del plano (`featherBurst`/`flapAt` cerca del final del plano fallan).
 - Ganancia de SFX máx. 1 (validador): si un efecto se oye poco, comprimir/normalizar el wav, no subir la ganancia.
