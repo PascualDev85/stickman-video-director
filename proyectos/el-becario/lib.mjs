@@ -104,7 +104,7 @@ export function makeEpisode(wordsPath = 'words.json') {
  *   const cap = captionTrack(WORDS, captions); for (const s of shots) s.layers.push(...cap(s.start, s.end));
  * Centrado en x=640 y ancho máx. 900 => siempre dentro de la zona segura.
  */
-export function captionTrack(WORDS, cues, {y = 1550, size = 84, maxW = 900, hi = YEL, color = PAPER} = {}) {
+export function captionTrack(WORDS, cues, {y = 1765, size = 84, maxW = 900, hi = YEL, color = PAPER} = {}) {
   const ws = WORDS.map(w => ({t: (w.text ?? w.word).toUpperCase(), s: w.start, e: w.end}));
   const chunks = cues.map(c => ({start: c.start, end: c.end, text: c.text.toUpperCase(), words: ws.filter(w => w.s >= c.start - 0.02 && w.s < c.end)}));
   return (a, b) => {

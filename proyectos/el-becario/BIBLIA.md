@@ -89,7 +89,7 @@ Para no repetir pruebas ni gastar créditos/tokens. Todo sale de los EXP 001 y 0
 - **Títulos de arriba solo si aportan** (contexto, número, remate visual): unos 10 por vídeo. Los que repetían el subtítulo (A POR UN POLLO, Y SE VA, RESPIRAR, TUBERÍA ATASCADA, NI UN LUNES…) se quitaron.
 - **Nada desborda, ni durante la animación:** un `slam` entra a escala `from` (1,6 por defecto), así que ancho×from tiene que caber entre x 64 y 1126 del plano. Rótulos grandes: `from` 1,1-1,3. Etiqueta del gancho con `{pop: false}` para que salga entera en el primer fotograma.
 - **Cajas dentro de la escena:** el contador no puede tapar la etiqueta de la carpeta (contador en y≈660).
-- **Subtítulos karaoke** (desde EXP 002 v6): `captionTrack(WORDS, captions)` de lib.mjs pinta los bloques de captions.json con la palabra que se dice en amarillo; en project.json `burnCaptions: false` (el motor no los pinta pero exporta el .srt para subirlo a YouTube).
+- **Subtítulos karaoke** (desde EXP 002 v6): `captionTrack(WORDS, captions)` de lib.mjs pinta los bloques de captions.json con la palabra que se dice en amarillo, abajo del todo (y≈1765 del plano = 77 % de la altura; más abajo lo tapa el título y el canal de YouTube); en project.json `burnCaptions: false` (el motor no los pinta pero exporta el .srt para subirlo a YouTube).
 - **Personajes en vehículos/edificios: dentro, por la ventana** (Mike en la ventana del bus; su silueta tras la cortina del motel), nunca encima.
 
 ### Motor y ahorro (acordado con David, 10-nov-2026)
