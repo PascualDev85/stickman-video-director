@@ -89,7 +89,13 @@ Para no repetir pruebas ni gastar créditos/tokens. Todo sale de los EXP 001 y 0
 - **Títulos de arriba solo si aportan** (contexto, número, remate visual): unos 10 por vídeo. Los que repetían el subtítulo (A POR UN POLLO, Y SE VA, RESPIRAR, TUBERÍA ATASCADA, NI UN LUNES…) se quitaron.
 - **Nada desborda, ni durante la animación:** un `slam` entra a escala `from` (1,6 por defecto), así que ancho×from tiene que caber entre x 64 y 1126 del plano. Rótulos grandes: `from` 1,1-1,3. Etiqueta del gancho con `{pop: false}` para que salga entera en el primer fotograma.
 - **Cajas dentro de la escena:** el contador no puede tapar la etiqueta de la carpeta (contador en y≈660).
-- Subtítulos karaoke (palabra en amarillo): `captionTrack` en lib.mjs está listo, pero necesita que el motor permita no quemar sus subtítulos → pendiente de aprobación de David.
+- **Subtítulos karaoke** (desde EXP 002 v6): `captionTrack(WORDS, captions)` de lib.mjs pinta los bloques de captions.json con la palabra que se dice en amarillo; en project.json `burnCaptions: false` (el motor no los pinta pero exporta el .srt para subirlo a YouTube).
+- **Personajes en vehículos/edificios: dentro, por la ventana** (Mike en la ventana del bus; su silueta tras la cortina del motel), nunca encima.
+
+### Motor y ahorro (acordado con David, 10-nov-2026)
+- Si una mejora del motor es buena para los Shorts, **se hace** y se le cuenta a David (qué, por qué, coste). Las propuestas de mejora del motor se le van diciendo para ir mejorándolo.
+- Ahorrar tokens/créditos en cada vídeo: reutilizar lib.mjs/kit.mjs/voz.py, QA con una sola hoja de fotogramas, no regenerar voz si basta con recortar/insertar silencios, Scribe (0 créditos) para tiempos.
+- Hecho: `burnCaptions` (opción del motor). Propuestas pendientes: ver la lista en el último mensaje del EXP 002.
 - **Nada de sangre ni corte visible**: el hachazo es corte a negro + «¡ZAS!» + plumas.
 - **Validar siempre** (`autopilot validate`) antes del preview: zona segura `pass` y tiempos de keys dentro del plano (`featherBurst`/`flapAt` cerca del final del plano fallan).
 - Ganancia de SFX máx. 1 (validador): si un efecto se oye poco, comprimir/normalizar el wav, no subir la ganancia.

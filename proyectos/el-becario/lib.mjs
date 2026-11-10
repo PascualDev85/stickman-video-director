@@ -97,46 +97,37 @@ export function makeEpisode(wordsPath = 'words.json') {
   return {WORDS, shots, say, shot, at, mouth};
 }
 /**
- * Subtítulos propios (abajo), por bloques cortos tipo karaoke: el bloque entra con un pequeño «pop»,
- * texto blanco en mayúsculas con contorno de tinta y sombra, y la palabra que se está diciendo en amarillo.
- * PENDIENTE DE APROBACIÓN: el motor exige y quema sus propios subtítulos (project.captions no puede ir vacío),
- * así que esto solo se puede usar si se añade al motor una opción para no quemarlos (manteniendo el .srt).
- * Uso: tras definir los planos,
- *   const cap = captionTrack(WORDS, {skip: n}); for (const s of shots) s.layers.push(...cap(s.start, s.end));
- * - skip: número de palabras iniciales que no se subtitulan (p. ej. las que ya dice el título del gancho).
- * - Bloques de máx. maxChars caracteres; se corta en puntuación o en pausas > gapBreak s.
- * - Cabe siempre en maxW (se reduce el cuerpo si hace falta); centrado en x=640 => dentro de la zona segura.
+ * Subtítulos karaoke (abajo): los bloques de captions.json (voz.py caps) pintados por el episodio, con la palabra
+ * que se está diciendo en amarillo. Requiere project.burnCaptions = false (el motor sigue exportando el .srt).
+ * Blanco en mayúsculas, contorno de tinta (8 copias) + sombra; el bloque entra con un pequeño pop.
+ * Uso, tras definir los planos:
+ *   const cap = captionTrack(WORDS, captions); for (const s of shots) s.layers.push(...cap(s.start, s.end));
+ * Centrado en x=640 y ancho máx. 900 => siempre dentro de la zona segura.
  */
-export function captionTrack(WORDS, {skip = 0, y = 1550, size = 86, maxChars = 17, gapBreak = 0.3, maxW = 900, hi = YEL, color = PAPER, linger = 0.45} = {}) {
-  const ws = WORDS.slice(skip).map(w => ({t: (w.text ?? w.word).toUpperCase(), s: w.start, e: w.end}));
-  const chunks = []; let cur = null;
-  ws.forEach((w, i) => {
-    const prev = ws[i - 1];
-    const brk = !cur || cur.text.length + 1 + w.t.length > maxChars || /[.,:;?!…]$/.test(prev.t) || w.s - prev.e > gapBreak;
-    if (brk) { cur = {words: [], text: ''}; chunks.push(cur); }
-    cur.words.push(w); cur.text = cur.text ? cur.text + ' ' + w.t : w.t;
-  });
-  chunks.forEach((c, i) => { c.start = Math.max(0, c.words[0].s - 0.05); const next = chunks[i + 1]; c.end = next ? Math.min(next.words[0].s - 0.05, c.words.at(-1).e + linger) : c.words.at(-1).e + linger;
-    c.end = Math.max(c.end, c.start + 0.25); if (next) c.end = Math.min(c.end, Math.max(0, next.words[0].s - 0.05)); });
+export function captionTrack(WORDS, cues, {y = 1550, size = 84, maxW = 900, hi = YEL, color = PAPER} = {}) {
+  const ws = WORDS.map(w => ({t: (w.text ?? w.word).toUpperCase(), s: w.start, e: w.end}));
+  const chunks = cues.map(c => ({start: c.start, end: c.end, text: c.text.toUpperCase(), words: ws.filter(w => w.s >= c.start - 0.02 && w.s < c.end)}));
   return (a, b) => {
     const d = Math.floor((b - a) * 1000 - 1) / 1000, out = [];
     for (const c of chunks) {
       if (c.end <= a || c.start >= b) continue;
       const t0 = r3(Math.max(0, c.start - a)), t1 = r3(Math.min(d, c.end - a)); if (t1 - t0 < 0.02) continue;
       let sz = size; while (textWidth(c.text, sz) > maxW && sz > 30) sz -= 2;
-      const w = textWidth(c.text, sz), x0 = -w / 2, ty = -sz * 0.68, k = Math.max(4, sz * 0.07);
+      const w = textWidth(c.text, sz), x0 = -w / 2, ty = -sz * 0.68, k = Math.max(4, sz * 0.075);
       const base = {type: 'text', text: c.text, x: Math.round(x0), y: ty, size: sz, bold: true, color, w: Math.ceil(w) + 40};
       const halo = [[1, 0], [-1, 0], [0, 1], [0, -1], [0.7, 0.7], [-0.7, 0.7], [0.7, -0.7], [-0.7, -0.7]].map(([dx, dy]) => ({...base, x: base.x + dx * k, y: base.y + dy * k, color: INK}));
-      const shadow = {...base, x: base.x + k * 0.8, y: base.y + k * 1.6, color: INK, alpha: 0.35};
+      const shadow = {...base, x: base.x + k * 0.6, y: base.y + k * 1.8, color: INK, alpha: 0.35};
       const his = []; let pre = '';
+      const tokens = c.text.split(' ');
       c.words.forEach((wd, j) => {
-        const xw = Math.round(x0 + (pre ? textWidth(pre + ' ', sz) : 0)); pre = pre ? pre + ' ' + wd.t : wd.t;
+        const tok = tokens[j] ?? wd.t;
+        const xw = Math.round(x0 + (j ? textWidth(tokens.slice(0, j).join(' ') + ' ', sz) : 0));
         const ws0 = r3(Math.max(t0, wd.s - a)), next = c.words[j + 1], we = r3(Math.min(t1, (next ? next.s : c.end) - a));
         if (we - ws0 < 0.02) return;
-        his.push({...base, text: wd.t, x: xw, w: Math.ceil(textWidth(wd.t, sz)) + 40, color: hi, from: ws0, to: we});
+        his.push({...base, text: tok, x: xw, w: Math.ceil(textWidth(tok, sz)) + 40, color: hi, from: ws0, to: we});
       });
-      const popStart = c.start >= a;
-      out.push(G([shadow, ...halo, base, ...his], {x: 640, y, from: t0, to: t1, keys: popStart ? sample(t => ({s: mix(0.82, 1, eBack((t - t0) / 0.12))}), t0, r3(Math.min(t1, t0 + 0.14))) : [{t: t0, scaleX: 1, scaleY: 1}]}));
+      const pop = c.start >= a;
+      out.push(G([shadow, ...halo, base, ...his], {x: 640, y, from: t0, to: t1, ...(pop ? {keys: sample(t => ({s: mix(0.85, 1, eBack((t - t0) / 0.12))}), t0, r3(Math.min(t1, t0 + 0.14)))} : {})}));
     }
     return out;
   };

@@ -48,7 +48,7 @@ Runtime coordinates use the 1280-unit-wide design plane (height 2276 for 9:16). 
 
 - **Headline band:** y ≈ 12–25 %. 2–5 words, large (80–110 plane units), visible from the first frame of each section; colour one key word.
 - **Action zone:** y ≈ 25–62 %. The character's face and the main action live here. Make the character big: at least ~35–45 % of frame height in most shots.
-- **Captions:** default y = 68 % (`captionY`), size 64 plane units, single line of 2–5 words. Do not move captions below 80 %.
+- **Captions:** default y = 68 % (`captionY`), size 64 plane units, single line of 2–5 words. Do not move captions below 80 %. `burnCaptions: false` keeps the timed captions (required, exported as .srt/.vtt) but does not paint them, for projects that draw their own caption layers (e.g. word-by-word karaoke).
 - **Never** put text, faces or key props in the right ~12 % between 40–80 % height.
 - **Pace:** a new picture event (cut, reveal, prop arrival, expression change) every 1–2 s; principal-picture inactivity never above 2 s (stricter than B's 2.5 s).
 - **Vertical motion:** drop-ins from the top, rises from the bottom, stacking, push-ins toward the face. Avoid long lateral pans built for 16:9.

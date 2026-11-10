@@ -74,6 +74,8 @@ export function loadProject(file, {seconds} = {}) {
   const vertical = p.height > p.width;
   if (p.captionSize !== undefined) number(p.captionSize, 'caption size', 20, vertical ? 110 : 64);
   if (p.captionY !== undefined) { if (!vertical) throw new Error('captionY applies to vertical projects only'); number(p.captionY, 'captionY (fraction of height)', 0.3, 0.8); }
+  // burnCaptions: false => the timed captions are still required and exported as .srt/.vtt, but not painted (the project draws its own, e.g. karaoke layers).
+  if (p.burnCaptions !== undefined && typeof p.burnCaptions !== 'boolean') throw new Error('burnCaptions must be true or false');
   if (p.loudness !== undefined && p.loudness !== null) number(p.loudness, 'loudness (integrated LUFS)', -24, -9);
   if (!Array.isArray(p.shots) || !p.shots.length) throw new Error('Shots required');
   const shots = scoped ? p.shots.filter(s => s.start < rangeEnd).map(s => ({...s, layers: Array.isArray(s.layers) ? visibleLayers(s.layers, s.start, rangeEnd) : s.layers})) : p.shots;

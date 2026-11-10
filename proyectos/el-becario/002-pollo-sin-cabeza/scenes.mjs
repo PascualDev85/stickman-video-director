@@ -3,7 +3,7 @@
 // Reaprovecha sets y planos del piloto 01-pollo-sin-cabeza; sin sangre ni corte visible.
 import fs from 'node:fs';
 import {becario, granjero, person, mike, axeProp, caseFolder, osc, P, E, R, G, S, deg, INK, PAPER, TIE, ctext, sign, choppingBlock, featherBurst, dropperProp} from '../kit.mjs';
-import {H, GROUND, RED, YEL, T, tag, fill, band, lin, mix, r3, eOut, eInOut, eBack, shake, jit, sample, camF, cam, slam, popIn, flash, rays, speedLines, cloud, office, desk, makeEpisode, F} from '../lib.mjs';
+import {H, GROUND, RED, YEL, T, tag, captionTrack, fill, band, lin, mix, r3, eOut, eInOut, eBack, shake, jit, sample, camF, cam, slam, popIn, flash, rays, speedLines, cloud, office, desk, makeEpisode, F} from '../lib.mjs';
 
 const {WORDS, shots, shot, mouth} = makeEpisode('words.json');
 const VOICE = 48.901, END = 49.32; // VOICE = duración real de narration.mp3
@@ -177,8 +177,10 @@ shot(31.31, 32.06, d => [cam([fill('#2b2f3a'),
 shot(32.06, 33.15, d => [cam([fill('#bfe3f7'), cloud(300, 640, 0.7, d, -120), cloud(950, 780, 0.5, d, -160),
   S([['M', -60, 1200], ['L', 200, 1000], ['L', 420, 1160], ['L', 700, 960], ['L', 1000, 1150], ['L', 1340, 1010], ['L', 1340, 1300], ['L', -60, 1300], ['Z']], '#c99a6a', {lineWidth: 8}),
   band(1290, 1000, '#d8c08e'), band(1380, 120, '#4a4a52'), ...[0, 1, 2, 3, 4, 5].map(i => R(i * 260 - 40, 1432, 120, 14, {radius: 4, fill: '#f2d36b', stroke: 'none', keys: lin(d, i * 260 - 40, i * 260 - 300)})),
-  G([R(-330, -330, 660, 300, {radius: 34, fill: '#ffd34d'}), R(-290, -300, 180, 110, {radius: 12, fill: '#d9f1ff'}), R(-90, -312, 400, 136, {radius: 12, fill: PAPER}), ctext('POLLO', 110, -304, 54, {maxW: 340, color: RED}), ctext('SIN CABEZA', 110, -248, 54, {maxW: 340, color: RED}),
-    E(-200, -20, 120, 120, {fill: INK}), E(-200, -20, 50, 50, {fill: '#9aa3ab', lineWidth: 6}), E(200, -20, 120, 120, {fill: INK}), E(200, -20, 50, 50, {fill: '#9aa3ab', lineWidth: 6}), mike({x: -40, y: -330, scale: 0.62, idle: {dur: d}, flapAt: [0.3]})],
+  G([R(-330, -330, 660, 300, {radius: 34, fill: '#ffd34d'}), R(-300, -312, 200, 160, {radius: 14, fill: '#d9f1ff'}), R(-90, -312, 400, 136, {radius: 12, fill: PAPER}), ctext('POLLO', 110, -304, 54, {maxW: 340, color: RED}), ctext('SIN CABEZA', 110, -248, 54, {maxW: 340, color: RED}),
+    E(-200, -20, 120, 120, {fill: INK}), E(-200, -20, 50, 50, {fill: '#9aa3ab', lineWidth: 6}), E(200, -20, 120, 120, {fill: INK}), E(200, -20, 50, 50, {fill: '#9aa3ab', lineWidth: 6}),
+    // Mike asomado a la ventana (dentro del autobús, no encima)
+    mike({x: -225, y: -150, scale: 0.36, idle: {dur: d}, flapAt: [0.3]}), R(-300, -312, 200, 160, {radius: 14, fill: 'none', lineWidth: 10}), R(-330, -168, 260, 30, {radius: 6, fill: '#ffd34d', stroke: 'none'})],
     {x: 600, y: 1400, keys: osc(d, 0.35, 5, {prop: 'y', radians: false, base: 1400})}),
 ], d)]);
 // 32.69–34.25 · «La gente paga por verlo.» Feria, cola, monedas.
@@ -197,12 +199,19 @@ shot(34.605, 36.706, d => [cam([...office(d), desk(),
   cricket(700, 1180, 1.3, d), cricket(1080, 1220, 1.45, d),
 ], d, 1.0, 1.05, 760, 1000)]);
 // 35.9–38.85 · «Pero una noche, en un motel, se atraganta…» Motel de noche, tono serio.
-shot(36.706, 39.68, d => [cam([...desertNight(d),
+// Silueta de Mike tras la cortina de la ventana iluminada: tranquilo y, en «se atraganta», se agita (sin nada explícito).
+const CHOKE = 2.07, WX = 420 + 210 + 55, WY = GROUND - 60 - 110;
+const silhouette = d => G([E(0, -60, 150, 105, {fill: '#5a3b22', stroke: 'none'}), S([['M', 30, -90], ['Q', 40, -150, 62, -168], ['L', 84, -160], ['Q', 72, -120, 70, -70], ['Z']], '#5a3b22', {stroke: 'none'}),
+  E(-60, -80, 70, 40, {fill: '#5a3b22', stroke: 'none'}), P([['M', -14, -10], ['L', -18, 20]], {stroke: '#5a3b22', lineWidth: 10}), P([['M', 18, -10], ['L', 22, 20]], {stroke: '#5a3b22', lineWidth: 10})],
+  {x: WX, y: WY, scaleX: 0.55, scaleY: 0.55, keys: sample(t => t < CHOKE ? {x: WX + Math.sin(t * 2) * 6, a: 0} : {x: WX + jit(t * 1.6, 3) * 12, y: WY - Math.abs(Math.sin((t - CHOKE) * 22)) * 10, a: Math.sin((t - CHOKE) * 26) * 12}, 0, d)});
+shot(36.706, 39.68, d => [camF([...desertNight(d),
   G([R(0, -420, 720, 420, {radius: 6, fill: '#b5694d'}), S([['M', -30, -420], ['L', 750, -420], ['L', 720, -470], ['L', 0, -470], ['Z']], '#7a3f30'),
     ...[0, 1, 2, 3].map(i => R(40 + i * 170, -300, 110, 190, {radius: 4, fill: i === 1 ? '#ffe08a' : '#3a2a20', lineWidth: 8}))], {x: 420, y: GROUND - 60}),
   R(230, 520, 30, 840, {radius: 6, fill: '#6b6f78', lineWidth: 7}),
-  R(120, 560, 400, 170, {radius: 18, fill: '#22263a', stroke: '#ff5fa2', lineWidth: 12}), ctext('MOTEL', 320, 584, 100, {maxW: 340, color: '#ff5fa2', keys: [{t: 0, alpha: 1}, {t: 0.9, alpha: 1}, {t: 1.0, alpha: 0.3}, {t: 1.1, alpha: 1}, {t: 2.0, alpha: 1}, {t: 2.1, alpha: 0.25}, {t: 2.2, alpha: 1}]}),
-], d, 1.08, 1.0, 640, 900)]);
+  R(120, 560, 400, 170, {radius: 18, fill: '#22263a', stroke: '#ff5fa2', lineWidth: 12}), ctext('MOTEL', 320, 584, 100, {maxW: 340, color: '#ff5fa2', to: 2.12, keys: [{t: 0, alpha: 1}, {t: 0.9, alpha: 1}, {t: 1.0, alpha: 0.3}, {t: 1.1, alpha: 1}, {t: 2.0, alpha: 1}, {t: 2.1, alpha: 0.25}, {t: 2.2, alpha: 1}]}),
+  silhouette(d), R(420 + 210, GROUND - 360, 110, 190, {radius: 4, fill: 'none', lineWidth: 8}),
+  G([popIn(ctext('¡!', 0, -60, 90, {color: RED, maxW: 120}), CHOKE + 0.05, d)], {x: WX + 80, y: WY - 200}),
+], d, t => ({s: t < CHOKE - 0.2 ? mix(1.08, 1.0, t / (CHOKE - 0.2)) : mix(1.0, 2.1, eInOut((t - CHOKE + 0.2) / 0.45)), ...shake(t, CHOKE + 0.25, 0.4, 8)}), WX, WY - 60)]);
 // 38.85–40.55 · «…y no encuentran la jeringa.» El granjero busca en los cajones, agobiado.
 shot(39.68, 41.282, d => [cam([fill('#4a3f63'), ...[0, 1, 2, 3, 4, 5, 6].map(i => R(i * 200 - 40, -60, 90, 2400, {radius: 0, fill: '#544870', stroke: 'none'})),
   R(820, 520, 300, 360, {radius: 6, fill: '#1c2140', lineWidth: 10}), band(GROUND - 20, 900, '#6b4f3a'),
@@ -240,6 +249,9 @@ shot(48.96, END, d => [camF(hookSet(d), d, t => ({s: mix(1.25, 1.0, eOut(t / 0.3
 
 // Subtítulos (motor): captions.json = voz.py caps words.json --skip 3 --max 20 («Este pollo vivió» ya lo dice la etiqueta del gancho).
 const captions = JSON.parse(fs.readFileSync('captions.json', 'utf8'));
+// Karaoke propio (palabra en amarillo); el motor no los pinta (burnCaptions: false) pero exporta el .srt.
+const cap = captionTrack(WORDS, captions);
+for (const s of shots) s.layers.push(...cap(s.start, s.end));
 // Efectos: nunca tapan una palabra. Los golpes van en los huecos de la voz o muy bajos; ambientes ≤ 0,2.
 const sfx = [
   F(2.9, 'whoosh', 0.25), F(2.93, 'stamp', 0.4), F(2.97, 'flap', 0.3, 0.6),
@@ -262,5 +274,5 @@ const sfx = [
   F(45.002, 'whoosh', 0.2), {time: 48.3, kind: 'tap', gain: 0.2},
   F(48.96, 'whoosh', 0.3), F(49.01, 'gurgle', 0.35, 0.35),
 ];
-fs.writeFileSync('project.json', JSON.stringify({version: 1, style: 'B3', width: 1080, height: 1920, fps: 30, voice: {path: 'narration.mp3', lead: 0, tail: r3(END - VOICE)}, television: {enabled: false}, music: {path: 'music.mp3', gain: 0.1}, captionSize: 76, captions, shots, sfx}, null, 1));
+fs.writeFileSync('project.json', JSON.stringify({version: 1, style: 'B3', width: 1080, height: 1920, fps: 30, voice: {path: 'narration.mp3', lead: 0, tail: r3(END - VOICE)}, television: {enabled: false}, music: {path: 'music.mp3', gain: 0.1}, burnCaptions: false, captions, shots, sfx}, null, 1));
 console.log('shots', shots.length, 'end', END);

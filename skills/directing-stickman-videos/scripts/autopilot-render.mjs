@@ -114,7 +114,7 @@ export async function painter(p) {
       sceneCopy.getContext('2d').drawImage(canvas, 0, 0);
       televisionFinish(ctx, sceneCopy, p.width, p.height, p.television?.intensity ?? 0.45);
     }
-    const cue = p.captions.find(c => t >= c.start && t < c.end);
+    const cue = p.burnCaptions === false ? null : p.captions.find(c => t >= c.start && t < c.end);
     if (cue) {
       const captionSize = p.captionSize || (vertical ? CAPTION_SIZE : p.style === 'B2' ? 40 : 34);
       ctx.font = `${p.style === 'B2' ? 500 : 600} ${captionSize}px B1Caption`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
@@ -247,7 +247,7 @@ export async function render(p, {full = false, seconds = 20, replace = false} = 
         if (layer.type === 'image') files.add(mediaPath(p.base, layer.path));
         if (layer.type === 'pose') files.add(mediaPath(p.base, '@b1/character-pose-sheet-v6.png'));
       }
-      const key = sha(JSON.stringify({shot, first, last, style: p.style, television: p.television, width: p.width, height: p.height, fps: p.fps, captions: p.captions.filter(c => c.end > first / p.fps && c.start < last / p.fps), captionSize: p.captionSize, captionY: p.captionY, grid: p.grid, inputs: p.inputs.filter(f => files.has(f.path)), rendererHash}));
+      const key = sha(JSON.stringify({shot, first, last, style: p.style, television: p.television, width: p.width, height: p.height, fps: p.fps, captions: p.captions.filter(c => c.end > first / p.fps && c.start < last / p.fps), captionSize: p.captionSize, captionY: p.captionY, burnCaptions: p.burnCaptions, grid: p.grid, inputs: p.inputs.filter(f => files.has(f.path)), rendererHash}));
       const clip = path.join(cache, `${key}.mp4`); let valid = false;
       if (fs.existsSync(clip)) try { const info = probe(clip); valid = Number(info.streams[0].nb_frames) === last - first; } catch {}
       if (valid) reused++; else { done(`rendering shot ${i + 1}/${p.shots.length}`); const tmp = path.join(cache, `${key}.partial.mp4`); await encode(p, frame, first, last - first, tmp); fs.renameSync(tmp, clip); }
