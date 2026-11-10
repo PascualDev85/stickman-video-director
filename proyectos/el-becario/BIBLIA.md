@@ -66,6 +66,14 @@ Documento de referencia para cada episodio. Lo que está aquí ya está decidido
 - **Perfil Instagram** — Nombre: Historias Sin Cabeza · Usuario: @historiassincabeza · Categoría: Creador de contenido digital · Bio (≤150): «Historias reales que no tienen ni pies ni cabeza 🗂️ / Las investiga un becario que no cobra / Expediente nuevo cada semana 👇» · Enlace: youtube.com/@HistoriasSinCabeza
 - **Texto del vídeo**: 1 frase gancho (sin destripar) + pregunta para comentar + «Expediente completo en YouTube» + 4-5 hashtags. Subir siempre el .mp4 original y portada propia (sin marca de agua de otra red).
 
+## Crecimiento (adaptado de youtube-agent-skill, MIT; herramientas en `herramientas/crecimiento.py` y `ganchos.json`)
+- **Gancho (al escribir el guion):** escribir 5 primeras frases con fórmulas distintas de `ganchos.json` (preferir encaje «alto»: lo imposible, el dato, lo que le pasó a otro, al revés de lo que crees, el más, desmontarlo, desde dentro, la comparación). Pasarlas por `crecimiento.py gancho "…"` y elegir con David. 6-12 palabras, número/nombre/fecha, sin presentar el canal.
+- **Título + portada = una pareja:** `crecimiento.py titulo "…" --portada "…"`. Título ≤40 caracteres (móvil), lo importante delante, ≤2 palabras en mayúsculas, sin hashtags. Portada de 3-4 palabras que NO repita el título (misma promesa, otras palabras). Escribir 10 títulos, quedarse con 2.
+- **Retención (24 h, 48 h, 7 días):** David exporta el CSV de retención → `crecimiento.py retencion retention.csv --duracion N --subs captions.json` → gancho, barrancos (con la frase del Becario en ese segundo) y goteo. Un cambio por vídeo, empezando por el gancho.
+- **Comentarios (primeras horas tras publicar):** separar en 4 montones y decir cuántos hay: preguntas (contestar; son ideas de expedientes), correcciones (si tienen razón, reconocerlo y dar las gracias; no discutir lo que no se puede comprobar), elogios (contestar a algunos con algo concreto de su comentario), provocaciones (no contestar). Respuestas de <30 palabras en la voz del Becario. Fijar la pregunta que más gente comparte, no el comentario más bonito. Dar corazón a muchos.
+- **Ideas de expedientes (1 vez por semana):** `crecimiento.py virales videos.json` con listados públicos de canales del nicho (curiosidades/historia en español y en inglés): lo que supera 2x la mediana de su canal es lo que funciona. Nunca con la cuenta de Apify del bot.
+- **Semana tipo:** martes y jueves 20:00 en YouTube; TikTok e Instagram el mismo día; comentarios en las 2 primeras horas; datos a las 24 h/48 h/7 días; el fin de semana se prepara el siguiente expediente (y el sábado solo si hay uno de reserva).
+
 ## Producción: proceso y lecciones (leer antes de cada expediente)
 Para no repetir pruebas ni gastar créditos/tokens. Todo sale de los EXP 001 y 002.
 
