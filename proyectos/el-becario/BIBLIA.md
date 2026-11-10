@@ -61,6 +61,11 @@ Documento de referencia para cada episodio. Lo que está aquí ya está decidido
 - Al subir: «no creado para niños», **sin** restricción de edad (con restricción aparece un aviso y el Short casi no se recomienda), uso de IA = No (animación), promoción pagada = No.
 - Después de publicar: despublicar los subtítulos automáticos (Studio → Subtítulos), porque el vídeo ya los lleva grabados. Enlazar el nuevo y el anterior como «vídeo relacionado».
 
+### TikTok e Instagram (cuentas con el email de estudio, no el personal)
+- **Perfil TikTok** — Nombre: Historias Sin Cabeza · Usuario: @historiassincabeza · Bio (≤80): «Historia real, contada mal. 🗂️ El Becario abre un expediente cada semana.» · Cuenta de empresa (Entretenimiento) · Enlace: youtube.com/@HistoriasSinCabeza
+- **Perfil Instagram** — Nombre: Historias Sin Cabeza · Usuario: @historiassincabeza · Categoría: Creador de contenido digital · Bio (≤150): «Historias reales que no tienen ni pies ni cabeza 🗂️ / Las investiga un becario que no cobra / Expediente nuevo cada semana 👇» · Enlace: youtube.com/@HistoriasSinCabeza
+- **Texto del vídeo**: 1 frase gancho (sin destripar) + pregunta para comentar + «Expediente completo en YouTube» + 4-5 hashtags. Subir siempre el .mp4 original y portada propia (sin marca de agua de otra red).
+
 ## Producción: proceso y lecciones (leer antes de cada expediente)
 Para no repetir pruebas ni gastar créditos/tokens. Todo sale de los EXP 001 y 002.
 
