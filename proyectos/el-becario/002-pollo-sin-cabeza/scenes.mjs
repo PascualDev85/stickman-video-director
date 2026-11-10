@@ -134,7 +134,12 @@ shot(17.049, 17.775, d => [camF([...office(d), becario({x: 640, y: 2080, scale: 
 const XR = '#0f2a45', XL = '#6fd3ff';
 const xrayBg = () => [fill(XR), ...Array.from({length: 9}, (_, i) => P([['M', 0, 300 + i * 220], ['L', 1280, 300 + i * 220]], {stroke: '#17395c', lineWidth: 4})), ...Array.from({length: 7}, (_, i) => P([['M', 40 + i * 200, 0], ['L', 40 + i * 200, 2300]], {stroke: '#17395c', lineWidth: 4}))];
 shot(17.775, 20.46, d => [camF([...xrayBg(), mike({x: 520, y: 1700, scale: 2.1, idle: {dur: d}, alpha: 0.9}),
-  G([E(0, 0, 70, 120, {fill: '#ff8fb1', stroke: '#ffffff', lineWidth: 8}), E(0, 0, 150, 220, {fill: 'none', stroke: XL, lineWidth: 6})], {x: 520 + 124 * 2.1, y: 1700 - 300 * 2.1, from: 1.5, keys: sample(t => ({s: mix(0.2, 1, eBack((t - 1.5) / 0.25)) * (1 + 0.06 * Math.sin(t * 9)), alpha: (t - 1.5) / 0.1}), 1.5, d)}),
+  // Tronco del cerebro: un trocito de cerebro (con pliegues) y el tallo que baja por el cuello, en rosa sobre la radiografía.
+  G([R(-16, -10, 32, 120, {radius: 16, fill: '#ff8fb1', stroke: '#ffffff', lineWidth: 6}),
+    E(0, -20, 96, 62, {fill: '#ff8fb1', stroke: '#ffffff', lineWidth: 6}),
+    P([['M', -30, -28], ['Q', -18, -42, -6, -26], ['Q', 6, -42, 18, -26], ['Q', 28, -38, 34, -22]], {stroke: '#ffffff', lineWidth: 4}),
+    P([['M', -26, -10], ['Q', -10, -20, 4, -8], ['Q', 16, -20, 28, -8]], {stroke: '#ffffff', lineWidth: 4}),
+    E(0, 20, 170, 230, {fill: 'none', stroke: XL, lineWidth: 6})], {x: 520 + 124 * 2.1, y: 1700 - 300 * 2.1, from: 1.5, keys: sample(t => ({s: mix(0.2, 1, eBack((t - 1.5) / 0.25)) * (1 + 0.06 * Math.sin(t * 9)), alpha: (t - 1.5) / 0.1}), 1.5, d)}),
   {...band(0, 26, XL), alpha: 0.75, keys: sample(t => ({y: mix(260, 1900, (t % 1.2) / 1.2)}), 0, d)},
 ], d, t => ({s: mix(1.0, 1.35, eInOut((t - 1.3) / 0.6))}), 520 + 124 * 2.1, 1700 - 300 * 2.1),
   tag('RAYOS X', 343, 57, {color: XL, bg: '#0b1f33'}), slam('TRONCO DEL CEREBRO', 640, 470, 76, 1.62, d, {outline: true, color: PAPER, from: 1.12})]);
