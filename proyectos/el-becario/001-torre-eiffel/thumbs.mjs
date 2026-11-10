@@ -54,8 +54,8 @@ const sky = [full('#8fcdf0'), E(640, 700, 1500, 1500, {fill: '#a8daf5', stroke: 
     lustig({x: 270, y: 2560, scale: 1.75, expr: 'picaro', look: 1, armL: {shoulder: 10}})], ctx => {
     vignette(ctx, 0.35);
     arrow(ctx, 200, 820, (TX - 300) * K, (TY - 560 * TS) * K + 10);
-    txt(ctx, 'LA VENDIÓ', 540, 230, 220, {fill: '#fff', maxW: 1000});
-    bar(ctx, 540, 460, 1000, 190, RED, -2); txt(ctx, 'Y NO ERA SUYA', 540, 460, 150, {fill: '#fff', maxW: 930, angle: -2, shadow: false});
+    txt(ctx, 'LA VENDIÓ', 540, 400, 220, {fill: '#fff', maxW: 1000});
+    bar(ctx, 540, 620, 1000, 190, RED, -2); txt(ctx, 'Y NO ERA SUYA', 540, 620, 150, {fill: '#fff', maxW: 930, angle: -2, shadow: false});
   });
 }
 // B — the sale: Lustig with the briefcase, coins flying, tower stamped VENDIDA.
@@ -65,8 +65,8 @@ const sky = [full('#8fcdf0'), E(640, 700, 1500, 1500, {fill: '#a8daf5', stroke: 
     lustig({x: 420, y: 2380, scale: 1.55, expr: 'picaro', look: 1, armR: {shoulder: 70, elbow: 20}, armL: {shoulder: 12, hold: [caneProp()]}}),
     briefcase(830, 1950, 1.25), ...[[620, 1100, 1, 20], [760, 1020, 0.8, -30], [1060, 1160, 1.1, 10], [700, 1250, 0.7, 40], [1120, 980, 0.9, -15]].map(([x, y, s, a]) => coin(x, y, s, a))], ctx => {
     vignette(ctx, 0.3);
-    txt(ctx, 'VENDIÓ LA', 540, 230, 200, {fill: '#fff', maxW: 1000});
-    bar(ctx, 540, 450, 1000, 190, RED, -2); txt(ctx, 'TORRE EIFFEL', 540, 450, 160, {fill: '#fff', maxW: 930, angle: -2, shadow: false});
+    txt(ctx, 'VENDIÓ LA', 540, 400, 200, {fill: '#fff', maxW: 1000});
+    bar(ctx, 540, 610, 1000, 190, RED, -2); txt(ctx, 'TORRE EIFFEL', 540, 610, 160, {fill: '#fff', maxW: 930, angle: -2, shadow: false});
   });
 }
 // C — series look: case folder with Lustig's photo, ESTAFA stamp, Becario full body pointing.
