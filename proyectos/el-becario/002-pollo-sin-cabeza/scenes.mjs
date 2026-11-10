@@ -6,7 +6,7 @@ import {becario, granjero, person, mike, axeProp, caseFolder, osc, P, E, R, G, S
 import {H, GROUND, RED, YEL, T, fill, band, lin, mix, r3, eOut, eInOut, eBack, shake, jit, sample, camF, cam, slam, popIn, flash, rays, speedLines, cloud, office, desk, makeEpisode, F} from '../lib.mjs';
 
 const {shots, shot, mouth} = makeEpisode('words.json');
-const VOICE = 48.081, END = 48.5;
+const VOICE = 49.181, END = 49.6;
 const DAYS = 214; // contador «DÍAS SIN COBRAR» (sube con los días reales entre episodios)
 const FOLLOWERS = 6; // seguidores reales del canal al renderizar
 
@@ -158,23 +158,23 @@ shot(24.69, 26.7, d => [cam([...office(d), desk(),
   {...E(830, 1100, 480, 220, {fill: 'none', stroke: RED, lineWidth: 12}), from: 1.3, keys: sample(t => ({s: mix(1.4, 1, eOut((t - 1.3) / 0.2)), alpha: (t - 1.3) / 0.08}), 1.3, d)},
 ], d, 1.02, 1.12, 830, 1100), T('Y UNA JERINGA', 80, 300, 104), slam('¡OJO A ESTO!', 640, 480, 90, 1.35, d, {color: RED, tilt: -4})]);
 // 26.7–28.2 · «Hasta intenta cantar.» Mike en la valla al amanecer: hincha el pecho y salen notas deformes.
-shot(26.7, 28.2, d => [cam([...farm(d, {sky: '#ffcf9a', sunY: 700}), mike({x: 640, y: GROUND - 60, scale: 1.7, idle: {dur: d}, flapAt: [0.6],
-  move: sample(t => ({s: 1.7 * (1 + (t > 0.55 && t < 1.3 ? 0.08 * Math.sin((t - 0.55) / 0.75 * Math.PI) : 0))}), 0, d)}),
-  ...brokenNotes(640 + 124 * 1.7, GROUND - 60 - 329 * 1.7, 0.74, d)], d, 1.0, 1.1, 640, 1100), T('HASTA', 80, 300, 100), slam('¡CANTA!', 640, 470, 150, 0.74, d, {color: RED, tilt: 5})]);
+shot(26.7, 29.3, d => [cam([...farm(d, {sky: '#ffcf9a', sunY: 700}), mike({x: 640, y: GROUND - 60, scale: 1.7, idle: {dur: d}, flapAt: [0.5, 1.5],
+  move: sample(t => ({s: 1.7 * (1 + (t > 1.42 && t < 2.5 ? 0.1 * Math.sin((t - 1.42) / 1.08 * Math.PI) : 0)), a: t > 1.45 && t < 2.5 ? Math.sin((t - 1.45) * 40) * 2 : 0}), 0, d)}),
+  ...brokenNotes(640 + 124 * 1.7, GROUND - 60 - 329 * 1.7, 1.48, d), ...bubbles(640 + 124 * 1.7, GROUND - 60 - 329 * 1.7 - 40, 1.55, d)], d, 1.0, 1.14, 640, 1100), T('HASTA', 80, 300, 100), slam('¡CANTA!', 640, 470, 150, 0.74, d, {color: RED, tilt: 5})]);
 // 28.2–29.95 · «Suena a tubería atascada.» El Becario, a cámara, impasible; burbujas.
-shot(28.2, 29.95, d => [camF([fill('#d9e8f5'), band(1700, 600, '#c0d3e6'), ...bubbles(980, 1300, 0.3, d),
-  becario({x: 640, y: 2420, scale: 2.25, expr: 'serio', look: 0, idle: {dur: d}, talk: mouth(28.2, 29.95)})], d,
+shot(29.3, 31.05, d => [camF([fill('#d9e8f5'), band(1700, 600, '#c0d3e6'), ...bubbles(980, 1300, 0.3, d),
+  becario({x: 640, y: 2420, scale: 2.25, expr: 'serio', look: 0, idle: {dur: d}, talk: mouth(29.3, 31.05)})], d,
   t => ({x: mix(-520, 0, eOut(t / 0.12)), s: mix(1.0, 1.05, t / d)}), 640, 1050), slam('TUBERÍA', 640, 380, 140, 0.44, d, {color: '#2f6fb0'}), slam('ATASCADA', 620, 540, 120, 0.84, d, {color: RED, tilt: -4, maxW: 820})]);
 // 29.95–30.85 · «Lo llaman Mike…»
-shot(29.95, 30.85, d => [cam([fill('#ffe9a8'), E(640, 1380, 800, 140, {fill: '#f2d68a', stroke: 'none'}), mike({x: 640, y: 1400, scale: 1.5, idle: {dur: d}, flapAt: [0.3]}), G([popIn(sign('MIKE', -310, -100, 620, 200, {size: 150, color: RED, radius: 30}), 0.55, d)], {x: 640, y: 620})], d, 1, 1.07)]);
+shot(31.05, 31.95, d => [cam([fill('#ffe9a8'), E(640, 1380, 800, 140, {fill: '#f2d68a', stroke: 'none'}), mike({x: 640, y: 1400, scale: 1.5, idle: {dur: d}, flapAt: [0.3]}), G([popIn(sign('MIKE', -310, -100, 620, 200, {size: 150, color: RED, radius: 30}), 0.55, d)], {x: 640, y: 620})], d, 1, 1.07)]);
 // 30.85–31.6 · Portadas que caen con flashes.
 const cover = (title, c) => G([R(0, 0, 640, 880, {radius: 6, fill: PAPER}), R(0, 0, 640, 160, {radius: 6, fill: c}), ctext(title, 320, 28, 92, {color: PAPER, maxW: 580}), mike({x: 320, y: 700, scale: 1.1}), ctext('¡SIN CABEZA!', 320, 750, 74, {maxW: 580, color: RED})]);
-shot(30.85, 31.6, d => [cam([fill('#2b2f3a'),
+shot(31.95, 32.7, d => [cam([fill('#2b2f3a'),
   G([cover('REVISTA', RED)], {x: 120, y: 500, pivotX: 320, pivotY: 440, keys: [{t: 0, angle: deg(-14), scaleX: 1.3, scaleY: 1.3, alpha: 0}, {t: 0.12, angle: deg(-6), scaleX: 1, scaleY: 1, alpha: 1}]}),
   G([cover('NOTICIAS', '#2f6fb0')], {x: 420, y: 620, pivotX: 320, pivotY: 440, from: 0.32, keys: [{t: 0.32, angle: deg(12), scaleX: 1.3, scaleY: 1.3, alpha: 0}, {t: 0.44, angle: deg(5), scaleX: 1, scaleY: 1, alpha: 1}]}),
 ], d), flash(0.1, 0.08, PAPER, 0.8), flash(0.42, 0.08, PAPER, 0.7)]);
 // 31.6–32.69 · «…y se va de gira por todo el país.»
-shot(31.6, 32.69, d => [cam([fill('#bfe3f7'), cloud(300, 640, 0.7, d, -120), cloud(950, 780, 0.5, d, -160),
+shot(32.7, 33.79, d => [cam([fill('#bfe3f7'), cloud(300, 640, 0.7, d, -120), cloud(950, 780, 0.5, d, -160),
   S([['M', -60, 1200], ['L', 200, 1000], ['L', 420, 1160], ['L', 700, 960], ['L', 1000, 1150], ['L', 1340, 1010], ['L', 1340, 1300], ['L', -60, 1300], ['Z']], '#c99a6a', {lineWidth: 8}),
   band(1290, 1000, '#d8c08e'), band(1380, 120, '#4a4a52'), ...[0, 1, 2, 3, 4, 5].map(i => R(i * 260 - 40, 1432, 120, 14, {radius: 4, fill: '#f2d36b', stroke: 'none', keys: lin(d, i * 260 - 40, i * 260 - 300)})),
   G([R(-330, -330, 660, 300, {radius: 34, fill: '#ffd34d'}), R(-290, -300, 180, 110, {radius: 12, fill: '#d9f1ff'}), R(-90, -312, 400, 136, {radius: 12, fill: PAPER}), ctext('POLLO', 110, -304, 54, {maxW: 340, color: RED}), ctext('SIN CABEZA', 110, -248, 54, {maxW: 340, color: RED}),
@@ -182,7 +182,7 @@ shot(31.6, 32.69, d => [cam([fill('#bfe3f7'), cloud(300, 640, 0.7, d, -120), clo
     {x: 600, y: 1400, keys: osc(d, 0.35, 5, {prop: 'y', radians: false, base: 1400})}),
 ], d), T('DE GIRA', 80, 300, 110), T('POR TODO EL PAÍS', 80, 420, 90, {color: RED})]);
 // 32.69–34.25 · «La gente paga por verlo.» Feria, cola, monedas.
-shot(32.69, 34.25, d => [cam([fill('#ffe2b8'), band(GROUND - 20, 900, '#e2c79b'),
+shot(33.79, 35.35, d => [cam([fill('#ffe2b8'), band(GROUND - 20, 900, '#e2c79b'),
   ...[0, 1, 2, 3, 4, 5].map(i => R(260 + i * 130, 620, 130, 520, {radius: 0, fill: i % 2 ? PAPER : RED, lineWidth: 8})), S([['M', 230, 620], ['L', 640, 430], ['L', 1050, 620], ['Z']], RED, {lineWidth: 12}),
   R(330, 690, 620, 170, {radius: 14, fill: PAPER}), ctext('VEA AL POLLO', 640, 705, 64, {maxW: 560}), ctext('SIN CABEZA', 640, 780, 64, {maxW: 560, color: RED}),
   mike({x: 640, y: 1160, scale: 0.78, idle: {dur: d}}),
@@ -191,27 +191,27 @@ shot(32.69, 34.25, d => [cam([fill('#ffe2b8'), band(GROUND - 20, 900, '#e2c79b')
   ...[[240, 980, 0.3], [1040, 960, 0.6], [160, 860, 0.9], [1120, 840, 1.15]].map(([x, y, t]) => popIn(E(x, y, 70, 70, {fill: '#ffd34d', lineWidth: 8}), t, d)),
 ], d), T('PAGAN POR VERLO', 80, 300, 92)]);
 // 34.25–35.9 · «A mí, ni gratis.» Corte seco: el Becario y su móvil con 2 seguidores. Grillos.
-shot(34.25, 35.9, d => [cam([...office(d), desk(),
-  becario({x: 330, y: GROUND - 20, scale: 1.05, expr: 'cansado', look: 1, idle: {dur: d}, talk: mouth(34.25, 35.9), headKeys: [{t: 0, angle: deg(6)}, {t: d, angle: deg(10)}]}),
+shot(35.35, 37, d => [cam([...office(d), desk(),
+  becario({x: 330, y: GROUND - 20, scale: 1.05, expr: 'cansado', look: 1, idle: {dur: d}, talk: mouth(35.35, 37), headKeys: [{t: 0, angle: deg(6)}, {t: d, angle: deg(10)}]}),
   G([phone(FOLLOWERS)], {x: 860, y: 860, angle: deg(4), keys: sample(t => ({s: mix(0.2, 1, eBack(t / 0.22))}), 0, d)}),
   cricket(700, 1180, 0.5, d), cricket(1080, 1220, 0.75, d),
 ], d, 1.0, 1.05, 760, 1000), slam('A MÍ, NI GRATIS', 640, 380, 104, 0.1, d, {color: RED, tilt: -3})]);
 // 35.9–38.85 · «Pero una noche, en un motel, se atraganta…» Motel de noche, tono serio.
-shot(35.9, 38.85, d => [cam([...desertNight(d),
+shot(37, 39.95, d => [cam([...desertNight(d),
   G([R(0, -420, 720, 420, {radius: 6, fill: '#b5694d'}), S([['M', -30, -420], ['L', 750, -420], ['L', 720, -470], ['L', 0, -470], ['Z']], '#7a3f30'),
     ...[0, 1, 2, 3].map(i => R(40 + i * 170, -300, 110, 190, {radius: 4, fill: i === 1 ? '#ffe08a' : '#3a2a20', lineWidth: 8}))], {x: 420, y: GROUND - 60}),
   R(230, 520, 30, 840, {radius: 6, fill: '#6b6f78', lineWidth: 7}),
   R(120, 560, 400, 170, {radius: 18, fill: '#22263a', stroke: '#ff5fa2', lineWidth: 12}), ctext('MOTEL', 320, 584, 100, {maxW: 340, color: '#ff5fa2', keys: [{t: 0, alpha: 1}, {t: 0.9, alpha: 1}, {t: 1.0, alpha: 0.3}, {t: 1.1, alpha: 1}, {t: 2.0, alpha: 1}, {t: 2.1, alpha: 0.25}, {t: 2.2, alpha: 1}]}),
 ], d, 1.08, 1.0, 640, 900), T('UNA NOCHE…', 560, 300, 92, {color: PAPER})]);
 // 38.85–40.55 · «…y no encuentran la jeringa.» El granjero busca en los cajones, agobiado.
-shot(38.85, 40.55, d => [cam([fill('#4a3f63'), ...[0, 1, 2, 3, 4, 5, 6].map(i => R(i * 200 - 40, -60, 90, 2400, {radius: 0, fill: '#544870', stroke: 'none'})),
+shot(39.95, 41.65, d => [cam([fill('#4a3f63'), ...[0, 1, 2, 3, 4, 5, 6].map(i => R(i * 200 - 40, -60, 90, 2400, {radius: 0, fill: '#544870', stroke: 'none'})),
   R(820, 520, 300, 360, {radius: 6, fill: '#1c2140', lineWidth: 10}), band(GROUND - 20, 900, '#6b4f3a'),
   R(60, 1000, 460, 420, {radius: 10, fill: '#8a6a4a'}), ...[1080, 1240].map(y => G([R(90, 0, 400, 130, {radius: 6, fill: '#a7825c', lineWidth: 8}), E(290, 65, 30, 20, {fill: INK, stroke: 'none'})], {y, keys: y === 1080 ? [{t: 0.3, x: 0}, {t: 0.55, x: -80}] : [{t: 0.9, x: 0}, {t: 1.15, x: -80}]})),
   G([R(-20, -200, 40, 200, {radius: 6, fill: '#c9a24a', lineWidth: 7}), S([['M', -90, -200], ['L', 90, -200], ['L', 60, -300], ['L', -60, -300], ['Z']], '#f5d27a', {lineWidth: 8})], {x: 290, y: 1000}),
   granjero({x: 760, y: GROUND, scale: 1.1, expr: 'agobiado', walk: {dur: d, period: 0.5, stride: 18}, move: [{t: 0, x: 900}, {t: d / 2, x: 650}, {t: d, x: 820}], headKeys: osc(d, 0.7, 8)}),
 ], d), T('¿Y LA JERINGA?', 80, 300, 104, {color: PAPER})]);
 // 40.55–42.85 · «Hoy su pueblo le hace un festival cada año.» Explosión de color y confeti.
-shot(40.55, 42.85, d => [cam([fill('#bfe3f7'), cloud(250, 640, 0.6, d, 60),
+shot(41.65, 43.95, d => [cam([fill('#bfe3f7'), cloud(250, 640, 0.6, d, 60),
   ...[[-40, 260, '#e6b34a'], [220, 300, '#8fbf6a'], [520, 240, '#d98a6a'], [760, 300, '#9fb6c9'], [1020, 280, '#e6b34a']].map(([x, w, c]) => G([R(0, -w * 2.2, w, w * 2.2, {radius: 4, fill: c}), R(w * 0.2, -w * 1.8, w * 0.25, w * 0.35, {radius: 4, fill: '#d9f1ff', lineWidth: 6}), R(w * 0.55, -w * 1.8, w * 0.25, w * 0.35, {radius: 4, fill: '#d9f1ff', lineWidth: 6})], {x, y: GROUND - 40})),
   band(GROUND - 40, 900, '#c9c3b6'),
   P([['M', -40, 560], ['Q', 640, 720, 1320, 560]], {lineWidth: 6}), ...[0, 1, 2, 3, 4, 5, 6, 7].map(i => G([S([['M', -30, 0], ['L', 30, 0], ['L', 0, 90], ['Z']], ['#d8352a', '#ffd34d', '#4f78b8', '#9ccc65'][i % 4], {lineWidth: 6})], {x: 90 + i * 150, y: 600 + Math.sin(i / 7 * Math.PI) * 70, pivotX: 0, pivotY: 0, keys: osc(d, 1.2 + i * 0.1, 6)})),
@@ -222,26 +222,26 @@ shot(40.55, 42.85, d => [cam([fill('#bfe3f7'), cloud(250, 640, 0.6, d, 60),
   ...confetti(0, d),
 ], d), flash(0, 0.1, PAPER, 0.7), T('HOY', 80, 300, 100), T('FESTIVAL CADA AÑO', 80, 420, 92, {color: RED})]);
 // 42.85–44.2 · «Expediente cerrado.» Sello CERRADO y el contador sube a 215.
-shot(42.85, 44.2, d => [cam([...office(d), desk(),
-  becario({x: 300, y: GROUND - 20, scale: 1.0, expr: 'serio', look: 1, idle: {dur: d}, talk: mouth(42.85, 44.2)}),
+shot(43.95, 45.3, d => [cam([...office(d), desk(),
+  becario({x: 300, y: GROUND - 20, scale: 1.0, expr: 'serio', look: 1, idle: {dur: d}, talk: mouth(43.95, 45.3)}),
   G([caseFolder({x: 0, y: 0, scale: 1, label: 'EXPEDIENTE 002'})], {x: 840, y: 1010, scaleX: 0.74, scaleY: 0.74, angle: deg(-3)}),
   counter(DAYS, {x: 840, y: 790, to: 0.95}), {...counter(DAYS + 1, {x: 840, y: 790}), from: 0.95, keys: sample(t => ({s: mix(1.35, 1, eBack((t - 0.95) / 0.2))}), 0.95, d)},
 ], d, 1.1, 1.18, 830, 1000), slam('CERRADO', 760, 1050, 120, 0.59, d, {color: RED, tilt: -10, stamp: true, from: 2.6})]);
 // 44.2–48.1 · «Dieciocho meses sin cabeza… y yo no aguanto ni un lunes.» Mira la foto; luego a cámara. Calendario: LUNES.
-shot(44.2, 48.1, d => [camF([...office(d),
+shot(45.3, 49.2, d => [camF([...office(d),
   G([calendar(3.24, d)], {x: 300, y: 720}),
-  becario({x: 560, y: GROUND + 120, scale: 1.25, expr: 'cansado', look: 1, idle: {dur: d}, talk: mouth(44.2, 48.1),
+  becario({x: 560, y: GROUND + 120, scale: 1.25, expr: 'cansado', look: 1, idle: {dur: d}, talk: mouth(45.3, 49.2),
     headKeys: [{t: 0, angle: deg(8)}, {t: 2.0, angle: deg(10)}, {t: 2.3, angle: 0}, {t: d, angle: deg(-4)}]}),
   photo(d, {x: 890, y: 1150, scaleX: 0.55, scaleY: 0.55, angle: deg(-6)}),
   sighPuff(640, 860, 2.13),
 ], d, t => ({s: t < 2.1 ? mix(1.05, 1.12, t / 2.1) : mix(1.12, 1.2, eInOut((t - 2.1) / 1.5)), x: t < 2.1 ? -80 : mix(-80, 0, eInOut((t - 2.1) / 0.5))}), 640, 1000),
   slam('18 MESES SIN CABEZA…', 620, 380, 80, 0.05, d, {maxW: 880, until: 2.2}), slam('NI UN LUNES.', 640, 380, 120, 3.24, d, {color: RED, tilt: -4})]);
 // 48.1–48.5 · Bucle: zoom a la foto y se funde con el primer fotograma.
-shot(48.1, END, d => [camF(hookSet(d), d, t => ({s: mix(1.25, 1.0, eOut(t / 0.3))}), STUMP[0], STUMP[1] + 200), flash(0, 0.12, PAPER, 0.9), T('ESTE POLLO VIVIÓ', 90, 300, 92)]);
+shot(49.2, END, d => [camF(hookSet(d), d, t => ({s: mix(1.25, 1.0, eOut(t / 0.3))}), STUMP[0], STUMP[1] + 200), flash(0, 0.12, PAPER, 0.9), T('ESTE POLLO VIVIÓ', 90, 300, 92)]);
 
 const captions = JSON.parse(fs.readFileSync('captions.json', 'utf8'));
 const sfx = [
-  F(0.05, 'gurgle', 0.5, 1.4), F(3.0, 'whoosh', 0.4), F(3.04, 'stamp', 0.6), F(3.06, 'flap', 0.35, 0.6),
+  F(0.05, 'gurgle', 0.5, 1.4), F(3, 'whoosh', 0.4), F(3.04, 'stamp', 0.6), F(3.06, 'flap', 0.35, 0.6),
   F(4.45, 'whoosh', 0.35), F(4.63, 'drop', 0.5), F(4.66, 'stamp', 0.5), {time: 5.2, kind: 'pop', gain: 0.14}, F(5.84, 'stamp', 0.9), F(6.45, 'whoosh', 0.4),
   F(6.9, 'projector', 0.22), F(7.44, 'stamp', 0.6),
   F(8.95, 'whoosh', 0.3), {time: 9.25, kind: 'tap', gain: 0.25}, {time: 9.5, kind: 'tap', gain: 0.25}, {time: 9.75, kind: 'tap', gain: 0.25}, F(9.63, 'stamp', 0.5),
@@ -250,16 +250,16 @@ const sfx = [
   F(13.2, 'whoosh', 0.3), F(13.9, 'flap', 0.35, 0.6), F(14.5, 'whoosh', 0.3), F(14.9, 'boing', 0.45),
   F(15.6, 'whoosh', 0.3), F(17.2, 'whoosh', 0.35), F(17.2, 'stamp', 0.6), F(17.25, 'flap', 0.35, 0.6), F(17.7, 'scratch', 0.55),
   {time: 18.6, kind: 'chime', gain: 0.08}, {time: 20.08, kind: 'pop', gain: 0.14}, F(21.1, 'whoosh', 0.3), F(22.55, 'whoosh', 0.3),
-  F(23.33, 'whoosh', 0.3), F(23.9, 'drop', 0.6), F(24.69, 'whoosh', 0.3), {time: 24.75, kind: 'pop', gain: 0.14}, F(26.0, 'stamp', 0.45),
-  F(26.7, 'whoosh', 0.3), F(27.42, 'pipe', 0.9, 1.0), F(28.62, 'pipe', 0.35, 1.0), F(28.2, 'whoosh', 0.35), F(28.64, 'stamp', 0.4), F(29.04, 'stamp', 0.5),
-  F(29.95, 'whoosh', 0.3), {time: 30.5, kind: 'chime', gain: 0.12}, F(30.95, 'flash', 0.45), F(31.27, 'flash', 0.4), F(31.6, 'whoosh', 0.3),
-  F(32.69, 'crowd', 0.35), F(33.3, 'register', 0.5, 1.2),
-  F(34.25, 'whoosh', 0.2), F(34.7, 'crickets', 0.55, 1.2),
-  F(35.9, 'neon', 0.4, 2.9), F(38.85, 'whoosh', 0.2), {time: 39.2, kind: 'tap', gain: 0.12}, {time: 39.8, kind: 'tap', gain: 0.12},
-  F(40.55, 'crowd', 0.4), {time: 40.6, kind: 'chime', gain: 0.12}, F(40.6, 'flash', 0.3),
-  F(42.85, 'whoosh', 0.3), F(43.44, 'stamp', 0.95), {time: 43.8, kind: 'pop', gain: 0.16},
-  F(44.2, 'whoosh', 0.25), {time: 47.44, kind: 'tap', gain: 0.3},
-  F(48.1, 'whoosh', 0.35), F(48.15, 'gurgle', 0.35, 0.35),
+  F(23.33, 'whoosh', 0.3), F(23.9, 'drop', 0.6), F(24.69, 'whoosh', 0.3), {time: 24.75, kind: 'pop', gain: 0.14}, F(26, 'stamp', 0.45),
+  F(26.7, 'whoosh', 0.3), F(28.2, 'pipe', 1.0, 1.0), F(29.3, 'whoosh', 0.35), F(29.74, 'stamp', 0.4), F(30.14, 'stamp', 0.5),
+  F(31.05, 'whoosh', 0.3), {time: 31.6, kind: 'chime', gain: 0.12}, F(32.05, 'flash', 0.45), F(32.37, 'flash', 0.4), F(32.7, 'whoosh', 0.3),
+  F(33.79, 'crowd', 0.35), F(34.4, 'register', 0.5, 1.2),
+  F(35.35, 'whoosh', 0.2), F(35.8, 'crickets', 0.55, 1.2),
+  F(37, 'neon', 0.4, 2.9), F(39.95, 'whoosh', 0.2), {time: 40.3, kind: 'tap', gain: 0.12}, {time: 40.9, kind: 'tap', gain: 0.12},
+  F(41.65, 'crowd', 0.4), {time: 41.7, kind: 'chime', gain: 0.12}, F(41.7, 'flash', 0.3),
+  F(43.95, 'whoosh', 0.3), F(44.54, 'stamp', 0.95), {time: 44.9, kind: 'pop', gain: 0.16},
+  F(45.3, 'whoosh', 0.25), {time: 48.54, kind: 'tap', gain: 0.3},
+  F(49.2, 'whoosh', 0.35), F(49.25, 'gurgle', 0.35, 0.35),
 ];
 fs.writeFileSync('project.json', JSON.stringify({version: 1, style: 'B3', width: 1080, height: 1920, fps: 30, voice: {path: 'narration.mp3', lead: 0, tail: r3(END - VOICE)}, television: {enabled: false}, music: {path: 'music.mp3', gain: 0.1}, captions, shots, sfx}, null, 1));
 console.log('shots', shots.length, 'end', END);
