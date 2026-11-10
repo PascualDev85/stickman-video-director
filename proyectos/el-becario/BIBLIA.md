@@ -144,5 +144,5 @@ Ignorar: términos de búsqueda (en Shorts son ruido), impresiones/CTR de miniat
 | Nº | Historia | Estado |
 |---|---|---|
 | 001 | El hombre que vendió la Torre Eiffel (Victor Lustig, 1925) | Publicado 9-nov-2026 |
-| 002 | Mike, el pollo sin cabeza (1945–1947) | Hecho (v5); cambiar sello a 002 y adelantar la promesa |
-| 003 | La guerra de los emús (1932) | Pendiente |
+| 002 | Mike, el pollo sin cabeza (1945–1947) | Final aprobado (v10); publicar mié 11-nov 20:00 |
+| 003 | La guerra de los emús (1932) | En preparación; publicar vie 13-nov 20:00 |
