@@ -95,3 +95,9 @@ Extends the [Thumbnail & Publishing Kit](thumbnail-publishing-kit.md); offer it 
 ## 9. Learning loop
 
 After 48 h and 7 days per Short, ask the user for (or read via their analytics connector) **"viewed vs swiped away"**, average percentage viewed, engaged views and subscribers gained. Keep an episode log in the channel checkpoint (topic, format, hook type, length, results). Change one variable at a time (hook type, length, topic family) and prefer the patterns that hold across several episodes over a single outlier. Monetization note for planning: Shorts revenue sharing requires full Partner Program eligibility (1,000 subscribers plus either 10 M qualified Shorts views in 90 days or 4,000 long-form watch hours in 12 months; verify current thresholds) and Shorts pay far less per view than long-form; treat Shorts as audience growth unless the numbers say otherwise.
+
+## Shorts-es additions (fork)
+- `autopilot tramo PROJECT --from A --to B` renders only that stretch (with its audio) to `output/tramo.mp4` for quick checks; it is never a preview and cannot be approved.
+- Text layers accept a real outline: `outline` (colour) + `outlineWidth` (plane px), painted under the fill with round joins.
+- The safe-zone review also checks every animated text group (slams, tags, caption pops) at its largest scale.
+- `burnCaptions: false` (see Captions above).

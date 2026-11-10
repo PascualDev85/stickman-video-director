@@ -32,17 +32,21 @@ export const camF = (layers, d, f, px = 640, py = 1000) => G(layers, {pivotX: px
 /** Default camera for a cut: 5% punch settling in 0.18 s, then a slow push. */
 export const cam = (layers, d, from = 1, to = 1.05, px = 640, py = 1000) => camF(layers, d, t => ({s: (t < 0.18 && d > 0.5 ? mix(from * 1.05, from, eOut(t / 0.18)) : mix(from, to, t / d))}), px, py);
 /** Text centred at (cx, cy) that slams in (scale `from` -> 1, ease back) at t0. */
+export const layout = {titleDY: 0}; // desplaza títulos de arriba (tag y slams con cy < 760) si los subtítulos van arriba
 export function slam(text, cx, cy, size, t0, d, {color = INK, from = 1.6, tilt = 0, maxW = 900, stamp = false, until, outline = false} = {}) {
+  if (cy < 760) cy += layout.titleDY;
   const t = ctext(text, 0, -size * 0.68, size, {maxW, color});
   // outline: 8 offset copies under the text so it reads on any background (the renderer has no text stroke)
   const oc = typeof outline === 'string' ? outline : [PAPER, '#ffffff', YEL, '#ffd21f', '#6fd3ff'].includes(color) ? INK : PAPER, k = Math.max(3, t.size * 0.055);
-  const halo = outline ? [[1, 0], [-1, 0], [0, 1], [0, -1], [0.7, 0.7], [-0.7, 0.7], [0.7, -0.7], [-0.7, -0.7]].map(([dx, dy]) => ({...t, x: t.x + dx * k, y: t.y + dy * k, color: oc})) : [];
+  if (outline) { t.outline = oc; t.outlineWidth = r3(k * 2); } // contorno real del motor (antes, 8 copias desplazadas)
+  const halo = [];
   const parts = stamp ? [R(-t.w / 2 - 10, -size * 0.85, t.w + 20, size * 1.5, {radius: 14, fill: 'none', stroke: color, lineWidth: 12}), ...halo, t] : [...halo, t];
   const end = until ? Math.min(until, d) : d;
   return G(parts, {x: cx, y: cy, from: t0, ...(until ? {to: end} : {}), keys: sample(tt => ({s: mix(from, 1, eBack((tt - t0) / 0.16)), a: tilt, alpha: (tt - t0) / 0.05}), t0, end)});
 }
 /** Top title as a paper tag (expediente style): centred, ink border, drop shadow, slight tilt, pops in at t0. */
 export function tag(text, y, size = 88, {color = INK, bg = PAPER, tilt = -2, t0 = 0, maxW = 900, pop = true} = {}) {
+  y += layout.titleDY;
   const t = ctext(text, 0, 0, size, {maxW, color}), w = t.w + 20, h = Math.round(t.size * 1.5);
   t.y = Math.round(-h / 2 + (h - t.size * 1.36) / 2);
   return G([R(-w / 2 + 10, -h / 2 + 12, w, h, {radius: 12, fill: 'rgba(0,0,0,0.28)', stroke: 'none'}), R(-w / 2, -h / 2, w, h, {radius: 12, fill: bg, lineWidth: 8}), t],
@@ -114,8 +118,8 @@ export function captionTrack(WORDS, cues, {y = 1765, size = 84, maxW = 900, hi =
       const t0 = r3(Math.max(0, c.start - a)), t1 = r3(Math.min(d, c.end - a)); if (t1 - t0 < 0.02) continue;
       let sz = size; while (textWidth(c.text, sz) > maxW && sz > 30) sz -= 2;
       const w = textWidth(c.text, sz), x0 = -w / 2, ty = -sz * 0.68, k = Math.max(4, sz * 0.075);
-      const base = {type: 'text', text: c.text, x: Math.round(x0), y: ty, size: sz, bold: true, color, w: Math.ceil(w) + 40};
-      const halo = [[1, 0], [-1, 0], [0, 1], [0, -1], [0.7, 0.7], [-0.7, 0.7], [0.7, -0.7], [-0.7, -0.7]].map(([dx, dy]) => ({...base, x: base.x + dx * k, y: base.y + dy * k, color: INK}));
+      const base = {type: 'text', text: c.text, x: Math.round(x0), y: ty, size: sz, bold: true, color, w: Math.ceil(w) + 40, outline: INK, outlineWidth: r3(k * 2)};
+      const halo = [];
       const shadow = {...base, x: base.x + k * 0.6, y: base.y + k * 1.8, color: INK, alpha: 0.35};
       const his = []; let pre = '';
       const tokens = c.text.split(' ');
@@ -124,7 +128,7 @@ export function captionTrack(WORDS, cues, {y = 1765, size = 84, maxW = 900, hi =
         const xw = Math.round(x0 + (j ? textWidth(tokens.slice(0, j).join(' ') + ' ', sz) : 0));
         const ws0 = r3(Math.max(t0, wd.s - a)), next = c.words[j + 1], we = r3(Math.min(t1, (next ? next.s : c.end) - a));
         if (we - ws0 < 0.02) return;
-        his.push({...base, text: tok, x: xw, w: Math.ceil(textWidth(tok, sz)) + 40, color: hi, from: ws0, to: we});
+        his.push({...base, outline: undefined, outlineWidth: undefined, text: tok, x: xw, w: Math.ceil(textWidth(tok, sz)) + 40, color: hi, from: ws0, to: we});
       });
       const pop = c.start >= a;
       out.push(G([shadow, ...halo, base, ...his], {x: 640, y, from: t0, to: t1, ...(pop ? {keys: sample(t => ({s: mix(0.85, 1, eBack((t - t0) / 0.12))}), t0, r3(Math.min(t1, t0 + 0.14)))} : {})}));

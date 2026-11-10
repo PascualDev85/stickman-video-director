@@ -98,6 +98,9 @@ export async function painter(p) {
       } else if (l.type === 'text') {
         const size = l.size || 52; ctx.font = `${l.bold ? 700 : 400} ${size}px ${['B3', 'B4'].includes(p.style) ? 'B1Caption' : 'B1Hand'}`; ctx.fillStyle = l.color || (['B3', 'B4'].includes(p.style) ? '#e9eaea' : '#191916'); ctx.textBaseline = 'top';
         const lines = wrap(ctx, l.text, l.w || 1080 - x);
+        // Optional real text outline (B3 Shorts): `outline` colour + `outlineWidth`, painted under the fill (round joins).
+        if (l.outline) { ctx.save(); ctx.strokeStyle = l.outline; ctx.lineWidth = l.outlineWidth || size * 0.14; ctx.lineJoin = 'round'; ctx.miterLimit = 2;
+          lines.forEach((s, i) => ctx.strokeText(s, 0, i * size * 1.15)); ctx.restore(); }
         lines.forEach((s, i) => ctx.fillText(s, 0, i * size * 1.15));
         note('text', 0, 0, Math.max(...lines.map(s => ctx.measureText(s).width)), lines.length * size * 1.15, l.text);
       } else {
@@ -150,13 +153,22 @@ export async function painter(p) {
  * Vertical safe-zone review: samples every shot start/middle, every caption and every
  * half second, records what was painted and where, and writes an overlay sheet.
  */
-export function safezoneReview(p, frame, {duration = p.rangeEnd ?? p.duration, sheetPath} = {}) {
+export function safezoneReview(p, frame, {duration = p.rangeEnd ?? p.duration, sheetPath, from = 0} = {}) {
   const times = new Set();
+  // Text that animates in (slams, tags, caption pops) is also checked at its largest scale, not just at sampled instants.
+  const peaks = (layers, s) => { for (const l of layers) {
+    if (l.type === 'group' && l.keys?.length && l.children.some(c => c.type === 'text')) {
+      let best = null; for (const k of l.keys) { const sc = Math.max(k.scaleX ?? 1, k.scaleY ?? 1); if (sc > 1.001 && (!best || sc > best.sc)) best = {sc, t: k.t}; }
+      if (best) times.add(+(s.start + best.t).toFixed(3));
+    }
+    if (l.type === 'group') peaks(l.children, s);
+  } };
+  for (const s of p.shots) if (s.start < duration && Array.isArray(s.layers)) peaks(s.layers, s);
   for (let t = 0; t < duration; t += 0.5) times.add(+t.toFixed(3));
   for (const s of p.shots) if (s.start < duration) { times.add(s.start); times.add(Math.min(duration, s.end) / 2 + s.start / 2); }
   for (const c of p.captions) if (c.start < duration) times.add((c.start + Math.min(c.end, duration)) / 2);
   const all = [], seen = new Set();
-  for (const t of [...times].sort((a, b) => a - b)) {
+  for (const t of [...times].filter(t => t >= from && t < duration + 0.001).sort((a, b) => a - b)) {
     frame(Math.min(t, duration - 0.001));
     for (const issue of checkBoxes(p, frame.boxes())) {
       const key = `${issue.kind}|${issue.shot}|${issue.text}|${issue.edges.join()}`;
@@ -219,7 +231,7 @@ function makeSfx(p, file, duration) {
 function stamp(seconds, vtt = false) {
   const ms = Math.round(seconds * 1000); return `${String(Math.floor(ms / 3600000)).padStart(2, '0')}:${String(Math.floor(ms / 60000) % 60).padStart(2, '0')}:${String(Math.floor(ms / 1000) % 60).padStart(2, '0')}${vtt ? '.' : ','}${String(ms % 1000).padStart(3, '0')}`;
 }
-export async function render(p, {full = false, seconds = 20, replace = false} = {}) {
+export async function render(p, {full = false, seconds = 20, replace = false, from = 0} = {}) {
   // A preview never loads media or paints frames belonging only to the unfinished tail.
   if (!full) p = loadProject(p.file, {seconds});
   const out = outputDir(p), lock = path.join(out, 'render.lock');
@@ -229,8 +241,10 @@ export async function render(p, {full = false, seconds = 20, replace = false} = 
     catch (e) { if (e.code !== 'ESRCH') throw e; fs.unlinkSync(lock); }
   }
   const fd = fs.openSync(lock, 'wx'); fs.writeFileSync(fd, JSON.stringify({pid: process.pid})); fs.closeSync(fd);
-  const kind = full ? 'film' : 'preview', target = path.join(out, `${kind}.mp4`), reportPath = path.join(out, `${kind}-report.json`);
+  const kind = full ? 'film' : from > 0 ? 'tramo' : 'preview', target = path.join(out, `${kind}.mp4`), reportPath = path.join(out, `${kind}-report.json`);
   const duration = Math.min(p.duration, full ? p.duration : seconds), count = Math.ceil(duration * p.fps - 1e-6);
+  // tramo: only frames from `from` on are painted; the audio mix is built in full and then trimmed (never used for approval).
+  const startFrame = full ? 0 : Math.max(0, Math.min(count - 1, Math.round(from * p.fps)));
   const done = value => save(path.join(out, 'checkpoint.json'), {stage: value, kind, fingerprint: p.fingerprint, pid: process.pid, updated_at: new Date().toISOString()});
   try {
     if (fs.existsSync(target) && !replace) {
@@ -241,7 +255,7 @@ export async function render(p, {full = false, seconds = 20, replace = false} = 
     const frame = await painter(p), clips = []; let reused = 0;
     const rendererHash = sha(['autopilot-render.mjs', 'b3-graphics.mjs', 'shorts.mjs'].map(f => hashFile(path.join(ROOT, 'scripts', f))).join(':'));
     for (const [i, shot] of p.shots.entries()) {
-      const first = Math.round(shot.start * p.fps), last = Math.min(count, i === p.shots.length - 1 ? count : Math.round(shot.end * p.fps)); if (last <= first) continue;
+      const first = Math.max(startFrame, Math.round(shot.start * p.fps)), last = Math.min(count, i === p.shots.length - 1 ? count : Math.round(shot.end * p.fps)); if (last <= first) continue;
       const files = new Set(Object.values(fontPaths(p)));
       for (const layer of walkLayers(shot.layers)) {
         if (layer.type === 'image') files.add(mediaPath(p.base, layer.path));
@@ -274,9 +288,9 @@ export async function render(p, {full = false, seconds = 20, replace = false} = 
     }
     // Programme loudness for the whole mix (never per cue): vertical deliveries default to the platform-typical target.
     const loudness = p.loudness ?? (isVertical(p) ? LOUDNESS : null);
-    filters.push(`${mixes.join('')}amix=inputs=${mixes.length}:normalize=0:duration=first,alimiter=limit=0.97:level=false:latency=true[a]`);
+    filters.push(`${mixes.join('')}amix=inputs=${mixes.length}:normalize=0:duration=first,alimiter=limit=0.97:level=false:latency=true${startFrame ? `,atrim=start=${startFrame / p.fps},asetpts=PTS-STARTPTS` : ''}[a]`);
     const partial = path.join(out, `${kind}.partial.mp4`);
-    args.push('-filter_complex', filters.join(';'), '-map', '0:v:0', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-t', String(count / p.fps), '-movflags', '+faststart', partial);
+    args.push('-filter_complex', filters.join(';'), '-map', '0:v:0', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-t', String((count - startFrame) / p.fps), '-movflags', '+faststart', partial);
     run(FFMPEG, args);
     let loudnessReport = null;
     if (loudness !== null) {
@@ -307,7 +321,7 @@ export async function render(p, {full = false, seconds = 20, replace = false} = 
     }
     if (isVertical(p)) {
       report.loudness = loudnessReport;
-      report.safezone = safezoneReview(p, frame, {duration, sheetPath: path.join(out, `${kind}-safezone.png`)});
+      report.safezone = safezoneReview(p, frame, {duration, from: startFrame / p.fps, sheetPath: path.join(out, `${kind}-safezone.png`)});
       report.safezone_status = report.safezone.problems.length ? 'needs_repair' : 'pass';
     }
     if (!isVertical(p) && loudnessReport) report.loudness = loudnessReport;

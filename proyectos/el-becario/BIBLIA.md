@@ -95,8 +95,12 @@ Para no repetir pruebas ni gastar créditos/tokens. Todo sale de los EXP 001 y 0
 ### Motor y ahorro (acordado con David, 10-nov-2026)
 - Si una mejora del motor es buena para los Shorts, **se hace** y se le cuenta a David (qué, por qué, coste). Las propuestas de mejora del motor se le van diciendo para ir mejorándolo.
 - Ahorrar tokens/créditos en cada vídeo: reutilizar lib.mjs/kit.mjs/voz.py, QA con una sola hoja de fotogramas, no regenerar voz si basta con recortar/insertar silencios, Scribe (0 créditos) para tiempos.
-- Hecho: `burnCaptions` (opción del motor).
-- Propuestas pendientes: (1) preview de un tramo (`--from/--to`) para no renderizar 49 s por un cambio de 2 s; (2) contorno real de texto en el render en vez de 8 copias (menos capas, render más rápido); (3) que la revisión de zona segura compruebe el tamaño máximo de cada animación, no solo instantes sueltos.
+- Hecho en el motor (rama shorts-es, todo opcional y sin cambiar lo que había):
+  - `burnCaptions: false` (subtítulos propios; el .srt se sigue exportando).
+  - `autopilot tramo project.json --from A --to B`: renderiza solo ese tramo con su audio (~7 s para 6 s de vídeo). Para revisar cambios; no sirve para aprobar.
+  - Contorno real de texto (`outline` + `outlineWidth`): `slam` y los subtítulos ya lo usan (antes, 8 copias por texto).
+  - La zona segura también se comprueba en el pico de cada animación de texto.
+- Subtítulos arriba probados (EXP 002 v8, `CAPS=arriba`): chocan con los títulos (al bajarlos tapan caras: la suegra, ¡CANTA!). Se quedan abajo.
 - **Nada de sangre ni corte visible**: el hachazo es corte a negro + «¡ZAS!» + plumas.
 - **Validar siempre** (`autopilot validate`) antes del preview: zona segura `pass` y tiempos de keys dentro del plano (`featherBurst`/`flapAt` cerca del final del plano fallan).
 - Ganancia de SFX máx. 1 (validador): si un efecto se oye poco, comprimir/normalizar el wav, no subir la ganancia.

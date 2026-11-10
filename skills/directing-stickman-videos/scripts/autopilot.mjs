@@ -69,12 +69,18 @@ async function main() {
       if (a.preview_fingerprint !== reviewed.fingerprint || a.preview_seconds !== report.preview_seconds || a.preview_sha256 !== report.output_sha256) throw new Error('Approval invalidated; preview and user approval required again');
     }
     const {render} = await import('./autopilot-render.mjs'); console.log(JSON.stringify(await render(p, {full: command === 'render', seconds, replace: args.includes('--replace')}), null, 2));
+  } else if (command === 'tramo') {
+    // Quick look at a stretch [--from A, --to B] (B <= 60 s): output/tramo.mp4 with its audio. Not a preview: cannot be approved.
+    const from = Number(option('--from', 0)), to = Number(option('--to', from + 5));
+    if (!(from >= 0 && to > from && to <= 60)) throw new Error('tramo needs 0 <= --from < --to <= 60');
+    const p = loadProject(args[0], {seconds: to});
+    const {render} = await import('./autopilot-render.mjs'); console.log(JSON.stringify(await render(p, {seconds: to, from, replace: true}), null, 2));
   } else if (command === 'safezone') {
     const p = loadProject(args[0], args.includes('--seconds') ? {seconds: Number(option('--seconds', 60))} : {});
     if (!(p.height > p.width)) throw new Error('Safe-zone review applies to vertical (9:16) projects');
     const {painter, safezoneReview} = await import('./autopilot-render.mjs');
     const sheet = path.join(outputDir(p), 'safezone.png');
     console.log(JSON.stringify(safezoneReview(p, await painter(p), {sheetPath: sheet}), null, 2));
-  } else throw new Error('Commands: doctor | probe FILE | init DIR [--style B1..B4] [--shorts] | safezone PROJECT [--seconds N] | captions WORDS OUTPUT [--lead N] [--shorts] | validate PROJECT [--seconds N] | preview PROJECT [--seconds N] [--replace] | approve PROJECT --note TEXT | render PROJECT [--replace]');
+  } else throw new Error('Commands: doctor | probe FILE | init DIR [--style B1..B4] [--shorts] | safezone PROJECT [--seconds N] | captions WORDS OUTPUT [--lead N] [--shorts] | validate PROJECT [--seconds N] | preview PROJECT [--seconds N] [--replace] | tramo PROJECT --from A --to B | approve PROJECT --note TEXT | render PROJECT [--replace]');
 }
 main().catch(e => { console.error(e.message); process.exitCode = 1; });

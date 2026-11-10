@@ -3,9 +3,12 @@
 // Reaprovecha sets y planos del piloto 01-pollo-sin-cabeza; sin sangre ni corte visible.
 import fs from 'node:fs';
 import {becario, granjero, person, mike, axeProp, caseFolder, osc, P, E, R, G, S, deg, INK, PAPER, TIE, ctext, sign, choppingBlock, featherBurst, dropperProp} from '../kit.mjs';
-import {H, GROUND, RED, YEL, T, tag, captionTrack, fill, band, lin, mix, r3, eOut, eInOut, eBack, shake, jit, sample, camF, cam, slam, popIn, flash, rays, speedLines, cloud, office, desk, makeEpisode, F} from '../lib.mjs';
+import {H, GROUND, RED, YEL, T, tag, captionTrack, layout, fill, band, lin, mix, r3, eOut, eInOut, eBack, shake, jit, sample, camF, cam, slam, popIn, flash, rays, speedLines, cloud, office, desk, makeEpisode, F} from '../lib.mjs';
 
 const {WORDS, shots, shot, mouth} = makeEpisode('words.json');
+// Subtítulos abajo (por defecto) o arriba (CAPS=arriba): arriba, los títulos bajan 230 para no chocar.
+const CAPS_TOP = process.env.CAPS === 'arriba';
+layout.titleDY = CAPS_TOP ? 230 : 0;
 const VOICE = 48.901, END = 49.32; // VOICE = duración real de narration.mp3
 const DAYS = 214; // contador «DÍAS SIN COBRAR» (sube con los días reales entre episodios)
 const FOLLOWERS = 6; // seguidores reales del canal al renderizar
@@ -250,7 +253,7 @@ shot(48.96, END, d => [camF(hookSet(d), d, t => ({s: mix(1.25, 1.0, eOut(t / 0.3
 // Subtítulos (motor): captions.json = voz.py caps words.json --skip 3 --max 20 («Este pollo vivió» ya lo dice la etiqueta del gancho).
 const captions = JSON.parse(fs.readFileSync('captions.json', 'utf8'));
 // Karaoke propio (palabra en amarillo); el motor no los pinta (burnCaptions: false) pero exporta el .srt.
-const cap = captionTrack(WORDS, captions);
+const cap = captionTrack(WORDS, captions, CAPS_TOP ? {y: 330} : {});
 for (const s of shots) s.layers.push(...cap(s.start, s.end));
 // Efectos: nunca tapan una palabra. Los golpes van en los huecos de la voz o muy bajos; ambientes ≤ 0,2.
 const sfx = [

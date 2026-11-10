@@ -24,6 +24,7 @@ export function validateB3(layers, television) {
       if (++count > 2000 || !l || typeof l !== 'object') throw new Error('Invalid B3 layer tree');
       for (const k of ['pivotX', 'pivotY', 'radius']) if (l[k] !== undefined) finite(l[k], k, k === 'radius' ? 0 : -10000);
       for (const k of ['scaleX', 'scaleY']) if (l[k] !== undefined) finite(l[k], k, 0.001, 100);
+      if (l.type === 'text' && l.outline !== undefined) { if (typeof l.outline !== 'string' || !/^(?:#(?:[a-f\d]{3}|[a-f\d]{4}|[a-f\d]{6}|[a-f\d]{8})|rgba?\([\d\s.,%]+\)|[a-z]{1,20})$/i.test(l.outline)) throw new Error('Invalid B3 text outline colour'); if (l.outlineWidth !== undefined) finite(l.outlineWidth, 'text outline width', 0.5, 60); }
       for (const k of ['fill', 'stroke', 'color']) if (l[k] !== undefined && (typeof l[k] !== 'string' || !/^(?:#(?:[a-f\d]{3}|[a-f\d]{4}|[a-f\d]{6}|[a-f\d]{8})|rgba?\([\d\s.,%]+\)|[a-z]{1,20})$/i.test(l[k]))) throw new Error('Invalid B3 color');
       for (const k of ['alpha', 'progress']) if (l[k] !== undefined) finite(l[k], k, 0, 1);
       if (l.lineWidth !== undefined) finite(l.lineWidth, 'line width', 0.001, 200);
