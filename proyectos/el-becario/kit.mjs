@@ -93,6 +93,8 @@ const OUTFITS = {
   granjero: {shirt: '#c2412f', sleeve: '#c2412f', pants: '#3f6aa8', shoe: '#6b4423', skin: PAPER},
   civil: {shirt: '#8fbf6a', sleeve: '#8fbf6a', pants: '#5a5f6a', shoe: INK, skin: PAPER},
   civil2: {shirt: '#e6b34a', sleeve: '#e6b34a', pants: '#3f6aa8', shoe: INK, skin: PAPER},
+  // EXP 002: the mother-in-law (grey bun, glasses, purple dress)
+  suegra: {shirt: '#8a4f9e', sleeve: '#8a4f9e', pants: '#6b3d7a', shoe: INK, skin: PAPER, glasses: true, cheeks: true, bun: '#a4a9b2', torsoW: 184},
   // 1920s Paris cast (EXP 001)
   lustig: {shirt: '#23273a', sleeve: '#23273a', pants: '#23273a', shoe: INK, skin: PAPER, jacket: true, vest: '#7a1f2b', bow: '#c8202a', hat: 'top', hatColor: '#15171f', band: '#7a1f2b', stache: 'pencil', torsoW: 146, tails: true, carnation: true, monocle: true, chain: true, slick: true, pocket: true, shoeShine: true},
   poisson: {shirt: '#9a7448', sleeve: '#9a7448', pants: '#7a5a38', shoe: '#3a2a1e', skin: PAPER, jacket: true, vest: '#c9a24a', tie: '#3f6aa8', tiePin: true, hat: 'bowler', hatColor: '#4a3626', hatScale: 0.82, stache: 'walrus', torsoW: 224, cheeks: true, chain: true, glasses: true, belly: true},
@@ -199,7 +201,7 @@ export function person({who = 'becario', x = 0, y = 0, scale = 1, expr = 'cansad
   if (o.monocle) f.rest.push(E(50, -136, 70, 70, {fill: 'rgba(200,230,255,0.25)', stroke: '#e9b93a', lineWidth: 6}), P([['M', 84, -124], ['Q', 108, -40, 80, 10]], {stroke: '#e9b93a', lineWidth: 4}));
   if (o.slick) f.rest.unshift(S([['M', -136, -150], ['Q', -132, -230, -60, -246], ['L', -120, -200], ['Z']], INK, {lineWidth: 4}), S([['M', 136, -150], ['Q', 132, -230, 60, -246], ['L', 120, -200], ['Z']], INK, {lineWidth: 4}));
   const eyesG = G(f.eyes, {pivotX: 0, pivotY: -138, ...(m.blink ? {keys: m.blink} : {})});
-  const hair = (isFarmer || o.hat) ? [] : [S([['M', -64, -232], ['L', -44, -284], ['L', -22, -240], ['L', 0, -296], ['L', 20, -242], ['L', 48, -280], ['L', 56, -230], ['Z']], INK, {lineWidth: 6})];
+  const hair = (isFarmer || o.hat) ? [] : o.bun ? [E(0, -246, 252, 92, {fill: o.bun, lineWidth: 7}), E(0, -306, 104, 92, {fill: o.bun, lineWidth: 7}), P([['M', -30, -300], ['Q', 0, -322, 30, -300]], {stroke: '#7d828b', lineWidth: 5})] : [S([['M', -64, -232], ['L', -44, -284], ['L', -22, -240], ['L', 0, -296], ['L', 20, -242], ['L', 48, -280], ['L', 56, -230], ['Z']], INK, {lineWidth: 6})];
   const hat = isFarmer ? [E(0, -232, 380, 66, {fill: '#e9c46a'}), R(-98, -318, 196, 98, {radius: 34, fill: '#e9c46a'}), P([['M', -96, -248], ['L', 96, -248]], {stroke: '#9c4a1a', lineWidth: 14}),
     ...[-60, -20, 20, 60].map(xx => P([['M', xx, -312], ['L', xx + 8, -256]], {stroke: '#c9a24a', lineWidth: 4}))] : hatOf(o);
   const head = G([...hair, E(0, -130, 272, 250), eyesG, ...f.rest, ...(talk && (talk.length || talk.env) ? [talkingMouth(talk, talkDur ?? idle?.dur ?? walk?.dur)] : []), ...hat],

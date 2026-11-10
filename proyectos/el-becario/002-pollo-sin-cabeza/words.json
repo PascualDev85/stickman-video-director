@@ -1,0 +1,665 @@
+{
+ "words": [
+  {
+   "word": "Este",
+   "start": 0.08,
+   "end": 0.4
+  },
+  {
+   "word": "pollo",
+   "start": 0.48,
+   "end": 0.72
+  },
+  {
+   "word": "vivió",
+   "start": 0.8,
+   "end": 1.12
+  },
+  {
+   "word": "dieciocho",
+   "start": 1.24,
+   "end": 1.76
+  },
+  {
+   "word": "meses...",
+   "start": 1.92,
+   "end": 2.68
+  },
+  {
+   "word": "sin",
+   "start": 3.04,
+   "end": 3.28
+  },
+  {
+   "word": "cabeza.",
+   "start": 3.36,
+   "end": 3.88
+  },
+  {
+   "word": "Expediente",
+   "start": 4.48,
+   "end": 5.2
+  },
+  {
+   "word": "002.",
+   "start": 5.36,
+   "end": 6.36
+  },
+  {
+   "word": "Colorado,",
+   "start": 6.996,
+   "end": 7.16
+  },
+  {
+   "word": "1945.",
+   "start": 7.28,
+   "end": 8.92
+  },
+  {
+   "word": "Viene",
+   "start": 8.96,
+   "end": 9.12
+  },
+  {
+   "word": "a",
+   "start": 9.16,
+   "end": 9.2
+  },
+  {
+   "word": "cenar",
+   "start": 9.28,
+   "end": 9.44
+  },
+  {
+   "word": "la",
+   "start": 9.52,
+   "end": 9.6
+  },
+  {
+   "word": "suegra...",
+   "start": 9.64,
+   "end": 10.16
+  },
+  {
+   "word": "y",
+   "start": 10.4,
+   "end": 10.48
+  },
+  {
+   "word": "el",
+   "start": 10.56,
+   "end": 10.64
+  },
+  {
+   "word": "granjero",
+   "start": 10.72,
+   "end": 11.2
+  },
+  {
+   "word": "va",
+   "start": 11.28,
+   "end": 11.36
+  },
+  {
+   "word": "a",
+   "start": 11.4,
+   "end": 11.44
+  },
+  {
+   "word": "por",
+   "start": 11.52,
+   "end": 11.6
+  },
+  {
+   "word": "un",
+   "start": 11.68,
+   "end": 11.76
+  },
+  {
+   "word": "pollo.",
+   "start": 11.84,
+   "end": 12.28
+  },
+  {
+   "word": "Hachazo...",
+   "start": 12.464,
+   "end": 13.08
+  },
+  {
+   "word": "y",
+   "start": 13.269,
+   "end": 13.28
+  },
+  {
+   "word": "el",
+   "start": 13.36,
+   "end": 13.44
+  },
+  {
+   "word": "pollo",
+   "start": 13.56,
+   "end": 13.68
+  },
+  {
+   "word": "se",
+   "start": 13.72,
+   "end": 13.76
+  },
+  {
+   "word": "levanta.",
+   "start": 13.84,
+   "end": 14.4
+  },
+  {
+   "word": "Y",
+   "start": 14.56,
+   "end": 14.6
+  },
+  {
+   "word": "se",
+   "start": 14.64,
+   "end": 14.72
+  },
+  {
+   "word": "va",
+   "start": 14.76,
+   "end": 14.8
+  },
+  {
+   "word": "andando.",
+   "start": 14.92,
+   "end": 15.48
+  },
+  {
+   "word": "Al",
+   "start": 15.68,
+   "end": 15.76
+  },
+  {
+   "word": "día",
+   "start": 15.84,
+   "end": 15.92
+  },
+  {
+   "word": "siguiente...",
+   "start": 16.0,
+   "end": 16.68
+  },
+  {
+   "word": "sigue",
+   "start": 16.88,
+   "end": 17.12
+  },
+  {
+   "word": "vivo.",
+   "start": 17.2,
+   "end": 17.6
+  },
+  {
+   "word": "¿Cómo?",
+   "start": 18.046,
+   "end": 18.32
+  },
+  {
+   "word": "El",
+   "start": 18.56,
+   "end": 18.64
+  },
+  {
+   "word": "hacha",
+   "start": 18.72,
+   "end": 18.88
+  },
+  {
+   "word": "le",
+   "start": 18.92,
+   "end": 18.96
+  },
+  {
+   "word": "dejó",
+   "start": 19.04,
+   "end": 19.28
+  },
+  {
+   "word": "casi",
+   "start": 19.32,
+   "end": 19.6
+  },
+  {
+   "word": "todo",
+   "start": 19.68,
+   "end": 19.84
+  },
+  {
+   "word": "el",
+   "start": 19.92,
+   "end": 20.0
+  },
+  {
+   "word": "tronco",
+   "start": 20.08,
+   "end": 20.24
+  },
+  {
+   "word": "del",
+   "start": 20.32,
+   "end": 20.4
+  },
+  {
+   "word": "cerebro:",
+   "start": 20.48,
+   "end": 21.093
+  },
+  {
+   "word": "lo",
+   "start": 21.147,
+   "end": 21.2
+  },
+  {
+   "word": "justo",
+   "start": 21.32,
+   "end": 21.52
+  },
+  {
+   "word": "para",
+   "start": 21.6,
+   "end": 21.68
+  },
+  {
+   "word": "respirar...",
+   "start": 21.76,
+   "end": 22.52
+  },
+  {
+   "word": "y",
+   "start": 22.56,
+   "end": 22.6
+  },
+  {
+   "word": "andar.",
+   "start": 22.64,
+   "end": 23.307
+  },
+  {
+   "word": "Lo",
+   "start": 23.333,
+   "end": 23.36
+  },
+  {
+   "word": "alimentan",
+   "start": 23.4,
+   "end": 23.76
+  },
+  {
+   "word": "con",
+   "start": 23.84,
+   "end": 23.92
+  },
+  {
+   "word": "un",
+   "start": 23.96,
+   "end": 24.0
+  },
+  {
+   "word": "gotero...",
+   "start": 24.08,
+   "end": 24.667
+  },
+  {
+   "word": "y",
+   "start": 24.693,
+   "end": 24.72
+  },
+  {
+   "word": "le",
+   "start": 24.76,
+   "end": 24.8
+  },
+  {
+   "word": "limpian",
+   "start": 24.88,
+   "end": 25.12
+  },
+  {
+   "word": "la",
+   "start": 25.16,
+   "end": 25.2
+  },
+  {
+   "word": "garganta",
+   "start": 25.28,
+   "end": 25.68
+  },
+  {
+   "word": "con",
+   "start": 25.72,
+   "end": 25.76
+  },
+  {
+   "word": "una",
+   "start": 25.84,
+   "end": 25.92
+  },
+  {
+   "word": "jeringa.",
+   "start": 26.0,
+   "end": 26.651
+  },
+  {
+   "word": "Hasta",
+   "start": 26.72,
+   "end": 26.96
+  },
+  {
+   "word": "intenta",
+   "start": 27.08,
+   "end": 27.36
+  },
+  {
+   "word": "cantar.",
+   "start": 27.44,
+   "end": 28.12
+  },
+  {
+   "word": "Suena",
+   "start": 28.224,
+   "end": 28.48
+  },
+  {
+   "word": "a",
+   "start": 28.533,
+   "end": 28.587
+  },
+  {
+   "word": "tubería",
+   "start": 28.64,
+   "end": 28.96
+  },
+  {
+   "word": "atascada.",
+   "start": 29.04,
+   "end": 29.88
+  },
+  {
+   "word": "Lo",
+   "start": 29.987,
+   "end": 30.0
+  },
+  {
+   "word": "llaman",
+   "start": 30.04,
+   "end": 30.32
+  },
+  {
+   "word": "Mike,",
+   "start": 30.56,
+   "end": 30.827
+  },
+  {
+   "word": "y",
+   "start": 30.853,
+   "end": 30.88
+  },
+  {
+   "word": "se",
+   "start": 30.96,
+   "end": 31.0
+  },
+  {
+   "word": "va",
+   "start": 31.04,
+   "end": 31.12
+  },
+  {
+   "word": "de",
+   "start": 31.16,
+   "end": 31.2
+  },
+  {
+   "word": "gira",
+   "start": 31.28,
+   "end": 31.52
+  },
+  {
+   "word": "por",
+   "start": 31.64,
+   "end": 31.76
+  },
+  {
+   "word": "todo",
+   "start": 31.84,
+   "end": 31.92
+  },
+  {
+   "word": "el",
+   "start": 32.0,
+   "end": 32.08
+  },
+  {
+   "word": "país.",
+   "start": 32.16,
+   "end": 32.667
+  },
+  {
+   "word": "La",
+   "start": 32.693,
+   "end": 32.72
+  },
+  {
+   "word": "gente",
+   "start": 32.8,
+   "end": 33.12
+  },
+  {
+   "word": "paga",
+   "start": 33.2,
+   "end": 33.44
+  },
+  {
+   "word": "por",
+   "start": 33.52,
+   "end": 33.6
+  },
+  {
+   "word": "verlo.",
+   "start": 33.68,
+   "end": 34.167
+  },
+  {
+   "word": "A",
+   "start": 34.28,
+   "end": 34.32
+  },
+  {
+   "word": "mí,",
+   "start": 34.4,
+   "end": 34.853
+  },
+  {
+   "word": "ni",
+   "start": 34.907,
+   "end": 34.96
+  },
+  {
+   "word": "gratis.",
+   "start": 35.4,
+   "end": 35.846
+  },
+  {
+   "word": "Pero",
+   "start": 35.915,
+   "end": 36.001
+  },
+  {
+   "word": "una",
+   "start": 36.081,
+   "end": 36.241
+  },
+  {
+   "word": "noche,",
+   "start": 36.321,
+   "end": 36.841
+  },
+  {
+   "word": "en",
+   "start": 36.881,
+   "end": 36.961
+  },
+  {
+   "word": "un",
+   "start": 37.001,
+   "end": 37.041
+  },
+  {
+   "word": "motel,",
+   "start": 37.121,
+   "end": 37.801
+  },
+  {
+   "word": "se",
+   "start": 37.841,
+   "end": 37.881
+  },
+  {
+   "word": "atraganta...",
+   "start": 37.921,
+   "end": 38.841
+  },
+  {
+   "word": "y",
+   "start": 38.881,
+   "end": 38.921
+  },
+  {
+   "word": "no",
+   "start": 38.961,
+   "end": 39.041
+  },
+  {
+   "word": "encuentran",
+   "start": 39.121,
+   "end": 39.521
+  },
+  {
+   "word": "la",
+   "start": 39.561,
+   "end": 39.601
+  },
+  {
+   "word": "jeringa.",
+   "start": 39.681,
+   "end": 40.441
+  },
+  {
+   "word": "Hoy",
+   "start": 40.595,
+   "end": 40.641
+  },
+  {
+   "word": "su",
+   "start": 40.721,
+   "end": 40.801
+  },
+  {
+   "word": "pueblo",
+   "start": 40.841,
+   "end": 41.121
+  },
+  {
+   "word": "le",
+   "start": 41.161,
+   "end": 41.201
+  },
+  {
+   "word": "hace",
+   "start": 41.254,
+   "end": 41.361
+  },
+  {
+   "word": "un",
+   "start": 41.401,
+   "end": 41.441
+  },
+  {
+   "word": "festival",
+   "start": 41.521,
+   "end": 41.921
+  },
+  {
+   "word": "cada",
+   "start": 42.001,
+   "end": 42.161
+  },
+  {
+   "word": "año.",
+   "start": 42.241,
+   "end": 42.81
+  },
+  {
+   "word": "Expediente",
+   "start": 42.881,
+   "end": 43.361
+  },
+  {
+   "word": "cerrado.",
+   "start": 43.441,
+   "end": 44.172
+  },
+  {
+   "word": "Dieciocho",
+   "start": 44.241,
+   "end": 44.801
+  },
+  {
+   "word": "meses",
+   "start": 44.921,
+   "end": 45.121
+  },
+  {
+   "word": "sin",
+   "start": 45.241,
+   "end": 45.361
+  },
+  {
+   "word": "cabeza...",
+   "start": 45.401,
+   "end": 46.287
+  },
+  {
+   "word": "y",
+   "start": 46.561,
+   "end": 46.588
+  },
+  {
+   "word": "yo",
+   "start": 46.614,
+   "end": 46.641
+  },
+  {
+   "word": "no",
+   "start": 46.681,
+   "end": 46.721
+  },
+  {
+   "word": "aguanto",
+   "start": 46.801,
+   "end": 47.121
+  },
+  {
+   "word": "ni",
+   "start": 47.161,
+   "end": 47.201
+  },
+  {
+   "word": "un",
+   "start": 47.281,
+   "end": 47.361
+  },
+  {
+   "word": "lunes.",
+   "start": 47.441,
+   "end": 48.081
+  }
+ ],
+ "method": "ElevenLabs Scribe v1 (toma A); números unidos para mostrar"
+}
