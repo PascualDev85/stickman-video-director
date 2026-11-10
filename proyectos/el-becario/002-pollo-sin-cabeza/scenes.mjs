@@ -8,7 +8,7 @@ import {H, GROUND, RED, YEL, T, fill, band, lin, mix, r3, eOut, eInOut, eBack, s
 const {shots, shot, mouth} = makeEpisode('words.json');
 const VOICE = 48.081, END = 48.5;
 const DAYS = 214; // contador «DÍAS SIN COBRAR» (sube con los días reales entre episodios)
-const FOLLOWERS = 2; // seguidores reales del canal al renderizar
+const FOLLOWERS = 6; // seguidores reales del canal al renderizar
 
 // ---------- sets (del piloto) ----------
 const tree = (x, y, s = 1) => G([R(-18, -200, 36, 200, {radius: 6, fill: '#8a5a33', lineWidth: 8}), E(0, -260, 220, 180, {fill: '#5f9e48', lineWidth: 9}), E(-60, -220, 140, 120, {fill: '#6fb354', lineWidth: 9}), E(60, -230, 150, 130, {fill: '#6fb354', lineWidth: 9})], {x, y, scaleX: s, scaleY: s});
@@ -85,10 +85,10 @@ shot(0, 4.45, d => [camF(hookSet(d, [0.25, 1.9]), d,
 shot(4.45, 6.9, d => [camF([...office(d), desk(),
   becario({x: 300, y: GROUND - 20, scale: 1.0, expr: 'sarcastico', look: 0, idle: {dur: d}, talk: mouth(4.45, 6.9), headKeys: [{t: 0, angle: 0}, {t: 0.4, angle: deg(-5)}, {t: d, angle: deg(-3)}]}),
   G([caseFolder({x: 0, y: 0, scale: 1, label: 'EXPEDIENTE 002'}), photo(d, {x: 120, y: 120, scaleX: 0.36, scaleY: 0.36, angle: deg(6)})],
-    {x: 830, y: 1020, scaleX: 0.62, scaleY: 0.62, keys: [{t: 0, y: 700, angle: deg(-14)}, {t: 0.18, y: 1020, angle: deg(-3)}, {t: 0.26, y: 990, angle: deg(-3)}, {t: 0.34, y: 1020, angle: deg(-3)}]}),
-  popIn(counter(DAYS, {x: 830, y: 820}), 0.75, d),
+    {x: 840, y: 1010, scaleX: 0.74, scaleY: 0.74, keys: [{t: 0, y: 700, angle: deg(-14)}, {t: 0.18, y: 1010, angle: deg(-3)}, {t: 0.26, y: 980, angle: deg(-3)}, {t: 0.34, y: 1010, angle: deg(-3)}]}),
+  popIn(counter(DAYS, {x: 840, y: 790}), 0.75, d),
 ], d, t => ({s: (t < 2.0 ? mix(1.12, 1.18, t / 2.0) : mix(1.18, 3.2, eInOut((t - 2.0) / 0.45))) + (t > 0.18 && t < 0.4 ? 0.04 : 0), ...shake(t, 0.18, 0.2, 12), ...shake(t, 1.39, 0.2, 14)}), 875, 1065),
-  slam('002', 640, 560, 210, 1.39, d, {color: RED, tilt: -8, stamp: true, from: 2.6}), flash(2.3, 0.15, '#c9a46a', 0.7)]);
+  slam('002', 600, 470, 200, 1.39, d, {color: RED, tilt: -8, stamp: true, from: 2.6}), flash(2.3, 0.15, '#c9a46a', 0.7)]);
 // 6.9–8.95 · «Colorado, 1945.» Flashback en sepia, grúa desde el cielo.
 shot(6.9, 8.95, d => [camF([...farm(d, {sunTo: 300, sunY: 420}), mike({x: 1010, y: GROUND + 40, scale: 0.8, head: true, idle: {dur: d}}),
   {...fill('#b8894a'), keys: [{t: 0, alpha: 0.55}, {t: 1.4, alpha: 0.3}, {t: d, alpha: 0.18}]},
@@ -185,7 +185,7 @@ shot(31.6, 32.69, d => [cam([fill('#bfe3f7'), cloud(300, 640, 0.7, d, -120), clo
 shot(32.69, 34.25, d => [cam([fill('#ffe2b8'), band(GROUND - 20, 900, '#e2c79b'),
   ...[0, 1, 2, 3, 4, 5].map(i => R(260 + i * 130, 620, 130, 520, {radius: 0, fill: i % 2 ? PAPER : RED, lineWidth: 8})), S([['M', 230, 620], ['L', 640, 430], ['L', 1050, 620], ['Z']], RED, {lineWidth: 12}),
   R(330, 690, 620, 170, {radius: 14, fill: PAPER}), ctext('VEA AL POLLO', 640, 705, 64, {maxW: 560}), ctext('SIN CABEZA', 640, 780, 64, {maxW: 560, color: RED}),
-  mike({x: 640, y: 1130, scale: 0.6, idle: {dur: d}}),
+  mike({x: 640, y: 1160, scale: 0.78, idle: {dur: d}}),
   person({who: 'civil', x: 130, y: GROUND, scale: 0.62, expr: 'sorpresa', idle: {dur: d}}), person({who: 'civil2', x: 290, y: GROUND, scale: 0.62, expr: 'contento', idle: {dur: d}, gestures: [{t0: 0.3, t1: 1.2, arm: 'R', shoulder: 100, elbow: 10}]}),
   person({who: 'civil2', x: 990, y: GROUND, scale: 0.62, expr: 'sorpresa', idle: {dur: d}}), person({who: 'civil', x: 1150, y: GROUND, scale: 0.62, expr: 'contento', idle: {dur: d}, gestures: [{t0: 0.6, t1: 1.4, arm: 'L', shoulder: 100, elbow: 10}]}),
   ...[[240, 980, 0.3], [1040, 960, 0.6], [160, 860, 0.9], [1120, 840, 1.15]].map(([x, y, t]) => popIn(E(x, y, 70, 70, {fill: '#ffd34d', lineWidth: 8}), t, d)),
@@ -224,8 +224,8 @@ shot(40.55, 42.85, d => [cam([fill('#bfe3f7'), cloud(250, 640, 0.6, d, 60),
 // 42.85–44.2 · «Expediente cerrado.» Sello CERRADO y el contador sube a 215.
 shot(42.85, 44.2, d => [cam([...office(d), desk(),
   becario({x: 300, y: GROUND - 20, scale: 1.0, expr: 'serio', look: 1, idle: {dur: d}, talk: mouth(42.85, 44.2)}),
-  G([caseFolder({x: 0, y: 0, scale: 1, label: 'EXPEDIENTE 002'})], {x: 830, y: 1020, scaleX: 0.62, scaleY: 0.62, angle: deg(-3)}),
-  counter(DAYS, {x: 830, y: 820, to: 0.95}), {...counter(DAYS + 1, {x: 830, y: 820}), from: 0.95, keys: sample(t => ({s: mix(1.35, 1, eBack((t - 0.95) / 0.2))}), 0.95, d)},
+  G([caseFolder({x: 0, y: 0, scale: 1, label: 'EXPEDIENTE 002'})], {x: 840, y: 1010, scaleX: 0.74, scaleY: 0.74, angle: deg(-3)}),
+  counter(DAYS, {x: 840, y: 790, to: 0.95}), {...counter(DAYS + 1, {x: 840, y: 790}), from: 0.95, keys: sample(t => ({s: mix(1.35, 1, eBack((t - 0.95) / 0.2))}), 0.95, d)},
 ], d, 1.1, 1.18, 830, 1000), slam('CERRADO', 760, 1050, 120, 0.59, d, {color: RED, tilt: -10, stamp: true, from: 2.6})]);
 // 44.2–48.1 · «Dieciocho meses sin cabeza… y yo no aguanto ni un lunes.» Mira la foto; luego a cámara. Calendario: LUNES.
 shot(44.2, 48.1, d => [camF([...office(d),
@@ -251,7 +251,7 @@ const sfx = [
   F(15.6, 'whoosh', 0.3), F(17.2, 'whoosh', 0.35), F(17.2, 'stamp', 0.6), F(17.25, 'flap', 0.35, 0.6), F(17.7, 'scratch', 0.55),
   {time: 18.6, kind: 'chime', gain: 0.08}, {time: 20.08, kind: 'pop', gain: 0.14}, F(21.1, 'whoosh', 0.3), F(22.55, 'whoosh', 0.3),
   F(23.33, 'whoosh', 0.3), F(23.9, 'drop', 0.6), F(24.69, 'whoosh', 0.3), {time: 24.75, kind: 'pop', gain: 0.14}, F(26.0, 'stamp', 0.45),
-  F(26.7, 'whoosh', 0.3), F(27.45, 'gurgle', 0.6, 1.4), F(28.2, 'whoosh', 0.35), F(28.64, 'stamp', 0.4), F(29.04, 'stamp', 0.5),
+  F(26.7, 'whoosh', 0.3), F(27.42, 'pipe', 0.9, 1.0), F(28.62, 'pipe', 0.35, 1.0), F(28.2, 'whoosh', 0.35), F(28.64, 'stamp', 0.4), F(29.04, 'stamp', 0.5),
   F(29.95, 'whoosh', 0.3), {time: 30.5, kind: 'chime', gain: 0.12}, F(30.95, 'flash', 0.45), F(31.27, 'flash', 0.4), F(31.6, 'whoosh', 0.3),
   F(32.69, 'crowd', 0.35), F(33.3, 'register', 0.5, 1.2),
   F(34.25, 'whoosh', 0.2), F(34.7, 'crickets', 0.55, 1.2),
