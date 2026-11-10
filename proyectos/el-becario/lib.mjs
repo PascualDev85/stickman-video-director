@@ -38,7 +38,7 @@ export function slam(text, cx, cy, size, t0, d, {color = INK, from = 1.6, tilt =
   const t = ctext(text, 0, -size * 0.68, size, {maxW, color});
   // outline: 8 offset copies under the text so it reads on any background (the renderer has no text stroke)
   const oc = typeof outline === 'string' ? outline : [PAPER, '#ffffff', YEL, '#ffd21f', '#6fd3ff'].includes(color) ? INK : PAPER, k = Math.max(3, t.size * 0.055);
-  if (outline) { t.outline = oc; t.outlineWidth = r3(k * 2); } // contorno real del motor (antes, 8 copias desplazadas)
+  if (outline) { t.outline = oc; t.outlineWidth = r3(k * 2.8); } // contorno real del motor (antes, 8 copias desplazadas)
   const halo = [];
   const parts = stamp ? [R(-t.w / 2 - 10, -size * 0.85, t.w + 20, size * 1.5, {radius: 14, fill: 'none', stroke: color, lineWidth: 12}), ...halo, t] : [...halo, t];
   const end = until ? Math.min(until, d) : d;

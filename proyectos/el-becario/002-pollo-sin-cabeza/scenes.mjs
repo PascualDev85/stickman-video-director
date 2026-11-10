@@ -73,7 +73,7 @@ const calendar = (t0, d) => G([R(-120, -150, 240, 300, {radius: 10, fill: PAPER,
 const confetti = (t0, d, n = 40) => Array.from({length: n}, (_, i) => ({...R(0, 0, 26, 14, {radius: 3, fill: ['#e0261b', '#ffd21f', '#4f78b8', '#8fbf6a', '#ff8fb1'][i % 5], lineWidth: 3}), from: t0,
   keys: sample(t => { const u = t - t0; return {x: (i * 97) % 1280 + Math.sin(u * 3 + i) * 50, y: ((i * 173) % 2100 - 200 + u * (420 + (i % 5) * 60)) % 2200 - 100, a: u * 360 * (i % 2 ? 1 : -1)}; }, t0, d)}));
 /** Primer fotograma (y último, para el bucle): Mike sin cabeza sacando pecho con su cartel, sobre rayos amarillos. */
-const HOOK_X = 650, HOOK_Y = 1640, HOOK_S = 2.0;
+const HOOK_X = 650, HOOK_Y = 1570, HOOK_S = 2.0;
 const hookSet = (d, flapAt = []) => [...rays(d, '#ffd21f', '#ffe36b', 640, 1150, 14, 14), E(640, HOOK_Y + 10, 1200, 210, {fill: '#f2b93a', stroke: 'none'}),
   G([mike({x: 0, y: 0, scale: 1, idle: {dur: d}, flapAt}), neckSign()], {x: HOOK_X, y: HOOK_Y, scaleX: HOOK_S, scaleY: HOOK_S})];
 const STUMP = [HOOK_X + 124 * HOOK_S, HOOK_Y - 329 * HOOK_S];
@@ -133,31 +133,38 @@ shot(17.049, 17.775, d => [camF([...office(d), becario({x: 640, y: 2080, scale: 
 // 18.5–21.1 · Rayos X: el tronco del cerebro se ilumina en «tronco».
 const XR = '#0f2a45', XL = '#6fd3ff';
 const xrayBg = () => [fill(XR), ...Array.from({length: 9}, (_, i) => P([['M', 0, 300 + i * 220], ['L', 1280, 300 + i * 220]], {stroke: '#17395c', lineWidth: 4})), ...Array.from({length: 7}, (_, i) => P([['M', 40 + i * 200, 0], ['L', 40 + i * 200, 2300]], {stroke: '#17395c', lineWidth: 4}))];
-shot(17.775, 20.46, d => [camF([...xrayBg(), mike({x: 520, y: 1700, scale: 2.1, idle: {dur: d}, alpha: 0.9}),
-  // Tronco del cerebro: un trocito de cerebro (con pliegues) y el tallo que baja por el cuello, en rosa sobre la radiografía.
-  G([R(-16, -10, 32, 120, {radius: 16, fill: '#ff8fb1', stroke: '#ffffff', lineWidth: 6}),
+const XM = [520, 1700, 2.1], XS = [XM[0] + 124 * XM[2], XM[1] - 300 * XM[2]];
+const brainstem = (t0, d) => G([R(-16, -10, 32, 120, {radius: 16, fill: '#ff8fb1', stroke: '#ffffff', lineWidth: 6}),
     E(0, -20, 96, 62, {fill: '#ff8fb1', stroke: '#ffffff', lineWidth: 6}),
     P([['M', -30, -28], ['Q', -18, -42, -6, -26], ['Q', 6, -42, 18, -26], ['Q', 28, -38, 34, -22]], {stroke: '#ffffff', lineWidth: 4}),
     P([['M', -26, -10], ['Q', -10, -20, 4, -8], ['Q', 16, -20, 28, -8]], {stroke: '#ffffff', lineWidth: 4}),
-    E(0, 20, 170, 230, {fill: 'none', stroke: XL, lineWidth: 6})], {x: 520 + 124 * 2.1, y: 1700 - 300 * 2.1, from: 1.5, keys: sample(t => ({s: mix(0.2, 1, eBack((t - 1.5) / 0.25)) * (1 + 0.06 * Math.sin(t * 9)), alpha: (t - 1.5) / 0.1}), 1.5, d)}),
-  {...band(0, 26, XL), alpha: 0.75, keys: sample(t => ({y: mix(260, 1900, (t % 1.2) / 1.2)}), 0, d)},
-], d, t => ({s: mix(1.0, 1.35, eInOut((t - 1.3) / 0.6))}), 520 + 124 * 2.1, 1700 - 300 * 2.1),
-  tag('RAYOS X', 343, 57, {color: XL, bg: '#0b1f33'}), slam('TRONCO DEL CEREBRO', 640, 470, 76, 1.62, d, {outline: true, color: PAPER, from: 1.12})]);
+    E(0, 20, 170, 230, {fill: 'none', stroke: XL, lineWidth: 6})], {x: XS[0], y: XS[1], from: t0, keys: sample(t => ({s: mix(0.2, 1, eBack((t - t0) / 0.2)) * (1 + 0.06 * Math.sin(t * 9)), alpha: (t - t0) / 0.08}), t0, d)});
+const scanBar = d => ({...band(0, 26, XL), alpha: 0.75, keys: sample(t => ({y: mix(260, 1900, (t % 1.2) / 1.2)}), 0, d)});
+// «El hacha le dejó casi todo…»: radiografía, el hacha fantasma pasa rozando por encima del cuello.
+shot(17.775, 19.36, d => [camF([...xrayBg(), mike({x: XM[0], y: XM[1], scale: XM[2], idle: {dur: d}, alpha: 0.9}),
+  G([axeProp()], {from: 0.2, to: 0.75, keys: sample(t => ({x: mix(XS[0] + 650, XS[0] - 420, eInOut((t - 0.2) / 0.45)), y: XS[1] - 40, s: 1.4, a: 90, alpha: t < 0.6 ? 0.6 : mix(0.6, 0, (t - 0.6) / 0.15)}), 0.2, 0.75)}),
+  {...P([['M', XS[0] - 120, XS[1] - 6], ['L', XS[0] + 120, XS[1] - 6]], {stroke: XL, lineWidth: 6}), from: 0.55, keys: [{t: 0.55, alpha: 0}, {t: 0.65, alpha: 1}]},
+  scanBar(d)], d, t => ({s: mix(1.0, 1.12, t / d), ...shake(t, 0.42, 0.25, 10)}), XS[0], XS[1]),
+  tag('RAYOS X', 343, 57, {color: XL, bg: '#0b1f33'})]);
+// «…tronco del cerebro:»: corte seco al primer plano; el trocito de cerebro se ilumina.
+shot(19.36, 20.46, d => [camF([...xrayBg(), mike({x: XM[0], y: XM[1], scale: XM[2], idle: {dur: d}, alpha: 0.9}), brainstem(0.06, d), scanBar(d)], d,
+  t => ({s: mix(1.55, 1.65, t / d), ...shake(t, 0.06, 0.2, 8)}), XS[0], XS[1]),
+  slam('TRONCO DEL CEREBRO', 640, 470, 76, 0.1, d, {outline: true, color: PAPER, from: 1.12})]);
 // 21.1–22.55 · «…lo justo para respirar…» Pulmones que se hinchan.
-shot(20.46, 21.851, d => [camF([...rays(d, '#e3f1ff', '#d2e7fb', 640, 1080, -12),
-  G([E(-130, 0, 220, 360, {fill: '#f6a6b2', lineWidth: 10}), E(130, 0, 220, 360, {fill: '#f6a6b2', lineWidth: 10}), P([['M', 0, -320], ['L', 0, -150], ['M', 0, -150], ['L', -70, -90], ['M', 0, -150], ['L', 70, -90]], {lineWidth: 12})],
-    {x: 640, y: 1150, keys: sample(t => ({s: 1.35 * (t < 0.2 ? mix(0.3, 1, eBack(t / 0.2)) : 1 + 0.12 * Math.sin((t - 0.2) * Math.PI * 1.8))}), 0, d)}),
-], d, t => ({s: 1.03}), 640, 1080)]);
+shot(20.46, 21.851, d => [camF([...xrayBg(), mike({x: XM[0], y: XM[1], scale: XM[2], idle: {dur: d}, alpha: 0.9}),
+  G([E(-62, 0, 105, 170, {fill: '#f6a6b2', stroke: '#ffffff', lineWidth: 6}), E(62, 0, 105, 170, {fill: '#f6a6b2', stroke: '#ffffff', lineWidth: 6}), P([['M', 0, -150], ['L', 0, -70], ['M', 0, -70], ['L', -34, -40], ['M', 0, -70], ['L', 34, -40]], {stroke: '#ffffff', lineWidth: 7})],
+    {x: XM[0] - 10, y: XM[1] - 400, keys: sample(t => ({s: (t < 0.15 ? mix(0.3, 1, eBack(t / 0.15)) : 1 + 0.16 * Math.sin((t - 0.15) * Math.PI * 2.2))}), 0, d)}),
+  scanBar(d)], d, t => ({s: mix(1.2, 1.28, t / d)}), XM[0] - 10, XM[1] - 400)]);
 // 22.55–23.33 · «…y andar.» Mike cruza la radiografía andando.
 shot(21.851, 22.657, d => [cam([...xrayBg(), mike({x: 640, y: 1700, scale: 1.7, walk: {dur: d, period: 0.36}, move: lin(d, 380, 800), alpha: 0.9})], d, 1.0, 1.06)]);
 // 23.33–24.69 · «Lo alimentan con un gotero…» Primer plano del gotero por el cuello.
-shot(22.657, 24.05, d => [cam([fill('#eaf4fb'), mike({x: 330, y: 1900, scale: 2.6, idle: {dur: d}}),
+shot(22.657, 24.05, d => [cam([fill('#eaf4fb'), mike({x: 330, y: 1720, scale: 2.6, idle: {dur: d}}),
   G([P([['M', 1400, 560], ['L', 700, 700]], {lineWidth: 96}), P([['M', 1400, 560], ['L', 700, 700]], {stroke: '#c2412f', lineWidth: 78}), ...[0, 1, 2, 3].map(i => P([['M', 1300 - i * 150, 580 + i * 30], ['L', 1320 - i * 150, 660 + i * 30]], {stroke: '#8f2a1e', lineWidth: 6})),
     G([R(-26, 120, 52, 220, {radius: 16, fill: '#d9f1ff', lineWidth: 9}), P([['M', -10, 340], ['L', 0, 372], ['L', 10, 340]], {lineWidth: 8}),
       E(0, 70, 100, 120, {fill: TIE, lineWidth: 9, keys: [{t: 0.35, scaleX: 1, scaleY: 1}, {t: 0.5, scaleX: 0.8, scaleY: 0.8}, {t: 0.7, scaleX: 1, scaleY: 1}]}),
       E(30, 80, 110, 90, {lineWidth: 9}), ...[0, 1, 2].map(i => E(-30, 46 + i * 34, 46, 34, {lineWidth: 8})),
       {...E(0, 380, 30, 40, {fill: '#5fb7ef', lineWidth: 6}), from: 0.5, keys: [{t: 0.5, scaleX: 0.3, scaleY: 0.3, y: 360}, {t: 0.6, scaleX: 1, scaleY: 1, y: 370}, {t: 0.95, y: 560}]}], {x: 650, y: 560})],
-    {keys: [{t: 0, x: 120, y: -60}, {t: 0.3, x: 0, y: 0}]}),
+    {keys: [{t: 0, x: 120, y: -240}, {t: 0.3, x: 0, y: -180}]}),
 ], d, 1, 1.08)]);
 // 24.69–26.7 · «…y le limpian la garganta con una jeringa.» La jeringa queda en la mesa (se usará después).
 shot(24.05, 26.002, d => [cam([...office(d), desk(),
@@ -171,7 +178,7 @@ shot(26.002, 28.518, d => [cam([...farm(d, {sky: '#ffcf9a', sunY: 700}), mike({x
   ...brokenNotes(640 + 124 * 1.7 + 150, GROUND - 60 - 329 * 1.7 + 40, 1.15, d)], d, 1.0, 1.14, 640, 1100), slam('¡CANTA!', 640, 540, 150, 0.74, d, {outline: true, color: RED, tilt: 5})]);
 // 28.2–29.95 · «Suena a tubería atascada.» El Becario, a cámara, impasible; burbujas.
 shot(28.518, 30.326, d => [camF([fill('#d9e8f5'), band(1700, 600, '#c0d3e6'), ...bubbles(980, 1300, 0.3, d),
-  becario({x: 640, y: 2420, scale: 2.25, expr: 'serio', look: 0, idle: {dur: d}, talk: mouth(28.518, 30.326)})], d,
+  becario({x: 640, y: 2330, scale: 2.25, expr: 'serio', look: 0, idle: {dur: d}, talk: mouth(28.518, 30.326)})], d,
   t => ({x: mix(-520, 0, eOut(t / 0.12)), s: mix(1.0, 1.05, t / d)}), 640, 1050)]);
 // 29.95–30.85 · «Lo llaman Mike…»
 shot(30.326, 31.31, d => [cam([fill('#ffe9a8'), E(640, 1380, 800, 140, {fill: '#f2d68a', stroke: 'none'}), mike({x: 640, y: 1400, scale: 1.5, idle: {dur: d}, flapAt: [0.3]}), G([popIn(sign('MIKE', -310, -100, 620, 200, {size: 150, color: RED, radius: 30}), 0.05, d)], {x: 640, y: 620})], d, 1, 1.07)]);
@@ -185,10 +192,10 @@ shot(31.31, 32.06, d => [cam([fill('#2b2f3a'),
 shot(32.06, 33.15, d => [cam([fill('#bfe3f7'), cloud(300, 640, 0.7, d, -120), cloud(950, 780, 0.5, d, -160),
   S([['M', -60, 1200], ['L', 200, 1000], ['L', 420, 1160], ['L', 700, 960], ['L', 1000, 1150], ['L', 1340, 1010], ['L', 1340, 1300], ['L', -60, 1300], ['Z']], '#c99a6a', {lineWidth: 8}),
   band(1290, 1000, '#d8c08e'), band(1380, 120, '#4a4a52'), ...[0, 1, 2, 3, 4, 5].map(i => R(i * 260 - 40, 1432, 120, 14, {radius: 4, fill: '#f2d36b', stroke: 'none', keys: lin(d, i * 260 - 40, i * 260 - 300)})),
-  G([R(-330, -330, 660, 300, {radius: 34, fill: '#ffd34d'}), R(-300, -312, 200, 160, {radius: 14, fill: '#d9f1ff'}), R(-90, -312, 400, 136, {radius: 12, fill: PAPER}), ctext('POLLO', 110, -304, 54, {maxW: 340, color: RED}), ctext('SIN CABEZA', 110, -248, 54, {maxW: 340, color: RED}),
+  G([R(-330, -330, 660, 300, {radius: 34, fill: '#ffd34d'}), R(-310, -318, 230, 200, {radius: 14, fill: '#d9f1ff'}), R(-90, -312, 400, 136, {radius: 12, fill: PAPER}), ctext('POLLO', 110, -304, 54, {maxW: 340, color: RED}), ctext('SIN CABEZA', 110, -248, 54, {maxW: 340, color: RED}),
     E(-200, -20, 120, 120, {fill: INK}), E(-200, -20, 50, 50, {fill: '#9aa3ab', lineWidth: 6}), E(200, -20, 120, 120, {fill: INK}), E(200, -20, 50, 50, {fill: '#9aa3ab', lineWidth: 6}),
     // Mike asomado a la ventana (dentro del autobús, no encima)
-    mike({x: -225, y: -150, scale: 0.36, idle: {dur: d}, flapAt: [0.3]}), R(-300, -312, 200, 160, {radius: 14, fill: 'none', lineWidth: 10}), R(-330, -168, 260, 30, {radius: 6, fill: '#ffd34d', stroke: 'none'})],
+    mike({x: -215, y: -112, scale: 0.47, idle: {dur: d}, flapAt: [0.3]}), R(-334, -118, 280, 40, {radius: 6, fill: '#ffd34d', stroke: 'none'}), R(-310, -318, 230, 200, {radius: 14, fill: 'none', lineWidth: 10})],
     {x: 600, y: 1400, keys: osc(d, 0.35, 5, {prop: 'y', radians: false, base: 1400})}),
 ], d)]);
 // 32.69–34.25 · «La gente paga por verlo.» Feria, cola, monedas.
@@ -209,14 +216,14 @@ shot(34.605, 36.706, d => [cam([...office(d), desk(),
 // 35.9–38.85 · «Pero una noche, en un motel, se atraganta…» Motel de noche, tono serio.
 // Silueta de Mike tras la cortina de la ventana iluminada: tranquilo y, en «se atraganta», se agita (sin nada explícito).
 const CHOKE = 2.07, WX = 420 + 210 + 55, WY = GROUND - 60 - 110;
-const silhouette = d => G([E(0, -60, 150, 105, {fill: '#5a3b22', stroke: 'none'}), S([['M', 30, -90], ['Q', 40, -150, 62, -168], ['L', 84, -160], ['Q', 72, -120, 70, -70], ['Z']], '#5a3b22', {stroke: 'none'}),
+const silhouette = d => G([E(0, -60, 150, 105, {fill: '#5a3b22', stroke: 'none'}), S([['M', 22, -92], ['Q', 22, -150, 34, -176], ['L', 82, -176], ['Q', 88, -140, 80, -80], ['Z']], '#5a3b22', {stroke: 'none'}),
   E(-60, -80, 70, 40, {fill: '#5a3b22', stroke: 'none'}), P([['M', -14, -10], ['L', -18, 20]], {stroke: '#5a3b22', lineWidth: 10}), P([['M', 18, -10], ['L', 22, 20]], {stroke: '#5a3b22', lineWidth: 10})],
   {x: WX, y: WY, scaleX: 0.55, scaleY: 0.55, keys: sample(t => t < CHOKE ? {x: WX + Math.sin(t * 2) * 6, a: 0} : {x: WX + jit(t * 1.6, 3) * 12, y: WY - Math.abs(Math.sin((t - CHOKE) * 22)) * 10, a: Math.sin((t - CHOKE) * 26) * 12}, 0, d)});
 shot(36.706, 39.68, d => [camF([...desertNight(d),
   G([R(0, -420, 720, 420, {radius: 6, fill: '#b5694d'}), S([['M', -30, -420], ['L', 750, -420], ['L', 720, -470], ['L', 0, -470], ['Z']], '#7a3f30'),
     ...[0, 1, 2, 3].map(i => R(40 + i * 170, -300, 110, 190, {radius: 4, fill: i === 1 ? '#ffe08a' : '#3a2a20', lineWidth: 8}))], {x: 420, y: GROUND - 60}),
   R(230, 520, 30, 840, {radius: 6, fill: '#6b6f78', lineWidth: 7}),
-  R(120, 560, 400, 170, {radius: 18, fill: '#22263a', stroke: '#ff5fa2', lineWidth: 12}), ctext('MOTEL', 320, 584, 100, {maxW: 340, color: '#ff5fa2', to: 2.12, keys: [{t: 0, alpha: 1}, {t: 0.9, alpha: 1}, {t: 1.0, alpha: 0.3}, {t: 1.1, alpha: 1}, {t: 2.0, alpha: 1}, {t: 2.1, alpha: 0.25}, {t: 2.2, alpha: 1}]}),
+  R(120, 560, 400, 170, {radius: 18, fill: '#22263a', stroke: '#ff5fa2', lineWidth: 12, to: 2.12}), ctext('MOTEL', 320, 584, 100, {maxW: 340, color: '#ff5fa2', to: 2.12, keys: [{t: 0, alpha: 1}, {t: 0.9, alpha: 1}, {t: 1.0, alpha: 0.3}, {t: 1.1, alpha: 1}, {t: 2.0, alpha: 1}, {t: 2.1, alpha: 0.25}, {t: 2.2, alpha: 1}]}),
   silhouette(d), R(420 + 210, GROUND - 360, 110, 190, {radius: 4, fill: 'none', lineWidth: 8}),
   G([popIn(ctext('¡!', 0, -60, 90, {color: RED, maxW: 120}), CHOKE + 0.05, d)], {x: WX + 80, y: WY - 200}),
 ], d, t => ({s: t < CHOKE - 0.2 ? mix(1.08, 1.0, t / (CHOKE - 0.2)) : mix(1.0, 2.1, eInOut((t - CHOKE + 0.2) / 0.45)), ...shake(t, CHOKE + 0.25, 0.4, 8)}), WX, WY - 60)]);
@@ -270,7 +277,7 @@ const sfx = [
   F(11.918, 'whoosh', 0.3), F(12.58, 'chop', 0.85), F(12.62, 'flap', 0.4, 0.8),
   F(13.0, 'whoosh', 0.2), F(13.6, 'flap', 0.3, 0.6), F(13.994, 'whoosh', 0.2), F(14.4, 'boing', 0.35),
   F(15.113, 'whoosh', 0.2), F(16.71, 'stamp', 0.35), F(16.74, 'flap', 0.3, 0.6), F(17.0, 'scratch', 0.45),
-  {time: 17.9, kind: 'chime', gain: 0.08}, {time: 19.4, kind: 'pop', gain: 0.12}, F(20.46, 'whoosh', 0.2), F(21.851, 'whoosh', 0.2),
+  {time: 17.9, kind: 'chime', gain: 0.08}, F(18.0, 'whoosh', 0.2), F(19.36, 'whoosh', 0.15), {time: 19.42, kind: 'pop', gain: 0.12}, F(20.46, 'whoosh', 0.2), F(21.851, 'whoosh', 0.2),
   F(22.657, 'whoosh', 0.2), F(23.16, 'drop', 0.4), F(24.05, 'whoosh', 0.2), {time: 24.11, kind: 'pop', gain: 0.12}, F(25.35, 'stamp', 0.3),
   F(26.002, 'whoosh', 0.2), F(27.15, 'pipe', 1.0, 1.0), F(28.518, 'whoosh', 0.2),
   F(30.326, 'whoosh', 0.2), {time: 30.4, kind: 'chime', gain: 0.1}, F(31.36, 'flash', 0.4), F(31.68, 'flash', 0.35), F(32.06, 'whoosh', 0.2),
@@ -282,5 +289,5 @@ const sfx = [
   F(45.002, 'whoosh', 0.2), {time: 48.3, kind: 'tap', gain: 0.2},
   F(48.96, 'whoosh', 0.3), F(49.01, 'gurgle', 0.35, 0.35),
 ];
-fs.writeFileSync('project.json', JSON.stringify({version: 1, style: 'B3', width: 1080, height: 1920, fps: 30, voice: {path: 'narration.mp3', lead: 0, tail: r3(END - VOICE)}, television: {enabled: false}, music: {path: 'music.mp3', gain: 0.1}, burnCaptions: false, captions, shots, sfx}, null, 1));
+fs.writeFileSync('project.json', JSON.stringify({version: 1, style: 'B3', width: 1080, height: 1920, fps: 30, voice: {path: 'narration.mp3', lead: 0, tail: r3(END - VOICE)}, television: {enabled: false}, music: {path: 'music-duck.wav', gain: 0.17}, burnCaptions: false, captions, shots, sfx}, null, 1));
 console.log('shots', shots.length, 'end', END);

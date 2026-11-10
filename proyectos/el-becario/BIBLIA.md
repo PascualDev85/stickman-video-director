@@ -90,6 +90,9 @@ Para no repetir pruebas ni gastar créditos/tokens. Todo sale de los EXP 001 y 0
 - **Nada desborda, ni durante la animación:** un `slam` entra a escala `from` (1,6 por defecto), así que ancho×from tiene que caber entre x 64 y 1126 del plano. Rótulos grandes: `from` 1,1-1,3. Etiqueta del gancho con `{pop: false}` para que salga entera en el primer fotograma.
 - **Cajas dentro de la escena:** el contador no puede tapar la etiqueta de la carpeta (contador en y≈660).
 - **Subtítulos karaoke** (desde EXP 002 v6): `captionTrack(WORDS, captions)` de lib.mjs pinta los bloques de captions.json con la palabra que se dice en amarillo, abajo del todo (y≈1765 del plano = 77 % de la altura; más abajo lo tapa el título y el canal de YouTube); en project.json `burnCaptions: false` (el motor no los pinta pero exporta el .srt para subirlo a YouTube).
+- **Tramos explicativos (el «cómo»): un solo mundo visual y un golpe por frase.** EXP 002: todo en la radiografía (hacha fantasma que pasa por donde estaba la cabeza → corte seco al tronco del cerebro → pulmones dentro de Mike → anda). Nada de dibujos sueltos que no se entienden (el óvalo rosa parecía un pulmón).
+- **Primeros planos: el personaje por encima de los subtítulos** (patas y pies por encima de y≈1700 del plano).
+- **Música con ducking:** `voz.py musica music.mp3 words.json DUR --boost A-B` → baja bajo la voz, sube en pausas y en el tramo de fiesta; gain 0.17.
 - **Personajes en vehículos/edificios: dentro, por la ventana** (Mike en la ventana del bus; su silueta tras la cortina del motel), nunca encima.
 
 ### Motor y ahorro (acordado con David, 10-nov-2026)
