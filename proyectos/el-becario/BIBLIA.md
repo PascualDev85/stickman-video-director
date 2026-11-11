@@ -25,6 +25,12 @@ Documento de referencia para cada episodio. Lo que está aquí ya está decidido
 5. **Cierre fijo:** «Expediente cerrado.» + remate del Becario (por defecto: «¿Y yo? Sigo sin cobrar.»). Sello **CERRADO**.
 6. **Bucle:** el último fotograma enlaza con el primero.
 
+## Densidad de humor y ritmo visual (lección EXP 003 v2→v3: «parece aburrido»)
+- **Un chiste cada ~5 s** (9-10 por Short), casi todos del Becario comparando con su vida laboral (impresora del Archivo, mi departamento, ni un sueldo) o de remate seco tras una pausa («Contra un pájaro… que no sabe volar»). La información va dentro del chiste, no antes.
+- **Tipos que funcionan (001-003):** comparación con el Archivo; remate tras `[beat]`; la repetición seca («Diez balas por emú. Diez.»); la autointerrupción del Becario («espera, que lo leo bien»); el «spoiler:»; la cita real absurda del protagonista.
+- **Ritmo visual:** un cambio cada 1,5-2,5 s (corte, zoom, slam, contador, sacudida, bocadillo, efecto); ningún plano quieto más de 3 s; el Becario reacciona en pantalla al menos 3 veces además del cierre.
+- **Checklist antes de la voz:** contar chistes (≥8), contar palabras (≤140 para Montero ≈ 50 s a 1,1x), comprobar que cada chiste tiene su golpe visual en el mapa.
+
 ## Rigor histórico
 - Cada dato del guion, contrastado en **al menos dos fuentes**, sin depender solo de Wikipedia.
 - Si un hecho tiene incertidumbre, se dice en la propia frase («dicen que», «según la versión más conocida»), una sola vez y sin repetirlo.
