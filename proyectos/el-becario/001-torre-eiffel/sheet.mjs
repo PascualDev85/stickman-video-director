@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-const R0 = '/home/claude/repo/stickman-video-director/skills/directing-stickman-videos/scripts/';
+const R0 = decodeURIComponent(new URL('../../../skills/directing-stickman-videos/scripts/', import.meta.url).pathname);
 const {painter} = await import(R0 + 'autopilot-render.mjs');
 const K = await import('../kit.mjs');
 const {becario, lustig, poisson, gendarme, chatarrero, caneProp, eiffel, caseFolder, sign, ctext, R, E, G, deg} = K;
@@ -17,5 +17,5 @@ const layers = [bg,
   gendarme({x: 1100, y: 1980, scale: 0.7, expr: 'serio', look: -1}), lab('GENDARME', 1100, 2010),
 ];
 const draw = await painter({style: 'B3', width: 1080, height: 1920, fps: 30, base: process.cwd(), television: {enabled: false}, captions: [], shots: [{start: 0, end: 1, layers}]});
-fs.writeFileSync('/home/claude/exp001/hoja-personajes-exp001.png', draw(0.1).toBuffer('image/png'));
+fs.writeFileSync('hoja-personajes-exp001.png', draw(0.1).toBuffer('image/png'));
 console.log('ok');

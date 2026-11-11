@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-const R0 = '/home/claude/repo/stickman-video-director/skills/directing-stickman-videos/scripts/';
+const R0 = decodeURIComponent(new URL('../../../skills/directing-stickman-videos/scripts/', import.meta.url).pathname);
 const {painter} = await import(R0 + 'autopilot-render.mjs');
 const {becario, granjero, person, mike, archiveBox} = await import('../kit.mjs');
 const H = 1280 * 1920 / 1080;
@@ -16,7 +16,7 @@ fs.writeFileSync('sheet.png', draw(0.1).toBuffer('image/png'));
 // walk test strip
 const wl = [{type: 'rect', x: -20, y: -20, w: 1320, h: H + 40, radius: 0, fill: '#f4efe4', stroke: 'none'}, becario({x: 300, y: 900, scale: 0.9, walk: {dur: 2}}), granjero({x: 900, y: 900, scale: 0.9, walk: {dur: 2}, expr: 'serio'}), mike({x: 640, y: 1800, scale: 1.4, walk: {dur: 2}})];
 const draw2 = await painter({...p, shots: [{start: 0, end: 2, layers: wl}]});
-const {createCanvas} = await import('/home/claude/repo/stickman-video-director/skills/directing-stickman-videos/node_modules/@napi-rs/canvas/index.js');
+const {createCanvas} = await import(R0 + '../node_modules/@napi-rs/canvas/index.js');
 const strip = createCanvas(1080, 480), c = strip.getContext('2d');
 [0.0, 0.155, 0.31, 0.465, 0.62].forEach((t, i) => c.drawImage(draw2(t), i * 216, 0, 216, 384));
 fs.writeFileSync('walk.png', strip.toBuffer('image/png'));

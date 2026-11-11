@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-const R0 = '/home/claude/repo/stickman-video-director/skills/directing-stickman-videos/scripts/';
+const R0 = decodeURIComponent(new URL('../../../skills/directing-stickman-videos/scripts/', import.meta.url).pathname);
 const {painter} = await import(R0 + 'autopilot-render.mjs');
 const {becario, mike, ctext, sign, G, R, S, E, P, deg, PAPER, INK} = await import('../kit.mjs');
 const H = 1280 * 1920 / 1080, RED = '#d8352a';

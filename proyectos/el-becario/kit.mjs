@@ -299,8 +299,8 @@ export function archiveBox({x = 0, y = 0, scale = 1, label = 'EXP. 014', keys, l
 }
 
 // ---------- measured text ----------
-import {createCanvas, GlobalFonts} from '/home/claude/repo/stickman-video-director/skills/directing-stickman-videos/node_modules/@napi-rs/canvas/index.js';
-GlobalFonts.registerFromPath('/home/claude/repo/stickman-video-director/skills/directing-stickman-videos/assets/fonts/NotoSans.ttf', 'KitSans');
+import {createCanvas, GlobalFonts} from '../../skills/directing-stickman-videos/node_modules/@napi-rs/canvas/index.js';
+GlobalFonts.registerFromPath(decodeURIComponent(new URL('../../skills/directing-stickman-videos/assets/fonts/NotoSans.ttf', import.meta.url).pathname), 'KitSans');
 const mctx = createCanvas(10, 10).getContext('2d');
 export function textWidth(text, size, bold = true) { mctx.font = `${bold ? 700 : 400} ${size}px KitSans`; return mctx.measureText(text).width; }
 /** Text centred on cx. With maxW, the size shrinks until the text fits (throws if it cannot). */

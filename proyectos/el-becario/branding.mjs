@@ -1,6 +1,6 @@
 // Channel branding for Historias Sin Cabeza: profile picture (800x800) and banner (2560x1440, safe area 1546x423).
 import fs from 'node:fs';
-const R0 = '/home/claude/repo/stickman-video-director/skills/directing-stickman-videos/';
+const R0 = decodeURIComponent(new URL('../../skills/directing-stickman-videos/', import.meta.url).pathname);
 const {painter} = await import(R0 + 'scripts/autopilot-render.mjs');
 const {GlobalFonts, createCanvas} = await import(R0 + 'node_modules/@napi-rs/canvas/index.js');
 GlobalFonts.registerFromPath('/usr/share/fonts/opentype/inter/Inter-Black.otf', 'ThumbBlack');
