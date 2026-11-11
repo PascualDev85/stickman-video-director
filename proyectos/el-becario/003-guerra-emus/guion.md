@@ -77,8 +77,5 @@ Expediente cerrado. A ellos les mandaron diez mil balas. [deadpan] A mí, ni un 
 - Datos: nov-dic 1932, distrito de Campion (Australia Occidental); ~20.000 emús; mayor G.P.W. Meredith, 2 soldados, 2 Lewis, 10.000 balas; atasco en la emboscada del estanque (4-nov); camión que no los alcanza; retirada ~8-nov y vuelta 13-nov; 986 bajas declaradas con 9.860 balas (cifra del propio Meredith, por eso «presume»); grupos con un vigía (prensa de la época); la cita de las balas se atribuye a Meredith (prensa posterior) → «dicen que».
 - Cifra de la emboscada: varía (12-50 abatidos, «unos mil» emús) → se dice «cientos» y no se da número de bajas.
 
-## Estado (11-nov, para la siguiente sesión)
-- Hecho: guion v3 · voz = toma B v3 + «¿¡Al ejército!?» variante 1 empalmada en 11,62-12,87 · pausas +0,3 s en 39,40 y 42,48 · `narration.mp3` 50,7 s · `words.json` (números en cifras: 20.000, 10.000, 986, 9.860) · `captions.json` · `mouth-env.json`.
-- Kit nuevo (sin revisar en imagen): `emu()`, `mayor()`, `soldado(1|2)`, `lewisGun({firing, jamAt})`, `truck({bump})`, sombrero `slouch`.
-- Falta: hoja de fotogramas de los personajes nuevos → música (familia «guerras ridículas»: marcha militar cómica) → SFX nuevos (ráfaga de ametralladora, clic de atasco, motor y botes de camión, «bum» grave de emú, impresora atascada, pitido) → `scenes.mjs` copiando la estructura de 002 y el mapa visual de arriba (un cambio cada 1,5-2,5 s, golpe visual por chiste) → validate → preview para David.
-- Tiempos clave: gancho 0-5,1 · Expediente 5,2 · «¿¡Al ejército!?» 11,9-13,0 · «que no sabe volar» 17,5 · atasco 20,9-22,6 · impresora 22,7 · vigía 25,5 · departamento 27,4 · camión 28,7 · spoiler 30,8 · 986/9.860 33,5-37,3 · «Diez.» 38,9 · tanques 41,8 · «Siguen ahí» 44,3 · cerrado 45,0 · sueldo 49,2-51,2.
+## Estado
+Ver `montaje.md` (plan de montaje completo con tiempos reales; el «Mapa visual» de la v2 de arriba está superado).
