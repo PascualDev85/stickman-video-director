@@ -1,0 +1,620 @@
+{
+ "words": [
+  {
+   "word": "En",
+   "start": 0.08,
+   "end": 0.24
+  },
+  {
+   "word": "1932,",
+   "start": 0.28,
+   "end": 1.64
+  },
+  {
+   "word": "Australia",
+   "start": 1.76,
+   "end": 2.24
+  },
+  {
+   "word": "le",
+   "start": 2.28,
+   "end": 2.32
+  },
+  {
+   "word": "declaró",
+   "start": 2.4,
+   "end": 2.72
+  },
+  {
+   "word": "la",
+   "start": 2.76,
+   "end": 2.8
+  },
+  {
+   "word": "guerra",
+   "start": 2.88,
+   "end": 3.12
+  },
+  {
+   "word": "a",
+   "start": 3.16,
+   "end": 3.2
+  },
+  {
+   "word": "los",
+   "start": 3.28,
+   "end": 3.36
+  },
+  {
+   "word": "emús.",
+   "start": 3.44,
+   "end": 3.92
+  },
+  {
+   "word": "Y",
+   "start": 4.08,
+   "end": 4.16
+  },
+  {
+   "word": "no",
+   "start": 4.24,
+   "end": 4.32
+  },
+  {
+   "word": "la",
+   "start": 4.4,
+   "end": 4.48
+  },
+  {
+   "word": "ganó.",
+   "start": 4.56,
+   "end": 4.96
+  },
+  {
+   "word": "Expediente",
+   "start": 5.2,
+   "end": 5.76
+  },
+  {
+   "word": "003.",
+   "start": 5.92,
+   "end": 7.04
+  },
+  {
+   "word": "20.000",
+   "start": 7.08,
+   "end": 7.44
+  },
+  {
+   "word": "emús",
+   "start": 7.52,
+   "end": 7.76
+  },
+  {
+   "word": "se",
+   "start": 7.84,
+   "end": 7.92
+  },
+  {
+   "word": "comen",
+   "start": 7.96,
+   "end": 8.08
+  },
+  {
+   "word": "el",
+   "start": 8.16,
+   "end": 8.24
+  },
+  {
+   "word": "trigo,",
+   "start": 8.32,
+   "end": 8.68
+  },
+  {
+   "word": "y",
+   "start": 8.72,
+   "end": 8.76
+  },
+  {
+   "word": "el",
+   "start": 8.8,
+   "end": 8.84
+  },
+  {
+   "word": "gobierno",
+   "start": 8.88,
+   "end": 9.28
+  },
+  {
+   "word": "manda...",
+   "start": 9.48,
+   "end": 9.88
+  },
+  {
+   "word": "espera,",
+   "start": 10.436,
+   "end": 10.64
+  },
+  {
+   "word": "que",
+   "start": 10.72,
+   "end": 10.76
+  },
+  {
+   "word": "lo",
+   "start": 10.8,
+   "end": 10.88
+  },
+  {
+   "word": "leo",
+   "start": 10.96,
+   "end": 11.04
+  },
+  {
+   "word": "bien...",
+   "start": 11.12,
+   "end": 11.64
+  },
+  {
+   "word": "¿¡Al",
+   "start": 11.9,
+   "end": 12.05
+  },
+  {
+   "word": "ejército!?",
+   "start": 12.12,
+   "end": 13.0
+  },
+  {
+   "word": "Un",
+   "start": 13.35,
+   "end": 13.43
+  },
+  {
+   "word": "mayor,",
+   "start": 13.55,
+   "end": 13.99
+  },
+  {
+   "word": "dos",
+   "start": 14.07,
+   "end": 14.15
+  },
+  {
+   "word": "ametralladoras",
+   "start": 14.19,
+   "end": 14.95
+  },
+  {
+   "word": "y",
+   "start": 14.99,
+   "end": 15.03
+  },
+  {
+   "word": "10.000",
+   "start": 15.11,
+   "end": 15.51
+  },
+  {
+   "word": "balas.",
+   "start": 15.59,
+   "end": 16.23
+  },
+  {
+   "word": "Contra",
+   "start": 16.31,
+   "end": 16.47
+  },
+  {
+   "word": "un",
+   "start": 16.55,
+   "end": 16.63
+  },
+  {
+   "word": "pájaro...",
+   "start": 16.67,
+   "end": 17.43
+  },
+  {
+   "word": "que",
+   "start": 17.51,
+   "end": 17.59
+  },
+  {
+   "word": "no",
+   "start": 17.67,
+   "end": 17.75
+  },
+  {
+   "word": "sabe",
+   "start": 17.83,
+   "end": 17.99
+  },
+  {
+   "word": "volar.",
+   "start": 18.07,
+   "end": 18.79
+  },
+  {
+   "word": "Primera",
+   "start": 18.87,
+   "end": 19.03
+  },
+  {
+   "word": "emboscada.",
+   "start": 19.11,
+   "end": 19.91
+  },
+  {
+   "word": "Disparan...",
+   "start": 19.99,
+   "end": 20.87
+  },
+  {
+   "word": "y",
+   "start": 20.937,
+   "end": 20.95
+  },
+  {
+   "word": "la",
+   "start": 21.03,
+   "end": 21.07
+  },
+  {
+   "word": "ametralladora",
+   "start": 21.11,
+   "end": 21.75
+  },
+  {
+   "word": "se",
+   "start": 21.79,
+   "end": 21.83
+  },
+  {
+   "word": "atasca.",
+   "start": 21.91,
+   "end": 22.63
+  },
+  {
+   "word": "Como",
+   "start": 22.71,
+   "end": 22.79
+  },
+  {
+   "word": "la",
+   "start": 22.83,
+   "end": 22.87
+  },
+  {
+   "word": "impresora",
+   "start": 22.95,
+   "end": 23.27
+  },
+  {
+   "word": "del",
+   "start": 23.35,
+   "end": 23.43
+  },
+  {
+   "word": "Archivo.",
+   "start": 23.51,
+   "end": 24.23
+  },
+  {
+   "word": "Se",
+   "start": 24.27,
+   "end": 24.31
+  },
+  {
+   "word": "reparten",
+   "start": 24.39,
+   "end": 24.71
+  },
+  {
+   "word": "en",
+   "start": 24.79,
+   "end": 24.87
+  },
+  {
+   "word": "grupitos,",
+   "start": 24.91,
+   "end": 25.43
+  },
+  {
+   "word": "con",
+   "start": 25.51,
+   "end": 25.59
+  },
+  {
+   "word": "vigía",
+   "start": 25.71,
+   "end": 25.99
+  },
+  {
+   "word": "y",
+   "start": 26.03,
+   "end": 26.07
+  },
+  {
+   "word": "todo.",
+   "start": 26.15,
+   "end": 26.63
+  },
+  {
+   "word": "Más",
+   "start": 26.67,
+   "end": 26.87
+  },
+  {
+   "word": "organizados",
+   "start": 26.99,
+   "end": 27.43
+  },
+  {
+   "word": "que",
+   "start": 27.47,
+   "end": 27.51
+  },
+  {
+   "word": "mi",
+   "start": 27.55,
+   "end": 27.59
+  },
+  {
+   "word": "departamento.",
+   "start": 27.67,
+   "end": 28.63
+  },
+  {
+   "word": "Montan",
+   "start": 28.75,
+   "end": 28.95
+  },
+  {
+   "word": "la",
+   "start": 28.99,
+   "end": 29.03
+  },
+  {
+   "word": "ametralladora",
+   "start": 29.11,
+   "end": 29.67
+  },
+  {
+   "word": "en",
+   "start": 29.75,
+   "end": 29.83
+  },
+  {
+   "word": "un",
+   "start": 29.87,
+   "end": 29.91
+  },
+  {
+   "word": "camión.",
+   "start": 29.99,
+   "end": 30.55
+  },
+  {
+   "word": "Spoiler:",
+   "start": 30.893,
+   "end": 31.11
+  },
+  {
+   "word": "los",
+   "start": 31.15,
+   "end": 31.19
+  },
+  {
+   "word": "emús",
+   "start": 31.27,
+   "end": 31.51
+  },
+  {
+   "word": "corren",
+   "start": 31.59,
+   "end": 31.75
+  },
+  {
+   "word": "más.",
+   "start": 31.83,
+   "end": 32.31
+  },
+  {
+   "word": "El",
+   "start": 32.35,
+   "end": 32.39
+  },
+  {
+   "word": "mayor",
+   "start": 32.47,
+   "end": 32.71
+  },
+  {
+   "word": "presume:",
+   "start": 32.79,
+   "end": 33.43
+  },
+  {
+   "word": "986",
+   "start": 33.51,
+   "end": 34.63
+  },
+  {
+   "word": "emús,",
+   "start": 34.71,
+   "end": 35.11
+  },
+  {
+   "word": "con",
+   "start": 35.15,
+   "end": 35.19
+  },
+  {
+   "word": "9.860",
+   "start": 35.27,
+   "end": 36.63
+  },
+  {
+   "word": "balas.",
+   "start": 36.71,
+   "end": 37.27
+  },
+  {
+   "word": "Diez",
+   "start": 37.39,
+   "end": 37.59
+  },
+  {
+   "word": "balas",
+   "start": 37.67,
+   "end": 37.91
+  },
+  {
+   "word": "por",
+   "start": 37.99,
+   "end": 38.07
+  },
+  {
+   "word": "emú.",
+   "start": 38.15,
+   "end": 38.71
+  },
+  {
+   "word": "Diez.",
+   "start": 38.977,
+   "end": 39.81
+  },
+  {
+   "word": "Y",
+   "start": 39.89,
+   "end": 39.93
+  },
+  {
+   "word": "encima",
+   "start": 39.97,
+   "end": 40.29
+  },
+  {
+   "word": "dice",
+   "start": 40.37,
+   "end": 40.45
+  },
+  {
+   "word": "que",
+   "start": 40.53,
+   "end": 40.61
+  },
+  {
+   "word": "aguantan",
+   "start": 40.65,
+   "end": 41.01
+  },
+  {
+   "word": "balas...",
+   "start": 41.09,
+   "end": 41.73
+  },
+  {
+   "word": "como",
+   "start": 41.85,
+   "end": 41.97
+  },
+  {
+   "word": "tanques.",
+   "start": 42.13,
+   "end": 43.23
+  },
+  {
+   "word": "¿Y",
+   "start": 43.25,
+   "end": 43.29
+  },
+  {
+   "word": "el",
+   "start": 43.31,
+   "end": 43.39
+  },
+  {
+   "word": "resto?",
+   "start": 43.55,
+   "end": 43.79
+  },
+  {
+   "word": "Siguen",
+   "start": 44.323,
+   "end": 44.43
+  },
+  {
+   "word": "ahí.",
+   "start": 44.51,
+   "end": 44.75
+  },
+  {
+   "word": "Expediente",
+   "start": 45.07,
+   "end": 45.63
+  },
+  {
+   "word": "cerrado.",
+   "start": 45.75,
+   "end": 46.35
+  },
+  {
+   "word": "A",
+   "start": 46.43,
+   "end": 46.51
+  },
+  {
+   "word": "ellos",
+   "start": 46.55,
+   "end": 46.75
+  },
+  {
+   "word": "les",
+   "start": 46.83,
+   "end": 46.91
+  },
+  {
+   "word": "mandaron",
+   "start": 46.99,
+   "end": 47.31
+  },
+  {
+   "word": "10.000",
+   "start": 47.39,
+   "end": 47.87
+  },
+  {
+   "word": "balas.",
+   "start": 47.95,
+   "end": 48.67
+  },
+  {
+   "word": "A",
+   "start": 49.27,
+   "end": 49.31
+  },
+  {
+   "word": "mí,",
+   "start": 49.39,
+   "end": 49.79
+  },
+  {
+   "word": "ni",
+   "start": 49.87,
+   "end": 49.95
+  },
+  {
+   "word": "un",
+   "start": 50.03,
+   "end": 50.11
+  },
+  {
+   "word": "sueldo.",
+   "start": 50.19,
+   "end": 50.83
+  }
+ ],
+ "method": "ElevenLabs Scribe; acotaciones quitadas"
+}

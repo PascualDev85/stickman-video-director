@@ -101,6 +101,10 @@ const OUTFITS = {
   chatarrero1: {shirt: '#5c7a5a', sleeve: '#5c7a5a', pants: '#3e4a3c', shoe: INK, skin: PAPER, jacket: true, tie: '#7a3b2a', hat: 'cap', hatColor: '#6b6f78', torsoW: 180},
   chatarrero2: {shirt: '#7a5c8a', sleeve: '#7a5c8a', pants: '#4a3a56', shoe: INK, skin: PAPER, jacket: true, tie: '#e0b040', hat: 'bowler', hatColor: '#2a2a2a', stache: 'brush', torsoW: 170},
   chatarrero3: {shirt: '#a85a3a', sleeve: '#a85a3a', pants: '#5a3a2a', shoe: INK, skin: PAPER, jacket: true, tie: '#2b4a7a', hat: 'cap', hatColor: '#8a7a5a', stache: 'brush', torsoW: 190},
+  // EXP 003 (Australia, 1932): khaki uniforms + slouch hat
+  mayor: {shirt: '#9a8a5c', sleeve: '#9a8a5c', pants: '#7d6f48', shoe: '#3a2a1e', skin: PAPER, jacket: true, tie: '#6b5a34', buttons: '#e9c46a', hat: 'slouch', hatColor: '#8a7650', band: '#3a2a1e', stache: 'walrus', torsoW: 186, cheeks: true},
+  soldado1: {shirt: '#a3936a', sleeve: '#a3936a', pants: '#7d6f48', shoe: '#3a2a1e', skin: PAPER, hat: 'slouch', hatColor: '#8a7650', band: '#3a2a1e', torsoW: 160},
+  soldado2: {shirt: '#a3936a', sleeve: '#a3936a', pants: '#7d6f48', shoe: '#3a2a1e', skin: PAPER, hat: 'slouch', hatColor: '#8a7650', band: '#3a2a1e', stache: 'brush', torsoW: 170},
   gendarme: {shirt: '#1f3c7a', sleeve: '#1f3c7a', pants: '#1f3c7a', shoe: INK, skin: PAPER, jacket: true, buttons: '#e9c46a', hat: 'kepi', hatColor: '#1f3c7a', band: '#c8202a', stache: 'brush', torsoW: 170},
 };
 const STACHE = {
@@ -120,6 +124,10 @@ function hatOf(o) {
     P([['M', -130, -184], ['Q', 0, -250, 132, -204]], {stroke: 'rgba(0,0,0,0.30)', lineWidth: 6}),
     P([['M', -36, -336], ['Q', -10, -290, 20, -236]], {stroke: 'rgba(0,0,0,0.30)', lineWidth: 5}), P([['M', -36, -336], ['Q', -96, -290, -110, -214]], {stroke: 'rgba(0,0,0,0.30)', lineWidth: 5}),
     P([['M', 140, -224], ['Q', 176, -214, 206, -204]], {stroke: 'rgba(0,0,0,0.30)', lineWidth: 4}), E(-36, -338, 26, 16, {fill: c, lineWidth: 5})];
+  if (o.hat === 'slouch') return [ // Australian slouch hat: wide brim, left side pinned up
+    E(20, -236, 330, 52, {fill: c}), S([['M', -150, -240], ['Q', -186, -300, -150, -360], ['Q', -112, -300, -96, -246], ['Z']], c, {lineWidth: 7}),
+    S([['M', -96, -246], ['Q', -92, -350, 0, -356], ['Q', 96, -350, 100, -246], ['Z']], c, {lineWidth: 7}), P([['M', -40, -352], ['Q', 0, -320, 40, -352]], {stroke: 'rgba(0,0,0,0.30)', lineWidth: 6}),
+    R(-98, -282, 198, 30, {radius: 6, fill: o.band || INK, lineWidth: 6}), E(-150, -330, 22, 22, {fill: '#e9c46a', lineWidth: 4})];
   if (o.hat === 'kepi') return [S([['M', -50, -242], ['Q', 60, -250, 132, -236], ['Q', 104, -214, 20, -220], ['Z']], INK, {lineWidth: 5}), S([['M', -88, -244], ['L', -78, -362], ['L', 78, -362], ['L', 88, -244], ['Z']], c, {lineWidth: 7}), R(-85, -284, 170, 30, {fill: o.band || '#c8202a', lineWidth: 6}), E(0, -362, 156, 20, {fill: c, lineWidth: 6}), E(0, -300, 20, 20, {fill: '#e9c46a', lineWidth: 4})];
   return [];
 }
@@ -398,4 +406,89 @@ export function caseFolder({x = 0, y = 0, scale = 1, label = 'EXPEDIENTE 001', k
     ...[0, 1, 2].map(i => P([['M', -220, -20 + i * 50], ['L', 220, -20 + i * 50]], {stroke: '#c79a4a', lineWidth: 6})),
     ...(stamp ? [G([R(-190, -60, 380, 120, {radius: 10, fill: 'none', stroke: '#e0261b', lineWidth: 14}), ctext(stamp, 0, -40, 84, {color: '#e0261b', maxW: 340})], {y: 60, angle: deg(-12)})] : [])],
     {x, y, scaleX: scale, scaleY: scale, ...(keys ? {keys} : {})});
+}
+
+// ---------- EXP 003: la guerra de los emús ----------
+export const mayor = a => person({...a, who: 'mayor'});
+export const soldado = (n, a) => person({...a, who: 'soldado' + n});
+
+/**
+ * emu({run:{dur,period}, idle:{dur}, peck:[t], look:'right'|'left', eye:'normal'|'grande', move, scale})
+ * Origin between the feet, facing right (scaleX negative via flip:true to face left).
+ * Shaggy dark-brown body, long blue-grey neck, tiny head with a big deadpan eye.
+ */
+export function emu({x = 0, y = 0, scale = 1, flip = false, run, idle, peck = [], eye = 'normal', lookout = false, move, alpha, from, to, angle} = {}) {
+  const BODY = '#5e4532', BODY2 = '#7a5a40', NECK = '#8ea2b6', LEG = '#7d7568', BEAK = '#3b3b3b';
+  const d = run?.dur ?? idle?.dur ?? 0, p = run?.period || 0.36;
+  const thigh = s => run ? osc(d, p, 34, {phase: s > 0 ? 0 : Math.PI}) : undefined;
+  const shinK = s => run ? osc(d, p, 30, {phase: (s > 0 ? 0 : Math.PI) - Math.PI / 2, base: -18}) : undefined;
+  const legG = s => G([
+    ...tube([[0, 0], [10, 120]], LEG, 20),
+    G([...tube([[0, 0], [-8, 130]], LEG, 16),
+      G([P([['M', 0, 0], ['L', 46, 4]], {stroke: LEG, lineWidth: 12}), P([['M', 0, 0], ['L', 34, 22]], {stroke: LEG, lineWidth: 12}), P([['M', 0, 0], ['L', 30, -14]], {stroke: LEG, lineWidth: 12})], {x: -8, y: 130})],
+      {x: 10, y: 120, angle: deg(-18), pivotX: 0, pivotY: 0, ...(shinK(s) ? {keys: shinK(s)} : {})}),
+  ], {x: s * 30, y: -262, pivotX: 0, pivotY: 0, ...(thigh(s) ? {keys: thigh(s)} : {})});
+  // shaggy body: ellipse + jagged hem of feathers
+  const hem = []; for (let i = 0; i <= 10; i++) { const xx = -150 + i * 30; hem.push(['L', xx, -262 + (i % 2 ? 34 : 6)]); }
+  const bodyShape = [
+    E(0, -350, 320, 200, {fill: BODY}),
+    S([['M', -158, -330], ...hem, ['L', 152, -330], ['Z']], BODY, {lineWidth: 8}),
+    E(0, -350, 300, 180, {fill: BODY, stroke: 'none'}),
+    ...[[-80, -390], [-20, -410], [40, -380], [-50, -330], [20, -320], [80, -340]].map(([xx, yy]) => P([['M', xx - 22, yy], ['Q', xx, yy + 18, xx + 22, yy]], {stroke: BODY2, lineWidth: 6})),
+    S([['M', -150, -380], ['Q', -210, -400, -196, -330], ['Q', -176, -350, -150, -330], ['Z']], BODY, {lineWidth: 7}), // tail tuft
+  ];
+  const eyeG = eye === 'grande'
+    ? [E(14, -40, 44, 44, {fill: '#ffb21f', lineWidth: 6}), E(18, -40, 18, 18, {fill: INK, stroke: 'none'})]
+    : [E(14, -40, 30, 30, {fill: '#ffb21f', lineWidth: 5}), E(17, -40, 12, 12, {fill: INK, stroke: 'none'}), P([['M', -2, -54], ['L', 30, -50]], {lineWidth: 6})]; // heavy lid = deadpan
+  const head = G([
+    E(0, -36, 92, 74, {fill: NECK}),
+    S([['M', 36, -44], ['Q', 96, -40, 104, -26], ['Q', 70, -18, 34, -22], ['Z']], BEAK, {lineWidth: 6}),
+    ...eyeG,
+    P([['M', -30, -70], ['Q', -24, -92, -10, -78]], {stroke: BODY, lineWidth: 6}), P([['M', -14, -74], ['Q', -6, -98, 8, -80]], {stroke: BODY, lineWidth: 6}),
+  ], {y: -230});
+  const neckLen = lookout ? 1.25 : 1;
+  const neck = G([
+    ...tube([[0, 0], [16, -110], [10, -230]], NECK, 34),
+    head,
+  ], {x: 120, y: -400, scaleY: neckLen, pivotX: 0, pivotY: 0,
+    keys: peck.length ? peck.flatMap(t => [{t: r3(t), angle: 0}, {t: r3(t + 0.15), angle: deg(70)}, {t: r3(t + 0.3), angle: deg(70)}, {t: r3(t + 0.45), angle: 0}])
+      : run ? osc(d, p, 6, {base: deg(16) / 1, radians: true}).map(k => ({...k, angle: k.angle})) : idle ? osc(d, 1.4, 4) : undefined});
+  const body = G([...bodyShape, neck], {keys: run ? osc(d, p / 2, 10, {prop: 'y', radians: false, base: -4}) : idle ? osc(d, 2.4, 0.015, {prop: 'scaleY', radians: false, base: 1}) : undefined, pivotX: 0, pivotY: -262});
+  return G([legG(-1), body, legG(1)], {x, y, scaleX: (flip ? -1 : 1) * scale, scaleY: scale, ...(angle !== undefined ? {angle, pivotX: 0, pivotY: -200} : {}), ...(move ? {keys: move} : {}), ...(alpha !== undefined ? {alpha} : {}), ...(from !== undefined ? {from} : {}), ...(to !== undefined ? {to} : {})});
+}
+
+/** Lewis gun on a bipod (origin = feet of the bipod, muzzle to the right). jamAt: t → smoke puff + droop. firing:[t0,t1] → muzzle flashes. */
+export function lewisGun({x = 0, y = 0, scale = 1, flip = false, firing, jamAt, keys} = {}) {
+  const STEEL = '#4a4f57', WOOD = '#8a5a32';
+  const flashes = firing ? (() => { const k = []; for (let t = firing[0]; t < firing[1]; t = r3(t + 0.08)) k.push({t: r3(t), alpha: 1}, {t: r3(t + 0.04), alpha: 0}); return k; })() : null;
+  const parts = [
+    P([['M', 120, -120], ['L', 70, 0]], {lineWidth: 9}), P([['M', 120, -120], ['L', 170, 0]], {lineWidth: 9}), // bipod
+    S([['M', -200, -150], ['L', -110, -150], ['L', -110, -110], ['L', -190, -96], ['Z']], WOOD, {lineWidth: 8}), // stock
+    R(-110, -172, 260, 64, {radius: 26, fill: STEEL}), // cooling shroud
+    ...[-70, -30, 10, 50, 90].map(xx => P([['M', xx, -168], ['L', xx, -112]], {stroke: '#2e3238', lineWidth: 5})),
+    R(150, -150, 90, 22, {radius: 6, fill: STEEL, lineWidth: 7}), // barrel
+    E(-20, -196, 160, 42, {fill: '#3a3e45'}), E(-20, -202, 40, 14, {fill: '#5d636c', lineWidth: 4}), // drum magazine
+  ];
+  if (flashes) parts.push(G([S([['M', 240, -140], ['L', 300, -176], ['L', 284, -140], ['L', 316, -112], ['L', 252, -128], ['Z']], '#ffd21f', {lineWidth: 6})], {alpha: 0, keys: flashes}));
+  if (jamAt !== undefined) parts.push(G([E(250, -170, 60, 50, {fill: '#d8d8d8', lineWidth: 6}), E(286, -214, 80, 66, {fill: '#e6e6e6', lineWidth: 6}), E(330, -270, 100, 84, {fill: '#f0f0f0', lineWidth: 6})],
+    {alpha: 0, keys: [{t: r3(jamAt), alpha: 0, y: 0}, {t: r3(jamAt + 0.1), alpha: 1, y: 0}, {t: r3(jamAt + 1.2), alpha: 0, y: -60}]}));
+  return G(parts, {x, y, scaleX: (flip ? -1 : 1) * scale, scaleY: scale, ...(keys ? {keys} : {})});
+}
+
+/** 1930s flatbed truck (origin = ground under the middle, facing right). bump: dur → bouncy ride. */
+export function truck({x = 0, y = 0, scale = 1, flip = false, bump, cargo = [], keys} = {}) {
+  const C = '#3f6a4a', C2 = '#2f5038';
+  const wheel = (wx, k) => G([E(0, 0, 130, 130, {fill: '#262626'}), E(0, 0, 56, 56, {fill: '#9aa0a8', lineWidth: 6}), P([['M', -24, 0], ['L', 24, 0]], {stroke: '#262626', lineWidth: 6})],
+    {x: wx, y: -66, pivotX: 0, pivotY: 0, ...(k ? {keys: k} : {})});
+  const spin = bump ? [{t: 0, angle: 0}, {t: bump, angle: -bump * 14}] : null;
+  const chassis = G([
+    R(-330, -190, 420, 50, {radius: 6, fill: '#8a5a32'}), // flatbed
+    ...[-300, -230, -160, -90, -20, 50].map(xx => P([['M', xx, -190], ['L', xx, -140]], {stroke: '#6b4423', lineWidth: 5})),
+    S([['M', 90, -140], ['L', 90, -330], ['L', 220, -330], ['L', 250, -240], ['L', 340, -230], ['Q', 360, -200, 350, -140], ['Z']], C, {lineWidth: 9}), // cab + hood
+    R(110, -310, 90, 70, {radius: 8, fill: '#cfe6f2', lineWidth: 7}), // window
+    E(352, -206, 26, 30, {fill: '#ffe08a', lineWidth: 5}), // headlight
+    S([['M', -340, -150], ['L', 360, -150], ['L', 360, -120], ['L', -340, -120], ['Z']], C2, {lineWidth: 8}),
+    ...cargo,
+  ], {keys: bump ? osc(bump, 0.22, 16, {prop: 'y', radians: false}) : undefined});
+  return G([chassis, wheel(-220, spin), wheel(240, spin)], {x, y, scaleX: (flip ? -1 : 1) * scale, scaleY: scale, ...(keys ? {keys} : {})});
 }
