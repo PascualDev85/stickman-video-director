@@ -55,6 +55,7 @@ Documento de referencia para cada episodio. Lo que está aquí ya está decidido
 ## Publicación
 - Título corto con la promesa, sin engañar ni revelar el desenlace. Sin hashtags en el título.
 - Descripción: 2 líneas de gancho + fuentes + 3 hashtags.
+- Etiquetas (pesan poco; sirven sobre todo para el nombre en inglés y las variantes): primero 4-5 del episodio (protagonista, tema, nombre en inglés, lugar), después las fijas: Historias Sin Cabeza, El Becario, historias reales, curiosidades, historia.
 - Comentario fijado con pregunta sobre el próximo expediente.
 - Horario de partida: 20:00 Madrid / 13:00 CDMX; ajustar con los datos del canal.
 - Ritmo: 2 fijos por semana (martes y jueves) + un tercero (sábado) solo si hay un expediente de reserva terminado. Nunca varios el mismo día.
