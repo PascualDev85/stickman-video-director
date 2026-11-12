@@ -3,7 +3,8 @@
 Para arrancar: «Sigue con el EXPEDIENTE 003: lee `proyectos/el-becario/003-guerra-emus/montaje.md`».
 Leer también, solo estas secciones de la BIBLIA: «Densidad de humor y ritmo visual» y «Lecciones (no repetir)».
 
-## Estado (12-nov-2026)
+## Estado (12-nov-2026, v4)
+- v4: mejoras «de 10» + datos poco contados (granjero que paga las balas, medalla para los emús, Meredith, Campion). Texto de publicación en `publicacion.md`. Preview v4 pendiente de David.
 - `scenes.mjs` montado según el mapa (29 planos, END 51,75), `validate` = pass, preview v1 en `output/preview.mp4` → **pendiente de que David la vea**.
 - Audio real (ElevenLabs, flow «EXP 003 guerra emus - audio», ~2.150 créditos): ráfaga v3, clic v1, motor v1, bum v2, impresora v1 en `sfx/`; música = toma A (`music.mp3`; alternativa `music-B.mp3`) → `music-duck.wav`. Preview v2 con todo. Comprobar de oído que la música no tiene voces (ElevenLabs la marcó «Instrumental: False»).
 - QA: `node ../herramientas/hoja.mjs project.json hoja.png` (un fotograma por plano; `--from/--to`, `--at`, `--w`).

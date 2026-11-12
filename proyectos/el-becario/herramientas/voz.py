@@ -13,7 +13,7 @@ Uso (desde la carpeta del episodio):
         Recorta silencios y/o inserta pausas en la narración y desplaza en scenes.mjs los tiempos literales de
         shot(), mouth(), F() y {time:}, y VOICE/END. Los tiempos LOCALES dentro de cada plano no se tocan: revisa los
         planos que contienen un corte. Después: voz.py mouth + autopilot captions --shorts + node scenes.mjs.
-  python3 ../herramientas/voz.py musica music.mp3 words.json DUR [--boost 41.28-43.4]
+  python3 ../herramientas/voz.py musica music.mp3 words.json DUR [--boost 41.28-43.4] [--duck 0.42]
         -> music-duck.wav: la música baja (x0,42) mientras habla el Becario y sube en las pausas (> 0,3 s);
         --boost = tramos donde sube aunque haya voz (festival). En project: music {path: 'music-duck.wav', gain: 0.17}.
 Requiere ffmpeg y numpy.
@@ -117,7 +117,7 @@ def caps(src, skip=0, maxc=16, gap=0.45, linger=0.45):
     for c in cues: print(f"{c['start']:6.2f}-{c['end']:6.2f}  {c['text']}")
 
 
-def musica(src, wjson, dur, boosts=()):
+def musica(src, wjson, dur, boosts=(), duck=0.42):
     import numpy as np, wave
     SR = 44100
     raw = subprocess.run(['ffmpeg', '-v', 'error', '-stream_loop', '-1', '-i', src, '-t', str(dur), '-ac', '2', '-ar', str(SR), '-f', 'f32le', '-'], capture_output=True).stdout
@@ -127,7 +127,7 @@ def musica(src, wjson, dur, boosts=()):
     edges = np.flatnonzero(np.diff(speech.astype(np.int8))) + 1; bounds = [0, *edges, len(m)]
     for a, b in zip(bounds, bounds[1:]):
         if not speech[a] and (b - a) / SR < 0.3 and a > 0 and b < len(m): speech[a:b] = True
-    env = np.where(speech, 0.42, 1.0)
+    env = np.where(speech, duck, 1.0)
     for a, b in boosts: sel = (t >= a) & (t < b); env[sel] = np.maximum(env[sel], 0.8)
     k = int(0.15 * SR); env = np.convolve(env, np.ones(k) / k, mode='same')
     tail = t > dur - 0.6; env[tail] *= np.linspace(1, 0.5, tail.sum())
@@ -193,7 +193,8 @@ if __name__ == '__main__':
     elif cmd == 'gaps': gaps(args[0])
     elif cmd == 'musica':
         bo = [tuple(map(float, a.split('-'))) for k, a in zip(args, args[1:]) if k == '--boost']
-        musica(args[0], args[1], float(args[2]), bo)
+        du = [float(a) for k, a in zip(args, args[1:]) if k == '--duck']
+        musica(args[0], args[1], float(args[2]), bo, *(du[:1]))
     elif cmd == 'silences':
         for a, b in silences(args[0]): print(f'{a:6.2f}-{b:6.2f}  ({b - a:.2f} s)')
     elif cmd == 'caps':

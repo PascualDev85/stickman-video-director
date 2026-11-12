@@ -419,7 +419,7 @@ export const soldado = (n, a) => person({...a, who: 'soldado' + n});
  * Origin between the feet, facing right (scaleX negative via flip:true to face left).
  * Shaggy dark-brown body, long blue-grey neck, tiny head with a big deadpan eye.
  */
-export function emu({x = 0, y = 0, scale = 1, flip = false, run, idle, peck = [], eye = 'normal', lookout = false, move, alpha, from, to, angle, headExtra = [], bodyExtra = []} = {}) {
+export function emu({x = 0, y = 0, scale = 1, flip = false, run, idle, peck = [], eye = 'normal', lookout = false, move, alpha, from, to, angle, headExtra = [], bodyExtra = [], blink = []} = {}) {
   const BODY = '#5e4532', BODY2 = '#7a5a40', NECK = '#8ea2b6', LEG = '#7d7568', BEAK = '#3b3b3b';
   const d = run?.dur ?? idle?.dur ?? 0, p = run?.period || 0.36;
   const thigh = s => run ? osc(d, p, 34, {phase: s > 0 ? 0 : Math.PI}) : undefined;
@@ -447,6 +447,7 @@ export function emu({x = 0, y = 0, scale = 1, flip = false, run, idle, peck = []
     S([['M', 36, -44], ['Q', 96, -40, 104, -26], ['Q', 70, -18, 34, -22], ['Z']], BEAK, {lineWidth: 6}),
     ...eyeG,
     P([['M', -30, -70], ['Q', -24, -92, -10, -78]], {stroke: BODY, lineWidth: 6}), P([['M', -14, -74], ['Q', -6, -98, 8, -80]], {stroke: BODY, lineWidth: 6}),
+    ...(blink.length ? [G([E(14, -40, 50, 50, {fill: NECK, lineWidth: 5})], {alpha: 0, keys: blink.flatMap(t => [{t: r3(t), alpha: 0}, {t: r3(t + 0.03), alpha: 1}, {t: r3(t + 0.13), alpha: 1}, {t: r3(t + 0.16), alpha: 0}])})] : []), // parpadeo lento de funcionario
     ...headExtra, // capas en coordenadas de la cabeza (casco, etc.)
   ], {y: -230});
   const neckLen = lookout ? 1.25 : 1;

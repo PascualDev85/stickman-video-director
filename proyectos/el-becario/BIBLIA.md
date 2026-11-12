@@ -94,6 +94,8 @@ Para no repetir pruebas ni gastar créditos/tokens. Todo sale de los EXP 001 y 0
 6. `voz.py silences narration.mp3` para ver los silencios REALES; `voz.py retime` recorta solo dentro de ellos (aborta si no) o **inserta una pausa** donde deba oírse un efecto sin voz encima. Comprobar después con RMS que la primera consonante de la palabra siguiente sigue ahí.
 
 ### Lecciones (no repetir)
+- **Contrastar también lo que se dibuja, no solo lo que se dice.** EXP 003: la medalla del mayor no existió (en el Parlamento dijeron que la merecían los emús), así que se la pusimos al emú. Buscar siempre 2-3 datos «que nadie cuenta» para meterlos en imagen, bocadillo o descripción (dan comentarios y confianza).
+- **Kit de «de 7 a 9» (EXP 003):** el gancho se mueve antes de 0,5 s (sin tapar la voz); el protagonista parpadea/reacciona; barridos (`whip`) en los cortes que cambian de escenario; cifras del subtítulo en rojo (`captionTrack(..., {num: RED})`); nombre real y lugar en etiqueta; música audible con `voz.py musica … --duck 0.62`; volumen final ≈ −14/−15 LUFS (`ffmpeg -af ebur128`).
 - **Autocrítica EXP 003 v2 (6/10):** miniatura con el protagonista pequeño; rótulos que repetían el subtítulo (¡GUERRA!, ¿AL EJÉRCITO?, 10 BALAS POR EMÚ) → sustituidos por imagen (mira, sombrero que cae, «×10»); 15 planos del mismo trigal con el mismo encuadre; sujetos pequeños en planos abiertos. Antes de enseñar: protagonista ≥ 2/3 del cuadro en la miniatura, sujetos grandes, variar encuadres.
 - **`cam()` recibe números (from, to); con una función de cámara, `camF()`.** Si no, salen escalas null y el validador dice «Invalid scaleX». `DEBUG=1 node autopilot.mjs …` muestra la traza.
 - **Keys de gestos:** `gestures` con `t1` = final del plano rompe el orden de tiempos (y con `walk` corto, la duración total es la del paseo). Para dejar un brazo arriba hasta el final, `poses`.
@@ -130,6 +132,7 @@ Para no repetir pruebas ni gastar créditos/tokens. Todo sale de los EXP 001 y 0
   - La zona segura también se comprueba en el pico de cada animación de texto.
   - Espejo: `scaleX`/`scaleY` negativos ya pasan la validación (antes `flip` del emú/Lewis/camión fallaba en validate aunque la hoja de personajes lo pintara).
   - `herramientas/hoja.mjs`: hoja de fotogramas (uno por plano) en una sola imagen, para QA barato.
+  - `voz.py musica … --duck X` (por defecto 0,42), `captionTrack({num})`, `emu({blink, bodyExtra})`, `DEBUG=1` en autopilot.
   - Kit: `person({noHat})` + `hatProp(who)` (sombrero que sale volando), `emu({headExtra})` (casco…), picotazos solapados se filtran solos.
 - Subtítulos arriba probados (EXP 002 v8, `CAPS=arriba`): chocan con los títulos (al bajarlos tapan caras: la suegra, ¡CANTA!). Se quedan abajo.
 - **Nada de sangre ni corte visible**: el hachazo es corte a negro + «¡ZAS!» + plumas.

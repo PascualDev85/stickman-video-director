@@ -2,8 +2,8 @@
 // Guion v3 (aprobado). Cortes sobre los tiempos reales (Scribe) y los silencios medidos (voz.py silences).
 // Mapa de planos: montaje.md. Estructura copiada de 002-pollo-sin-cabeza/scenes.mjs.
 import fs from 'node:fs';
-import {becario, mayor, soldado, hatProp, emu, lewisGun, truck, caseFolder, archiveBox, osc, P, E, R, G, S, deg, INK, PAPER, ctext} from '../kit.mjs';
-import {H, GROUND, RED, YEL, tag, captionTrack, fill, band, lin, mix, r3, eOut, eInOut, eBack, shake, sample, camF, cam, slam, popIn, flash, rays, speedLines, cloud, office, desk, emptyWallet, makeEpisode, F, bubble} from '../lib.mjs';
+import {becario, granjero, mayor, soldado, hatProp, emu, lewisGun, truck, caseFolder, archiveBox, osc, P, E, R, G, S, deg, INK, PAPER, ctext} from '../kit.mjs';
+import {H, GROUND, RED, YEL, tag, clamp01, captionTrack, fill, band, lin, mix, r3, eOut, eInOut, eBack, shake, sample, camF, cam, slam, popIn, flash, rays, speedLines, cloud, office, desk, emptyWallet, makeEpisode, F, bubble} from '../lib.mjs';
 
 const {WORDS, shots, shot, mouth} = makeEpisode('words.json');
 const VOICE = 51.25, END = 51.75; // VOICE = duración real de narration.mp3
@@ -50,7 +50,7 @@ function countUp(n, label, x, y, t0, t1, d, {size = 64, color = RED, steps = 16}
   const box = G([R(-w / 2 + 10, -h / 2 + 12, w, h, {radius: 12, fill: 'rgba(0,0,0,0.28)', stroke: 'none'}), R(-w / 2, -h / 2, w, h, {radius: 12, fill: '#fff6d6', stroke: color, lineWidth: 8}), ...texts]);
   return G([steps ? popIn(box, Math.max(0, t0 - 0.12), d) : box], {x, y});
 }
-const paperSheet = (o = {}) => G([R(-120, -160, 240, 320, {radius: 6, fill: PAPER, lineWidth: 8}), ...[0, 1, 2, 3, 4, 5].map(i => P([['M', -84, -100 + i * 40], ['L', i === 5 ? 20 : 84, -100 + i * 40]], {stroke: '#9aa3ab', lineWidth: 6})), E(70, 110, 60, 60, {fill: 'none', stroke: RED, lineWidth: 6})], o);
+const paperSheet = (o = {}) => G([R(-120, -160, 240, 320, {radius: 6, fill: PAPER, lineWidth: 8}), ctext('DEFENSA', 0, -150, 40, {maxW: 210, color: RED}), ...[1, 2, 3, 4, 5].map(i => P([['M', -84, -100 + i * 40], ['L', i === 5 ? 20 : 84, -100 + i * 40]], {stroke: '#9aa3ab', lineWidth: 6})), E(70, 110, 60, 60, {fill: 'none', stroke: RED, lineWidth: 6})], o);
 const ammoBox = (x, y, s = 1, label = '.303') => G([R(-180, -140, 360, 140, {radius: 8, fill: '#5d6b3f'}), R(-190, -170, 380, 40, {radius: 8, fill: '#4c5833'}), R(-30, -160, 60, 20, {radius: 4, fill: '#c9c3a0', lineWidth: 5}), ctext(label, 0, -110, 64, {maxW: 300, color: '#e9e2b8'})], {x, y, scaleX: s, scaleY: s});
 const medal = (x, y, t0, d, s = 1) => (g => t0 < 0 ? g : popIn(g, t0, d))(G([S([['M', -26, -70], ['L', 26, -70], ['L', 14, 0], ['L', -14, 0], ['Z']], '#2b4a7a', {lineWidth: 6}), E(0, 22, 64, 64, {fill: '#e9c46a', lineWidth: 7}), ctext('★', 0, 2, 34, {maxW: 40, color: '#a8743f'})], {x, y, scaleX: s, scaleY: s}));
 /** Mira telescópica roja que se cierra sobre (x, y). */
@@ -63,7 +63,8 @@ const smokePuffs = (x, y, t0, d, n = 4) => Array.from({length: n}, (_, i) => ({.
 const printer = (x, y, s = 1) => G([R(-170, -150, 340, 150, {radius: 14, fill: '#c9ced3'}), R(-120, -190, 240, 50, {radius: 8, fill: '#9aa3ab'}), R(-110, -60, 220, 18, {radius: 4, fill: '#2b2b2b', stroke: 'none'}),
   S([['M', -90, -46], ['L', 90, -46], ['L', 70, 40], ['L', -70, 40], ['Z']], PAPER, {lineWidth: 6}), E(120, -110, 24, 24, {fill: RED, lineWidth: 4})], {x, y, scaleX: s, scaleY: s});
 const helmet = () => [S([['M', -56, -48], ['Q', -50, -118, 6, -120], ['Q', 62, -118, 64, -48], ['Z']], '#5b6b3a', {lineWidth: 7}), P([['M', -74, -46], ['L', 82, -46]], {stroke: '#3f4a27', lineWidth: 12})];
-const spark = (x, y, t0, d) => G([S([['M', 0, -40], ['L', 10, -10], ['L', 40, 0], ['L', 10, 10], ['L', 0, 40], ['L', -10, 10], ['L', -40, 0], ['L', -10, -10], ['Z']], YEL, {lineWidth: 5})], {x, y, from: t0, to: Math.min(d, t0 + 0.25), keys: sample(t => ({s: t - t0 < 0.12 ? mix(0.4, 1.2, (t - t0) / 0.12) : mix(1.2, 0.6, (t - t0 - 0.12) / 0.13)}), t0, Math.min(d, t0 + 0.25))});
+function spark(x, y, t0, d) { return sparkG(x, y, t0, d); }
+const sparkG = (x, y, t0, d) => G([S([['M', 0, -40], ['L', 10, -10], ['L', 40, 0], ['L', 10, 10], ['L', 0, 40], ['L', -10, 10], ['L', -40, 0], ['L', -10, -10], ['Z']], YEL, {lineWidth: 5})], {x, y, from: t0, to: Math.min(d, t0 + 0.25), keys: sample(t => ({s: t - t0 < 0.12 ? mix(0.4, 1.2, (t - t0) / 0.12) : mix(1.2, 0.6, (t - t0 - 0.12) / 0.13)}), t0, Math.min(d, t0 + 0.25))});
 const dust = (x, y, t0, d) => [0, 1, 2].map(i => ({...E(0, 0, 90, 60, {fill: '#d9c79a', lineWidth: 6}), from: t0, keys: sample(t => { const u = t - t0; return {x: x + (i - 1) * (40 + u * 260), y: y - u * 60, alpha: Math.max(0, 1 - u / 0.6)}; }, t0, d)}));
 /** Alas ridículas del emú (en coordenadas del emú): aletean rápido. */
 const wingStub = (dur, t0 = 0) => G([E(30, 0, 110, 46, {fill: '#7a5a40', lineWidth: 7})], {x: 20, y: -380, pivotX: -20, pivotY: 0, keys: osc(dur, 0.09, 30, {t0})});
@@ -71,16 +72,17 @@ const wingStub = (dur, t0 = 0) => G([E(30, 0, 110, 46, {fill: '#7a5a40', lineWid
 // ---------- primer fotograma (= miniatura) y bucle ----------
 // Emú enorme a la derecha mirando al soldado (mirada de funcionario); soldado pequeño con la Lewis a la izquierda.
 const HX = 830, HY = 2200, HS = 2.3, HEAD = [HX - 130 * HS, HY - 666 * HS];
-const hookSet = (d, {eye = 'normal', crowd = false, peck = []} = {}) => [...field(d),
+const hookSet = (d, {eye = 'normal', crowd = false, peck = [], firing, blink = []} = {}) => [...field(d),
   ...(crowd ? herd(d, 1175, 22, 0.13) : []),
   soldado(1, {x: 180, y: 1580, scale: 0.5, expr: 'miedo', look: 1, idle: {dur: d}, armL: {shoulder: 70, elbow: 40}, armR: {shoulder: 80, elbow: 20}}),
-  lewisGun({x: 250, y: 1580, scale: 0.55}),
-  emu({x: HX, y: HY, scale: HS, flip: true, eye, peck, idle: {dur: d}}),
+  lewisGun({x: 250, y: 1580, scale: 0.55, firing}),
+  emu({x: HX, y: HY, scale: HS, flip: true, eye, peck, blink, idle: {dur: d}}),
+  ...(firing ? [0.42, 0.6, 0.78, 0.95, 1.12].map((t, i) => spark(HX - 120 + (i % 3) * 90, HY - 820 + (i % 2) * 120, t, d)) : []),
 ];
 
 // ================= SHOTS =================
 // 0–1.70 · «En 1932,» — miniatura. Etiqueta pequeña arriba a la izquierda (entera desde el fotograma 1).
-shot(0, 1.70, d => [cam(hookSet(d), d, 1.0, 1.04, 640, 1300), G([tag('HISTORIA REAL', 380, 72, {pop: false, color: RED})], {x: -260})]);
+shot(0, 1.70, d => [camF(hookSet(d, {firing: [0.35, 1.2], blink: [1.35]}), d, t => ({s: mix(1.0, 1.04, t / d), ...shake(t, 0.35, 0.85, 4)}), 640, 1300), G([tag('HISTORIA REAL', 380, 72, {pop: false, color: RED})], {x: -260})]);
 // 1.70–3.14 · «Australia le declaró la guerra» — ¡GUERRA! + sacudida.
 shot(1.70, 3.14, d => [camF(hookSet(d), d, t => ({s: mix(1.12, 1.18, t / d), ...shake(t, 0.25, 0.35, 18)}), 640, 1300), flash(0.25, 0.1, '#ff6a5c', 0.55),
   crosshair(HEAD[0], HEAD[1] + 60, 0.25, d)]);
@@ -97,6 +99,7 @@ shot(4.02, 5.10, d => [cam([...field(d),
 // 5.10–7.06 · «Expediente 003.» — carpeta cae; sello 003 en el silencio (6.75).
 shot(5.10, 7.06, d => [camF([...office(d), desk(),
   becario({x: 300, y: GROUND - 20, scale: 1.0, expr: 'sarcastico', idle: {dur: d}, talk: mouth(5.10, 7.06)}),
+  hatProp('soldado1', {x: 1060, y: 1240, scaleX: 0.5, scaleY: 0.5, keys: [{t: 0, x: 700, y: 300, angle: deg(200)}, {t: 0.45, x: 1060, y: 1240, angle: deg(-8)}, {t: 0.52, y: 1222}, {t: 0.6, y: 1240}]}),
   G([caseFolder({x: 0, y: 0, scale: 1, label: 'EXPEDIENTE 003'})], {x: 800, y: 1010, scaleX: 0.74, scaleY: 0.74, keys: [{t: 0, y: 700, angle: deg(-14)}, {t: 0.18, y: 1010, angle: deg(-3)}, {t: 0.26, y: 980, angle: deg(-3)}, {t: 0.34, y: 1010, angle: deg(-3)}]}),
 ], d, t => ({s: mix(1.12, 1.2, t / d), ...shake(t, 0.18, 0.2, 12), ...shake(t, 1.65, 0.2, 14)}), 800, 1055),
   slam('003', 640, 520, 200, 1.65, d, {outline: true, color: RED, tilt: -8, stamp: true, from: 1.15})]);
@@ -104,7 +107,7 @@ shot(5.10, 7.06, d => [camF([...office(d), desk(),
 shot(7.06, 8.70, d => [cam([...field(d, {horizon: 1050}), ...herd(d, 1080, 14, 0.2),
   ...Array.from({length: 6}, (_, i) => emu({x: 90 + i * 210, y: 1360 + (i % 2) * 40, scale: 0.42, flip: i % 2 === 1, peck: [0.1 + i * 0.13, 0.9 + (i % 3) * 0.12]})),
   ...Array.from({length: 4}, (_, i) => emu({x: 170 + i * 320, y: 1660, scale: 0.62, flip: i % 2 === 0, peck: [0.25 + i * 0.1, 1.05]})),
-], d, 1.08, 1.0), countUp(20000, 'EMÚS', 640, 560, 0.05, 0.75, d, {size: 76})]);
+], d, 1.08, 1.0), countUp(20000, 'EMÚS', 640, 590, 0.05, 0.75, d, {size: 76}), tag('CAMPION · OESTE DE AUSTRALIA', 380, 58, {t0: 0.0, pop: false})]);
 // 8.70–11.78 · «y el gobierno manda… espera, que lo leo bien…» — el Becario lee un papel; en «espera» se lo acerca.
 const ESP = 10.44 - 8.70;
 shot(8.70, 11.78, d => [camF([...office(d),
@@ -113,7 +116,7 @@ shot(8.70, 11.78, d => [camF([...office(d),
   paperSheet({x: 760, y: 1200, keys: sample(t => ({s: t < ESP ? 0.8 : mix(0.8, 1.05, eInOut((t - ESP) / 0.4)), x: t < ESP ? 760 : mix(760, 730, eInOut((t - ESP) / 0.4)), y: t < ESP ? 1200 : mix(1200, 1060, eInOut((t - ESP) / 0.4)), a: -6}), 0, d)}),
 ], d, t => ({s: t < ESP ? mix(1.0, 1.06, t / ESP) : mix(1.06, 1.3, eInOut((t - ESP) / (d - ESP)))}), 680, 1050)]);
 // 11.78–13.30 · «¿¡Al ejército!?» — primer plano, zoom brusco + sacudida + flash + slam.
-shot(11.78, 13.30, d => [camF([...office(d), becario({x: 640, y: 2080, scale: 1.75, expr: 'sorpresa', idle: {dur: d}, talk: mouth(11.78, 13.30), armL: {shoulder: 40, elbow: 120}, armR: {shoulder: 40, elbow: 120}}),
+shot(11.78, 13.30, d => [camF([...office(d), becario({x: 640, y: 2080, scale: 1.75, expr: 'sorpresa', idle: {dur: d}, talk: mouth(11.78, 13.30), armL: {shoulder: 165, elbow: 145}, armR: {shoulder: 165, elbow: 145}}),
   hatProp('soldado1', {x: 640, y: 2080 - 462 * 1.75, scaleX: 1.75, scaleY: 1.75, keys: [{t: 0, y: -300, angle: deg(-25)}, {t: 0.55, y: -300, angle: deg(-25)}, {t: 0.75, y: 2080 - 462 * 1.75 + 20, angle: deg(6)}, {t: 0.82, y: 2080 - 462 * 1.75 - 25, angle: deg(-4)}, {t: 0.9, y: 2080 - 462 * 1.75 + 20, angle: deg(4)}]})], d,
   t => ({s: mix(1.0, 1.25, eOut((t - 0.1) / 0.18)), a: mix(0, -6, eOut((t - 0.1) / 0.18)), ...shake(t, 0.12, 0.35, 16), ...shake(t, 0.75, 0.2, 12)}), 640, 1000),
   flash(0.12, 0.12, PAPER, 0.85), speedLines(0.12, 0.45, PAPER, 640, 900)]);
@@ -121,7 +124,7 @@ shot(11.78, 13.30, d => [camF([...office(d), becario({x: 640, y: 2080, scale: 1.
 const camp = d => [...field(d, {horizon: 1100, stalks: false}), tent(260, 1180, 0.8), tent(980, 1150, 0.6)];
 shot(13.30, 14.03, d => [camF([...camp(d),
   mayor({x: 560, y: 1640, scale: 1.05, expr: 'serio', look: 1, walk: {dur: 0.45, period: 0.3, stride: 26}, move: [{t: 0, x: -160}, {t: 0.42, x: 560}], poses: {R: [{t: 0, shoulder: 8, elbow: 0}, {t: 0.48, shoulder: 8, elbow: 0}, {t: 0.6, shoulder: 150, elbow: 120}]}}),
-], d, t => ({s: 1.05, x: mix(120, 0, eOut(t / 0.5))}), 560, 1300)]);
+], d, t => ({s: 1.05, x: mix(120, 0, eOut(t / 0.5))}), 560, 1300), tag('MAYOR MEREDITH', 390, 68, {t0: 0.35, tilt: -2})]);
 // 14.03–14.97 · «dos ametralladoras» — dos Lewis caen con golpe.
 const MAJ = d => mayor({x: 330, y: 1640, scale: 1.0, expr: 'contento', look: 1, idle: {dur: d}});
 const dropKeys = (y, t0) => [{t: 0, y: -400}, {t: t0, y: -400}, {t: r3(t0 + 0.16), y}, {t: r3(t0 + 0.22), y: y - 30}, {t: r3(t0 + 0.28), y}];
@@ -129,12 +132,13 @@ shot(14.03, 14.97, d => [camF([...camp(d), MAJ(d),
   lewisGun({x: 760, y: 1600, scale: 0.85, keys: dropKeys(1600, 0.05)}), lewisGun({x: 1000, y: 1660, scale: 0.85, keys: dropKeys(1660, 0.35)}),
 ], d, t => ({s: mix(1.15, 1.25, t / d), ...shake(t, 0.21, 0.15, 14), ...shake(t, 0.51, 0.15, 14)}), 880, 1500)]);
 // 14.97–16.27 · «y 10.000 balas.» — caja de munición + contador; bocadillo del mayor.
-shot(14.97, 16.27, d => [camF([...camp(d), MAJ(d), ammoBox(860, 1640, 1.1),
-], d, t => ({s: mix(1.0, 1.12, eInOut(t / d)), a: mix(0, 2, t / d)}), 500, 1200), countUp(10000, 'BALAS', 820, 800, 0.15, 0.6, d, {size: 64}), bubble('Pan comido.', 400, 620, 360, 850, 0.7, d, {size: 56})]);
+shot(14.97, 16.27, d => [camF([...camp(d), MAJ(d), ammoBox(690, 1640, 1.0),
+  granjero({x: 1020, y: 1640, scale: 0.85, expr: 'sorpresa', look: -1, idle: {dur: d}, armL: {shoulder: 30, elbow: 90}}),
+], d, t => ({s: mix(1.0, 1.12, eInOut(t / d)), a: mix(0, 2, t / d)}), 500, 1200), countUp(10000, 'BALAS', 640, 520, 0.15, 0.6, d, {size: 64}), bubble('¿Y las pago yo?', 800, 760, 980, 940, 0.62, d, {size: 66, maxW: 520})]);
 // 16.27–18.83 · «Contra un pájaro… que no sabe volar.» — el emú aletea, salta y cae sentado (16.95); grillos en el silencio.
 const FLY = 0.25, SIT = 16.93 - 16.27;
 shot(16.27, 18.83, d => [camF([...field(d),
-  G([wingStub(d), emu({x: 0, y: 0, scale: 1, idle: {dur: d}, eye: 'normal'})], {x: 640, y: 1560, scaleX: 1.05, scaleY: 1.05,
+  G([wingStub(d), emu({x: 0, y: 0, scale: 1, idle: {dur: d}, eye: 'normal', blink: [1.2, 2.1]})], {x: 640, y: 1560, scaleX: 1.05, scaleY: 1.05,
     keys: [{t: 0, y: 1560, angle: 0}, {t: FLY, y: 1560}, {t: r3(FLY + 0.18), y: 1430}, {t: r3(SIT - 0.06), y: 1470}, {t: r3(SIT), y: 1700, angle: deg(-6)}, {t: d, y: 1700, angle: deg(-6)}]}),
   ...frontStalks(1600, d), ...dust(640, 1600, SIT, d),
   ...[0, 1].map(i => G([P([['M', 0, 0], ['L', 40, 0]], {stroke: INK, lineWidth: 7})], {x: 820 + i * 10, y: 1150 + i * 40, from: FLY, to: SIT, keys: osc(d, 0.12, 20, {t0: FLY})})),
@@ -187,10 +191,10 @@ shot(31.25, 32.83, d => [cam([...road(d, 450), truck({x: 520, y: 1500, scale: 0.
 ], d, 1.0, 1.04, 640, 1300)]);
 // 32.83–35.17 · «El mayor presume: 986 emús,» — mayor orgulloso, medalla; contador de emús.
 const proud = (d, a) => mayor({x: 520, y: 1690, scale: 1.25, expr: 'contento', look: 1, idle: {dur: d}, talk: undefined, armL: {shoulder: 20, elbow: 120}, ...a});
-shot(32.83, 35.17, d => [camF([...camp(d), proud(d, {poses: {R: [{t: 0, shoulder: 8, elbow: 0}, {t: 0.5, shoulder: 8, elbow: 0}, {t: 0.75, shoulder: 140, elbow: 40}]}}), medal(560, 1160, 0.4, d, 1.2)], d, t => ({s: mix(1.25, 1.05, eOut(t / 0.6)), y: mix(-120, 0, eOut(t / 0.6))}), 560, 1200),
+shot(32.83, 35.17, d => [camF([...camp(d), G([proud(d, {x: 0, y: 0, poses: {R: [{t: 0, shoulder: 8, elbow: 0}, {t: 0.5, shoulder: 8, elbow: 0}, {t: 0.75, shoulder: 140, elbow: 40}]}})], {x: 520, y: 1690, keys: sample(t => ({sx: 1 + 0.07 * eBack(clamp01((t - 0.4) / 0.3)), sy: 1 + 0.02 * eBack(clamp01((t - 0.4) / 0.3))}), 0, d)})], d, t => ({s: mix(1.25, 1.05, eOut(t / 0.6)), y: mix(-120, 0, eOut(t / 0.6))}), 560, 1200),
   countUp(986, 'EMÚS', 640, 520, 34.01 - 32.83, 35.13 - 32.83, d, {size: 72})]);
 // 35.17–37.83 · «con 9.860 balas.» — el segundo contador sube debajo.
-shot(35.17, 37.83, d => [cam([...camp(d), proud(d, {armR: {shoulder: 140, elbow: 40}}), medal(560, 1160, -1, d, 1.2)], d, 1.08, 1.14, 560, 1200),
+shot(35.17, 37.83, d => [cam([...camp(d), G([proud(d, {x: 0, y: 0, armR: {shoulder: 140, elbow: 40}})], {x: 520, y: 1690, scaleX: 1.07, scaleY: 1.02})], d, 1.08, 1.14, 560, 1200),
   countUp(986, 'EMÚS', 640, 520, -1, -0.5, d, {size: 72}), countUp(9860, 'BALAS', 640, 680, 35.77 - 35.17, 37.13 - 35.17, d, {size: 72})]);
 // 37.83–39.40 · «Diez balas por emú.» — 10 balas en fila + rótulo con sello (38.8, en el silencio).
 shot(37.83, 39.40, d => [...rays(d, '#ffd21f', '#ffe36b', 640, 1150, 14, 14),
@@ -222,22 +226,28 @@ shot(46.89, 49.47, d => [camF([...office(d), ...[0, 1, 2, 3, 4, 5, 6].map(i => G
 // 49.47–END · «A mí, ni un sueldo.» — cartera vacía (polilla); por la ventana asoma un emú mirándole (enlaza con el inicio).
 const WIN = {x: 740, y: 770};
 shot(49.47, END, d => [camF([...office(d),
-  emu({x: WIN.x + 208, y: 1866, scale: 1.6, flip: true, eye: 'grande', idle: {dur: d}, move: [{t: 0, y: 2300}, {t: 0.7, y: 2300}, {t: 1.0, y: 1866}]}),
+  emu({x: WIN.x + 208, y: 1866, scale: 1.6, flip: true, eye: 'grande', blink: [1.4], idle: {dur: d}, headExtra: [G([S([['M', -14, 0], ['L', 14, 0], ['L', 8, 40], ['L', -8, 40], ['Z']], '#2b4a7a', {lineWidth: 4}), E(0, 56, 38, 38, {fill: '#e9c46a', lineWidth: 5})], {x: -10, y: 2})], move: [{t: 0, y: 2300}, {t: 0.02, y: 2300}, {t: 0.25, y: 1866}]}),
   R(552, 906, 424, 480, {radius: 0, fill: '#efe6d4', stroke: 'none'}),
   R(980, 900, 200, 520, {radius: 6, fill: '#9c7a52'}), ...[950, 1110, 1260].map(y => R(998, y, 164, 130, {radius: 4, fill: '#c8955a', lineWidth: 7})), // archivador del set, encima de la cola
   band(GROUND - 30, 1000, '#cbb995'), band(GROUND - 30, 16, '#a8956e'),
   desk(),
-  becario({x: 330, y: GROUND + 40, scale: 1.15, expr: 'cansado', look: 1, idle: {dur: d}, talk: mouth(49.47, END), armR: {shoulder: 60, elbow: 70}}),
-  emptyWallet(560, 1080, 0.05, d, 1.6),
-], d, t => ({s: mix(1.08, 1.16, t / d)}), 560, 1050)]);
+  becario({x: 330, y: GROUND + 40, scale: 1.15, expr: 'cansado', look: 1, idle: {dur: d}, talk: mouth(49.47, END), armR: {shoulder: 60, elbow: 70}, headKeys: [{t: 0, angle: 0}, {t: 0.3, angle: deg(10)}, {t: 1.2, angle: deg(10)}, {t: 1.5, angle: deg(-3)}]}),
+  emptyWallet(560, 1080, 0.3, d, 1.6),
+], d, t => ({s: mix(1.08, 1.16, t / d)}), 560, 1050), tag('MEDALLA: PARA LOS EMÚS', 380, 64, {t0: 0.3, tilt: 3})]);
 
+// Transiciones: barrido rápido (estelas horizontales 0,18 s) en los cortes que cambian de escenario.
+const SAME = new Set([1.70, 3.14, 14.03, 14.97, 20.42, 21.40, 35.17]);
+const whip = (dir, d) => G(Array.from({length: 9}, (_, i) => R(0, 120 + i * 230 + (i % 3) * 40, 900 + (i % 4) * 200, 34 + (i % 3) * 14, {radius: 17, fill: PAPER, stroke: 'none'})),
+  {to: Math.min(d, 0.18), keys: sample(t => ({x: dir * mix(1400, -2400, t / 0.18), alpha: 0.75 * (1 - t / 0.18)}), 0, Math.min(d, 0.18))});
+shots.forEach((sh, i) => { if (i && !SAME.has(sh.start)) sh.layers.push(whip(i % 2 ? 1 : -1, sh.end - sh.start)); });
 // Subtítulos: captions.json = voz.py caps words.json --skip 0 --max 20. Karaoke propio; el motor exporta el .srt.
 const captions = JSON.parse(fs.readFileSync('captions.json', 'utf8'));
-const cap = captionTrack(WORDS, captions);
+const cap = captionTrack(WORDS, captions, {num: RED});
 for (const s of shots) s.layers.push(...cap(s.start, s.end));
 // Efectos: solo en silencios medidos (voz.py silences) o muy bajos. Ganancia máx. 1; ambientes ≤ 0,2; whoosh ≤ 0,25.
 // rafaga, clic, motor, bum, impresora: ElevenLabs (flow «EXP 003 guerra emus - audio»).
 const sfx = [
+  ...[0.42, 0.6, 0.78, 0.95, 1.12].map(t => ({time: t, kind: 'tap', gain: 0.08})),
   F(1.62, 'whoosh', 0.2),
   F(3.72, 'whoosh', 0.2), F(4.78, 'boing', 0.4),
   F(4.85, 'whoosh', 0.2), F(5.12, 'drop', 0.25), F(6.73, 'stamp', 0.5),
@@ -247,14 +257,14 @@ const sfx = [
   F(16.95, 'drop', 0.4), F(17.05, 'crickets', 0.6, 0.45), F(18.4, 'bum', 0.5, 0.4),
   F(20.42, 'rafaga', 0.9, 0.98), F(21.37, 'clic', 0.8, 0.2),
   F(22.84, 'bum', 0.45, 0.3), F(23.1, 'whoosh', 0.2), F(24.42, 'impresora', 0.6, 0.33),
-  F(24.75, 'whoosh', 0.15), F(26.88, 'bum', 0.4, 0.25),
+  F(24.75, 'whoosh', 0.15), F(24.85, 'pasos', 0.15, 1.0), F(26.88, 'bum', 0.4, 0.25),
   F(28.8, 'drop', 0.5), F(28.9, 'drop', 0.35),
   F(29.16, 'motor', 0.2, 2.05), F(31.0, 'whoosh', 0.25),
-  F(32.55, 'flap', 0.3, 0.3),
+  F(31.25, 'pasos', 0.2, 1.5), F(32.52, 'redoble', 0.45, 0.6),
   F(38.79, 'stamp', 0.5),
   F(43.14, 'bum', 0.5, 0.45),
   F(43.74, 'whoosh', 0.2), F(46.58, 'stamp', 0.55),
-  F(48.88, 'whoosh', 0.15), F(49.23, 'flap', 0.25, 0.4),
+  F(48.88, 'whoosh', 0.15), F(49.23, 'flap', 0.25, 0.4), F(49.5, 'medalla', 0.6, 0.4),
 ];
 fs.writeFileSync('project.json', JSON.stringify({version: 1, style: 'B3', width: 1080, height: 1920, fps: 30, voice: {path: 'narration.mp3', lead: 0, tail: r3(END - VOICE)}, television: {enabled: false},
   ...(fs.existsSync('music-duck.wav') ? {music: {path: 'music-duck.wav', gain: 0.17}} : {}), burnCaptions: false, captions, shots, sfx}, null, 1));

@@ -108,7 +108,8 @@ export function makeEpisode(wordsPath = 'words.json') {
  *   const cap = captionTrack(WORDS, captions); for (const s of shots) s.layers.push(...cap(s.start, s.end));
  * Centrado en x=640 y ancho máx. 900 => siempre dentro de la zona segura.
  */
-export function captionTrack(WORDS, cues, {y = 1765, size = 84, maxW = 900, hi = YEL, color = PAPER} = {}) {
+export function captionTrack(WORDS, cues, {y = 1765, size = 84, maxW = 900, hi = YEL, color = PAPER, num} = {}) {
+  // num: color para las palabras con cifras (p. ej. RED); el resaltado karaoke sigue por encima. Por defecto, nada cambia.
   const ws = WORDS.map(w => ({t: (w.text ?? w.word).toUpperCase(), s: w.start, e: w.end}));
   const chunks = cues.map(c => ({start: c.start, end: c.end, text: c.text.toUpperCase(), words: ws.filter(w => w.s >= c.start - 0.02 && w.s < c.end)}));
   return (a, b) => {
@@ -122,6 +123,8 @@ export function captionTrack(WORDS, cues, {y = 1765, size = 84, maxW = 900, hi =
       const halo = [];
       const shadow = {...base, x: base.x + k * 0.6, y: base.y + k * 1.8, color: INK, alpha: 0.35};
       const his = []; let pre = '';
+      if (num) c.text.split(' ').forEach((tok, j) => { if (!/\d/.test(tok)) return; const xw = Math.round(x0 + (j ? textWidth(c.text.split(' ').slice(0, j).join(' ') + ' ', sz) : 0));
+        his.push({...base, outline: undefined, outlineWidth: undefined, text: tok, x: xw, w: Math.ceil(textWidth(tok, sz)) + 40, color: num, from: t0, to: t1}); });
       const tokens = c.text.split(' ');
       c.words.forEach((wd, j) => {
         const tok = tokens[j] ?? wd.t;
