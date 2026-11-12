@@ -73,6 +73,15 @@ Documento de referencia para cada episodio. Lo que está aquí ya está decidido
 - **Perfil Instagram** — Nombre: Historias Sin Cabeza · Usuario: @historiassincabeza · Categoría: Creador de contenido digital · Bio (≤150): «Historias reales que no tienen ni pies ni cabeza 🗂️ / Las investiga un becario que no cobra / Expediente nuevo cada semana 👇» · Enlace: youtube.com/@HistoriasSinCabeza
 - **Texto del vídeo**: 1 frase gancho (sin destripar) + pregunta para comentar + «Expediente completo en YouTube» + 4-5 hashtags. Subir siempre el .mp4 original y portada propia (sin marca de agua de otra red).
 
+### Programar con vidIQ (conector de Claude; YouTube + TikTok + IG gratis, solo X cuesta créditos)
+- Cuentas conectadas en vidIQ (12-nov-2026). Flujo: `vidiq_video_upload` (localFile del FINAL.mp4) → `vidiq_social_post_draft_create` (un borrador, 3 destinos, `publishAt` con zona horaria) → enseñar el borrador a David → **solo con su «sí»** `vidiq_social_post_publish`.
+- YouTube: se sube al momento, privado y «Programado»; se puede editar en Studio hasta la hora. Descripción y etiquetas de `publicacion.md`; categoría 27 (Educación).
+- TikTok/IG: vidIQ los guarda y los envía a la hora; no aparecen antes en las apps. **No admite portada propia** (sale el fotograma 1, que ya es portada). Para la portada propia en TikTok, subirlo desde el móvil.
+- Nada programado se puede cancelar ni cambiar desde vidIQ. Comentario fijado: lo pega y fija David en cada red (ninguna API deja fijar).
+- TikTok: privacidad todo el mundo, comentarios sí, música confirmada, **marca de IA = sí** (voz de ElevenLabs = audio realista). YouTube: IA = No (animación).
+- Hora por defecto: 19:00 España (12:00 MX, 13:00 CO/PE, 15:00 AR). Si los datos dicen que el público es sobre todo latino, 01:00 España.
+- Hashtags: 2-3 fijos (#historia #curiosidades + #shorts en YouTube) + 2-3 del episodio. Etiquetas de YouTube: 4-5 del episodio + 5 fijas.
+
 ## Crecimiento (adaptado de youtube-agent-skill, MIT; herramientas en `herramientas/crecimiento.py` y `ganchos.json`)
 - **Gancho (al escribir el guion):** escribir 5 primeras frases con fórmulas distintas de `ganchos.json` (preferir encaje «alto»: lo imposible, el dato, lo que le pasó a otro, al revés de lo que crees, el más, desmontarlo, desde dentro, la comparación). Pasarlas por `crecimiento.py gancho "…"` y elegir con David. 6-12 palabras, número/nombre/fecha, sin presentar el canal.
 - **Título + portada = una pareja:** `crecimiento.py titulo "…" --portada "…"`. Título ≤40 caracteres (móvil), lo importante delante, ≤2 palabras en mayúsculas, sin hashtags. Portada de 3-4 palabras que NO repita el título (misma promesa, otras palabras). Escribir 10 títulos, quedarse con 2.
@@ -169,7 +178,7 @@ Ignorar: términos de búsqueda (en Shorts son ruido), impresiones/CTR de miniat
 |---|---|---|
 | 001 | El hombre que vendió la Torre Eiffel (Victor Lustig, 1925) | Publicado 9-nov-2026 |
 | 002 | Mike, el pollo sin cabeza (1945–1947) | Final aprobado (v10); publicar mié 11-nov 20:00 |
-| 003 | La guerra de los emús (1932) | En preparación; publicar vie 13-nov 20:00 |
+| 003 | La guerra de los emús (1932) | Programado con vidIQ vie 13-nov 19:00 (YT/TikTok/IG) |
 | 004 | La Guerra de los Pasteles (México–Francia, 1838-39) | Propuesto (semana 16-nov) |
 | 005 | Garbo, el español que engañó a Hitler con 27 espías inventados (Joan Pujol) | Propuesto |
 | 006 | La Guerra del Cerdo (San Juan, 1859-72): la única baja fue un cerdo | Propuesto |
