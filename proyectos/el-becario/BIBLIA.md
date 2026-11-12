@@ -143,6 +143,8 @@ Para no repetir pruebas ni gastar créditos/tokens. Todo sale de los EXP 001 y 0
 ## Revisión de datos (cada Short, a las 24 h, 48 h y 7 días)
 No mirar antes de 24 h ni cada hora: los datos bailan.
 
+**Automático (solo lectura):** `python3 herramientas/yt_datos.py informe NNN` → `NNN-slug/datos-youtube.md` con métricas, fuentes y la curva de retención cruzada con el plano y la frase de cada caída; `canal` compara todos. Credenciales en `el-becario/.secretos/` (fuera del repo). El dato 1 (se quedaron/saltaron) solo está en Studio: captura.
+
 | # | Dato | Dónde | Bien | Flojo | Si sale flojo |
 |---|---|---|---|---|---|
 | 1 | Se quedaron viendo / saltaron | Estadísticas → Interacción | > 65 % | < 50 % | Falla el gancho: cambiar los primeros 3 s del siguiente |
@@ -156,6 +158,7 @@ Ignorar: términos de búsqueda (en Shorts son ruido), impresiones/CTR de miniat
 ### Histórico
 | Nº | 24 h: visitas | Se quedaron | Media vista | Subs | Lectura |
 |---|---|---|---|---|---|
+| 002 | ~1.350 (24 h, público) | ? | ? | ? | 2,4 % me gusta (001: 2,9 %). Pendiente informe con yt_datos |
 | 001 | ~1.480 (12 h) | 67,3 % | 0:28 de 0:58 (~49 %) | 2 | Gancho bueno; la historia pierde a la mitad (bloque de contexto 9–28 s muy cargado) |
 
 ## Orden de episodios
