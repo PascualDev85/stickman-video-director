@@ -99,15 +99,15 @@ shot(4.02, 5.10, d => [cam([...field(d),
 // 5.10–7.06 · «Expediente 003.» — carpeta cae; sello 003 en el silencio (6.75).
 shot(5.10, 7.06, d => [camF([...office(d), desk(),
   becario({x: 300, y: GROUND - 20, scale: 1.0, expr: 'sarcastico', idle: {dur: d}, talk: mouth(5.10, 7.06)}),
-  hatProp('soldado1', {x: 1060, y: 1240, scaleX: 0.5, scaleY: 0.5, keys: [{t: 0, x: 700, y: 300, angle: deg(200)}, {t: 0.45, x: 1060, y: 1240, angle: deg(-8)}, {t: 0.52, y: 1222}, {t: 0.6, y: 1240}]}),
   G([caseFolder({x: 0, y: 0, scale: 1, label: 'EXPEDIENTE 003'})], {x: 800, y: 1010, scaleX: 0.74, scaleY: 0.74, keys: [{t: 0, y: 700, angle: deg(-14)}, {t: 0.18, y: 1010, angle: deg(-3)}, {t: 0.26, y: 980, angle: deg(-3)}, {t: 0.34, y: 1010, angle: deg(-3)}]}),
+  hatProp('soldado1', {x: 540, y: 1327, scaleX: 0.75, scaleY: 0.75, keys: [{t: 0, x: 1100, y: 300, angle: deg(200)}, {t: 0.45, x: 540, y: 1327, angle: deg(-6)}, {t: 0.52, y: 1300}, {t: 0.6, y: 1327}]}),
 ], d, t => ({s: mix(1.12, 1.2, t / d), ...shake(t, 0.18, 0.2, 12), ...shake(t, 1.65, 0.2, 14)}), 800, 1055),
   slam('003', 640, 520, 200, 1.65, d, {outline: true, color: RED, tilt: -8, stamp: true, from: 1.15})]);
 // 7.06–8.70 · «20.000 emús se comen el trigo,» — oleada de emús picoteando + contador.
 shot(7.06, 8.70, d => [cam([...field(d, {horizon: 1050}), ...herd(d, 1080, 14, 0.2),
   ...Array.from({length: 6}, (_, i) => emu({x: 90 + i * 210, y: 1360 + (i % 2) * 40, scale: 0.42, flip: i % 2 === 1, peck: [0.1 + i * 0.13, 0.9 + (i % 3) * 0.12]})),
   ...Array.from({length: 4}, (_, i) => emu({x: 170 + i * 320, y: 1660, scale: 0.62, flip: i % 2 === 0, peck: [0.25 + i * 0.1, 1.05]})),
-], d, 1.08, 1.0), countUp(20000, 'EMÚS', 640, 590, 0.05, 0.75, d, {size: 76}), tag('CAMPION · OESTE DE AUSTRALIA', 380, 58, {t0: 0.0, pop: false})]);
+], d, 1.08, 1.0), countUp(20000, 'EMÚS', 640, 740, 0.05, 0.75, d, {size: 76}), tag('CAMPION · OESTE DE AUSTRALIA', 380, 58, {t0: 0.0, pop: false})]);
 // 8.70–11.78 · «y el gobierno manda… espera, que lo leo bien…» — el Becario lee un papel; en «espera» se lo acerca.
 const ESP = 10.44 - 8.70;
 shot(8.70, 11.78, d => [camF([...office(d),
@@ -186,8 +186,8 @@ const truckCargo = () => [soldado(2, {x: -170, y: -190, scale: 0.55, expr: 'seri
   R(-338, -280, 430, 100, {radius: 6, fill: '#8a5a32'}), ...[-300, -200, -100, 0].map(xx => P([['M', xx, -274], ['L', xx, -186]], {stroke: '#6b4423', lineWidth: 5}))];
 shot(29.20, 31.25, d => [cam([...road(d, 700), ...dust(150, 1560, 0, d), truck({x: 640, y: 1620, scale: 1.15, bump: d, cargo: truckCargo()})], d, 1.0, 1.06, 640, 1300), speedLines(0, d, PAPER, 640, 1300)]);
 // 31.25–32.83 · «Spoiler: los emús corren más.» — los emús adelantan al camión tranquilamente.
-shot(31.25, 32.83, d => [cam([...road(d, 450), truck({x: 520, y: 1500, scale: 0.8, bump: d, cargo: truckCargo(), keys: lin(d, 420, 540)}),
-  ...[0, 1, 2].map(i => emu({x: -200, y: 1720 + (i % 2) * 15, scale: 0.78, run: {dur: d, period: 0.28}, eye: i === 2 ? 'grande' : 'normal', move: [{t: 0, x: -250 - i * 220}, {t: d, x: 1250 - i * 260}]})),
+shot(31.25, 32.83, d => [cam([...road(d, 450), truck({x: 520, y: 1690, scale: 0.8, bump: d, cargo: truckCargo(), keys: lin(d, 420, 540)}),
+  ...[0, 1, 2].map(i => emu({x: -200, y: 1400 + (i % 2) * 15, scale: 0.62, run: {dur: d, period: 0.28}, eye: i === 2 ? 'grande' : 'normal', move: [{t: 0, x: -250 - i * 220}, {t: d, x: 1250 - i * 260}]})),
 ], d, 1.0, 1.04, 640, 1300)]);
 // 32.83–35.17 · «El mayor presume: 986 emús,» — mayor orgulloso, medalla; contador de emús.
 const proud = (d, a) => mayor({x: 520, y: 1690, scale: 1.25, expr: 'contento', look: 1, idle: {dur: d}, talk: undefined, armL: {shoulder: 20, elbow: 120}, ...a});
@@ -226,7 +226,7 @@ shot(46.89, 49.47, d => [camF([...office(d), ...[0, 1, 2, 3, 4, 5, 6].map(i => G
 // 49.47–END · «A mí, ni un sueldo.» — cartera vacía (polilla); por la ventana asoma un emú mirándole (enlaza con el inicio).
 const WIN = {x: 740, y: 770};
 shot(49.47, END, d => [camF([...office(d),
-  emu({x: WIN.x + 208, y: 1866, scale: 1.6, flip: true, eye: 'grande', blink: [1.4], idle: {dur: d}, headExtra: [G([S([['M', -14, 0], ['L', 14, 0], ['L', 8, 40], ['L', -8, 40], ['Z']], '#2b4a7a', {lineWidth: 4}), E(0, 56, 38, 38, {fill: '#e9c46a', lineWidth: 5})], {x: -10, y: 2})], move: [{t: 0, y: 2300}, {t: 0.02, y: 2300}, {t: 0.25, y: 1866}]}),
+  emu({x: WIN.x + 208, y: 1780, scale: 1.6, flip: true, eye: 'grande', blink: [1.4], idle: {dur: d}, headExtra: [G([S([['M', -20, 0], ['L', 20, 0], ['L', 12, 34], ['L', -12, 34], ['Z']], '#2b4a7a', {lineWidth: 5}), E(0, 62, 64, 64, {fill: '#e9c46a', lineWidth: 6}), E(0, 62, 30, 30, {fill: '#f7dc8a', lineWidth: 4})], {x: -24, y: -6})], move: [{t: 0, y: 2300}, {t: 0.02, y: 2300}, {t: 0.25, y: 1780}]}),
   R(552, 906, 424, 480, {radius: 0, fill: '#efe6d4', stroke: 'none'}),
   R(980, 900, 200, 520, {radius: 6, fill: '#9c7a52'}), ...[950, 1110, 1260].map(y => R(998, y, 164, 130, {radius: 4, fill: '#c8955a', lineWidth: 7})), // archivador del set, encima de la cola
   band(GROUND - 30, 1000, '#cbb995'), band(GROUND - 30, 16, '#a8956e'),
