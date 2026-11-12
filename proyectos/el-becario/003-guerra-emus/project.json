@@ -12,6 +12,10 @@
  "television": {
   "enabled": false
  },
+ "music": {
+  "path": "music-duck.wav",
+  "gain": 0.17
+ },
  "burnCaptions": false,
  "captions": [
   {
@@ -173268,7 +173272,7 @@
    "kind": "file",
    "path": "sfx/motor.wav",
    "gain": 0.2,
-   "max": 3.6
+   "max": 2.05
   },
   {
    "time": 31,

@@ -5,7 +5,7 @@ Leer también, solo estas secciones de la BIBLIA: «Densidad de humor y ritmo vi
 
 ## Estado (12-nov-2026)
 - `scenes.mjs` montado según el mapa (29 planos, END 51,75), `validate` = pass, preview v1 en `output/preview.mp4` → **pendiente de que David la vea**.
-- SFX `rafaga`, `clic`, `motor`, `bum`, `impresora` son **provisionales sintetizados con ffmpeg**: sustituir por ElevenLabs con el mismo nombre en `sfx/` (no hay que tocar `scenes.mjs`). Música: falta (el proyecto la añade sola cuando exista `music-duck.wav`).
+- Audio real (ElevenLabs, flow «EXP 003 guerra emus - audio», ~2.150 créditos): ráfaga v3, clic v1, motor v1, bum v2, impresora v1 en `sfx/`; música = toma A (`music.mp3`; alternativa `music-B.mp3`) → `music-duck.wav`. Preview v2 con todo. Comprobar de oído que la música no tiene voces (ElevenLabs la marcó «Instrumental: False»).
 - QA: `node ../herramientas/hoja.mjs project.json hoja.png` (un fotograma por plano; `--from/--to`, `--at`, `--w`).
 
 ## Lo que ya está hecho (no repetir, no regenerar voz)

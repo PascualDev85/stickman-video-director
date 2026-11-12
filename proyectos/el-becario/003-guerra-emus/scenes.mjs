@@ -233,7 +233,7 @@ const captions = JSON.parse(fs.readFileSync('captions.json', 'utf8'));
 const cap = captionTrack(WORDS, captions);
 for (const s of shots) s.layers.push(...cap(s.start, s.end));
 // Efectos: solo en silencios medidos (voz.py silences) o muy bajos. Ganancia máx. 1; ambientes ≤ 0,2; whoosh ≤ 0,25.
-// PROVISIONALES (sintetizados, sustituir por ElevenLabs con el mismo nombre): rafaga, clic, motor, bum, impresora.
+// rafaga, clic, motor, bum, impresora: ElevenLabs (flow «EXP 003 guerra emus - audio»).
 const sfx = [
   F(1.62, 'whoosh', 0.2),
   F(3.72, 'whoosh', 0.2), F(4.78, 'boing', 0.4),
@@ -246,7 +246,7 @@ const sfx = [
   F(22.84, 'bum', 0.45, 0.3), F(23.1, 'whoosh', 0.2), F(24.42, 'impresora', 0.6, 0.33),
   F(24.75, 'whoosh', 0.15), F(26.88, 'bum', 0.4, 0.25),
   F(28.8, 'drop', 0.5), F(28.9, 'drop', 0.35),
-  F(29.16, 'motor', 0.2, 3.6), F(31.0, 'whoosh', 0.25),
+  F(29.16, 'motor', 0.2, 2.05), F(31.0, 'whoosh', 0.25),
   F(32.55, 'flap', 0.3, 0.3),
   F(38.79, 'stamp', 0.5),
   F(43.14, 'bum', 0.5, 0.45),
