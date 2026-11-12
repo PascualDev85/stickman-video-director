@@ -94,6 +94,8 @@ Para no repetir pruebas ni gastar créditos/tokens. Todo sale de los EXP 001 y 0
 6. `voz.py silences narration.mp3` para ver los silencios REALES; `voz.py retime` recorta solo dentro de ellos (aborta si no) o **inserta una pausa** donde deba oírse un efecto sin voz encima. Comprobar después con RMS que la primera consonante de la palabra siguiente sigue ahí.
 
 ### Lecciones (no repetir)
+- **Keys de gestos:** `gestures` con `t1` = final del plano rompe el orden de tiempos (y con `walk` corto, la duración total es la del paseo). Para dejar un brazo arriba hasta el final, `poses`.
+- **`sample()` usa grados en `a`** (no pasar `deg()`), y los keys a mano solo admiten x, y, angle, alpha, scaleX/Y (no `s`).
 - **Un chiste de sonido necesita silencio.** Si el narrador dice «suena a tubería atascada», el efecto va en una pausa propia antes del remate, nunca debajo de la voz.
 - **Un efecto que se nombra tiene que sonar a lo que se nombra** (tubería = desagüe atascado, no gorgoteo de pollo).
 - **Datos reales del canal en pantalla** (seguidores, días): comprobarlos el día del render. Seguidores a 10-nov-2026: 6.
@@ -124,6 +126,9 @@ Para no repetir pruebas ni gastar créditos/tokens. Todo sale de los EXP 001 y 0
   - `autopilot tramo project.json --from A --to B`: renderiza solo ese tramo con su audio (~7 s para 6 s de vídeo). Para revisar cambios; no sirve para aprobar.
   - Contorno real de texto (`outline` + `outlineWidth`): `slam` y los subtítulos ya lo usan (antes, 8 copias por texto).
   - La zona segura también se comprueba en el pico de cada animación de texto.
+  - Espejo: `scaleX`/`scaleY` negativos ya pasan la validación (antes `flip` del emú/Lewis/camión fallaba en validate aunque la hoja de personajes lo pintara).
+  - `herramientas/hoja.mjs`: hoja de fotogramas (uno por plano) en una sola imagen, para QA barato.
+  - Kit: `person({noHat})` + `hatProp(who)` (sombrero que sale volando), `emu({headExtra})` (casco…), picotazos solapados se filtran solos.
 - Subtítulos arriba probados (EXP 002 v8, `CAPS=arriba`): chocan con los títulos (al bajarlos tapan caras: la suegra, ¡CANTA!). Se quedan abajo.
 - **Nada de sangre ni corte visible**: el hachazo es corte a negro + «¡ZAS!» + plumas.
 - **Validar siempre** (`autopilot validate`) antes del preview: zona segura `pass` y tiempos de keys dentro del plano (`featherBurst`/`flapAt` cerca del final del plano fallan).

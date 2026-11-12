@@ -184,8 +184,8 @@ function talkingMouth(talk, dur) {
   return G([E(0, 0, 54, 40, {fill: '#5a2020', lineWidth: 6}), E(0, 10, 28, 12, {fill: '#e46a6a', stroke: 'none'})],
     {x: 4, y: -64, pivotX: 0, pivotY: -14, keys: keys.map(t => ({t, alpha: on(t) ? 1 : 0, scaleX: 1, scaleY: on(t) ? r3(0.35 + 0.65 * Math.abs(Math.sin(t * Math.PI * 4.6 + Math.sin(t * 7) * 0.8))) : 0.3}))});
 }
-export function person({who = 'becario', x = 0, y = 0, scale = 1, expr = 'cansado', look = 0, armL = {}, armR = {}, walk, idle, gestures, poses, move, headTilt = 0, headKeys, alpha, from, to, talk, talkDur} = {}) {
-  const o = OUTFITS[who], m = humanMotion({walk, idle, gestures, poses});
+export function person({who = 'becario', x = 0, y = 0, scale = 1, expr = 'cansado', look = 0, armL = {}, armR = {}, walk, idle, gestures, poses, move, headTilt = 0, headKeys, alpha, from, to, talk, talkDur, noHat = false} = {}) {
+  const o = noHat ? {...OUTFITS[who], hat: undefined} : OUTFITS[who], m = humanMotion({walk, idle, gestures, poses});
   const isFarmer = who === 'granjero';
   const torsoW = o.torsoW ?? (isFarmer ? 190 : 160);
   const torso = [R(-torsoW / 2, -470, torsoW, 236, {radius: isFarmer ? 60 : 46, fill: o.shirt})];
@@ -410,6 +410,8 @@ export function caseFolder({x = 0, y = 0, scale = 1, label = 'EXPEDIENTE 001', k
 
 // ---------- EXP 003: la guerra de los emús ----------
 export const mayor = a => person({...a, who: 'mayor'});
+/** Sombrero suelto de un personaje (coordenadas de su cabeza: colocarlo en y = pies - 462·escala). Para gags: person({noHat: true}) + hatProp(who). */
+export const hatProp = (who, o = {}) => G(hatOf(OUTFITS[who]), o);
 export const soldado = (n, a) => person({...a, who: 'soldado' + n});
 
 /**
@@ -417,7 +419,7 @@ export const soldado = (n, a) => person({...a, who: 'soldado' + n});
  * Origin between the feet, facing right (scaleX negative via flip:true to face left).
  * Shaggy dark-brown body, long blue-grey neck, tiny head with a big deadpan eye.
  */
-export function emu({x = 0, y = 0, scale = 1, flip = false, run, idle, peck = [], eye = 'normal', lookout = false, move, alpha, from, to, angle} = {}) {
+export function emu({x = 0, y = 0, scale = 1, flip = false, run, idle, peck = [], eye = 'normal', lookout = false, move, alpha, from, to, angle, headExtra = []} = {}) {
   const BODY = '#5e4532', BODY2 = '#7a5a40', NECK = '#8ea2b6', LEG = '#7d7568', BEAK = '#3b3b3b';
   const d = run?.dur ?? idle?.dur ?? 0, p = run?.period || 0.36;
   const thigh = s => run ? osc(d, p, 34, {phase: s > 0 ? 0 : Math.PI}) : undefined;
@@ -445,13 +447,14 @@ export function emu({x = 0, y = 0, scale = 1, flip = false, run, idle, peck = []
     S([['M', 36, -44], ['Q', 96, -40, 104, -26], ['Q', 70, -18, 34, -22], ['Z']], BEAK, {lineWidth: 6}),
     ...eyeG,
     P([['M', -30, -70], ['Q', -24, -92, -10, -78]], {stroke: BODY, lineWidth: 6}), P([['M', -14, -74], ['Q', -6, -98, 8, -80]], {stroke: BODY, lineWidth: 6}),
+    ...headExtra, // capas en coordenadas de la cabeza (casco, etc.)
   ], {y: -230});
   const neckLen = lookout ? 1.25 : 1;
   const neck = G([
     ...tube([[0, 0], [16, -110], [10, -230]], NECK, 34),
     head,
   ], {x: 120, y: -400, scaleY: neckLen, pivotX: 0, pivotY: 0,
-    keys: peck.length ? peck.flatMap(t => [{t: r3(t), angle: 0}, {t: r3(t + 0.15), angle: deg(70)}, {t: r3(t + 0.3), angle: deg(70)}, {t: r3(t + 0.45), angle: 0}])
+    keys: peck.length ? peck.slice().sort((a, b) => a - b).filter((t, i, l) => !i || t - l[i - 1] >= 0.46).flatMap(t => [{t: r3(t), angle: 0}, {t: r3(t + 0.15), angle: deg(70)}, {t: r3(t + 0.3), angle: deg(70)}, {t: r3(t + 0.45), angle: 0}])
       : run ? osc(d, p, 6, {base: deg(16) / 1, radians: true}).map(k => ({...k, angle: k.angle})) : idle ? osc(d, 1.4, 4) : undefined});
   const body = G([...bodyShape, neck], {keys: run ? osc(d, p / 2, 10, {prop: 'y', radians: false, base: -4}) : idle ? osc(d, 2.4, 0.015, {prop: 'scaleY', radians: false, base: 1}) : undefined, pivotX: 0, pivotY: -262});
   return G([legG(-1), body, legG(1)], {x, y, scaleX: (flip ? -1 : 1) * scale, scaleY: scale, ...(angle !== undefined ? {angle, pivotX: 0, pivotY: -200} : {}), ...(move ? {keys: move} : {}), ...(alpha !== undefined ? {alpha} : {}), ...(from !== undefined ? {from} : {}), ...(to !== undefined ? {to} : {})});

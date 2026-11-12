@@ -114,7 +114,7 @@ export function loadProject(file, {seconds} = {}) {
           if (!['t', 'x', 'y', 'w', 'angle', 'alpha', 'progress', ...(p.style === 'B3' ? ['scaleX', 'scaleY'] : [])].includes(k)) throw new Error(`Unsupported keyframe property: ${k}`);
           number(key[k], k, -10000, 10000);
           if (k === 'w' && key[k] <= 0 || ['alpha', 'progress'].includes(k) && (key[k] < 0 || key[k] > 1)) throw new Error('Invalid size/opacity/progress keyframe');
-          if (['scaleX', 'scaleY'].includes(k) && (key[k] <= 0 || key[k] > 100)) throw new Error('Invalid B3 scale keyframe');
+          if (['scaleX', 'scaleY'].includes(k) && (!(Math.abs(key[k]) >= 0.001) || Math.abs(key[k]) > 100)) throw new Error('Invalid B3 scale keyframe');
         }
       }
     }
