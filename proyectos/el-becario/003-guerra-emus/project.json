@@ -14,7 +14,7 @@
  },
  "music": {
   "path": "music-duck.wav",
-  "gain": 0.17
+  "gain": 0.15
  },
  "burnCaptions": false,
  "captions": [

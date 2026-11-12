@@ -281,5 +281,5 @@ const sfx = [
   F(48.88, 'whoosh', 0.15), F(49.23, 'flap', 0.25, 0.4), F(49.5, 'medalla', 0.6, 0.4), F(51.34, 'whoosh', 0.2),
 ];
 fs.writeFileSync('project.json', JSON.stringify({version: 1, style: 'B3', width: 1080, height: 1920, fps: 30, voice: {path: 'narration.mp3', lead: 0, tail: r3(END - VOICE)}, television: {enabled: false},
-  ...(fs.existsSync('music-duck.wav') ? {music: {path: 'music-duck.wav', gain: 0.17}} : {}), burnCaptions: false, captions, shots, sfx}, null, 1));
+  ...(fs.existsSync('music-duck.wav') ? {music: {path: 'music-duck.wav', gain: 0.15}} : {}), burnCaptions: false, captions, shots, sfx}, null, 1));
 console.log('shots', shots.length, 'end', END);
