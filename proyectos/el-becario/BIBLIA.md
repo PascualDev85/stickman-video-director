@@ -153,6 +153,8 @@ No mirar antes de 24 h ni cada hora: los datos bailan.
 | 4 | Visualizaciones | Vista general | Suben a saltos | Planas desde pronto | Si 1 y 2 están bien, es cuestión de tiempo |
 | 5 | Suscriptores ganados | Vista general | ~1 por cada 300–500 visitas | 0 con miles de visitas | Dar más presencia al Becario |
 
+**Lección 001 (datos):** después del gancho, ir directo a la historia. Nada de «Expediente NNN» + quién soy + gag del sueldo entre los segundos 4 y 10: el gag del sueldo va a mitad o al final. Pendiente confirmar con el 002 (solo dice «Expediente 002», sin sueldo).
+
 Ignorar: términos de búsqueda (en Shorts son ruido), impresiones/CTR de miniatura (no aplican a Shorts) y la puntuación de vidIQ (orientativa).
 
 ### Histórico
@@ -160,6 +162,7 @@ Ignorar: términos de búsqueda (en Shorts son ruido), impresiones/CTR de miniat
 |---|---|---|---|---|---|
 | 002 | ~1.350 (24 h, público) | ? | ? | ? | 2,4 % me gusta (001: 2,9 %). Pendiente informe con yt_datos |
 | 001 | ~1.480 (12 h) | 67,3 % | 0:28 de 0:58 (~49 %) | 2 | Gancho bueno; la historia pierde a la mitad (bloque de contexto 9–28 s muy cargado) |
+| 001 | 1.478 (3 días, yt_datos) | 61 % con interacción | 50 % | 2 | **Curva:** 106 % a los 5 s → 54 % a los 12 s. Se van en «Expediente 001. Yo llevo meses sin cobrar… así que quiero saber cómo» (−36 pts en 4,6–8,1 s). Desde los 15 s la curva es plana y la retención relativa sube a 0,8: **la historia engancha; lo que echa es la autopresentación tras el gancho** |
 
 ## Orden de episodios
 | Nº | Historia | Estado |

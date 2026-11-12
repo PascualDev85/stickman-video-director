@@ -251,6 +251,9 @@ def informe(arg):
     v = v[0]; start = v['snippet']['publishedAt'][:10]; dur = iso_dur(v['contentDetails']['duration'])
     edad = (datetime.now(timezone.utc) - datetime.fromisoformat(v['snippet']['publishedAt'].replace('Z', '+00:00'))).total_seconds() / 3600
     T = totals(vid, start); tr = traffic(vid, start); cur = retention(vid, start)
+    if not T:
+        L0 = f'Analytics aún no tiene datos de este vídeo (retraso de 24–72 h). Públicos ahora: {int(v["statistics"].get("viewCount", 0)):,} vistas, {v["statistics"].get("likeCount", "?")} me gusta.'
+        print(L0); return
     views = T.get('views', 0) or int(v['statistics'].get('viewCount', 0))
     L = [f'# Datos YouTube — {v["snippet"]["title"]}', '',
          f'`{vid}` · publicado {start} (hace {edad / 24:.1f} días) · {dur}s · consultado {date.today()}', '']
@@ -276,11 +279,19 @@ def informe(arg):
         fin = cur[-1][1]
         L += ['## Retención', f'- A los 3 s sigue viendo: **{g * 100:.0f} %** (objetivo ≥ {U["gancho3s"] * 100:.0f} %)' if g is not None else '',
               f'- Al final: **{fin * 100:.0f} %**' + (' → hay revisionados (bucle)' if fin > 1 else ''), '']
-        drops = sorted(((cur[i - 1][1] - cur[i][1], cur[i][0]) for i in range(1, len(cur))), reverse=True)[:5]
-        L += ['### Mayores caídas (dónde se van)', '| Segundo | Se va | Plano | Lo que se oye |', '|---|---|---|---|']
-        for d, x in sorted(drops, key=lambda z: z[1]):
-            t = x * dur
-            L.append(f'| {t:.1f} s | {d * 100:.1f} pts | {shot_at(folder, t)} | {words_at(folder, t)} |')
+        # Tramos de 3 s que más gente pierden (sin solaparse), con plano y frase de ese tramo
+        pts = [(c[0] * dur, c[1]) for c in cur]
+        win = []
+        for i, (t0, r0) in enumerate(pts):
+            j = next((k for k in range(i, len(pts)) if pts[k][0] >= t0 + 3), None)
+            if j is not None: win.append((r0 - pts[j][1], t0, pts[j][0]))
+        top = []
+        for d, a, b in sorted(win, reverse=True):
+            if d > 0.03 and all(b <= x or a >= y for _, x, y in top): top.append((d, a, b))
+            if len(top) == 3: break
+        L += ['### Tramos donde más gente se va (3 s)', '| Tramo | Se va | Plano | Lo que se oye |', '|---|---|---|---|']
+        for d, a, b in sorted(top, key=lambda z: z[1]):
+            L.append(f'| {a:.1f}–{b:.1f} s | {d * 100:.0f} pts | {shot_at(folder, (a + b) / 2)} | {words_at(folder, b, span=b - a)} |')
         rel = [c for c in cur if c[2] is not None]
         if rel:
             mal = [c for c in rel if c[2] < 0.35]
