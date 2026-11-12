@@ -94,6 +94,8 @@ Para no repetir pruebas ni gastar créditos/tokens. Todo sale de los EXP 001 y 0
 6. `voz.py silences narration.mp3` para ver los silencios REALES; `voz.py retime` recorta solo dentro de ellos (aborta si no) o **inserta una pausa** donde deba oírse un efecto sin voz encima. Comprobar después con RMS que la primera consonante de la palabra siguiente sigue ahí.
 
 ### Lecciones (no repetir)
+- **Autocrítica EXP 003 v2 (6/10):** miniatura con el protagonista pequeño; rótulos que repetían el subtítulo (¡GUERRA!, ¿AL EJÉRCITO?, 10 BALAS POR EMÚ) → sustituidos por imagen (mira, sombrero que cae, «×10»); 15 planos del mismo trigal con el mismo encuadre; sujetos pequeños en planos abiertos. Antes de enseñar: protagonista ≥ 2/3 del cuadro en la miniatura, sujetos grandes, variar encuadres.
+- **`cam()` recibe números (from, to); con una función de cámara, `camF()`.** Si no, salen escalas null y el validador dice «Invalid scaleX». `DEBUG=1 node autopilot.mjs …` muestra la traza.
 - **Keys de gestos:** `gestures` con `t1` = final del plano rompe el orden de tiempos (y con `walk` corto, la duración total es la del paseo). Para dejar un brazo arriba hasta el final, `poses`.
 - **`sample()` usa grados en `a`** (no pasar `deg()`), y los keys a mano solo admiten x, y, angle, alpha, scaleX/Y (no `s`).
 - **Un chiste de sonido necesita silencio.** Si el narrador dice «suena a tubería atascada», el efecto va en una pausa propia antes del remate, nunca debajo de la voz.

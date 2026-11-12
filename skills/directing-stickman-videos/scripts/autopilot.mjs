@@ -83,4 +83,4 @@ async function main() {
     console.log(JSON.stringify(safezoneReview(p, await painter(p), {sheetPath: sheet}), null, 2));
   } else throw new Error('Commands: doctor | probe FILE | init DIR [--style B1..B4] [--shorts] | safezone PROJECT [--seconds N] | captions WORDS OUTPUT [--lead N] [--shorts] | validate PROJECT [--seconds N] | preview PROJECT [--seconds N] [--replace] | tramo PROJECT --from A --to B | approve PROJECT --note TEXT | render PROJECT [--replace]');
 }
-main().catch(e => { console.error(e.message); process.exitCode = 1; });
+main().catch(e => { console.error(process.env.DEBUG ? e.stack : e.message); process.exitCode = 1; });

@@ -419,7 +419,7 @@ export const soldado = (n, a) => person({...a, who: 'soldado' + n});
  * Origin between the feet, facing right (scaleX negative via flip:true to face left).
  * Shaggy dark-brown body, long blue-grey neck, tiny head with a big deadpan eye.
  */
-export function emu({x = 0, y = 0, scale = 1, flip = false, run, idle, peck = [], eye = 'normal', lookout = false, move, alpha, from, to, angle, headExtra = []} = {}) {
+export function emu({x = 0, y = 0, scale = 1, flip = false, run, idle, peck = [], eye = 'normal', lookout = false, move, alpha, from, to, angle, headExtra = [], bodyExtra = []} = {}) {
   const BODY = '#5e4532', BODY2 = '#7a5a40', NECK = '#8ea2b6', LEG = '#7d7568', BEAK = '#3b3b3b';
   const d = run?.dur ?? idle?.dur ?? 0, p = run?.period || 0.36;
   const thigh = s => run ? osc(d, p, 34, {phase: s > 0 ? 0 : Math.PI}) : undefined;
@@ -456,7 +456,7 @@ export function emu({x = 0, y = 0, scale = 1, flip = false, run, idle, peck = []
   ], {x: 120, y: -400, scaleY: neckLen, pivotX: 0, pivotY: 0,
     keys: peck.length ? peck.slice().sort((a, b) => a - b).filter((t, i, l) => !i || t - l[i - 1] >= 0.46).flatMap(t => [{t: r3(t), angle: 0}, {t: r3(t + 0.15), angle: deg(70)}, {t: r3(t + 0.3), angle: deg(70)}, {t: r3(t + 0.45), angle: 0}])
       : run ? osc(d, p, 6, {base: deg(16) / 1, radians: true}).map(k => ({...k, angle: k.angle})) : idle ? osc(d, 1.4, 4) : undefined});
-  const body = G([...bodyShape, neck], {keys: run ? osc(d, p / 2, 10, {prop: 'y', radians: false, base: -4}) : idle ? osc(d, 2.4, 0.015, {prop: 'scaleY', radians: false, base: 1}) : undefined, pivotX: 0, pivotY: -262});
+  const body = G([...bodyShape, ...bodyExtra, neck], {keys: run ? osc(d, p / 2, 10, {prop: 'y', radians: false, base: -4}) : idle ? osc(d, 2.4, 0.015, {prop: 'scaleY', radians: false, base: 1}) : undefined, pivotX: 0, pivotY: -262});
   return G([legG(-1), body, legG(1)], {x, y, scaleX: (flip ? -1 : 1) * scale, scaleY: scale, ...(angle !== undefined ? {angle, pivotX: 0, pivotY: -200} : {}), ...(move ? {keys: move} : {}), ...(alpha !== undefined ? {alpha} : {}), ...(from !== undefined ? {from} : {}), ...(to !== undefined ? {to} : {})});
 }
 
