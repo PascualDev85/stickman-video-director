@@ -71,18 +71,29 @@ const wingStub = (dur, t0 = 0) => G([E(30, 0, 110, 46, {fill: '#7a5a40', lineWid
 
 // ---------- primer fotograma (= miniatura) y bucle ----------
 // Emú enorme a la derecha mirando al soldado (mirada de funcionario); soldado pequeño con la Lewis a la izquierda.
-const HX = 830, HY = 2200, HS = 2.3, HEAD = [HX - 130 * HS, HY - 666 * HS];
+const HX = 830, HY = 2290, HS = 2.3, HEAD = [HX - 130 * HS, HY - 666 * HS];
 const hookSet = (d, {eye = 'normal', crowd = false, peck = [], firing, blink = []} = {}) => [...field(d),
   ...(crowd ? herd(d, 1175, 22, 0.13) : []),
+  ...sweatDrops(250, 1150),
   soldado(1, {x: 180, y: 1580, scale: 0.5, expr: 'miedo', look: 1, idle: {dur: d}, armL: {shoulder: 70, elbow: 40}, armR: {shoulder: 80, elbow: 20}}),
   lewisGun({x: 250, y: 1580, scale: 0.55, firing}),
   emu({x: HX, y: HY, scale: HS, flip: true, eye, peck, blink, idle: {dur: d}}),
   ...(firing ? [0.42, 0.6, 0.78, 0.95, 1.12].map((t, i) => spark(HX - 120 + (i % 3) * 90, HY - 820 + (i % 2) * 120, t, d)) : []),
 ];
 
+/** Portada (= fotograma 1 y último): gancho en dos líneas, flecha al emú y etiqueta. `fade` = segundos para entrar (0 = entera desde el principio). */
+const thumb = (d, fade = 0, t0 = 0) => {
+  const line = (text, y, size, color) => ({...ctext(text, 595, y, size, {maxW: 1000, color}), outline: INK, outlineWidth: 16});
+  const arrow = G([P([['M', 930, 700], ['Q', 900, 800, 760, 812]], {stroke: RED, lineWidth: 18}), S([['M', 700, 812], ['L', 772, 776], ['L', 768, 850], ['Z']], RED, {lineWidth: 6})]);
+  const body = G([G([tag('HISTORIA REAL · 1932', 345, 50, {pop: false, color: RED, tilt: -2})], {x: -45}),
+    G([line('AUSTRALIA PERDIÓ', 420, 112, PAPER), line('CONTRA ESTO', 555, 138, YEL)], {angle: deg(-3)}), arrow]);
+  return fade ? G([body], {from: t0, keys: sample(t => ({alpha: (t - t0) / fade}), t0, Math.min(d, t0 + fade))}) : body;
+};
+const sweatDrops = (x, y) => [0, 1].map(i => E(x + i * 46, y + i * 30, 22, 34, {fill: '#9fd7ff', lineWidth: 5}));
+
 // ================= SHOTS =================
 // 0–1.70 · «En 1932,» — miniatura. Etiqueta pequeña arriba a la izquierda (entera desde el fotograma 1).
-shot(0, 1.70, d => [camF(hookSet(d, {firing: [0.35, 1.2], blink: [1.35]}), d, t => ({s: mix(1.0, 1.04, t / d), ...shake(t, 0.35, 0.85, 4)}), 640, 1300), G([tag('HISTORIA REAL', 380, 72, {pop: false, color: RED})], {x: -260})]);
+shot(0, 1.70, d => [camF(hookSet(d, {firing: [0.35, 1.2], blink: [1.35]}), d, t => ({s: mix(1.0, 1.04, t / d), ...shake(t, 0.35, 0.85, 4)}), 640, 1300), G([thumb(d)], {to: 1.2})]);
 // 1.70–3.14 · «Australia le declaró la guerra» — ¡GUERRA! + sacudida.
 shot(1.70, 3.14, d => [camF(hookSet(d), d, t => ({s: mix(1.12, 1.18, t / d), ...shake(t, 0.25, 0.35, 18)}), 640, 1300), flash(0.25, 0.1, '#ff6a5c', 0.55),
   crosshair(HEAD[0], HEAD[1] + 60, 0.25, d)]);
@@ -236,7 +247,7 @@ shot(49.47, LOOP, d => [camF([...office(d),
   emptyWallet(560, 1080, 0.3, d, 1.6),
 ], d, t => ({s: t < d - 0.28 ? mix(1.08, 1.16, t / d) : mix(1.16, 3.2, eInOut((t - d + 0.28) / 0.28))}), 740, 714), G([tag('MEDALLA: PARA LOS EMÚS', 380, 64, {t0: 0.3, tilt: 3})], {to: r3(d - 0.3)})]);
 // LOOP–END · Bucle: del ojo del emú de la ventana al ojo del emú gigante; termina EXACTAMENTE en el fotograma 1.
-shot(LOOP, END, d => [camF(hookSet(d), d, t => ({s: mix(2.4, 1.0, eOut(t / (d - 0.04))), y: mix(260, 0, eOut(t / (d - 0.04)))}), HEAD[0], HEAD[1]), flash(0, 0.1, PAPER, 0.8), G([tag('HISTORIA REAL', 380, 72, {pop: false, color: RED})], {x: -260})]);
+shot(LOOP, END, d => [camF(hookSet(d), d, t => ({s: mix(2.4, 1.0, eOut(t / (d - 0.04))), y: mix(260, 0, eOut(t / (d - 0.04)))}), HEAD[0], HEAD[1]), flash(0, 0.1, PAPER, 0.8), thumb(d, 0.12, r3(d - 0.16))]);
 
 // Transiciones: barrido rápido (estelas horizontales 0,18 s) en los cortes que cambian de escenario.
 const SAME = new Set([1.70, 3.14, 14.03, 14.97, 20.42, 21.40, 35.17]);

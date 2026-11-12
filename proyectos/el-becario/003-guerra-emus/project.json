@@ -2879,6 +2879,26 @@
        ]
       },
       {
+       "type": "ellipse",
+       "x": 239,
+       "y": 1133,
+       "w": 22,
+       "h": 34,
+       "fill": "#9fd7ff",
+       "stroke": "#151515",
+       "lineWidth": 5
+      },
+      {
+       "type": "ellipse",
+       "x": 285,
+       "y": 1163,
+       "w": 22,
+       "h": 34,
+       "fill": "#9fd7ff",
+       "stroke": "#151515",
+       "lineWidth": 5
+      },
+      {
        "type": "group",
        "children": [
         {
@@ -4761,7 +4781,7 @@
         }
        ],
        "x": 830,
-       "y": 2200,
+       "y": 2290,
        "scaleX": -2.3,
        "scaleY": 2.3
       },
@@ -4821,7 +4841,7 @@
         }
        ],
        "x": 710,
-       "y": 1380,
+       "y": 1470,
        "from": 0.42,
        "to": 0.6699999999999999,
        "keys": [
@@ -4928,7 +4948,7 @@
         }
        ],
        "x": 800,
-       "y": 1500,
+       "y": 1590,
        "from": 0.6,
        "to": 0.85,
        "keys": [
@@ -5035,7 +5055,7 @@
         }
        ],
        "x": 890,
-       "y": 1380,
+       "y": 1470,
        "from": 0.78,
        "to": 1.03,
        "keys": [
@@ -5142,7 +5162,7 @@
         }
        ],
        "x": 710,
-       "y": 1500,
+       "y": 1590,
        "from": 0.95,
        "to": 1.2,
        "keys": [
@@ -5249,7 +5269,7 @@
         }
        ],
        "x": 800,
-       "y": 1380,
+       "y": 1470,
        "from": 1.12,
        "to": 1.37,
        "keys": [
@@ -5737,45 +5757,137 @@
        "type": "group",
        "children": [
         {
-         "type": "rect",
-         "x": -277.5,
-         "y": -42,
-         "w": 575,
-         "h": 108,
-         "radius": 12,
-         "fill": "rgba(0,0,0,0.28)",
-         "stroke": "none",
-         "lineWidth": 11
+         "type": "group",
+         "children": [
+          {
+           "type": "group",
+           "children": [
+            {
+             "type": "rect",
+             "x": -276,
+             "y": -25.5,
+             "w": 572,
+             "h": 75,
+             "radius": 12,
+             "fill": "rgba(0,0,0,0.28)",
+             "stroke": "none",
+             "lineWidth": 11
+            },
+            {
+             "type": "rect",
+             "x": -286,
+             "y": -37.5,
+             "w": 572,
+             "h": 75,
+             "radius": 12,
+             "fill": "#ffffff",
+             "stroke": "#151515",
+             "lineWidth": 8
+            },
+            {
+             "type": "text",
+             "text": "HISTORIA REAL · 1932",
+             "x": -256,
+             "y": -34,
+             "size": 50,
+             "bold": true,
+             "color": "#e0261b",
+             "w": 552
+            }
+           ],
+           "x": 640,
+           "y": 345,
+           "from": 0,
+           "angle": -0.03490658503988659
+          }
+         ],
+         "x": -45
         },
         {
-         "type": "rect",
-         "x": -287.5,
-         "y": -54,
-         "w": 575,
-         "h": 108,
-         "radius": 12,
-         "fill": "#ffffff",
-         "stroke": "#151515",
-         "lineWidth": 8
+         "type": "group",
+         "children": [
+          {
+           "type": "text",
+           "text": "AUSTRALIA PERDIÓ",
+           "x": 102,
+           "y": 420,
+           "size": 108,
+           "bold": true,
+           "color": "#ffffff",
+           "w": 1027,
+           "outline": "#151515",
+           "outlineWidth": 16
+          },
+          {
+           "type": "text",
+           "text": "CONTRA ESTO",
+           "x": 136,
+           "y": 555,
+           "size": 138,
+           "bold": true,
+           "color": "#ffd21f",
+           "w": 958,
+           "outline": "#151515",
+           "outlineWidth": 16
+          }
+         ],
+         "angle": -0.05235987755982988
         },
         {
-         "type": "text",
-         "text": "HISTORIA REAL",
-         "x": -257,
-         "y": -49,
-         "size": 72,
-         "bold": true,
-         "color": "#e0261b",
-         "w": 555
+         "type": "group",
+         "children": [
+          {
+           "type": "path",
+           "commands": [
+            [
+             "M",
+             930,
+             700
+            ],
+            [
+             "Q",
+             900,
+             800,
+             760,
+             812
+            ]
+           ],
+           "fill": "none",
+           "stroke": "#e0261b",
+           "lineWidth": 18
+          },
+          {
+           "type": "path",
+           "commands": [
+            [
+             "M",
+             700,
+             812
+            ],
+            [
+             "L",
+             772,
+             776
+            ],
+            [
+             "L",
+             768,
+             850
+            ],
+            [
+             "Z"
+            ]
+           ],
+           "fill": "#e0261b",
+           "stroke": "#151515",
+           "lineWidth": 6
+          }
+         ]
         }
-       ],
-       "x": 640,
-       "y": 380,
-       "from": 0,
-       "angle": -0.03490658503988659
+       ]
       }
      ],
-     "x": -260
+     "to": 1.2
     },
     {
      "type": "group",
@@ -8431,6 +8543,26 @@
        ]
       },
       {
+       "type": "ellipse",
+       "x": 239,
+       "y": 1133,
+       "w": 22,
+       "h": 34,
+       "fill": "#9fd7ff",
+       "stroke": "#151515",
+       "lineWidth": 5
+      },
+      {
+       "type": "ellipse",
+       "x": 285,
+       "y": 1163,
+       "w": 22,
+       "h": 34,
+       "fill": "#9fd7ff",
+       "stroke": "#151515",
+       "lineWidth": 5
+      },
+      {
        "type": "group",
        "children": [
         {
@@ -10143,7 +10275,7 @@
         }
        ],
        "x": 830,
-       "y": 2200,
+       "y": 2290,
        "scaleX": -2.3,
        "scaleY": 2.3
       }
@@ -10631,7 +10763,7 @@
       }
      ],
      "x": 531,
-     "y": 728.2,
+     "y": 818.2,
      "from": 0.25,
      "keys": [
       {
@@ -13478,6 +13610,26 @@
        ]
       },
       {
+       "type": "ellipse",
+       "x": 239,
+       "y": 1133,
+       "w": 22,
+       "h": 34,
+       "fill": "#9fd7ff",
+       "stroke": "#151515",
+       "lineWidth": 5
+      },
+      {
+       "type": "ellipse",
+       "x": 285,
+       "y": 1163,
+       "w": 22,
+       "h": 34,
+       "fill": "#9fd7ff",
+       "stroke": "#151515",
+       "lineWidth": 5
+      },
+      {
        "type": "group",
        "children": [
         {
@@ -15148,13 +15300,13 @@
         }
        ],
        "x": 830,
-       "y": 2200,
+       "y": 2290,
        "scaleX": -2.3,
        "scaleY": 2.3
       }
      ],
      "pivotX": 531,
-     "pivotY": 668.2,
+     "pivotY": 758.2,
      "keys": [
       {
        "t": 0,
@@ -165789,6 +165941,26 @@
        "scaleY": 0.13
       },
       {
+       "type": "ellipse",
+       "x": 239,
+       "y": 1133,
+       "w": 22,
+       "h": 34,
+       "fill": "#9fd7ff",
+       "stroke": "#151515",
+       "lineWidth": 5
+      },
+      {
+       "type": "ellipse",
+       "x": 285,
+       "y": 1163,
+       "w": 22,
+       "h": 34,
+       "fill": "#9fd7ff",
+       "stroke": "#151515",
+       "lineWidth": 5
+      },
+      {
        "type": "group",
        "children": [
         {
@@ -167497,13 +167669,13 @@
         }
        ],
        "x": 830,
-       "y": 2200,
+       "y": 2290,
        "scaleX": -2.3,
        "scaleY": 2.3
       }
      ],
      "pivotX": 531,
-     "pivotY": 668.2,
+     "pivotY": 758.2,
      "keys": [
       {
        "t": 0,
@@ -180150,6 +180322,26 @@
        ]
       },
       {
+       "type": "ellipse",
+       "x": 239,
+       "y": 1133,
+       "w": 22,
+       "h": 34,
+       "fill": "#9fd7ff",
+       "stroke": "#151515",
+       "lineWidth": 5
+      },
+      {
+       "type": "ellipse",
+       "x": 285,
+       "y": 1163,
+       "w": 22,
+       "h": 34,
+       "fill": "#9fd7ff",
+       "stroke": "#151515",
+       "lineWidth": 5
+      },
+      {
        "type": "group",
        "children": [
         {
@@ -181826,13 +182018,13 @@
         }
        ],
        "x": 830,
-       "y": 2200,
+       "y": 2290,
        "scaleX": -2.3,
        "scaleY": 2.3
       }
      ],
      "pivotX": 531,
-     "pivotY": 668.2,
+     "pivotY": 758.2,
      "keys": [
       {
        "t": 0,
@@ -181968,45 +182160,159 @@
        "type": "group",
        "children": [
         {
-         "type": "rect",
-         "x": -277.5,
-         "y": -42,
-         "w": 575,
-         "h": 108,
-         "radius": 12,
-         "fill": "rgba(0,0,0,0.28)",
-         "stroke": "none",
-         "lineWidth": 11
+         "type": "group",
+         "children": [
+          {
+           "type": "group",
+           "children": [
+            {
+             "type": "rect",
+             "x": -276,
+             "y": -25.5,
+             "w": 572,
+             "h": 75,
+             "radius": 12,
+             "fill": "rgba(0,0,0,0.28)",
+             "stroke": "none",
+             "lineWidth": 11
+            },
+            {
+             "type": "rect",
+             "x": -286,
+             "y": -37.5,
+             "w": 572,
+             "h": 75,
+             "radius": 12,
+             "fill": "#ffffff",
+             "stroke": "#151515",
+             "lineWidth": 8
+            },
+            {
+             "type": "text",
+             "text": "HISTORIA REAL · 1932",
+             "x": -256,
+             "y": -34,
+             "size": 50,
+             "bold": true,
+             "color": "#e0261b",
+             "w": 552
+            }
+           ],
+           "x": 640,
+           "y": 345,
+           "from": 0,
+           "angle": -0.03490658503988659
+          }
+         ],
+         "x": -45
         },
         {
-         "type": "rect",
-         "x": -287.5,
-         "y": -54,
-         "w": 575,
-         "h": 108,
-         "radius": 12,
-         "fill": "#ffffff",
-         "stroke": "#151515",
-         "lineWidth": 8
+         "type": "group",
+         "children": [
+          {
+           "type": "text",
+           "text": "AUSTRALIA PERDIÓ",
+           "x": 102,
+           "y": 420,
+           "size": 108,
+           "bold": true,
+           "color": "#ffffff",
+           "w": 1027,
+           "outline": "#151515",
+           "outlineWidth": 16
+          },
+          {
+           "type": "text",
+           "text": "CONTRA ESTO",
+           "x": 136,
+           "y": 555,
+           "size": 138,
+           "bold": true,
+           "color": "#ffd21f",
+           "w": 958,
+           "outline": "#151515",
+           "outlineWidth": 16
+          }
+         ],
+         "angle": -0.05235987755982988
         },
         {
-         "type": "text",
-         "text": "HISTORIA REAL",
-         "x": -257,
-         "y": -49,
-         "size": 72,
-         "bold": true,
-         "color": "#e0261b",
-         "w": 555
+         "type": "group",
+         "children": [
+          {
+           "type": "path",
+           "commands": [
+            [
+             "M",
+             930,
+             700
+            ],
+            [
+             "Q",
+             900,
+             800,
+             760,
+             812
+            ]
+           ],
+           "fill": "none",
+           "stroke": "#e0261b",
+           "lineWidth": 18
+          },
+          {
+           "type": "path",
+           "commands": [
+            [
+             "M",
+             700,
+             812
+            ],
+            [
+             "L",
+             772,
+             776
+            ],
+            [
+             "L",
+             768,
+             850
+            ],
+            [
+             "Z"
+            ]
+           ],
+           "fill": "#e0261b",
+           "stroke": "#151515",
+           "lineWidth": 6
+          }
+         ]
         }
-       ],
-       "x": 640,
-       "y": 380,
-       "from": 0,
-       "angle": -0.03490658503988659
+       ]
       }
      ],
-     "x": -260
+     "from": 0.229,
+     "keys": [
+      {
+       "t": 0.229,
+       "alpha": 0
+      },
+      {
+       "t": 0.262,
+       "alpha": 0.275
+      },
+      {
+       "t": 0.295,
+       "alpha": 0.55
+      },
+      {
+       "t": 0.328,
+       "alpha": 0.825
+      },
+      {
+       "t": 0.349,
+       "alpha": 1
+      }
+     ]
     },
     {
      "type": "group",
