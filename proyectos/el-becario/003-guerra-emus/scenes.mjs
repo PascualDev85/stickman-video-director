@@ -225,7 +225,8 @@ shot(46.89, 49.47, d => [camF([...office(d), ...[0, 1, 2, 3, 4, 5, 6].map(i => G
 ], d, t => ({s: mix(1.0, 1.1, t / d), y: mix(0, 120, eInOut(t / d))}), 800, 900)]);
 // 49.47–END · «A mí, ni un sueldo.» — cartera vacía (polilla); por la ventana asoma un emú mirándole (enlaza con el inicio).
 const WIN = {x: 740, y: 770};
-shot(49.47, END, d => [camF([...office(d),
+const LOOP = 51.36;
+shot(49.47, LOOP, d => [camF([...office(d),
   emu({x: WIN.x + 208, y: 1780, scale: 1.6, flip: true, eye: 'grande', blink: [1.4], idle: {dur: d}, headExtra: [G([S([['M', -20, 0], ['L', 20, 0], ['L', 12, 34], ['L', -12, 34], ['Z']], '#2b4a7a', {lineWidth: 5}), E(0, 62, 64, 64, {fill: '#e9c46a', lineWidth: 6}), E(0, 62, 30, 30, {fill: '#f7dc8a', lineWidth: 4})], {x: -24, y: -6})], move: [{t: 0, y: 2300}, {t: 0.02, y: 2300}, {t: 0.25, y: 1780}]}),
   R(552, 906, 424, 480, {radius: 0, fill: '#efe6d4', stroke: 'none'}),
   R(980, 900, 200, 520, {radius: 6, fill: '#9c7a52'}), ...[950, 1110, 1260].map(y => R(998, y, 164, 130, {radius: 4, fill: '#c8955a', lineWidth: 7})), // archivador del set, encima de la cola
@@ -233,7 +234,9 @@ shot(49.47, END, d => [camF([...office(d),
   desk(),
   becario({x: 330, y: GROUND + 40, scale: 1.15, expr: 'cansado', look: 1, idle: {dur: d}, talk: mouth(49.47, END), armR: {shoulder: 60, elbow: 70}, headKeys: [{t: 0, angle: 0}, {t: 0.3, angle: deg(10)}, {t: 1.2, angle: deg(10)}, {t: 1.5, angle: deg(-3)}]}),
   emptyWallet(560, 1080, 0.3, d, 1.6),
-], d, t => ({s: mix(1.08, 1.16, t / d)}), 560, 1050), tag('MEDALLA: PARA LOS EMÚS', 380, 64, {t0: 0.3, tilt: 3})]);
+], d, t => ({s: t < d - 0.28 ? mix(1.08, 1.16, t / d) : mix(1.16, 3.2, eInOut((t - d + 0.28) / 0.28))}), 740, 714), G([tag('MEDALLA: PARA LOS EMÚS', 380, 64, {t0: 0.3, tilt: 3})], {to: r3(d - 0.3)})]);
+// LOOP–END · Bucle: del ojo del emú de la ventana al ojo del emú gigante; termina EXACTAMENTE en el fotograma 1.
+shot(LOOP, END, d => [camF(hookSet(d), d, t => ({s: mix(2.4, 1.0, eOut(t / (d - 0.04))), y: mix(260, 0, eOut(t / (d - 0.04)))}), HEAD[0], HEAD[1]), flash(0, 0.1, PAPER, 0.8), G([tag('HISTORIA REAL', 380, 72, {pop: false, color: RED})], {x: -260})]);
 
 // Transiciones: barrido rápido (estelas horizontales 0,18 s) en los cortes que cambian de escenario.
 const SAME = new Set([1.70, 3.14, 14.03, 14.97, 20.42, 21.40, 35.17]);
@@ -264,7 +267,7 @@ const sfx = [
   F(38.79, 'stamp', 0.5),
   F(43.14, 'bum', 0.5, 0.45),
   F(43.74, 'whoosh', 0.2), F(46.58, 'stamp', 0.55),
-  F(48.88, 'whoosh', 0.15), F(49.23, 'flap', 0.25, 0.4), F(49.5, 'medalla', 0.6, 0.4),
+  F(48.88, 'whoosh', 0.15), F(49.23, 'flap', 0.25, 0.4), F(49.5, 'medalla', 0.6, 0.4), F(51.34, 'whoosh', 0.2),
 ];
 fs.writeFileSync('project.json', JSON.stringify({version: 1, style: 'B3', width: 1080, height: 1920, fps: 30, voice: {path: 'narration.mp3', lead: 0, tail: r3(END - VOICE)}, television: {enabled: false},
   ...(fs.existsSync('music-duck.wav') ? {music: {path: 'music-duck.wav', gain: 0.17}} : {}), burnCaptions: false, captions, shots, sfx}, null, 1));
