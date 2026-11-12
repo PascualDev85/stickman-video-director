@@ -50,7 +50,7 @@ def post(url, data):
     try:
         return json.load(urllib.request.urlopen(req))
     except urllib.error.HTTPError as e:
-        die(f'OAuth {e.code}: {e.read().decode()[:300]}')
+        raise RuntimeError(f'OAuth {e.code}: {e.read().decode()[:300]}')
 
 
 def save_token(t):
@@ -87,8 +87,11 @@ def login():
     srv.shutdown()
     if not got: die('Tiempo agotado esperando el login.')
     if got.get('error') or got.get('state') != state: die(f'Login cancelado o inválido: {got.get("error")}')
-    t = post('https://oauth2.googleapis.com/token', dict(code=got['code'], client_id=c['client_id'],
+    try:
+        t = post('https://oauth2.googleapis.com/token', dict(code=got['code'], client_id=c['client_id'],
              client_secret=c.get('client_secret', ''), redirect_uri=redirect, grant_type='authorization_code', code_verifier=verifier))
+    except RuntimeError as e:
+        die(str(e))
     save_token(t); print('✓ Sesión guardada en', TOKEN)
 
 
@@ -97,8 +100,14 @@ def access():
     t = json.loads(TOKEN.read_text())
     if time.time() > t.get('expires_at', 0):
         c = client()
-        n = post('https://oauth2.googleapis.com/token', dict(refresh_token=t['refresh_token'], client_id=c['client_id'],
-                 client_secret=c.get('client_secret', ''), grant_type='refresh_token'))
+        try:
+            n = post('https://oauth2.googleapis.com/token', dict(refresh_token=t['refresh_token'], client_id=c['client_id'],
+                     client_secret=c.get('client_secret', ''), grant_type='refresh_token'))
+        except RuntimeError as e:
+            if 'invalid_grant' not in str(e): die(str(e))
+            # App en modo prueba: Google caduca la sesión a los 7 días → se renueva sola con un clic en el navegador
+            print('La sesión de Google caducó (modo prueba, 7 días). Renovándola…'); login()
+            return json.loads(TOKEN.read_text())['access_token']
         n.setdefault('refresh_token', t['refresh_token']); save_token(n); t = n
     return t['access_token']
 
