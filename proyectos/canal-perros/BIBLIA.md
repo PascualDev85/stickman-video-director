@@ -71,6 +71,8 @@ Los hechos de esta lista se toman de los referentes y de las fuentes que conocem
 | 009 | El perro que se sabía 1.022 palabras | Chaser, border collie: más vocabulario que muchos niños de 3 años. | Pilley y Reid, Behavioural Processes 2011 | Dato asombroso, fácil de animar |
 | 010 | Barry, el San Bernardo que salvó a 40 personas | Y la leyenda del barril de coñac que nunca llevó. | Museo de Historia Natural de Berna; Fundación Barry | Historia + mito desmontado |
 
+**Investigación 001-003 hecha (13-nov-2026): `guiones/001-003-investigacion.md`.** Tiene fuentes primarias con DOI, 15 ganchos valorados, el borrador del guion del 001 y correcciones a esta tabla. Las tres principales: en el 001 es la misma persona la que engaña una vez; en el 002 el «3 de cada 4» es una estimación; el 003 tiene una réplica fallida (Lyon, 2021/22) que hay que contar.
+
 Reserva: el mito de las «razas peligrosas» (PPP; ver Layla y Dobby), perros que sueñan (hipótesis, cuidado), cómo saben qué hora es (hipótesis del olor, Horowitz), Laika (duro: enfoque sin sufrimiento), Bobbie, el perro que cruzó EE. UU. (1924).
 
 ## Producción
