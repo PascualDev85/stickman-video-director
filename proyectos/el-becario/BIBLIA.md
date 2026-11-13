@@ -12,6 +12,7 @@ Documento de referencia para cada episodio. Lo que está aquí ya está decidido
 
 ## El Becario
 - Becario del Archivo, precario y sarcástico. **Lleva meses sin cobrar** (gag fijo, una vez por episodio, nunca más).
+- **Contador «DÍAS SIN COBRAR: N»** (elemento fijo desde el 004; el 003 salió sin él): cartel `counter()` de `002-pollo-sin-cabeza/scenes.mjs`, en el plano final junto al gag del sueldo, y al final salta a N+1. **N = 215 + días desde el 11-nov-2026** (fecha de publicación del episodio; calcularlo el día del render). Nunca en los segundos 4–10 (ver lección del 001).
 - Investiga expedientes que no termina de creerse. Reacciona; no da clases.
 - Humor: ironía seca, comparaciones con su propia vida laboral. No hace un chiste en cada frase.
 - Voz: ElevenLabs **Montero** (`rXI8ZNc3ZIKyGcQPbQMl`, `eleven_v4`), tono funcionario sarcástico.
@@ -131,6 +132,12 @@ Para no repetir pruebas ni gastar créditos/tokens. Todo sale de los EXP 001 y 0
 - **Música con ducking:** `voz.py musica music.mp3 words.json DUR --boost A-B` → baja bajo la voz, sube en pausas y en el tramo de fiesta; gain 0.17.
 - **Personajes en vehículos/edificios: dentro, por la ventana** (Mike en la ventana del bus; su silueta tras la cortina del motel), nunca encima.
 
+- **EXP 004 (13-nov):** voz de 56 s → `atempo=1.04` (mismo tono) + pausas NO cómicas a ~0,22 s con `voz.py retime` = 50,8 s sin regenerar. Escalar los tiempos de Scribe /1,04 antes de `voz.py words`.
+- **El motor rechaza** keys con t fuera del plano, `x/y` fuera de ±10.000, `lineWidth: 0` y keys a mano con `a` (es `angle`; `a` solo vale dentro de `sample()`). En 004 `scenes.mjs` tiene un saneado final (`clip`) que recorta keys/from/to al plano: copiarlo.
+- **Columna de botones (derecha):** ningún texto pasa de x≈930 del vídeo. Miniatura: título a la izquierda, protagonista grande a la derecha.
+- **El brazo izquierdo se dibuja detrás de la cabeza:** para «taparse los ojos» se ponen manos como capa encima (004, «Se la amputan»).
+- **Primeros planos de un objeto:** quitar del set a los personajes que se cuelan (`funeral(d, {sa: false})`).
+
 ### Motor y ahorro (acordado con David, 10-nov-2026)
 - Si una mejora del motor es buena para los Shorts, **se hace** y se le cuenta a David (qué, por qué, coste). Las propuestas de mejora del motor se le van diciendo para ir mejorándolo.
 - Ahorrar tokens/créditos en cada vídeo: reutilizar lib.mjs/kit.mjs/voz.py, QA con una sola hoja de fotogramas, no regenerar voz si basta con recortar/insertar silencios, Scribe (0 créditos) para tiempos.
@@ -179,7 +186,7 @@ Ignorar: términos de búsqueda (en Shorts son ruido), impresiones/CTR de miniat
 | 001 | El hombre que vendió la Torre Eiffel (Victor Lustig, 1925) | Publicado 9-nov-2026 |
 | 002 | Mike, el pollo sin cabeza (1945–1947) | Final aprobado (v10); publicar mié 11-nov 20:00 |
 | 003 | La guerra de los emús (1932) | Programado con vidIQ vie 13-nov 19:00 (YT/TikTok/IG) |
-| 004 | La Guerra de los Pasteles (México–Francia, 1838-39) | Propuesto (semana 16-nov) |
+| 004 | La Guerra de los Pasteles (1838-39): la pierna de Santa Anna | Preview v2 pendiente de David; propuesta mar 17-nov 20:00 |
 | 005 | Garbo, el español que engañó a Hitler con 27 espías inventados (Joan Pujol) | Propuesto |
 | 006 | La Guerra del Cerdo (San Juan, 1859-72): la única baja fue un cerdo | Propuesto |
 | reserva | Hiroo Onoda (29 años en la selva): tratar con cuidado, hubo víctimas civiles | Reserva |
