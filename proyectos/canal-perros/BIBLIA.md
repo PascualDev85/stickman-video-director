@@ -71,28 +71,30 @@ Dúo cómico: una explica, el otro la lía. Le cuentan a los humanos lo que sus 
   - **Ficha del estudio** (`studyCard({uni, journal, year, pal, variant, at})`): A ficha con cabecera de color · B carpeta con pestaña · C oscura. Entra desde abajo y a los 0,35 s le cae un sello de huella. Recomendación: **A** (es la que mejor se lee en el móvil).
   - **Portada tipo 9:16**: título de 3 líneas arriba, con la última palabra en color de acento, Layla y Dobby de frente abajo y una etiqueta con lugar y año; todo dentro del recorte 3:4. Variantes A (rayos), B (con la ficha) y C (fondo de huellas).
 
-## Prueba de 15 (orden; alterna pilares; el número del banco entre paréntesis)
-Cada uno: gancho definitivo con 5 fórmulas de `ganchos.json` + `crecimiento.py gancho`; datos verificados en la fuente primaria.
+## Prueba de 15 (rueda de pilares: experimento → razas → mito → historia; número del banco entre paréntesis)
+Decidido con David (13-nov-2026): en la prueba, 4 experimentos, 4 de razas, 4 mitos y 3 historias, para poder comparar pilares con 3-4 vídeos cada uno. El 50/25/15/10 se aplica **después**, con los datos. Cada uno: gancho definitivo con 5 fórmulas de `ganchos.json` + `crecimiento.py gancho`; datos verificados en la fuente primaria.
 
-| # | Tema | Pilar |
+| # | Pilar | Tema |
 |---|---|---|
-| 001 | Tu perro sabe si alguien miente (1) | Experimento |
-| 002 | El perro callejero igual en todo el mundo (42) | Historia |
-| 003 | Mira al norte al hacer caca (4) | Experimento |
-| 004 | Por qué tu labrador siempre tiene hambre (59) — «La raza de Dobby» | Razas |
-| 005 | Celos: el perro de peluche (2) | Experimento |
-| 006 | La cara de culpa no es culpa (33) | Mito |
-| 007 | La mandíbula del pitbull no se bloquea (51) — «La raza de Layla» | Razas |
-| 008 | Perros «adictos» a la pelota (3) | Experimento |
-| 009 | El héroe de 1925 fue Togo, no Balto (43) | Historia |
-| 010 | El perro más rápido del mundo (21) | Razas |
-| 011 | Humano favorito: mirada y oxitocina (6) | Experimento |
-| 012 | La raza explica ~9 % (34) | Mito |
-| 013 | «La mordida más fuerte»: cifras inventadas (22) | Razas |
-| 014 | Si lloras, viene a ti (7) | Experimento |
-| 015 | Los perros se parecen a sus dueños (5) | Experimento |
+| 001 | Experimento | Tu perro sabe si alguien miente (1) |
+| 002 | Razas | Por qué tu labrador siempre tiene hambre (59) — «La raza de Dobby» |
+| 003 | Mito | La cara de culpa no es culpa (33) |
+| 004 | Historia | El perro callejero igual en todo el mundo (42) |
+| 005 | Experimento | Mira al norte al hacer caca (4) |
+| 006 | Razas | La mandíbula del pitbull no se bloquea (51) — «La raza de Layla» |
+| 007 | Mito | «Un año de perro = 7 humanos» es falso (35) |
+| 008 | Historia | El héroe de 1925 fue Togo, no Balto (43) |
+| 009 | Experimento | Celos: el perro de peluche (2) |
+| 010 | Razas | El perro más rápido del mundo (21) |
+| 011 | Mito | La raza explica ~9 % (34) |
+| 012 | Historia | El primer perro cuidado por humanos, ~14.000 años (44) |
+| 013 | Experimento | Perros «adictos» a la pelota (3) — Layla |
+| 014 | Razas | «La mordida más fuerte»: cifras inventadas (22) |
+| 015 | Mito | El «perro alfa» no existe (36) |
 
-**Investigación 001-003 hecha (13-nov-2026): `guiones/001-003-investigacion.md`** (fuentes con DOI, 15 ganchos puntuados, borrador del 001 y correcciones: en el 001 es la misma persona la que engaña una vez; en el 002 el «3 de cada 4» es una estimación; el 003 tiene una réplica fallida, Lyon 2021/22, que hay que contar).
+Primeros en entrar después de la prueba: humano favorito (6), si lloras (7), se parecen a sus dueños (5).
+
+**Investigación 001-003 hecha (13-nov-2026): `guiones/001-003-investigacion.md`** (numeración antigua: su 002 = callejero, ahora 004; su 003 = caca, ahora 005. Fuentes con DOI, 15 ganchos puntuados, borrador del 001 y correcciones: en el 001 es la misma persona la que engaña una vez; en el 002 el «3 de cada 4» es una estimación; el 003 tiene una réplica fallida, Lyon 2021/22, que hay que contar).
 
 ## Producción
 Mismo proceso, comandos y lecciones que El Becario (`proyectos/el-becario/BIBLIA.md`, sección «Producción»). Herramientas compartidas en `proyectos/el-becario/herramientas/`.

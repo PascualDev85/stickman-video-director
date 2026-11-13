@@ -1,15 +1,15 @@
 # LayBo — banco de temas (13-nov-2026)
 
-Fuentes a verificar en la primaria al escribir cada guion (ver `001-003-investigacion.md` como modelo). ★ = está en la prueba de 15 (orden en la BIBLIA). Contexto de mercado: estudio de David en Descargas (`estudio_canal_shorts_perros_animados_claude.md`, métricas sin verificar; vidIQ sin créditos hasta el 22-nov).
+Fuentes a verificar en la primaria al escribir cada guion (ver `001-003-investigacion.md` como modelo). ★ = está en la prueba de 15 (opción B: rueda de pilares) (orden en la BIBLIA). Contexto de mercado: estudio de David en Descargas (`estudio_canal_shorts_perros_animados_claude.md`, métricas sin verificar; vidIQ sin créditos hasta el 22-nov).
 
 ## Experimentos del día a día (50 %)
 1. ★ Sabe si alguien te miente — Takaoka 2015; Chijiiwa 2015
 2. ★ Celos: el perro de peluche — Harris y Prouvost 2014
 3. ★ Perros «adictos» a la pelota (Layla) — Mazzini et al. 2023
 4. ★ Mira al norte al hacer caca — Hart 2013 (+ réplica fallida)
-5. ★ Los perros se parecen a sus dueños — Roy y Christenfeld 2004
-6. ★ Humano favorito: mirada y oxitocina — Nagasawa 2015
-7. ★ Si lloras, viene a ti aunque no seas su dueño — Custance y Mayer 2012
+5. Los perros se parecen a sus dueños — Roy y Christenfeld 2004
+6. Humano favorito: mirada y oxitocina — Nagasawa 2015
+7. Si lloras, viene a ti aunque no seas su dueño — Custance y Mayer 2012
 8. Cola a la derecha o a la izquierda — Quaranta 2007; Siniscalchi 2013
 9. Sentido de la injusticia: deja de dar la pata (Dobby) — Range et al. 2009
 10. Los «ojitos de pena» son un músculo que el lobo no tiene — Kaminski et al. 2019
@@ -62,8 +62,8 @@ Mestizos (los dos):
 ## Mitos desmontados (15 %)
 33. ★ La cara de culpa no es culpa — Horowitz 2009
 34. ★ La raza explica ~9 % del comportamiento — Morrill et al. 2022
-35. «Un año de perro = 7 humanos» es falso — Wang et al. 2020
-36. El «perro alfa» y la retractación — Mech 1999
+35. ★ «Un año de perro = 7 humanos» es falso — Wang et al. 2020
+36. ★ El «perro alfa» y la retractación — Mech 1999
 37. «Come hierba porque está malo» — Sueda et al. 2008
 38. Ven en blanco y negro: falso — Neitz 1989
 39. La campana de Pavlov casi no existió
@@ -73,7 +73,7 @@ Mestizos (los dos):
 ## Historias reales (10 %)
 42. ★ El perro callejero igual en todo el mundo — Shannon 2015; Boyko 2009
 43. ★ El héroe de 1925 fue Togo, no Balto
-44. El primer perro cuidado por humanos (Bonn-Oberkassel, ~14.000 años) — Janssens et al. 2018
+44. ★ El primer perro cuidado por humanos (Bonn-Oberkassel, ~14.000 años) — Janssens et al. 2018
 45. De este cachorro vienen todos los golden (1868)
 46. Hachiko: la historia completa
 47. Canelo, 12 años esperando en un hospital de Cádiz
