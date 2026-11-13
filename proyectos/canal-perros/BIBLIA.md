@@ -50,6 +50,10 @@ Dúo cómico: una explica, el otro la lía. Le cuentan a los humanos lo que sus 
 ## Identidad visual [PENDIENTE: confirmar con David]
 - Estilo B3 (vectorial plano, contorno negro grueso, colores sólidos), como El Becario, pero con paleta propia para no confundir los canales. Propuesta: canela `#e8a33d`, verde azulado `#1f8a8a`, tinta `#1d1d1d`, papel `#f6f0e4`.
 - Recurso fijo propuesto: «ficha del estudio» (tarjeta con universidad + año) que entra con un sello de huella.
+- **Propuestas v1 (13-nov-2026) [PENDIENTE: elegir David]** — hoja `branding/identidad-v1.png` (`node identidad.mjs`):
+  - **Paletas** (`PALETAS` en kit.mjs): A «Canela y verde azulado» (#e8a33d / #1f8a8a / rosa lengua #ec7d93 / papel #f6f0e4) · B «Parque» (verde hierba #5aa469 / cielo #8fd3f4 / amarillo pelota #c8e04a) · C «Collar azul noche» (#2c3a4d / naranja #f08a24 / menta #7fd1b9). Recomendación: **A** (cálida como el pelo de los dos, y no se confunde con el amarillo y rojo de El Becario).
+  - **Ficha del estudio** (`studyCard({uni, journal, year, pal, variant, at})`): A ficha con cabecera de color · B carpeta con pestaña · C oscura. Entra desde abajo y a los 0,35 s le cae un sello de huella. Recomendación: **A** (es la que mejor se lee en el móvil).
+  - **Portada tipo 9:16**: título de 3 líneas arriba, con la última palabra en color de acento, Layla y Dobby de frente abajo y una etiqueta con lugar y año; todo dentro del recorte 3:4. Variantes A (rayos), B (con la ficha) y C (fondo de huellas).
 
 ## Episodios iniciales (orden propuesto; cada uno, gancho definitivo con 5 fórmulas de `ganchos.json` + `crecimiento.py gancho`)
 Los hechos de esta lista se toman de los referentes y de las fuentes que conocemos; **se verifican uno a uno al escribir cada guion**.

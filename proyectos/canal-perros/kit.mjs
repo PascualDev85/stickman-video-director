@@ -330,3 +330,40 @@ export function wagLines(x, y, s = 1) {
 }
 export const layla = a => dog({...a, who: 'layla'});
 export const dobby = a => dog({...a, who: 'dobby'});
+
+// ---------- identidad: huella y «ficha del estudio» ----------
+/** Huella de perro (almohadilla + 4 dedos). Origen = centro de la almohadilla. */
+export function pawPrint({x = 0, y = 0, scale = 1, color = INK, angle = 0, keys, alpha} = {}) {
+  const pad = S([['M', -34, 18], ['Q', -40, -14, -14, -22], ['Q', 0, -26, 14, -22], ['Q', 40, -14, 34, 18], ['Q', 26, 36, 0, 30], ['Q', -26, 36, -34, 18], ['Z']], color, NONE);
+  const toes = [[-38, -44, -18], [-14, -64, -6], [14, -64, 6], [38, -44, 18]].map(([tx, ty, a]) => E(tx, ty, 24, 32, {fill: color, stroke: 'none'}));
+  return G([pad, ...toes], {x, y, scaleX: scale, scaleY: scale, angle: deg(angle), ...(keys ? {keys} : {}), ...(alpha !== undefined ? {alpha} : {})});
+}
+export const PALETAS = {
+  canela: {name: 'Canela y verde azulado', paper: '#f6f0e4', ink: '#1d1d1d', main: '#e8a33d', second: '#1f8a8a', accent: '#ec7d93', ground: '#e6dccb'},
+  parque: {name: 'Parque (hierba y cielo)', paper: '#f3f7ee', ink: '#1d1d1d', main: '#5aa469', second: '#8fd3f4', accent: '#c8e04a', ground: '#b9d99a'},
+  noche:  {name: 'Collar azul noche', paper: '#fbf3e6', ink: '#1d1d1d', main: '#2c3a4d', second: '#f08a24', accent: '#7fd1b9', ground: '#e8dccb'},
+};
+/**
+ * Ficha del estudio: tarjeta con universidad + revista + año que entra desde abajo y recibe un sello de huella.
+ * studyCard({x, y (centro), scale, uni, journal, year, pal: PALETAS.x, variant: 'ficha'|'carpeta'|'oscura', at (s, entrada), stampAt})
+ * Las fuentes del texto son las del motor (B3). Ancho 600 × alto 330 a escala 1.
+ */
+export function studyCard({x = 640, y = 400, scale = 1, uni = 'Universidad de Kioto', journal = 'Animal Cognition', year = '2015', pal = PALETAS.canela, variant = 'ficha', at = 0, stampAt, label = 'ESTUDIO'} = {}) {
+  const W = 600, H = 330, dark = variant === 'oscura';
+  const bg = dark ? pal.ink : PAPER, fg = dark ? pal.paper : pal.ink;
+  const kids = [];
+  if (variant === 'carpeta') kids.push(R(-W / 2 + 20, -H / 2 - 44, 200, 70, {radius: 14, fill: pal.second, lineWidth: 8}), {type: 'text', text: label, x: -W / 2 + 46, y: -H / 2 - 38, size: 28, bold: true, color: PAPER, w: 200});
+  kids.push(R(-W / 2, -H / 2, W, H, {radius: 22, fill: bg, lineWidth: 9}));
+  if (variant !== 'carpeta') kids.push(R(-W / 2, -H / 2, W, 74, {radius: 22, fill: pal.main, lineWidth: 9}), R(-W / 2 + 5, -H / 2 + 40, W - 10, 30, {radius: 0, fill: pal.main, stroke: 'none'}),
+    {type: 'text', text: label, x: -W / 2 + 30, y: -H / 2 + 14, size: 40, bold: true, color: PAPER, w: 400});
+  else kids.push(...[0, 1, 2].map(i => P([['M', -W / 2 + 30, -H / 2 + 80 + i * 70], ['L', W / 2 - 30, -H / 2 + 80 + i * 70]], {stroke: pal.second, lineWidth: 3, alpha: 0.5})));
+  const ty = variant === 'carpeta' ? -H / 2 + 30 : -H / 2 + 100;
+  kids.push({type: 'text', text: uni, x: -W / 2 + 30, y: ty, size: 44, bold: true, color: fg, w: W - 60},
+    {type: 'text', text: journal, x: -W / 2 + 30, y: ty + 70, size: 36, bold: false, color: fg, w: W - 200},
+    {type: 'text', text: String(year), x: -W / 2 + 30, y: ty + 124, size: 64, bold: true, color: pal.second, w: 260});
+  const sa = stampAt ?? at + 0.35;
+  const stamp = G([E(0, 0, 150, 150, {fill: 'none', stroke: pal.accent, lineWidth: 10}), pawPrint({y: 14, scale: 0.85, color: pal.accent})],
+    {x: W / 2 - 100, y: H / 2 - 92, angle: deg(-14), keys: [{t: 0, scaleX: 2.6, scaleY: 2.6, alpha: 0}, {t: r3(Math.max(0, sa - 0.01)), scaleX: 2.6, scaleY: 2.6, alpha: 0}, {t: r3(sa + 0.16), scaleX: 0.9, scaleY: 0.9, alpha: 1}, {t: r3(sa + 0.26), scaleX: 1, scaleY: 1, alpha: 1}]});
+  return G([...kids, stamp], {x, y, scaleX: scale, scaleY: scale, angle: deg(variant === 'carpeta' ? -3 : 0),
+    keys: [{t: 0, y: y + 140, alpha: 0}, {t: r3(at), y: y + 140, alpha: 0}, {t: r3(at + 0.22), y: y - 10, alpha: 1}, {t: r3(at + 0.32), y, alpha: 1}]});
+}
