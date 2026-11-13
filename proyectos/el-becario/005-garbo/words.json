@@ -1,0 +1,700 @@
+{
+ "words": [
+  {
+   "word": "Los",
+   "start": 0.075,
+   "end": 0.226
+  },
+  {
+   "word": "nazis",
+   "start": 0.302,
+   "end": 0.679
+  },
+  {
+   "word": "pagaban",
+   "start": 0.755,
+   "end": 1.057
+  },
+  {
+   "word": "a",
+   "start": 1.094,
+   "end": 1.132
+  },
+  {
+   "word": "veintisiete",
+   "start": 1.17,
+   "end": 1.736
+  },
+  {
+   "word": "espías.",
+   "start": 1.849,
+   "end": 2.528
+  },
+  {
+   "word": "Todos",
+   "start": 3.094,
+   "end": 3.17
+  },
+  {
+   "word": "inventados",
+   "start": 3.245,
+   "end": 3.849
+  },
+  {
+   "word": "por",
+   "start": 3.925,
+   "end": 4.0
+  },
+  {
+   "word": "un",
+   "start": 4.075,
+   "end": 4.151
+  },
+  {
+   "word": "español.",
+   "start": 4.226,
+   "end": 4.68
+  },
+  {
+   "word": "Cómo",
+   "start": 5.17,
+   "end": 5.321
+  },
+  {
+   "word": "fabricar",
+   "start": 5.396,
+   "end": 5.774
+  },
+  {
+   "word": "un",
+   "start": 5.849,
+   "end": 5.887
+  },
+  {
+   "word": "espía.",
+   "start": 5.925,
+   "end": 6.489
+  },
+  {
+   "word": "Paso",
+   "start": 6.565,
+   "end": 6.716
+  },
+  {
+   "word": "uno:",
+   "start": 6.791,
+   "end": 7.179
+  },
+  {
+   "word": "que",
+   "start": 7.217,
+   "end": 7.255
+  },
+  {
+   "word": "te",
+   "start": 7.33,
+   "end": 7.406
+  },
+  {
+   "word": "rechacen.",
+   "start": 7.481,
+   "end": 8.01
+  },
+  {
+   "word": "Joan",
+   "start": 8.117,
+   "end": 8.343
+  },
+  {
+   "word": "Pujol,",
+   "start": 8.419,
+   "end": 8.872
+  },
+  {
+   "word": "antinazi,",
+   "start": 8.947,
+   "end": 9.626
+  },
+  {
+   "word": "se",
+   "start": 9.664,
+   "end": 9.702
+  },
+  {
+   "word": "ofreció",
+   "start": 9.777,
+   "end": 10.23
+  },
+  {
+   "word": "tres",
+   "start": 10.343,
+   "end": 10.457
+  },
+  {
+   "word": "veces",
+   "start": 10.532,
+   "end": 10.758
+  },
+  {
+   "word": "a",
+   "start": 10.796,
+   "end": 10.834
+  },
+  {
+   "word": "los",
+   "start": 10.909,
+   "end": 10.985
+  },
+  {
+   "word": "ingleses.",
+   "start": 11.06,
+   "end": 11.702
+  },
+  {
+   "word": "Como",
+   "start": 12.57,
+   "end": 12.645
+  },
+  {
+   "word": "mis",
+   "start": 12.721,
+   "end": 12.872
+  },
+  {
+   "word": "currículums.",
+   "start": 12.947,
+   "end": 13.704
+  },
+  {
+   "word": "Paso",
+   "start": 13.779,
+   "end": 14.006
+  },
+  {
+   "word": "dos:",
+   "start": 14.081,
+   "end": 14.534
+  },
+  {
+   "word": "ofrécete",
+   "start": 14.609,
+   "end": 15.138
+  },
+  {
+   "word": "al",
+   "start": 15.175,
+   "end": 15.213
+  },
+  {
+   "word": "enemigo.",
+   "start": 15.251,
+   "end": 15.818
+  },
+  {
+   "word": "Lo",
+   "start": 15.893,
+   "end": 15.969
+  },
+  {
+   "word": "mandan",
+   "start": 16.044,
+   "end": 16.195
+  },
+  {
+   "word": "a",
+   "start": 16.233,
+   "end": 16.271
+  },
+  {
+   "word": "Inglaterra…",
+   "start": 16.346,
+   "end": 17.176
+  },
+  {
+   "word": "y",
+   "start": 17.24,
+   "end": 17.252
+  },
+  {
+   "word": "se",
+   "start": 17.327,
+   "end": 17.403
+  },
+  {
+   "word": "queda",
+   "start": 17.478,
+   "end": 17.629
+  },
+  {
+   "word": "en",
+   "start": 17.667,
+   "end": 17.705
+  },
+  {
+   "word": "Lisboa.",
+   "start": 17.742,
+   "end": 18.315
+  },
+  {
+   "word": "Paso",
+   "start": 18.353,
+   "end": 18.541
+  },
+  {
+   "word": "tres:",
+   "start": 18.617,
+   "end": 19.221
+  },
+  {
+   "word": "espía",
+   "start": 19.334,
+   "end": 19.673
+  },
+  {
+   "word": "con",
+   "start": 19.749,
+   "end": 19.824
+  },
+  {
+   "word": "una",
+   "start": 19.9,
+   "end": 19.975
+  },
+  {
+   "word": "guía",
+   "start": 20.051,
+   "end": 20.202
+  },
+  {
+   "word": "turística.",
+   "start": 20.277,
+   "end": 21.032
+  },
+  {
+   "word": "Según",
+   "start": 21.107,
+   "end": 21.334
+  },
+  {
+   "word": "él,",
+   "start": 21.409,
+   "end": 21.636
+  },
+  {
+   "word": "en",
+   "start": 21.711,
+   "end": 21.787
+  },
+  {
+   "word": "Glasgow",
+   "start": 21.824,
+   "end": 22.239
+  },
+  {
+   "word": "harían",
+   "start": 22.315,
+   "end": 22.541
+  },
+  {
+   "word": "lo",
+   "start": 22.579,
+   "end": 22.617
+  },
+  {
+   "word": "que",
+   "start": 22.692,
+   "end": 22.768
+  },
+  {
+   "word": "fuera",
+   "start": 22.919,
+   "end": 23.145
+  },
+  {
+   "word": "por",
+   "start": 23.221,
+   "end": 23.296
+  },
+  {
+   "word": "un",
+   "start": 23.372,
+   "end": 23.409
+  },
+  {
+   "word": "litro",
+   "start": 23.447,
+   "end": 23.673
+  },
+  {
+   "word": "de",
+   "start": 23.711,
+   "end": 23.749
+  },
+  {
+   "word": "vino.",
+   "start": 23.824,
+   "end": 24.239
+  },
+  {
+   "word": "Paso",
+   "start": 24.579,
+   "end": 24.655
+  },
+  {
+   "word": "cuatro:",
+   "start": 24.73,
+   "end": 25.258
+  },
+  {
+   "word": "que",
+   "start": 25.296,
+   "end": 25.334
+  },
+  {
+   "word": "los",
+   "start": 25.409,
+   "end": 25.485
+  },
+  {
+   "word": "ingleses",
+   "start": 25.56,
+   "end": 26.013
+  },
+  {
+   "word": "por",
+   "start": 26.088,
+   "end": 26.239
+  },
+  {
+   "word": "fin",
+   "start": 26.39,
+   "end": 26.541
+  },
+  {
+   "word": "te",
+   "start": 26.617,
+   "end": 26.692
+  },
+  {
+   "word": "fichen.",
+   "start": 26.73,
+   "end": 27.372
+  },
+  {
+   "word": "Nombre",
+   "start": 27.485,
+   "end": 27.598
+  },
+  {
+   "word": "en",
+   "start": 27.673,
+   "end": 27.749
+  },
+  {
+   "word": "clave:",
+   "start": 27.9,
+   "end": 28.353
+  },
+  {
+   "word": "Garbo.",
+   "start": 28.466,
+   "end": 29.032
+  },
+  {
+   "word": "Mata",
+   "start": 29.07,
+   "end": 29.334
+  },
+  {
+   "word": "a",
+   "start": 29.372,
+   "end": 29.409
+  },
+  {
+   "word": "un",
+   "start": 29.447,
+   "end": 29.485
+  },
+  {
+   "word": "espía",
+   "start": 29.56,
+   "end": 29.787
+  },
+  {
+   "word": "inventado…",
+   "start": 29.862,
+   "end": 30.617
+  },
+  {
+   "word": "y",
+   "start": 30.655,
+   "end": 30.692
+  },
+  {
+   "word": "Alemania",
+   "start": 30.805,
+   "end": 31.221
+  },
+  {
+   "word": "paga",
+   "start": 31.296,
+   "end": 31.447
+  },
+  {
+   "word": "la",
+   "start": 31.522,
+   "end": 31.56
+  },
+  {
+   "word": "pensión",
+   "start": 31.598,
+   "end": 31.9
+  },
+  {
+   "word": "a",
+   "start": 31.938,
+   "end": 31.975
+  },
+  {
+   "word": "la",
+   "start": 32.013,
+   "end": 32.051
+  },
+  {
+   "word": "viuda.",
+   "start": 32.126,
+   "end": 32.541
+  },
+  {
+   "word": "Que",
+   "start": 32.866,
+   "end": 32.881
+  },
+  {
+   "word": "tampoco",
+   "start": 32.919,
+   "end": 33.258
+  },
+  {
+   "word": "existía.",
+   "start": 33.447,
+   "end": 33.95
+  },
+  {
+   "word": "Paso",
+   "start": 34.065,
+   "end": 34.291
+  },
+  {
+   "word": "cinco:",
+   "start": 34.367,
+   "end": 34.971
+  },
+  {
+   "word": "convence",
+   "start": 35.084,
+   "end": 35.423
+  },
+  {
+   "word": "a",
+   "start": 35.449,
+   "end": 35.473
+  },
+  {
+   "word": "los",
+   "start": 35.499,
+   "end": 35.574
+  },
+  {
+   "word": "nazis",
+   "start": 35.65,
+   "end": 35.952
+  },
+  {
+   "word": "de",
+   "start": 35.989,
+   "end": 36.027
+  },
+  {
+   "word": "que",
+   "start": 36.065,
+   "end": 36.103
+  },
+  {
+   "word": "Normandía",
+   "start": 36.178,
+   "end": 36.706
+  },
+  {
+   "word": "es",
+   "start": 36.782,
+   "end": 36.857
+  },
+  {
+   "word": "un",
+   "start": 36.895,
+   "end": 36.933
+  },
+  {
+   "word": "señuelo.",
+   "start": 37.008,
+   "end": 37.688
+  },
+  {
+   "word": "Veintiuna",
+   "start": 37.763,
+   "end": 38.216
+  },
+  {
+   "word": "divisiones,",
+   "start": 38.291,
+   "end": 39.046
+  },
+  {
+   "word": "esperando",
+   "start": 39.197,
+   "end": 39.499
+  },
+  {
+   "word": "en",
+   "start": 39.537,
+   "end": 39.574
+  },
+  {
+   "word": "Calais.",
+   "start": 39.65,
+   "end": 40.178
+  },
+  {
+   "word": "Premio:",
+   "start": 40.254,
+   "end": 40.782
+  },
+  {
+   "word": "Cruz",
+   "start": 40.857,
+   "end": 41.008
+  },
+  {
+   "word": "de",
+   "start": 41.046,
+   "end": 41.084
+  },
+  {
+   "word": "Hierro",
+   "start": 41.159,
+   "end": 41.386
+  },
+  {
+   "word": "nazi",
+   "start": 41.423,
+   "end": 41.763
+  },
+  {
+   "word": "y",
+   "start": 41.801,
+   "end": 41.838
+  },
+  {
+   "word": "medalla",
+   "start": 41.914,
+   "end": 42.216
+  },
+  {
+   "word": "inglesa.",
+   "start": 42.291,
+   "end": 42.851
+  },
+  {
+   "word": "Unos,",
+   "start": 42.926,
+   "end": 43.379
+  },
+  {
+   "word": "por",
+   "start": 43.454,
+   "end": 43.53
+  },
+  {
+   "word": "creérsela.",
+   "start": 43.605,
+   "end": 44.36
+  },
+  {
+   "word": "Otros,",
+   "start": 44.435,
+   "end": 44.888
+  },
+  {
+   "word": "por",
+   "start": 44.964,
+   "end": 45.039
+  },
+  {
+   "word": "inventarla.",
+   "start": 45.115,
+   "end": 45.869
+  },
+  {
+   "word": "Expediente",
+   "start": 45.945,
+   "end": 46.473
+  },
+  {
+   "word": "cerrado.",
+   "start": 46.586,
+   "end": 47.152
+  },
+  {
+   "word": "Pagaban",
+   "start": 47.228,
+   "end": 47.53
+  },
+  {
+   "word": "a",
+   "start": 47.568,
+   "end": 47.605
+  },
+  {
+   "word": "espías",
+   "start": 47.681,
+   "end": 47.983
+  },
+  {
+   "word": "que",
+   "start": 48.058,
+   "end": 48.209
+  },
+  {
+   "word": "no",
+   "start": 48.285,
+   "end": 48.36
+  },
+  {
+   "word": "existían.",
+   "start": 48.435,
+   "end": 49.341
+  },
+  {
+   "word": "Yo",
+   "start": 49.568,
+   "end": 49.718
+  },
+  {
+   "word": "existo.",
+   "start": 49.945,
+   "end": 51.077
+  },
+  {
+   "word": "Y",
+   "start": 51.14,
+   "end": 51.152
+  },
+  {
+   "word": "nada.",
+   "start": 51.228,
+   "end": 51.756
+  }
+ ],
+ "method": "ElevenLabs Scribe; acotaciones quitadas"
+}

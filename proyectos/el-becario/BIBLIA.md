@@ -133,6 +133,10 @@ Para no repetir pruebas ni gastar créditos/tokens. Todo sale de los EXP 001 y 0
 - **Música con ducking:** `voz.py musica music.mp3 words.json DUR --boost A-B` → baja bajo la voz, sube en pausas y en el tramo de fiesta; gain 0.17.
 - **Personajes en vehículos/edificios: dentro, por la ventana** (Mike en la ventana del bus; su silueta tras la cortina del motel), nunca encima.
 
+- **Mapas con geografía real (EXP 005):** nada de polígonos a ojo (parecían manchas). Contornos simplificados en longitud/latitud + `geo()` y `mapCam()` en `005-garbo/props.mjs`: copiarlos y añadir costas cuando haga falta. Nombres de país en el mapa, ciudad con punto y nombre; en planos con zoom, solo los nombres que caben (zona segura).
+- **Que nadie esté solo respirando (EXP 005):** cada personaje en pantalla hace al menos un gesto ligado a la frase (asentir, reír, señalar, retroceder, saltar). Helpers `nod`, `laugh`, `hop`, `flinch` en `005-garbo/scenes.mjs`; `gestures` suma al brazo base (uno por brazo y plano).
+- **Revisar el audio sin oído (EXP 005):** después de cada preview, `python3 ../herramientas/oido.py --cuts T1,T2` (volumen, palabras tapadas, efectos que pisan la voz, música, chasquidos, silencios, velocidad). Sin ✗ antes de enseñarla; los ⚠ se revisan. El gusto (si un efecto hace gracia) lo valida David con cascos.
+- **Música: `--duck 0.35` y `gain 0.2`** (005). Con `--duck 0.62` (003) la música solo bajaba 4 dB bajo la voz y los golpes de la melodía tapaban sílabas («dos», «nazis», «existían»). Así queda ~−17 dB bajo la voz y se sigue oyendo en las pausas. Remate final: `voz.py musica … --quiet A-B` para que la música se aparte del todo.
 - **EXP 004 (13-nov):** voz de 56 s → `atempo=1.04` (mismo tono) + pausas NO cómicas a ~0,22 s con `voz.py retime` = 50,8 s sin regenerar. Escalar los tiempos de Scribe /1,04 antes de `voz.py words`.
 - **El motor rechaza** keys con t fuera del plano, `x/y` fuera de ±10.000, `lineWidth: 0` y keys a mano con `a` (es `angle`; `a` solo vale dentro de `sample()`). En 004 `scenes.mjs` tiene un saneado final (`clip`) que recorta keys/from/to al plano: copiarlo.
 - **Columna de botones (derecha):** ningún texto pasa de x≈930 del vídeo. Miniatura: título a la izquierda, protagonista grande a la derecha.
@@ -188,7 +192,7 @@ Ignorar: términos de búsqueda (en Shorts son ruido), impresiones/CTR de miniat
 | 002 | Mike, el pollo sin cabeza (1945–1947) | Final aprobado (v10); publicar mié 11-nov 20:00 |
 | 003 | La guerra de los emús (1932) | Programado con vidIQ vie 13-nov 19:00 (YT/TikTok/IG) |
 | 004 | La Guerra de los Pasteles (1838-39): la pierna de Santa Anna | Final aprobado (13-nov); publicar lun 16-nov |
-| 005 | Garbo, el español que engañó a Hitler con 27 espías inventados (Joan Pujol) | Propuesto |
+| 005 | Garbo, el español que engañó a Hitler con 27 espías inventados (Joan Pujol) | Final aprobado (13-nov, v4); publicar jue 19-nov (contador 224) |
 | 006 | La Guerra del Cerdo (San Juan, 1859-72): la única baja fue un cerdo | Propuesto |
 | reserva | Hiroo Onoda (29 años en la selva): tratar con cuidado, hubo víctimas civiles | Reserva |
 

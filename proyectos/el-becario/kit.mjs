@@ -117,6 +117,14 @@ const OUTFITS = {
   turba3: {shirt: '#c2412f', sleeve: '#c2412f', pants: '#3f6aa8', shoe: INK, skin: PAPER, hat: 'sombrero', hatColor: '#c9a24a', band: '#1b1d26', stache: 'brush', torsoW: 168},
   orador: {shirt: '#23273a', sleeve: '#23273a', pants: '#23273a', shoe: INK, skin: PAPER, jacket: true, bow: '#1b1d26', hat: 'top', hatColor: '#15171f', band: '#15171f', stache: 'walrus', torsoW: 160, tails: true},
   gendarme: {shirt: '#1f3c7a', sleeve: '#1f3c7a', pants: '#1f3c7a', shoe: INK, skin: PAPER, jacket: true, buttons: '#e9c46a', hat: 'kepi', hatColor: '#1f3c7a', band: '#c8202a', stache: 'brush', torsoW: 170},
+  // EXP 005 (1941-44): Garbo (gabardina + fedora), oficial de la Abwehr (gris verdoso, monóculo, sin símbolos), inglés del MI5, la viuda inventada, soldados alemanes, escocés
+  pujol: {shirt: '#c9b48a', sleeve: '#c9b48a', pants: '#5a4a3a', shoe: '#3a2a1e', skin: PAPER, jacket: true, tie: '#7a1f2b', buttons: '#7d5229', hat: 'fedora', hatColor: '#5a4632', band: '#2a1d14', stache: 'pencil', torsoW: 176},
+  oficialDe: {shirt: '#6b7563', sleeve: '#6b7563', pants: '#5a6352', shoe: INK, skin: PAPER, jacket: true, tie: '#3a3a3a', buttons: '#c9c9c9', collar: '#4a5244', hat: 'peaked', hatColor: '#6b7563', band: '#2a2a2a', monocle: true, torsoW: 172},
+  ingles: {shirt: '#7a6a52', sleeve: '#7a6a52', pants: '#4a4036', shoe: INK, skin: PAPER, jacket: true, tie: '#2b4a7a', pocket: true, hat: 'bowler', hatColor: '#1b1b1f', stache: 'brush', torsoW: 166},
+  viuda: {shirt: '#1b1b1f', sleeve: '#1b1b1f', pants: '#1b1b1f', shoe: INK, skin: PAPER, hat: 'veil', hatColor: '#1b1b1f', torsoW: 184},
+  soldadoDe1: {shirt: '#6b7563', sleeve: '#6b7563', pants: '#5a6352', shoe: INK, skin: PAPER, buttons: '#c9c9c9', hat: 'casco', hatColor: '#5f6857', torsoW: 160},
+  soldadoDe2: {shirt: '#6b7563', sleeve: '#6b7563', pants: '#5a6352', shoe: INK, skin: PAPER, buttons: '#c9c9c9', hat: 'casco', hatColor: '#5f6857', stache: 'brush', torsoW: 170},
+  escoces: {shirt: '#2e6b4a', sleeve: '#2e6b4a', pants: '#a83a2a', shoe: INK, skin: PAPER, hat: 'tam', hatColor: '#2b4a7a', stache: 'walrus', cheeks: true, torsoW: 186, belly: true},
 };
 const STACHE = {
   pencil: () => [S([['M', -2, -90], ['Q', -30, -98, -52, -86], ['Q', -68, -80, -70, -96], ['Q', -60, -74, -40, -80], ['Q', -20, -84, -2, -82], ['Z']], INK, {lineWidth: 4}),
@@ -152,6 +160,14 @@ function hatOf(o) {
     S([['M', -92, -244], ['L', -100, -380], ['L', 100, -380], ['L', 92, -244], ['Z']], c, {lineWidth: 7}), R(-96, -270, 192, 26, {radius: 4, fill: o.band || '#c8202a', lineWidth: 6}),
     E(0, -326, 40, 40, {fill: '#e9c46a', lineWidth: 5}), S([['M', -14, -380], ['Q', 0, -450, 14, -380], ['Z']], '#c8202a', {lineWidth: 5})];
   if (o.hat === 'sombrero') return [E(0, -236, 420, 70, {fill: c}), S([['M', -96, -244], ['Q', -90, -366, 0, -372], ['Q', 90, -366, 96, -244], ['Z']], c, {lineWidth: 7}), R(-96, -278, 192, 26, {radius: 6, fill: o.band || INK, lineWidth: 6})];
+  if (o.hat === 'fedora') return [E(0, -240, 340, 50, {fill: c}), S([['M', -100, -248], ['L', -88, -356], ['Q', -40, -380, 0, -350], ['Q', 40, -380, 88, -356], ['L', 100, -248], ['Z']], c, {lineWidth: 7}),
+    R(-100, -290, 200, 34, {radius: 4, fill: o.band || INK, lineWidth: 6}), P([['M', -30, -362], ['Q', 0, -336, 30, -362]], {stroke: 'rgba(0,0,0,0.3)', lineWidth: 5})];
+  if (o.hat === 'peaked') return [S([['M', -60, -240], ['Q', 50, -252, 128, -232], ['Q', 100, -206, 16, -216], ['Z']], INK, {lineWidth: 5}),
+    S([['M', -90, -244], ['L', -116, -332], ['Q', 0, -396, 150, -340], ['L', 92, -244], ['Z']], c, {lineWidth: 7}), R(-92, -278, 186, 34, {radius: 4, fill: o.band || INK, lineWidth: 6}), E(10, -312, 30, 22, {fill: '#c9c9c9', lineWidth: 4})];
+  if (o.hat === 'casco') return [S([['M', -152, -190], ['Q', -156, -350, 0, -352], ['Q', 156, -350, 152, -190], ['L', 128, -206], ['Q', 0, -232, -128, -206], ['Z']], c, {lineWidth: 8}), P([['M', -130, -222], ['Q', 0, -250, 130, -222]], {stroke: 'rgba(0,0,0,0.3)', lineWidth: 6})];
+  if (o.hat === 'veil') return [E(0, -254, 300, 40, {fill: c}), R(-70, -320, 140, 70, {radius: 20, fill: c, lineWidth: 7}),
+    S([['M', -140, -250], ['L', 140, -250], ['L', 128, -110], ['L', -128, -110], ['Z']], 'rgba(20,20,24,0.45)', {lineWidth: 4}), S([['M', 40, -330], ['Q', 90, -380, 110, -330], ['Q', 80, -320, 40, -330], ['Z']], '#3a3a44', {lineWidth: 4})];
+  if (o.hat === 'tam') return [E(10, -262, 290, 84, {fill: c}), R(-112, -262, 224, 28, {radius: 8, fill: '#c8202a', lineWidth: 6}), E(16, -314, 46, 46, {fill: '#c8202a', lineWidth: 5})];
   if (o.hat === 'kepi') return [S([['M', -50, -242], ['Q', 60, -250, 132, -236], ['Q', 104, -214, 20, -220], ['Z']], INK, {lineWidth: 5}), S([['M', -88, -244], ['L', -78, -362], ['L', 78, -362], ['L', 88, -244], ['Z']], c, {lineWidth: 7}), R(-85, -284, 170, 30, {fill: o.band || '#c8202a', lineWidth: 6}), E(0, -362, 156, 20, {fill: c, lineWidth: 6}), E(0, -300, 20, 20, {fill: '#e9c46a', lineWidth: 4})];
   return [];
 }
@@ -212,7 +228,7 @@ function talkingMouth(talk, dur) {
   return G([E(0, 0, 54, 40, {fill: '#5a2020', lineWidth: 6}), E(0, 10, 28, 12, {fill: '#e46a6a', stroke: 'none'})],
     {x: 4, y: -64, pivotX: 0, pivotY: -14, keys: keys.map(t => ({t, alpha: on(t) ? 1 : 0, scaleX: 1, scaleY: on(t) ? r3(0.35 + 0.65 * Math.abs(Math.sin(t * Math.PI * 4.6 + Math.sin(t * 7) * 0.8))) : 0.3}))});
 }
-export function person({who = 'becario', x = 0, y = 0, scale = 1, expr = 'cansado', look = 0, armL = {}, armR = {}, walk, idle, gestures, poses, move, headTilt = 0, headKeys, alpha, from, to, talk, talkDur, noHat = false, peg} = {}) {
+export function person({who = 'becario', x = 0, y = 0, scale = 1, expr = 'cansado', look = 0, armL = {}, armR = {}, walk, idle, gestures, poses, move, headTilt = 0, headKeys, alpha, from, to, talk, talkDur, noHat = false, peg, bust = false} = {}) {
   const o = noHat ? {...OUTFITS[who], hat: undefined} : OUTFITS[who], m = humanMotion({walk, idle, gestures, poses});
   const isFarmer = who === 'granjero';
   const torsoW = o.torsoW ?? (isFarmer ? 190 : 160);
@@ -252,6 +268,8 @@ export function person({who = 'becario', x = 0, y = 0, scale = 1, expr = 'cansad
   const L = G([arm(-1, {shoulder: 8, ...armL, sleeve: o.sleeve}, m, m.armL, m.gL, m.geL, m.pL)], {x: -(torsoW / 2) - 6, y: -446});
   const Rr = G([arm(1, {shoulder: 8, ...armR, sleeve: o.sleeve}, m, m.armR, m.gR, m.geR, m.pR)], {x: torsoW / 2 + 6, y: -446});
   const epa = o.epaulettes ? [-1, 1].map(sd => G([E(0, 0, 74, 34, {fill: o.epaulettes, lineWidth: 6}), ...[-24, -8, 8, 24].map(xx => P([['M', xx, 14], ['L', xx, 40]], {stroke: o.epaulettes, lineWidth: 6}))], {x: sd * (torsoW / 2 + 2), y: -456})) : [];
+  // bust: true → solo torso y cabeza (primer plano para ventanitas de reacción); por defecto, cuerpo entero.
+  if (bust) return G([G([...torso, head, ...epa], m.breath ? {keys: m.breath, pivotX: 0, pivotY: -240} : {})], {x, y, scaleX: scale, scaleY: scale, ...(from !== undefined ? {from} : {}), ...(to !== undefined ? {to} : {})});
   const body = G([L, ...torso, head, Rr, ...epa], {...(m.bob ? {keys: m.bob} : m.breath ? {keys: m.breath, pivotX: 0, pivotY: -240} : {})});
   const legs = [leg(-1, o, m.legL, m.kneeL, 3, peg === 'L'), leg(1, o, m.legR, m.kneeR, 3, peg === 'R')];
   if (o.tails) legs.unshift(S([['M', -torsoW / 2 + 4, -250], ['Q', -torsoW / 2 - 20, -150, -torsoW / 2 - 6, -96], ['L', -20, -150], ['L', -10, -250], ['Z']], o.shirt, {lineWidth: 7}),
@@ -539,3 +557,11 @@ export function truck({x = 0, y = 0, scale = 1, flip = false, bump, cargo = [], 
   ], {keys: bump ? osc(bump, 0.22, 16, {prop: 'y', radians: false}) : undefined});
   return G([chassis, wheel(-220, spin), wheel(240, spin)], {x, y, scaleX: (flip ? -1 : 1) * scale, scaleY: scale, ...(keys ? {keys} : {})});
 }
+
+// ---------- EXP 005: Garbo ----------
+export const pujol = a => person({...a, who: 'pujol'});
+export const oficialDe = a => person({...a, who: 'oficialDe'});
+export const ingles = a => person({...a, who: 'ingles'});
+export const viuda = a => person({...a, who: 'viuda'});
+export const soldadoDe = (n, a) => person({...a, who: 'soldadoDe' + n});
+export const escoces = a => person({...a, who: 'escoces'});
