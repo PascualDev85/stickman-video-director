@@ -105,6 +105,17 @@ const OUTFITS = {
   mayor: {shirt: '#9a8a5c', sleeve: '#9a8a5c', pants: '#7d6f48', shoe: '#3a2a1e', skin: PAPER, jacket: true, tie: '#6b5a34', buttons: '#e9c46a', hat: 'slouch', hatColor: '#8a7650', band: '#3a2a1e', stache: 'walrus', torsoW: 186, cheeks: true},
   soldado1: {shirt: '#a3936a', sleeve: '#a3936a', pants: '#7d6f48', shoe: '#3a2a1e', skin: PAPER, hat: 'slouch', hatColor: '#8a7650', band: '#3a2a1e', torsoW: 160},
   soldado2: {shirt: '#a3936a', sleeve: '#a3936a', pants: '#7d6f48', shoe: '#3a2a1e', skin: PAPER, hat: 'slouch', hatColor: '#8a7650', band: '#3a2a1e', stache: 'brush', torsoW: 170},
+  // EXP 004 (México, 1832-1847): Santa Anna, el pastelero Remontel, oficiales, soldados de Illinois, turba
+  santaAnna: {shirt: '#1f3a6e', sleeve: '#1f3a6e', pants: '#f1ece0', shoe: INK, skin: PAPER, jacket: true, buttons: '#e9c46a', collar: '#c8202a', sash: '#c8202a', epaulettes: '#e9c46a', hat: 'bicorne', hatColor: '#1b1d26', hatY: 34, hairUnder: '#2a1d14', sideburns: true, torsoW: 178},
+  remontel: {shirt: PAPER, sleeve: PAPER, pants: '#6b6f78', shoe: INK, skin: PAPER, apron: PAPER, scarf: '#c8202a', hat: 'toque', stache: 'curl', cheeks: true, torsoW: 190, belly: true},
+  oficialMx1: {shirt: '#2b4a7a', sleeve: '#2b4a7a', pants: '#e9e2cf', shoe: INK, skin: PAPER, jacket: true, buttons: '#e9c46a', collar: '#c8202a', hat: 'shako', hatColor: '#1b1d26', band: '#c8202a', stache: 'brush', torsoW: 168},
+  oficialMx2: {shirt: '#2b4a7a', sleeve: '#2b4a7a', pants: '#e9e2cf', shoe: INK, skin: PAPER, jacket: true, buttons: '#e9c46a', collar: '#c8202a', hat: 'shako', hatColor: '#1b1d26', band: '#c8202a', stache: 'walrus', torsoW: 186, cheeks: true},
+  soldadoUS1: {shirt: '#2f4a86', sleeve: '#2f4a86', pants: '#8fb0d6', shoe: INK, skin: PAPER, buttons: '#e9c46a', hat: 'kepi', hatColor: '#2f4a86', band: '#2f4a86', torsoW: 160},
+  soldadoUS2: {shirt: '#2f4a86', sleeve: '#2f4a86', pants: '#8fb0d6', shoe: INK, skin: PAPER, buttons: '#e9c46a', hat: 'kepi', hatColor: '#2f4a86', band: '#2f4a86', stache: 'brush', torsoW: 170},
+  turba1: {shirt: '#e6b34a', sleeve: '#e6b34a', pants: '#6b4a30', shoe: INK, skin: PAPER, hat: 'sombrero', hatColor: '#d9b46a', band: '#8f2a1e', torsoW: 170},
+  turba2: {shirt: '#8fbf6a', sleeve: '#8fbf6a', pants: '#3f4a5a', shoe: INK, skin: PAPER, stache: 'walrus', torsoW: 176},
+  turba3: {shirt: '#c2412f', sleeve: '#c2412f', pants: '#3f6aa8', shoe: INK, skin: PAPER, hat: 'sombrero', hatColor: '#c9a24a', band: '#1b1d26', stache: 'brush', torsoW: 168},
+  orador: {shirt: '#23273a', sleeve: '#23273a', pants: '#23273a', shoe: INK, skin: PAPER, jacket: true, bow: '#1b1d26', hat: 'top', hatColor: '#15171f', band: '#15171f', stache: 'walrus', torsoW: 160, tails: true},
   gendarme: {shirt: '#1f3c7a', sleeve: '#1f3c7a', pants: '#1f3c7a', shoe: INK, skin: PAPER, jacket: true, buttons: '#e9c46a', hat: 'kepi', hatColor: '#1f3c7a', band: '#c8202a', stache: 'brush', torsoW: 170},
 };
 const STACHE = {
@@ -128,6 +139,19 @@ function hatOf(o) {
     E(20, -236, 330, 52, {fill: c}), S([['M', -150, -240], ['Q', -186, -300, -150, -360], ['Q', -112, -300, -96, -246], ['Z']], c, {lineWidth: 7}),
     S([['M', -96, -246], ['Q', -92, -350, 0, -356], ['Q', 96, -350, 100, -246], ['Z']], c, {lineWidth: 7}), P([['M', -40, -352], ['Q', 0, -320, 40, -352]], {stroke: 'rgba(0,0,0,0.30)', lineWidth: 6}),
     R(-98, -282, 198, 30, {radius: 6, fill: o.band || INK, lineWidth: 6}), E(-150, -330, 22, 22, {fill: '#e9c46a', lineWidth: 4})];
+  if (o.hat === 'bicorne') return [ // bicornio de general, de lado (puntas a izquierda y derecha), escarapela tricolor
+    S([['M', -190, -250], ['Q', -110, -270, 0, -262], ['Q', 110, -270, 190, -250], ['Q', 130, -330, 0, -392], ['Q', -130, -330, -190, -250], ['Z']], c, {lineWidth: 7}),
+    P([['M', -176, -262], ['Q', 0, -286, 176, -262]], {stroke: '#e9c46a', lineWidth: 8}),
+    E(0, -318, 54, 54, {fill: '#2e8b4a', lineWidth: 5}), E(0, -318, 34, 34, {fill: PAPER, stroke: 'none'}), E(0, -318, 16, 16, {fill: '#c8202a', stroke: 'none'}),
+    S([['M', 0, -392], ['Q', 30, -460, 70, -470], ['Q', 40, -420, 14, -388], ['Z']], PAPER, {lineWidth: 5})];
+  if (o.hat === 'toque') return [ // gorro de pastelero
+    R(-92, -300, 184, 70, {radius: 6, fill: PAPER, lineWidth: 7}),
+    E(-70, -350, 120, 110, {lineWidth: 7}), E(70, -350, 120, 110, {lineWidth: 7}), E(0, -390, 150, 130, {lineWidth: 7}), R(-92, -300, 184, 18, {radius: 0, fill: PAPER, stroke: 'none'}),
+    P([['M', -40, -296], ['L', -40, -238]], {stroke: '#d6d6d6', lineWidth: 5}), P([['M', 40, -296], ['L', 40, -238]], {stroke: '#d6d6d6', lineWidth: 5})];
+  if (o.hat === 'shako') return [S([['M', -60, -242], ['Q', 40, -250, 120, -236], ['Q', 90, -214, 10, -220], ['Z']], INK, {lineWidth: 5}),
+    S([['M', -92, -244], ['L', -100, -380], ['L', 100, -380], ['L', 92, -244], ['Z']], c, {lineWidth: 7}), R(-96, -270, 192, 26, {radius: 4, fill: o.band || '#c8202a', lineWidth: 6}),
+    E(0, -326, 40, 40, {fill: '#e9c46a', lineWidth: 5}), S([['M', -14, -380], ['Q', 0, -450, 14, -380], ['Z']], '#c8202a', {lineWidth: 5})];
+  if (o.hat === 'sombrero') return [E(0, -236, 420, 70, {fill: c}), S([['M', -96, -244], ['Q', -90, -366, 0, -372], ['Q', 90, -366, 96, -244], ['Z']], c, {lineWidth: 7}), R(-96, -278, 192, 26, {radius: 6, fill: o.band || INK, lineWidth: 6})];
   if (o.hat === 'kepi') return [S([['M', -50, -242], ['Q', 60, -250, 132, -236], ['Q', 104, -214, 20, -220], ['Z']], INK, {lineWidth: 5}), S([['M', -88, -244], ['L', -78, -362], ['L', 78, -362], ['L', 88, -244], ['Z']], c, {lineWidth: 7}), R(-85, -284, 170, 30, {fill: o.band || '#c8202a', lineWidth: 6}), E(0, -362, 156, 20, {fill: c, lineWidth: 6}), E(0, -300, 20, 20, {fill: '#e9c46a', lineWidth: 4})];
   return [];
 }
@@ -160,7 +184,11 @@ function arm(side, o, motion, swingKeys, gKeys, geKeys, poseKeys) {
   const keys = gKeys ? gKeys.map(k => ({t: k.t, angle: shoulderAngle - deg(k.angle) * side})) : swingKeys ? swingKeys.map(k => ({t: k.t, angle: shoulderAngle + k.angle})) : null;
   return G([...tube([[0, 0], [0, 100]], o.sleeve, 30), fore], {angle: shoulderAngle, pivotX: 0, pivotY: 0, ...(keys ? {keys} : {})});
 }
-function leg(side, outfit, swing, knee, stance = 0) {
+function leg(side, outfit, swing, knee, stance = 0, peg = false) {
+  if (peg) { // pata de palo/corcho (Santa Anna): muslo de pantalón + palo de madera, sin zapato
+    const pegShin = G([...tube([[0, 0], [0, 40]], outfit.pants, 29), R(-12, 30, 24, 100, {radius: 8, fill: '#a8743f', lineWidth: 6}), E(0, 132, 34, 16, {fill: '#7d5229', lineWidth: 5})], {y: 118, pivotX: 0, pivotY: 0, ...(knee ? {keys: knee} : {})});
+    return G([...tube([[0, 0], [0, 118]], outfit.pants, 32), pegShin], {x: side * 40, y: -248, angle: deg(stance * side), pivotX: 0, pivotY: 0, ...(swing ? {keys: swing} : {})});
+  }
   const shin = G([...tube([[0, 0], [0, 106]], outfit.pants, 29), E(14, 118, 70, 28, {fill: outfit.shoe, stroke: INK, lineWidth: 6})],
     {y: 118, pivotX: 0, pivotY: 0, ...(knee ? {keys: knee} : {})});
   return G([...tube([[0, 0], [0, 118]], outfit.pants, 32), shin], {x: side * 40, y: -248, angle: deg(stance * side), pivotX: 0, pivotY: 0, ...(swing ? {keys: swing} : {})});
@@ -184,7 +212,7 @@ function talkingMouth(talk, dur) {
   return G([E(0, 0, 54, 40, {fill: '#5a2020', lineWidth: 6}), E(0, 10, 28, 12, {fill: '#e46a6a', stroke: 'none'})],
     {x: 4, y: -64, pivotX: 0, pivotY: -14, keys: keys.map(t => ({t, alpha: on(t) ? 1 : 0, scaleX: 1, scaleY: on(t) ? r3(0.35 + 0.65 * Math.abs(Math.sin(t * Math.PI * 4.6 + Math.sin(t * 7) * 0.8))) : 0.3}))});
 }
-export function person({who = 'becario', x = 0, y = 0, scale = 1, expr = 'cansado', look = 0, armL = {}, armR = {}, walk, idle, gestures, poses, move, headTilt = 0, headKeys, alpha, from, to, talk, talkDur, noHat = false} = {}) {
+export function person({who = 'becario', x = 0, y = 0, scale = 1, expr = 'cansado', look = 0, armL = {}, armR = {}, walk, idle, gestures, poses, move, headTilt = 0, headKeys, alpha, from, to, talk, talkDur, noHat = false, peg} = {}) {
   const o = noHat ? {...OUTFITS[who], hat: undefined} : OUTFITS[who], m = humanMotion({walk, idle, gestures, poses});
   const isFarmer = who === 'granjero';
   const torsoW = o.torsoW ?? (isFarmer ? 190 : 160);
@@ -202,22 +230,30 @@ export function person({who = 'becario', x = 0, y = 0, scale = 1, expr = 'cansad
     P([['M', -52, -420], ['L', -70, -468]], {stroke: o.pants, lineWidth: 18}), P([['M', 52, -420], ['L', 70, -468]], {stroke: o.pants, lineWidth: 18}),
     E(-52, -416, 16, 16, {fill: '#e9c46a', lineWidth: 4}), E(52, -416, 16, 16, {fill: '#e9c46a', lineWidth: 4}));
   if (o.jacket) torso.push(...jacketParts(o, torsoW));
+  if (o.buttons && !o.jacket) torso.push(...[-430, -380, -330, -280].map(yy => E(0, yy, 16, 16, {fill: o.buttons, lineWidth: 3})), R(-torsoW / 2 + 4, -262, torsoW - 8, 22, {radius: 6, fill: PAPER, lineWidth: 5}));
+  if (o.collar) torso.push(R(-46, -486, 92, 34, {radius: 8, fill: o.collar, lineWidth: 6}));
+  if (o.sash) torso.push(S([['M', -torsoW / 2 + 8, -440], ['L', -torsoW / 2 + 40, -470], ['L', torsoW / 2 - 6, -270], ['L', torsoW / 2 - 40, -246], ['Z']], o.sash, {lineWidth: 6}), E(torsoW / 2 - 30, -258, 34, 34, {fill: o.sash, lineWidth: 5}));
+  if (o.apron) torso.push(S([['M', -torsoW / 2 + 16, -380], ['L', torsoW / 2 - 16, -380], ['L', torsoW / 2 + 6, -120], ['L', -torsoW / 2 - 6, -120], ['Z']], o.apron, {lineWidth: 7}), R(-36, -350, 72, 46, {radius: 6, fill: o.apron, lineWidth: 5}), P([['M', -torsoW / 2, -380], ['L', torsoW / 2, -380]], {stroke: '#d6d6d6', lineWidth: 8}));
+  if (o.scarf) torso.push(S([['M', -44, -472], ['L', 44, -472], ['L', 0, -418], ['Z']], o.scarf, {lineWidth: 6}));
   const f = face(expr, look, isFarmer);
   if (o.cheeks) f.rest.unshift(E(-78, -96, 46, 26, {fill: '#f2a0a0', stroke: 'none'}), E(78, -96, 46, 26, {fill: '#f2a0a0', stroke: 'none'}));
   if (o.stache) f.rest.push(...STACHE[o.stache]());
   if (o.glasses) f.rest.push(E(-50, -135, 62, 58, {fill: 'none', lineWidth: 5}), E(50, -135, 62, 58, {fill: 'none', lineWidth: 5}), P([['M', -19, -138], ['L', 19, -138]], {lineWidth: 5}));
   if (o.monocle) f.rest.push(E(50, -136, 70, 70, {fill: 'rgba(200,230,255,0.25)', stroke: '#e9b93a', lineWidth: 6}), P([['M', 84, -124], ['Q', 108, -40, 80, 10]], {stroke: '#e9b93a', lineWidth: 4}));
+  if (o.sideburns) f.rest.unshift(S([['M', -134, -200], ['Q', -150, -120, -112, -70], ['L', -100, -130], ['L', -110, -206], ['Z']], '#2a1d14', {lineWidth: 5}), S([['M', 134, -200], ['Q', 150, -120, 112, -70], ['L', 100, -130], ['L', 110, -206], ['Z']], '#2a1d14', {lineWidth: 5}));
+  if (o.hairUnder) f.rest.push(S([['M', -138, -140], ['Q', -152, -262, 0, -268], ['Q', 152, -262, 138, -140], ['L', 120, -166], ['L', 104, -204], ['L', 66, -194], ['L', 36, -214], ['L', 6, -196], ['L', -26, -216], ['L', -58, -198], ['L', -98, -208], ['L', -120, -166], ['Z']], o.hairUnder, {lineWidth: 6}));
   if (o.slick) f.rest.unshift(S([['M', -136, -150], ['Q', -132, -230, -60, -246], ['L', -120, -200], ['Z']], INK, {lineWidth: 4}), S([['M', 136, -150], ['Q', 132, -230, 60, -246], ['L', 120, -200], ['Z']], INK, {lineWidth: 4}));
   const eyesG = G(f.eyes, {pivotX: 0, pivotY: -138, ...(m.blink ? {keys: m.blink} : {})});
   const hair = (isFarmer || o.hat) ? [] : o.bun ? [E(0, -246, 252, 92, {fill: o.bun, lineWidth: 7}), E(0, -306, 104, 92, {fill: o.bun, lineWidth: 7}), P([['M', -30, -300], ['Q', 0, -322, 30, -300]], {stroke: '#7d828b', lineWidth: 5})] : [S([['M', -64, -232], ['L', -44, -284], ['L', -22, -240], ['L', 0, -296], ['L', 20, -242], ['L', 48, -280], ['L', 56, -230], ['Z']], INK, {lineWidth: 6})];
   const hat = isFarmer ? [E(0, -232, 380, 66, {fill: '#e9c46a'}), R(-98, -318, 196, 98, {radius: 34, fill: '#e9c46a'}), P([['M', -96, -248], ['L', 96, -248]], {stroke: '#9c4a1a', lineWidth: 14}),
-    ...[-60, -20, 20, 60].map(xx => P([['M', xx, -312], ['L', xx + 8, -256]], {stroke: '#c9a24a', lineWidth: 4}))] : hatOf(o);
+    ...[-60, -20, 20, 60].map(xx => P([['M', xx, -312], ['L', xx + 8, -256]], {stroke: '#c9a24a', lineWidth: 4}))] : o.hatY ? [G(hatOf(o), {y: o.hatY})] : hatOf(o);
   const head = G([...hair, E(0, -130, 272, 250), eyesG, ...f.rest, ...(talk && (talk.length || talk.env) ? [talkingMouth(talk, talkDur ?? idle?.dur ?? walk?.dur)] : []), ...hat],
     {y: -462, angle: deg(headTilt), pivotX: 0, pivotY: 0, ...(headKeys ? {keys: headKeys} : {})});
   const L = G([arm(-1, {shoulder: 8, ...armL, sleeve: o.sleeve}, m, m.armL, m.gL, m.geL, m.pL)], {x: -(torsoW / 2) - 6, y: -446});
   const Rr = G([arm(1, {shoulder: 8, ...armR, sleeve: o.sleeve}, m, m.armR, m.gR, m.geR, m.pR)], {x: torsoW / 2 + 6, y: -446});
-  const body = G([L, ...torso, head, Rr], {...(m.bob ? {keys: m.bob} : m.breath ? {keys: m.breath, pivotX: 0, pivotY: -240} : {})});
-  const legs = [leg(-1, o, m.legL, m.kneeL, 3), leg(1, o, m.legR, m.kneeR, 3)];
+  const epa = o.epaulettes ? [-1, 1].map(sd => G([E(0, 0, 74, 34, {fill: o.epaulettes, lineWidth: 6}), ...[-24, -8, 8, 24].map(xx => P([['M', xx, 14], ['L', xx, 40]], {stroke: o.epaulettes, lineWidth: 6}))], {x: sd * (torsoW / 2 + 2), y: -456})) : [];
+  const body = G([L, ...torso, head, Rr, ...epa], {...(m.bob ? {keys: m.bob} : m.breath ? {keys: m.breath, pivotX: 0, pivotY: -240} : {})});
+  const legs = [leg(-1, o, m.legL, m.kneeL, 3, peg === 'L'), leg(1, o, m.legR, m.kneeR, 3, peg === 'R')];
   if (o.tails) legs.unshift(S([['M', -torsoW / 2 + 4, -250], ['Q', -torsoW / 2 - 20, -150, -torsoW / 2 - 6, -96], ['L', -20, -150], ['L', -10, -250], ['Z']], o.shirt, {lineWidth: 7}),
     S([['M', torsoW / 2 - 4, -250], ['Q', torsoW / 2 + 20, -150, torsoW / 2 + 6, -96], ['L', 20, -150], ['L', 10, -250], ['Z']], o.shirt, {lineWidth: 7}));
   return G([...legs, body], {x, y, scaleX: scale, scaleY: scale, ...(move ? {keys: move} : {}), ...(alpha !== undefined ? {alpha} : {}), ...(from !== undefined ? {from} : {}), ...(to !== undefined ? {to} : {})});
@@ -413,6 +449,13 @@ export const mayor = a => person({...a, who: 'mayor'});
 /** Sombrero suelto de un personaje (coordenadas de su cabeza: colocarlo en y = pies - 462·escala). Para gags: person({noHat: true}) + hatProp(who). */
 export const hatProp = (who, o = {}) => G(hatOf(OUTFITS[who]), o);
 export const soldado = (n, a) => person({...a, who: 'soldado' + n});
+// EXP 004
+export const santaAnna = a => person({...a, who: 'santaAnna'});
+export const remontel = a => person({...a, who: 'remontel'});
+export const oficialMx = (n, a) => person({...a, who: 'oficialMx' + n});
+export const soldadoUS = (n, a) => person({...a, who: 'soldadoUS' + n});
+export const turba = (n, a) => person({...a, who: 'turba' + n});
+export const orador = a => person({...a, who: 'orador'});
 
 /**
  * emu({run:{dur,period}, idle:{dur}, peck:[t], look:'right'|'left', eye:'normal'|'grande', move, scale})

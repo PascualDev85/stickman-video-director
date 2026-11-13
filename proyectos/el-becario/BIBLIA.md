@@ -12,6 +12,7 @@ Documento de referencia para cada episodio. Lo que está aquí ya está decidido
 
 ## El Becario
 - Becario del Archivo, precario y sarcástico. **Lleva meses sin cobrar** (gag fijo, una vez por episodio, nunca más).
+- **Regla del gag del sueldo (acordada con David, 13-nov):** la premisa es fija (nunca cobra) pero **la frase nunca se repite**: sale de la comparación con la historia del episodio (003 «A ellos, diez mil balas. A mí, ni un sueldo»; 004 «Esa pierna tuvo dos funerales. Yo no he tenido ni una nómina»). Un guiño visual propio del episodio puede acompañarlo (004: pastel con etiqueta «NÓMINA DE NOVIEMBRE») sustituyendo a la cartera vacía, no sumándose. **Romper la expectativa como mucho 1 de cada 4-5 episodios** y solo cuando haya público que la espere: gag a mitad y final con giro, que le «paguen» con algo absurdo del episodio, o un hito («casi cobra») en el episodio 10 o el día 250. Si la retención cae en los últimos 3 s o los comentarios dicen que cansa, se cambia.
 - **Contador «DÍAS SIN COBRAR: N»** (elemento fijo desde el 004; el 003 salió sin él): cartel `counter()` de `002-pollo-sin-cabeza/scenes.mjs`, en el plano final junto al gag del sueldo, y al final salta a N+1. **N = 215 + días desde el 11-nov-2026** (fecha de publicación del episodio; calcularlo el día del render). Nunca en los segundos 4–10 (ver lección del 001).
 - Investiga expedientes que no termina de creerse. Reacciona; no da clases.
 - Humor: ironía seca, comparaciones con su propia vida laboral. No hace un chiste en cada frase.
@@ -186,7 +187,7 @@ Ignorar: términos de búsqueda (en Shorts son ruido), impresiones/CTR de miniat
 | 001 | El hombre que vendió la Torre Eiffel (Victor Lustig, 1925) | Publicado 9-nov-2026 |
 | 002 | Mike, el pollo sin cabeza (1945–1947) | Final aprobado (v10); publicar mié 11-nov 20:00 |
 | 003 | La guerra de los emús (1932) | Programado con vidIQ vie 13-nov 19:00 (YT/TikTok/IG) |
-| 004 | La Guerra de los Pasteles (1838-39): la pierna de Santa Anna | Preview v2 pendiente de David; propuesta mar 17-nov 20:00 |
+| 004 | La Guerra de los Pasteles (1838-39): la pierna de Santa Anna | Final aprobado (13-nov); publicar lun 16-nov |
 | 005 | Garbo, el español que engañó a Hitler con 27 espías inventados (Joan Pujol) | Propuesto |
 | 006 | La Guerra del Cerdo (San Juan, 1859-72): la única baja fue un cerdo | Propuesto |
 | reserva | Hiroo Onoda (29 años en la selva): tratar con cuidado, hubo víctimas civiles | Reserva |
