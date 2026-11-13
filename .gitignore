@@ -8,3 +8,4 @@ __pycache__/
 autopilot-work/
 skills/directing-stickman-videos/examples/*/output/
 proyectos/**/output/
+.DS_Store
