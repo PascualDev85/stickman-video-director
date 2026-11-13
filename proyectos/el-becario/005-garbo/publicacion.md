@@ -1,7 +1,7 @@
-# EXP 005 — Publicación (previsto jueves 19-nov-2026)
+# EXP 005 — Publicación (miércoles 18-nov-2026)
 
 Archivos: `expedientes/005-garbo/` → `EXPEDIENTE-005-FINAL.mp4` (52,3 s), `EXPEDIENTE-005-subtitulos.srt`, `portadas-tiktok-ig/` (A «NINGUNO EXISTÍA», B «1 HOMBRE · 27 ESPÍAS»).
-⚠️ El contador del final dice **DÍAS SIN COBRAR: 224** = publicar el **19-nov**. Si cambia la fecha, avisar a Claude para recalcular y re-renderizar (`PUB` en `scenes.mjs`).
+⚠️ El contador del final dice **DÍAS SIN COBRAR: 223** = publicar el **18-nov**. Si cambia la fecha, avisar a Claude para recalcular y re-renderizar (`PUB` en `scenes.mjs`).
 
 ## Título (≤ 40 caracteres; `crecimiento.py titulo` sin avisos)
 - **El espía español que inventó 27 espías** (38)
@@ -33,7 +33,7 @@ Fuentes:
 Garbo, Joan Pujol, Juan Pujol García, espía español, espía doble, Segunda Guerra Mundial, Día D, Normandía, Calais, MI5, Historias Sin Cabeza, El Becario, historias reales, curiosidades, historia
 
 ## Comentario fijado
-Pagaban a 27 espías que no existían. Yo existo y llevo 224 días sin cobrar. 🕵️
+Pagaban a 27 espías que no existían. Yo existo y llevo 223 días sin cobrar. 🕵️
 ¿Qué otra historia de un español que la lió parda queréis que abra el Becario? 👇
 
 ## TikTok / Instagram (texto)

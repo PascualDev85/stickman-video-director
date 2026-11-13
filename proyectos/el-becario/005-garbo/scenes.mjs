@@ -233,7 +233,7 @@ shot(48.60, 50.84, d => [camF([...spyRoom(d), ...tablon(d, {bags: () => 0, stamp
 // 50.84–LOOP · «Yo existo. [beat] Y nada.» — su ficha «BECARIO · EXISTE» sin saco; contador DÍAS SIN COBRAR; la cámara vuelve al tablón (bucle).
 const LOOP = VOICE;
 // Contador fijo (BIBLIA): N = 215 + días desde el 11-nov-2026 hasta la PUBLICACIÓN. Recalcular el día del render.
-const PUB = '2026-11-19', DAYS = 215 + Math.round((Date.parse(PUB) - Date.parse('2026-11-11')) / 864e5);
+const PUB = '2026-11-18', DAYS = 215 + Math.round((Date.parse(PUB) - Date.parse('2026-11-11')) / 864e5);
 const counter = (n, o = {}) => G([R(-210, -46, 420, 92, {radius: 10, fill: '#fff6d6', stroke: RED, lineWidth: 8}), ctext(`DÍAS SIN COBRAR: ${n}`, 0, -30, 40, {maxW: 380, color: RED})], o);
 const fichaBecario = o => G([R(-150, -380, 300, 400, {radius: 10, fill: '#fff6d6', lineWidth: 8}), R(-110, -340, 220, 220, {radius: 8, fill: '#c9d6e3', lineWidth: 6}),
   E(0, -230, 120, 110, {lineWidth: 6}), S([['M', -40, -282], ['L', -26, -312], ['L', -10, -286], ['L', 6, -318], ['L', 22, -286], ['L', 40, -300], ['L', 42, -276], ['Z']], INK, {lineWidth: 4}),

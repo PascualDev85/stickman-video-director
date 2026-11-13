@@ -14,7 +14,7 @@ Para arrancar: «Sigue con el EXPEDIENTE 005: lee `proyectos/el-becario/005-garb
 - `voz.py words`: arreglado «cero cero cinco:» → «005:» (antes salía «00cinco:» si había puntuación).
 - SFX: reutilizados whoosh/drop/stamp/scratch/crickets/monedas (004) + medalla (003); nuevos portazo y puf (ElevenLabs, 2 × 17 créditos, flow «EXP 005 Garbo - voz»); morse sintetizado con ffmpeg.
 - Música: la del 001 (familia «estafas y pícaros») → `music-duck.wav` (`--duck 0.35 --quiet 47.5-51.6`, gain 0.2; medido con `oido.py`).
-- Contador DÍAS SIN COBRAR: `PUB = '2026-11-19'` (223→224). **Recalcular si cambia la fecha de publicación.**
+- Contador DÍAS SIN COBRAR: `PUB = '2026-11-18'` (222→223). **Recalcular si cambia la fecha de publicación.**
 - QA: `node ../herramientas/hoja.mjs project.json hoja.png --w 200 --cols 8 --at 0.6`.
 
 ## Autocrítica v1 (~7,5/10)

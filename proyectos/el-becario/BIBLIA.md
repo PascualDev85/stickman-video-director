@@ -192,7 +192,7 @@ Ignorar: términos de búsqueda (en Shorts son ruido), impresiones/CTR de miniat
 | 002 | Mike, el pollo sin cabeza (1945–1947) | Final aprobado (v10); publicar mié 11-nov 20:00 |
 | 003 | La guerra de los emús (1932) | Programado con vidIQ vie 13-nov 19:00 (YT/TikTok/IG) |
 | 004 | La Guerra de los Pasteles (1838-39): la pierna de Santa Anna | Final aprobado (13-nov); publicar lun 16-nov |
-| 005 | Garbo, el español que engañó a Hitler con 27 espías inventados (Joan Pujol) | Final aprobado (13-nov, v4); publicar jue 19-nov (contador 224) |
+| 005 | Garbo, el español que engañó a Hitler con 27 espías inventados (Joan Pujol) | Final aprobado (13-nov, v4); publicar mié 18-nov (contador 223) |
 | 006 | La Guerra del Cerdo (San Juan, 1859-72): la única baja fue un cerdo | Propuesto |
 | reserva | Hiroo Onoda (29 años en la selva): tratar con cuidado, hubo víctimas civiles | Reserva |
 
