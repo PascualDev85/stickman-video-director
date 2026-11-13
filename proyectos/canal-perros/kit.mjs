@@ -342,6 +342,10 @@ export const PALETAS = {
   canela: {name: 'Canela y verde azulado', paper: '#f6f0e4', ink: '#1d1d1d', main: '#e8a33d', second: '#1f8a8a', accent: '#ec7d93', ground: '#e6dccb'},
   parque: {name: 'Parque (hierba y cielo)', paper: '#f3f7ee', ink: '#1d1d1d', main: '#5aa469', second: '#8fd3f4', accent: '#c8e04a', ground: '#b9d99a'},
   noche:  {name: 'Collar azul noche', paper: '#fbf3e6', ink: '#1d1d1d', main: '#2c3a4d', second: '#f08a24', accent: '#7fd1b9', ground: '#e8dccb'},
+  // v2 (13-nov-2026, David pidió lila claro): onMain = color del texto sobre `main` cuando main es claro.
+  lilaCielo:  {name: 'Lila y azul cielo (+ mantequilla)', paper: '#f8f5fc', ink: '#1d1d1d', main: '#b9a3e3', second: '#7fb8e6', accent: '#ffd166', ground: '#e6def3', onMain: '#1d1d1d'},
+  lilaMenta:  {name: 'Lila y menta (+ rosa)', paper: '#faf7fc', ink: '#1d1d1d', main: '#c3b1e1', second: '#6cc9ad', accent: '#ff9fb2', ground: '#dff0e7', onMain: '#1d1d1d'},
+  lavanda:    {name: 'Lavanda, azul y melocotón', paper: '#fbf6f1', ink: '#1d1d1d', main: '#a48ad6', second: '#5c9ded', accent: '#ffb38a', ground: '#ebe3f5', onMain: '#ffffff'},
 };
 /**
  * Ficha del estudio: tarjeta con universidad + revista + año que entra desde abajo y recibe un sello de huella.
@@ -355,7 +359,7 @@ export function studyCard({x = 640, y = 400, scale = 1, uni = 'Universidad de Ki
   if (variant === 'carpeta') kids.push(R(-W / 2 + 20, -H / 2 - 44, 200, 70, {radius: 14, fill: pal.second, lineWidth: 8}), {type: 'text', text: label, x: -W / 2 + 46, y: -H / 2 - 38, size: 28, bold: true, color: PAPER, w: 200});
   kids.push(R(-W / 2, -H / 2, W, H, {radius: 22, fill: bg, lineWidth: 9}));
   if (variant !== 'carpeta') kids.push(R(-W / 2, -H / 2, W, 74, {radius: 22, fill: pal.main, lineWidth: 9}), R(-W / 2 + 5, -H / 2 + 40, W - 10, 30, {radius: 0, fill: pal.main, stroke: 'none'}),
-    {type: 'text', text: label, x: -W / 2 + 30, y: -H / 2 + 14, size: 40, bold: true, color: PAPER, w: 400});
+    {type: 'text', text: label, x: -W / 2 + 30, y: -H / 2 + 14, size: 40, bold: true, color: pal.onMain || PAPER, w: 400});
   else kids.push(...[0, 1, 2].map(i => P([['M', -W / 2 + 30, -H / 2 + 80 + i * 70], ['L', W / 2 - 30, -H / 2 + 80 + i * 70]], {stroke: pal.second, lineWidth: 3, alpha: 0.5})));
   const ty = variant === 'carpeta' ? -H / 2 + 30 : -H / 2 + 100;
   kids.push({type: 'text', text: uni, x: -W / 2 + 30, y: ty, size: 44, bold: true, color: fg, w: W - 60},

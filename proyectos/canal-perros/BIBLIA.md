@@ -63,13 +63,12 @@ Dúo cómico: una explica, el otro la lía. Le cuentan a los humanos lo que sus 
 - Si es hipótesis y no resultado («los perros huelen el paso del tiempo»), se dice así, una vez.
 - Descripción del vídeo: estudio(s) citados con enlace + «Contenido divulgativo; no sustituye a un veterinario o etólogo.»
 
-## Identidad visual [PENDIENTE: confirmar con David]
-- Estilo B3 (vectorial plano, contorno negro grueso, colores sólidos), como El Becario, pero con paleta propia para no confundir los canales. Propuesta: canela `#e8a33d`, verde azulado `#1f8a8a`, tinta `#1d1d1d`, papel `#f6f0e4`.
-- Recurso fijo propuesto: «ficha del estudio» (tarjeta con universidad + año) que entra con un sello de huella.
-- **Propuestas v1 (13-nov-2026) [PENDIENTE: elegir David]** — hoja `branding/identidad-v1.png` (`node identidad.mjs`):
-  - **Paletas** (`PALETAS` en kit.mjs): A «Canela y verde azulado» (#e8a33d / #1f8a8a / rosa lengua #ec7d93 / papel #f6f0e4) · B «Parque» (verde hierba #5aa469 / cielo #8fd3f4 / amarillo pelota #c8e04a) · C «Collar azul noche» (#2c3a4d / naranja #f08a24 / menta #7fd1b9). Recomendación: **A** (cálida como el pelo de los dos, y no se confunde con el amarillo y rojo de El Becario).
-  - **Ficha del estudio** (`studyCard({uni, journal, year, pal, variant, at})`): A ficha con cabecera de color · B carpeta con pestaña · C oscura. Entra desde abajo y a los 0,35 s le cae un sello de huella. Recomendación: **A** (es la que mejor se lee en el móvil).
-  - **Portada tipo 9:16**: título de 3 líneas arriba, con la última palabra en color de acento, Layla y Dobby de frente abajo y una etiqueta con lugar y año; todo dentro del recorte 3:4. Variantes A (rayos), B (con la ficha) y C (fondo de huellas).
+## Identidad visual (elegida por David, 13-nov-2026)
+- Estilo B3 (vectorial plano, contorno negro grueso, colores sólidos), como El Becario, con paleta propia para no confundir los canales.
+- **Paleta D «Lila y azul cielo»** (`PALETAS.lilaCielo` en kit.mjs): principal lila claro `#b9a3e3` · segundo azul cielo `#7fb8e6` · acento amarillo mantequilla `#ffd166` (la palabra clave del título, la huella) · papel `#f8f5fc` · suelo `#e6def3` · tinta `#1d1d1d`. Sobre el lila, texto en tinta (`onMain`), no en blanco.
+- **Ficha del estudio:** variante `ficha` (cabecera de color): `studyCard({uni, journal, year, pal: PALETAS.lilaCielo, variant: 'ficha', at})`. Entra desde abajo y a los 0,35 s le cae un sello de huella.
+- **Portada tipo 9:16:** fondo lila con rayos, título de 3 líneas arriba con la última palabra en amarillo, etiqueta con lugar y año, Layla y Dobby de frente abajo; todo dentro del recorte 3:4.
+- Hoja: `branding/identidad-v2.png` (`node identidad.mjs salida.png lilaCielo,lilaMenta,lavanda 'título' DEF`). Descartadas: v1 (canela, parque, noche) y las variantes E (lila y menta) y F (lavanda).
 
 ## Prueba de 15 (rueda de pilares: experimento → razas → mito → historia; número del banco entre paréntesis)
 Decidido con David (13-nov-2026): en la prueba, 4 experimentos, 4 de razas, 4 mitos y 3 historias, para poder comparar pilares con 3-4 vídeos cada uno. El 50/25/15/10 se aplica **después**, con los datos. Cada uno: gancho definitivo con 5 fórmulas de `ganchos.json` + `crecimiento.py gancho`; datos verificados en la fuente primaria.
@@ -100,9 +99,9 @@ Primeros en entrar después de la prueba: humano favorito (6), si lloras (7), se
 Mismo proceso, comandos y lecciones que El Becario (`proyectos/el-becario/BIBLIA.md`, sección «Producción»). Herramientas compartidas en `proyectos/el-becario/herramientas/`.
 
 ### Antes del episodio 001 (una sesión cada uno)
-1. ~~Nombre (LayBo), gag de cierre y fotos~~ hecho 12-nov-2026. Fotos clasificadas (`branding/fotos/Layla`, `Dobby`, `referencia`). Falta: elegir voces.
+1. ~~Nombre (LayBo), gag de cierre y fotos~~ hecho 12-nov-2026. Fotos clasificadas (`branding/fotos/Layla`, `Dobby`, `referencia`). Voces elegidas 13-nov-2026 (Sofia y Franco).
 2. ~~`kit.mjs`: Layla y Dobby articulados + hoja de personajes~~ aprobado 12-nov-2026 (v4, `node hoja-personajes.mjs`). Las poses «panza arriba» y «dando la pata» (pose `pata`) se rehicieron el 13-nov-2026 (hoja v5, `branding/hoja-personajes-v5.png`).
-3. Paleta, ficha del estudio y portada tipo.
+3. ~~Paleta, ficha del estudio y portada tipo~~ elegida 13-nov-2026 (paleta D, ver «Identidad visual»).
 4. Episodio 001 con el proceso normal.
 
 ### Lecciones
