@@ -74,13 +74,13 @@ Mismo proceso, comandos y lecciones que El Becario (`proyectos/el-becario/BIBLIA
 
 ### Antes del episodio 001 (una sesión cada uno)
 1. ~~Nombre (LayBo), gag de cierre y fotos~~ hecho 12-nov-2026. Fotos clasificadas (`branding/fotos/Layla`, `Dobby`, `referencia`). Falta: elegir voces.
-2. ~~`kit.mjs`: Layla y Dobby articulados + hoja de personajes~~ aprobado 12-nov-2026 (v4, `node hoja-personajes.mjs`). **Pendiente (no urgente, cuando un guion lo pida):** rehacer las poses «panza arriba» (apenas se ven las patas) y «dando la pata» (parece medio de pie, debería estar sentado con una pata levantada).
+2. ~~`kit.mjs`: Layla y Dobby articulados + hoja de personajes~~ aprobado 12-nov-2026 (v4, `node hoja-personajes.mjs`). Las poses «panza arriba» y «dando la pata» (pose `pata`) se rehicieron el 13-nov-2026 (hoja v5, `branding/hoja-personajes-v5.png`).
 3. Paleta, ficha del estudio y portada tipo.
 4. Episodio 001 con el proceso normal.
 
 ### Lecciones
 - Kit (12-nov-2026): las fotos de frente mandan sobre la descripción escrita (Layla tenía «máscara en el hocico» en el texto y en realidad tiene hocico blanco con labios negros y sombra en los ojos). Antes de dibujar un personaje, pedir 1 foto sonriendo y 1 seria de frente.
-- Kit: uso → `dog({who, pose, expr, talk: mouth(a,b), idle, wag, walk, prop, flip})` y `dogFront({...})`. Poses: pie, sentado, tumbado, carrera, salto, agachado, panza. Expresiones: reposo (sonrisa), contenta, seria, habla, reojo, boba, dormido, miedo, caza, carinosa. Props: `ball`, `stick`, `fly`, `wagLines`.
+- Kit: uso → `dog({who, pose, expr, talk: mouth(a,b), idle, wag, walk, prop, flip})` y `dogFront({...})`. Poses: pie, sentado, pata (sentado dando la pata), tumbado, carrera, salto, agachado, panza. Ajustes finos por plano con `legs: {fN: [hombro, muñeca], bN: [cadera, rodilla, corvejón]}`. Expresiones: reposo (sonrisa), contenta, seria, habla, reojo, boba, dormido, miedo, caza, carinosa. Props: `ball`, `stick`, `fly`, `wagLines`.
 
 ## Orden de episodios
 (Vacío.)

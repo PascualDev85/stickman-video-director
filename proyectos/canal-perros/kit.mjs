@@ -34,7 +34,8 @@ export const POSES = {
   carrera:  {body: -6,  fN: [-62, 30],  fF: [-48, 50],  bN: [38, 30, -20],   bF: [52, 20, -10],   head: 4,   tail: -18},
   salto:    {body: -22, fN: [-118, 120], fF: [-104, 112], bN: [40, 40, -14], bF: [54, 30, -6],    head: -6,  tail: -26},
   agachado: {body: 9,   fN: [-14, 24],  fF: [-20, 28],  bN: [-58, 104, -52], bF: [-52, 100, -54], head: 22,  tail: 150, ground: true},
-  panza:    {body: 0,   fN: [-40, 100], fF: [-20, 90],  bN: [-60, 110, -50], bF: [-40, 100, -60], head: 150, tail: -40, belly: true},
+  pata:     {body: -54, fN: [-30, 50],  fF: [44, 20],   bN: [-26, 132, -150], bF: [-22, 130, -152], head: 24, tail: 110, ground: true, sit: true, butt: true},
+  panza:    {body: 0,   fN: [-14, 100], fF: [4, 92],    bN: [-34, 84, -46],  bF: [-10, 74, -56], head: 118, tail: -40, belly: true},
 };
 
 // ---------- geometría ----------
@@ -226,8 +227,8 @@ export function dog({who = 'layla', x = 0, y = 0, scale = 1, flip = false, pose 
   let dy = 0;
   if (p.ground) {
     const feet = [tip(g.fP, g.fL, p.fN), tip(g.fP, g.fL, p.fF), tip(g.bP, g.bL, p.bN), tip(g.bP, g.bL, p.bF)].map(t => rot(t, bodyA, piv)[1] + g.fW[1][1] * 0.75);
-    const torsoLow = p.lie ? rot([0, ycb], bodyA, piv)[1] + 6 : -Infinity;
-    dy = -Math.max(...feet, torsoLow);
+    const torsoLow = p.lie ? rot([0, ycb], bodyA, piv)[1] + 6 : p.butt ? rot([-B - 14, ycb - D * 0.3], bodyA, piv)[1] + 4 : -Infinity;
+    dy = p.butt ? -torsoLow : -Math.max(...feet, torsoLow);
   } else if (pose === 'salto') dy = -120;
   else if (pose === 'carrera') dy = -40;
   const snore = zzz ? [zzzLayer(dur || 3, who)] : [];

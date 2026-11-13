@@ -34,14 +34,14 @@ const panels = [
   ['DOBBY · panza arriba', [...bg(), dog({who: 'dobby', x: 620, y: G0, scale: 1.4, pose: 'panza', expr: 'boba'})]],
   ['DOBBY · cazando una mosca', [...bg(), dog({who: 'dobby', x: 560, y: G0, scale: 1.3, pose: 'salto', expr: 'caza'}), fly({x: 1010, y: 300, scale: 1.6})]],
   ['DOBBY · besito a Layla (pesado)', [...bg(), dog({who: 'layla', x: 860, y: G0, scale: 1.15, flip: true, expr: 'seria', headAngle: 10}), dog({who: 'dobby', x: 400, y: G0, scale: 1.1, expr: 'carinosa', tongue: true, headAngle: -4})]],
-  ['DOBBY · dando la pata (caricias ya)', [...bg(), person({who: 'civil', x: 1000, y: G0, scale: 1.1, expr: 'sorpresa'}), dog({who: 'dobby', x: 480, y: G0, scale: 1.2, pose: 'sentado', expr: 'boba', legs: {fN: [-70, 30]}})]],
+  ['DOBBY · dando la pata (caricias ya)', [...bg(), person({who: 'civil', x: 1000, y: G0, scale: 1.1, expr: 'sorpresa'}), dog({who: 'dobby', x: 480, y: G0, scale: 1.2, pose: 'pata', expr: 'boba'})]],
   ['DOBBY · asustado (detrás de Layla)', [...bg(), dog({who: 'dobby', x: 420, y: G0, scale: 1.25, pose: 'agachado', expr: 'miedo'}), dog({who: 'layla', x: 800, y: G0, scale: 1.3, expr: 'seria'}), fly({x: 1120, y: 520, scale: 1.3})]],
 ];
 
 const cols = 6, lab = 46, pad = 8, rows = Math.ceil(panels.length / cols), head = 80;
 const sheet = createCanvas(cols * (PX + pad) + pad, head + rows * (PX + lab + pad) + pad), ctx = sheet.getContext('2d');
 ctx.fillStyle = '#1d1d1d'; ctx.fillRect(0, 0, sheet.width, sheet.height);
-ctx.fillStyle = '#fff'; ctx.font = '700 40px Hoja'; ctx.fillText('LayBo — hoja de personajes v4 (cartoon realista) (Layla y Dobby) · para aprobar', pad + 10, 54);
+ctx.fillStyle = '#fff'; ctx.font = '700 40px Hoja'; ctx.fillText('LayBo — hoja de personajes v5 (cartoon realista) (Layla y Dobby) · para aprobar', pad + 10, 54);
 for (let i = 0; i < panels.length; i++) {
   const [label, layers] = panels[i], x = pad + (i % cols) * (PX + pad), y = head + Math.floor(i / cols) * (PX + lab + pad);
   ctx.drawImage(await panel(layers), x, y, PX, PX);
