@@ -9,7 +9,7 @@ Documento de referencia para cada episodio. Lo que está aquí está decidido sa
 - **Público:** adultos de España y Latinoamérica con perro (o que quieren uno). Contenido **no infantil** (marcar «no es para niños» al subir).
 - **Idioma:** español neutro. Si funciona, doblaje al inglés con ElevenLabs para un segundo canal.
 - **Duración:** 50–60 s. Nunca más de 60 s sin motivo (retención y Content ID).
-- **Formato:** solo Shorts por ahora. Los temas de 10-18 min de vídeos largos se condensan en **un solo giro** por Short; si un tema da para más, se hace en dos partes («Parte 1/2» solo si la primera se sostiene sola).
+- **Formato:** **Shorts primero** (prueba de 15; animar a tope es caro por minuto y así validamos temas). **Después, Shorts + largos:** con los temas que funcionen, un largo de 6-8 min (Layla y Dobby presentan y hacen los gags; el resto, ilustraciones, mapas y fichas de estudios, más barato) y de cada largo, 2-3 Shorts que lleven a él. El dinero estará en los largos (un Short paga del orden de 10 veces menos por cada mil visitas). Los temas de 10-18 min de vídeos largos se condensan en **un solo giro** por Short; si un tema da para más, se hace en dos partes («Parte 1/2» solo si la primera se sostiene sola).
 
 ## Por qué este nicho (análisis 12-nov-2026)
 - Referente: **@Tail_TheoryYT** (inglés, creado en marzo de 2026, 19,5 K subs, 22 vídeos largos, 0 Shorts). Sus éxitos: perros callejeros iguales (869 K), detectar malas personas (760 K), humano favorito (751 K), perro de guerra romano (323 K), primer golden (313 K), la pata (112 K). Lo genérico («por qué tu perro te lame/duerme contigo/te sigue») se queda en 2-3 K → **evitar el formato «por qué tu perro hace X» sin estudio ni giro**.
@@ -40,6 +40,17 @@ Dúo cómico: una explica, el otro la lía. Le cuentan a los humanos lo que sus 
   - **Dobby:** **dormido con la lengua fuera** (con ronquido animado), **sentado con cara de bobo** (ojos desenfocados, boca abierta), lengua fuera por defecto, panza arriba, cazando una mosca (salto + mordisco), asustado (orejas atrás, se esconde detrás de Layla).
 - **Fotos de referencia:** `canal-perros/branding/fotos/referencia/` (`LEEME.md` con rasgos y qué foto sirve para qué).
 
+## Línea editorial (aprobada por David, 13-nov-2026)
+- **Promesa:** «Lo que la ciencia ha descubierto de tu perro, contado por dos perros de verdad». Layla lo explica; Dobby lo demuestra sin querer (dinámica impulsivo/científica, la misma que propone el estudio de mercado).
+- **Regla de oro:** cada Short = **un estudio con nombre y año** o **una historia real documentada**, y **un giro**. Nada de «por qué tu perro hace X» sin estudio (en el referente se queda en 2-3 K).
+- **Pilares** (cada tema va en uno solo, para poder medir):
+  1. **Experimentos del día a día — 50 %** (celos, pelota, mirada…).
+  2. **Razas: las nuestras y los récords — 25 %.** Mitad serie **«La raza de Layla» / «La raza de Dobby»** (pitbull, american staff, labrador, mestizos; aunque el tema sea un mito, si va de su raza va aquí), mitad récords y rankings con giro (lo más viral en Shorts de perros según el estudio de mercado, sin verificar). Tema PPP: con estudios, solo informar, sin campaña; peleas se nombran, nunca se enseñan.
+  3. **Mitos desmontados — 15 %.**
+  4. **Historias reales — 10 %.**
+- **Banco de temas (64): `guiones/banco-de-temas.md`.** Contexto de mercado: estudio de David (13-nov, métricas sin verificar; vidIQ sin créditos hasta el 22-nov → verificar entonces).
+- **Prueba de 15 Shorts:** al terminar, comparar cada pilar con la mediana del propio canal (retención 0-3 s, % visto, suscriptores ganados) y decidir si se sigue y qué pilar crece.
+
 ## Estructura de un episodio
 1. **0–3 s — Gancho:** la promesa más fuerte, dicha y vista. El primer fotograma vale de miniatura.
 2. **3–8 s — El estudio:** quién, dónde, año («En 2015, en la Universidad de Kioto…»). La credibilidad es el sello del canal.
@@ -60,25 +71,28 @@ Dúo cómico: una explica, el otro la lía. Le cuentan a los humanos lo que sus 
   - **Ficha del estudio** (`studyCard({uni, journal, year, pal, variant, at})`): A ficha con cabecera de color · B carpeta con pestaña · C oscura. Entra desde abajo y a los 0,35 s le cae un sello de huella. Recomendación: **A** (es la que mejor se lee en el móvil).
   - **Portada tipo 9:16**: título de 3 líneas arriba, con la última palabra en color de acento, Layla y Dobby de frente abajo y una etiqueta con lugar y año; todo dentro del recorte 3:4. Variantes A (rayos), B (con la ficha) y C (fondo de huellas).
 
-## Episodios iniciales (orden propuesto; cada uno, gancho definitivo con 5 fórmulas de `ganchos.json` + `crecimiento.py gancho`)
-Los hechos de esta lista se toman de los referentes y de las fuentes que conocemos; **se verifican uno a uno al escribir cada guion**.
+## Prueba de 15 (orden; alterna pilares; el número del banco entre paréntesis)
+Cada uno: gancho definitivo con 5 fórmulas de `ganchos.json` + `crecimiento.py gancho`; datos verificados en la fuente primaria.
 
-| # | Tema | Giro / gancho de partida | Fuentes a verificar | Por qué |
-|---|---|---|---|---|
-| 001 | Tu perro sabe si alguien miente | Un desconocido señala un cubo vacío. A la segunda, el perro ya no le hace caso. | Takaoka et al., Animal Cognition 2015 (Kioto); Chijiiwa et al., Animal Behaviour 2015 (no aceptan comida de quien no ayudó a su dueño) | Referente: 760 K. Experimento visual y fácil de animar |
-| 002 | El perro que existe en todo el mundo y nadie ha criado | India, México, Egipto, Filipinas: el mismo perro. Y 3 de cada 4 perros del planeta no son mascotas. | Estudios de perros de aldea/paria (genética: Boyko, Shannon et al.); estimaciones de perros en libertad | Referente: 869 K. Gran gancho visual: el mismo perro en 4 países |
-| 003 | Por qué tu perro mira al norte al hacer caca | 70 perros, 37 razas, 2 años de observación: se alinean norte-sur. | Hart et al., Frontiers in Zoology 2013 | Gancho imbatible, humor fácil, rigor real |
-| 004 | De este cachorro vienen todos los golden | 1868, Escocia: un cachorro amarillo que nadie quería, cambiado por una deuda a un zapatero. | Historia de Nous y Dudley Marjoribanks (Guisachan); libro de cría; club de la raza | Referente: 313 K en 13 días |
-| 005 | El perro de guerra romano nunca existió | El mastín con armadura no lo describe ningún autor romano. Los perros que sí lucharon… lo hicieron contra Roma (cimbrios, 101 a. C.). | Plinio, Varrón, Columela; Vercelas 101 a. C. | Referente: 323 K. Encaja con el gusto de El Becario por la historia (sin la parte del ritual cruel) |
-| 006 | Cómo elige tu perro a su humano favorito | No es quien le da de comer. | Horn, Huber y Range, PLOS ONE 2013 (Viena, «base segura»); Nagasawa et al., Science 2015 (oxitocina por la mirada); Cook/Berns 2016 (elogio vs comida, resonancia) | Referente: 751 K |
-| 007 | Si lloras, tu perro viene a ti (aunque no seas su dueño) | Un desconocido finge llorar: el perro va a él, no al que tararea. | Custance y Mayer, Animal Cognition 2012 (Goldsmiths) | Referente (pata): 112 K. Emotivo y compartible |
-| 008 | Canelo, el perro que esperó 12 años en la puerta de un hospital | Cádiz: su dueño entró y nunca salió. Canelo esperó cada día. | Prensa española (Diario de Cádiz…); placa en Cádiz | Historia española (el «Hachiko» de España); muy compartible |
-| 009 | El perro que se sabía 1.022 palabras | Chaser, border collie: más vocabulario que muchos niños de 3 años. | Pilley y Reid, Behavioural Processes 2011 | Dato asombroso, fácil de animar |
-| 010 | Barry, el San Bernardo que salvó a 40 personas | Y la leyenda del barril de coñac que nunca llevó. | Museo de Historia Natural de Berna; Fundación Barry | Historia + mito desmontado |
+| # | Tema | Pilar |
+|---|---|---|
+| 001 | Tu perro sabe si alguien miente (1) | Experimento |
+| 002 | El perro callejero igual en todo el mundo (42) | Historia |
+| 003 | Mira al norte al hacer caca (4) | Experimento |
+| 004 | Por qué tu labrador siempre tiene hambre (59) — «La raza de Dobby» | Razas |
+| 005 | Celos: el perro de peluche (2) | Experimento |
+| 006 | La cara de culpa no es culpa (33) | Mito |
+| 007 | La mandíbula del pitbull no se bloquea (51) — «La raza de Layla» | Razas |
+| 008 | Perros «adictos» a la pelota (3) | Experimento |
+| 009 | El héroe de 1925 fue Togo, no Balto (43) | Historia |
+| 010 | El perro más rápido del mundo (21) | Razas |
+| 011 | Humano favorito: mirada y oxitocina (6) | Experimento |
+| 012 | La raza explica ~9 % (34) | Mito |
+| 013 | «La mordida más fuerte»: cifras inventadas (22) | Razas |
+| 014 | Si lloras, viene a ti (7) | Experimento |
+| 015 | Los perros se parecen a sus dueños (5) | Experimento |
 
-**Investigación 001-003 hecha (13-nov-2026): `guiones/001-003-investigacion.md`.** Tiene fuentes primarias con DOI, 15 ganchos valorados, el borrador del guion del 001 y correcciones a esta tabla. Las tres principales: en el 001 es la misma persona la que engaña una vez; en el 002 el «3 de cada 4» es una estimación; el 003 tiene una réplica fallida (Lyon, 2021/22) que hay que contar.
-
-Reserva: el mito de las «razas peligrosas» (PPP; ver Layla y Dobby), perros que sueñan (hipótesis, cuidado), cómo saben qué hora es (hipótesis del olor, Horowitz), Laika (duro: enfoque sin sufrimiento), Bobbie, el perro que cruzó EE. UU. (1924).
+**Investigación 001-003 hecha (13-nov-2026): `guiones/001-003-investigacion.md`** (fuentes con DOI, 15 ganchos puntuados, borrador del 001 y correcciones: en el 001 es la misma persona la que engaña una vez; en el 002 el «3 de cada 4» es una estimación; el 003 tiene una réplica fallida, Lyon 2021/22, que hay que contar).
 
 ## Producción
 Mismo proceso, comandos y lecciones que El Becario (`proyectos/el-becario/BIBLIA.md`, sección «Producción»). Herramientas compartidas en `proyectos/el-becario/herramientas/`.
