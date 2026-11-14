@@ -6,7 +6,11 @@ import {becario, santaAnna, remontel, oficialMx, soldadoUS, turba, orador, caseF
 import {H, GROUND, RED, YEL, tag, clamp01, captionTrack, fill, band, lin, mix, r3, eOut, eInOut, eBack, shake, sample, camF, cam, slam, popIn, flash, rays, speedLines, cloud, vignette, office, desk, emptyWallet, makeEpisode, F, bubble} from '../lib.mjs';
 import {pierna, piernaCorcho, pastel, pastelito, pasteleria, barco, smoke, canon, ataud, cojin, corona, caballo, carroza, antorcha, cartel, polloAsado, mesa, vitrina, rodillo, factura, sacoDinero, pala, atril, banderita, muleta, mar, muelle, MXG, FRB} from './props.mjs';
 
-const {WORDS, shots, shot, mouth} = makeEpisode('words.json');
+const {WORDS, shots, shot: shot0, mouth: mouth0} = makeEpisode('words.json');
+// 14-nov: fuera «Expediente cero cero cuatro» (voz 3,12–4,92 s = 1,80 s; datos 001/002: −30 pts ahí). Los tiempos de abajo son los de antes
+// y T() los desplaza: lo posterior a 4,0 adelanta 1,80 s.
+const CUT = 4.0, CUTX = 1.80, T = t => (t > CUT + 1e-6 ? r3(t - CUTX) : t);
+const shot = (a, b, f) => shot0(T(a), T(b), f), mouth = (a, b) => mouth0(T(a), T(b)), FX = (t, ...r) => F(T(t), ...r);
 const VOICE = 50.827, END = 51.45; // VOICE = duración real de narration.mp3
 
 // ---------- sets ----------
@@ -53,16 +57,8 @@ shot(0, 1.15, d => [camF(hookSet(d, {angry: true}), d, t => ({s: mix(1.0, 1.04, 
 // 1.15–2.31 · «pierna por culpa de unos» — la cámara baja a la pata de palo; etiqueta.
 shot(1.15, 2.31, d => [camF(hookSet(d, {angry: true}), d, t => ({s: mix(1.0, 1.8, eInOut(t / 0.45)), y: mix(0, -620, eInOut(t / 0.45)), x: mix(0, -280, eInOut(t / 0.45))}), SA.x + 40, SA.y - 130),
   G([tag('LA PIERNA DERECHA', 380, 58, {t0: 0.35, tilt: 3})], {x: 0})]);
-// 2.31–3.18 · «pasteles.» — zoom al pastel; Santa Anna lo señala con la muleta: bocadillo «¡Tú!».
-shot(2.31, 3.18, d => [camF(hookSet(d, {point: true}), d, t => ({s: mix(1.5, 1.6, t / d), ...shake(t, 0.05, 0.2, 10)}), CK.x + 120, CK.y - 200), bubble('¡TÚ!', 760, 560, 900, 760, 0.08, d, {size: 90})]);
-// 3.18–5.08 · «Expediente cero cero cuatro.» — carpeta cae; el Becario esconde un pastelito; sello 004.
-const HIDE = 0.9;
-shot(3.18, 5.08, d => [camF([...office(d), desk(),
-  becario({x: 300, y: GROUND - 20, scale: 1.0, expr: 'nervioso', look: 1, idle: {dur: d}, talk: mouth(3.18, 5.08),
-    poses: {R: [{t: 0, shoulder: 70, elbow: 70}, {t: HIDE, shoulder: 70, elbow: 70}, {t: r3(HIDE + 0.15), shoulder: -30, elbow: 10}]}, armR: {hold: [G([pastelito({scaleX: 0.9, scaleY: 0.9})], {y: 150, to: r3(HIDE + 0.12)})]}}),
-  G([caseFolder({x: 0, y: 0, scale: 1, label: 'EXPEDIENTE 004'})], {x: 800, y: 1010, scaleX: 0.74, scaleY: 0.74, keys: [{t: 0, y: 700, angle: deg(-14)}, {t: 0.18, y: 1010, angle: deg(-3)}, {t: 0.26, y: 980, angle: deg(-3)}, {t: 0.34, y: 1010, angle: deg(-3)}]}),
-], d, t => ({s: mix(1.12, 1.2, t / d), ...shake(t, 0.18, 0.2, 12), ...shake(t, 1.72, 0.15, 12)}), 800, 1055),
-  slam('004', 640, 520, 200, 1.8, d, {outline: true, color: RED, tilt: -8, stamp: true, from: 1.15})]);
+// 2.31–5.08(→3.28) · «pasteles.» — zoom al pastel; Santa Anna lo señala con la muleta: bocadillo «¡Tú!».
+shot(2.31, 5.08, d => [camF(hookSet(d, {point: true}), d, t => ({s: mix(1.5, 1.6, t / d), ...shake(t, 0.05, 0.2, 10)}), CK.x + 120, CK.y - 200), bubble('¡TÚ!', 760, 560, 900, 760, 0.08, d, {size: 90})]);
 // 5.08–7.95 · «Unos oficiales arrasan la pastelería de un francés.» — dos oficiales salen cargados de tartas; Remontel asoma con las manos en la cabeza.
 const cakeHold = s => [G([pastel({scaleX: s, scaleY: s}, {candle: false})], {y: 210})];
 shot(5.08, 7.95, d => [camF([...calle(d), pasteleria({x: 640, y: 1500, scaleX: 0.92, scaleY: 0.92}, {broken: true}),
@@ -150,7 +146,7 @@ shot(32.42, 33.12, d => [camF([...calle(d, {horizon: 1520}), ...[0, 1, 2].map(i 
   d, t => ({s: mix(1.32, 1.38, t / d)}), 640, 1380), ...[0, 1, 2, 3].map(i => ({...E(200 + i * 300, 260 + (i % 2) * 120, 26, 26, {fill: [RED, YEL, MXG, PAPER][i], lineWidth: 4}), keys: sample(t => ({y: 260 + (i % 2) * 120 + t * 600, a: t * 400}), 0, d)}))]);
 // 33.12–34.13 · «discursos.» — un orador en el atril; la gente se seca las lágrimas.
 shot(33.12, 34.13, d => [camF([...cementerio(d), orador({x: 520, y: 1680, scale: 1.05, expr: 'agobiado', look: 1, idle: {dur: d}, poses: {R: [{t: 0, shoulder: 60, elbow: 30}, {t: 0.3, shoulder: 140, elbow: 20}, {t: 0.6, shoulder: 100, elbow: 30}]}}), atril({x: 760, y: 1700, scaleX: 1.1, scaleY: 1.1})],
-  d, t => ({s: mix(1.0, 1.06, t / d)}), 640, 1300), bubble('Querida pierna…', 330, 600, 520, 800, 0.08, d, {size: 64, maxW: 520})]);
+  d, t => ({s: mix(1.0, 1.06, t / d)}), 640, 1300), bubble('Querida pierna…', 390, 600, 520, 800, 0.08, d, {size: 64, maxW: 520})]);
 // 34.13–35.02 · «Para una pierna.» — la pierna sobre un cojín de terciopelo, con foco.
 shot(34.13, 35.02, d => [...rays(d, '#6b4f8a', '#8a6fb0', 640, 1200, 8, 12), E(640, 1250, 1000, 1000, {fill: 'rgba(255,240,200,0.35)', stroke: 'none'}), G([cojin()], {x: 640, y: 1500, scaleX: 1.6, scaleY: 1.6, keys: sample(t => ({s: mix(1.5, 1.65, t / d)}), 0, d)}), corona({x: 640, y: 720, scaleX: 0.75, scaleY: 0.75})]);
 // 35.02–37.10 · «Hasta que una turba enfadada con él…» — multitud con antorchas y carteles.
@@ -207,15 +203,15 @@ const PUB = '2026-11-16', DAYS = 215 + Math.round((Date.parse(PUB) - Date.parse(
 const counter = (n, o = {}) => G([R(-210, -46, 420, 92, {radius: 10, fill: '#fff6d6', stroke: RED, lineWidth: 8}), ctext(`DÍAS SIN COBRAR: ${n}`, 0, -30, 40, {maxW: 380, color: RED})], o);
 shot(48.10, LOOP, d => [camF([...office(d), desk(),
   becario({x: 330, y: GROUND + 40, scale: 1.15, expr: 'cansado', look: 1, idle: {dur: d}, talk: mouth(48.10, LOOP), armR: {shoulder: 60, elbow: 70}, headKeys: [{t: 0, angle: 0}, {t: 0.3, angle: deg(10)}, {t: 1.2, angle: deg(10)}, {t: 1.5, angle: deg(-3)}]}),
-  counter(DAYS, {x: 560, y: 560, scaleX: 1.4, scaleY: 1.4, to: 0.95}), {...counter(DAYS + 1, {x: 560, y: 560}), from: 0.95, keys: sample(t => ({s: 1.4 * mix(1.35, 1, eBack((t - 0.95) / 0.2))}), 0.95, d)},
-  G([tag('NÓMINA DE NOVIEMBRE', 0, 44, {t0: 1.62, tilt: -4, color: RED})], {x: 120, y: 860}), G([P([['M', 840, 900], ['Q', 960, 920, 990, 1010]], {stroke: RED, lineWidth: 12}), S([['M', 1000, 1040], ['L', 960, 990], ['L', 1020, 990], ['Z']], RED, {lineWidth: 5})], {from: 1.75}),
+  counter(DAYS, {x: 560, y: 560, scaleX: 1.4, scaleY: 1.4, to: 0.95}), {...counter(DAYS + 1, {x: 560, y: 560}), from: 0.95, to: r3(d - 0.3), keys: sample(t => ({s: 1.4 * mix(1.35, 1, eBack((t - 0.95) / 0.2))}), 0.95, d)},
+  G([tag('NÓMINA DE NOVIEMBRE', 0, 44, {t0: 1.62, tilt: -4, color: RED})], {x: 120, y: 860, to: r3(d - 0.3)}), G([P([['M', 840, 900], ['Q', 960, 920, 990, 1010]], {stroke: RED, lineWidth: 12}), S([['M', 1000, 1040], ['L', 960, 990], ['L', 1020, 990], ['Z']], RED, {lineWidth: 5})], {from: 1.75}),
   pastel({x: 1000, y: 1150, scaleX: 0.42, scaleY: 0.42}, {flame: d}),
 ], d, t => ({s: t < d - 0.3 ? mix(1.08, 1.16, t / d) : mix(1.16, 3.4, eInOut((t - d + 0.3) / 0.3))}), 1000, 1060)]);
 // LOOP–END · Bucle: del pastelito al pastel grande del fotograma 1; termina EXACTAMENTE en la miniatura.
 shot(LOOP, END, d => [camF(hookSet(d, {angry: true}), d, t => ({s: mix(2.4, 1.0, eOut(t / (d - 0.04))), y: mix(260, 0, eOut(t / (d - 0.04)))}), CK.x, CK.y - 200), flash(0, 0.1, PAPER, 0.8), thumb(d, 0.12, r3(d - 0.16))]);
 
 // Transiciones: barrido rápido en los cortes que cambian de escenario.
-const SAME = new Set([1.15, 2.31, 12.46, 21.04, 28.07, 32.42, 37.10, 42.30, 50.95]);
+const SAME = new Set([1.15, 2.31, 12.46, 21.04, 28.07, 32.42, 37.10, 42.30, 50.95].map(T));
 const whip = (dir, d) => G(Array.from({length: 9}, (_, i) => R(0, 120 + i * 230 + (i % 3) * 40, 900 + (i % 4) * 200, 34 + (i % 3) * 14, {radius: 17, fill: PAPER, stroke: 'none'})),
   {to: Math.min(d, 0.18), keys: sample(t => ({x: dir * mix(1400, -2400, t / 0.18), alpha: 0.75 * (1 - t / 0.18)}), 0, Math.min(d, 0.18))});
 shots.forEach((sh, i) => { if (i && !SAME.has(sh.start)) sh.layers.push(whip(i % 2 ? 1 : -1, sh.end - sh.start)); });
@@ -226,19 +222,18 @@ for (const s of shots) s.layers.push(...cap(s.start, s.end));
 // Efectos: solo en silencios medidos o muy bajos. Ganancia máx. 1; ambientes ≤ 0,2; whoosh ≤ 0,25. (sfx/ pendiente)
 const has = n => fs.existsSync(`sfx/${n}.wav`);
 const sfx = [
-  F(3.1, 'whoosh', 0.2), F(3.36, 'drop', 0.25), F(4.99, 'stamp', 0.4),
-  F(5.0, 'whoosh', 0.2), F(7.9, 'whoosh', 0.15),
-  F(10.3, 'scratch', 0.4), F(11.95, 'bum', 0.3, 0.25),
-  F(14.31, 'whoosh', 0.2), F(14.56, 'bum', 0.5, 0.45),
-  F(20.35, 'canon', 0.5, 0.9),
-  F(22.3, 'whoosh', 0.15), F(23.66, 'monedas', 0.18, 0.5),
-  F(27.72, 'corneta', 0.4, 0.36),
-  F(31.65, 'cascos', 0.25, 0.75),
-    F(35.0, 'crowd', 0.18, 2.0),
-  F(43.55, 'candado', 0.5, 0.3),
-  F(46.27, 'stamp', 0.3),
-  F(48.15, 'crickets', 0.4, 0.4),
-  F(50.92, 'whoosh', 0.2),
+  FX(5.0, 'whoosh', 0.2), FX(7.9, 'whoosh', 0.15),
+  FX(10.3, 'scratch', 0.4), FX(11.95, 'bum', 0.3, 0.25),
+  FX(14.31, 'whoosh', 0.2), FX(14.56, 'bum', 0.5, 0.45),
+  FX(20.35, 'canon', 0.22, 0.6),
+  FX(22.3, 'whoosh', 0.15), FX(23.66, 'monedas', 0.35, 0.5),
+  FX(27.72, 'corneta', 0.4, 0.36),
+  FX(31.65, 'cascos', 0.45, 0.75),
+    FX(35.0, 'crowd', 0.07, 2.0),
+  FX(43.55, 'candado', 0.5, 0.3),
+  FX(46.27, 'stamp', 0.3),
+  FX(48.15, 'crickets', 0.7, 0.4),
+  FX(50.92, 'whoosh', 0.2),
 ].filter(s => has(s.path.slice(4, -4)));
 // Saneado: keys/from/to fuera del plano (humo, bandera, olas usan muestreos largos) se recortan al plano.
 const clip = (n, sp) => { if (!n || typeof n !== 'object') return n;
@@ -248,5 +243,5 @@ const clip = (n, sp) => { if (!n || typeof n !== 'object') return n;
   return n; };
 for (const s of shots) { const sp = r3(s.end - s.start); s.layers = s.layers.filter(l => !(l && l.from !== undefined && l.from >= sp)).map(l => clip(l, sp)); }
 fs.writeFileSync('project.json', JSON.stringify({version: 1, style: 'B3', width: 1080, height: 1920, fps: 30, voice: {path: 'narration.mp3', lead: 0, tail: r3(END - VOICE)}, television: {enabled: false},
-  ...(fs.existsSync('music-duck.wav') ? {music: {path: 'music-duck.wav', gain: 0.15}} : {}), burnCaptions: false, captions, shots, sfx}, null, 1));
+  ...(fs.existsSync('music-duck.wav') ? {music: {path: 'music-duck.wav', gain: 0.2}} : {}), burnCaptions: false, captions, shots, sfx}, null, 1));
 console.log('shots', shots.length, 'end', END);

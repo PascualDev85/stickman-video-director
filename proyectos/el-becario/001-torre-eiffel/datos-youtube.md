@@ -1,29 +1,27 @@
 # Datos YouTube — Vendió la Torre Eiffel… y no era suya
 
-`zTIHKPY2pyo` · publicado 2026-11-09 (hace 3.0 días) · 58s · consultado 2026-11-12
-
-> ⚠️ YouTube Analytics va con 24–72 h de retraso: con menos de 3 días las cifras están incompletas.
+`zTIHKPY2pyo` · publicado 2026-11-09 (hace 4.6 días) · 58s · consultado 2026-11-14
 
 ## Métricas
 | Métrica | Valor | Referencia Shorts |
 |---|---|---|
-| Visualizaciones | 1,478 | |
-| Visualizaciones con interacción | 899 (61 %) | cuanto más cerca de 100 %, menos deslizan |
+| Visualizaciones | 1,548 | |
+| Visualizaciones con interacción | 936 (60 %) | cuanto más cerca de 100 %, menos deslizan |
 | % medio visto | 50 % | ≥ 70 % (más de 100 % = lo vuelven a ver) |
 | Duración media vista | 28 s de 58 s | |
 | Me gusta / visualizaciones | 2.8 % | ≥ 4 % |
-| Compartidos | 2 (1.4 por 1.000) | |
+| Compartidos | 2 (1.3 por 1.000) | |
 | Comentarios | 4 | |
-| Suscriptores | +2 / −0 (1.4 por 1.000) | |
+| Suscriptores | +3 / −0 (1.9 por 1.000) | |
 
 ## De dónde vienen
 | Fuente | Vistas | % |
 |---|---|---|
-| SHORTS | 1,416 | 96 % |
-| YT_SEARCH | 23 | 2 % |
-| EXT_URL | 15 | 1 % |
-| YT_CHANNEL | 13 | 1 % |
-| YT_OTHER_PAGE | 8 | 1 % |
+| SHORTS | 1,466 | 95 % |
+| YT_SEARCH | 31 | 2 % |
+| YT_CHANNEL | 17 | 1 % |
+| EXT_URL | 17 | 1 % |
+| YT_OTHER_PAGE | 14 | 1 % |
 | SUBSCRIBER | 2 | 0 % |
 | NOTIFICATION | 1 | 0 % |
 | NO_LINK_OTHER | 0 | 0 % |
@@ -39,37 +37,37 @@
 | 4.6–8.1 s | 36 pts | plano 4 (3.95–9.25s) | Expediente cero cero uno. Yo llevo meses sin cobrar… así que quiero |
 | 8.1–11.6 s | 18 pts | plano 5 (9.25–11.42s) | que quiero saber cómo. París, mil novecientos veinticinco. Victor Lustig |
 
-- Retención relativa (frente a Shorts de duración parecida, 0,5 = media): media 0.59; por debajo de 0,35 en 5.8–12.8 s
+- Retención relativa (frente a Shorts de duración parecida, 0,5 = media): media 0.59; por debajo de 0,35 en 5.2–13.9 s
 
 <details><summary>Curva completa</summary>
 
 | s | viendo | relativa |
 |---|---|---|
-| 0.6 | 123 % | 0.56345 |
-| 2.9 | 114 % | 0.39795 |
-| 5.2 | 106 % | 0.35119999999999996 |
-| 7.5 | 79 % | 0.3415 |
-| 9.9 | 65 % | 0.34404999999999997 |
-| 12.2 | 54 % | 0.34704999999999997 |
-| 14.5 | 50 % | 0.35565 |
-| 16.8 | 48 % | 0.37065000000000003 |
-| 19.1 | 47 % | 0.3925 |
-| 21.5 | 46 % | 0.4259 |
-| 23.8 | 44 % | 0.4693 |
-| 26.1 | 43 % | 0.52285 |
-| 28.4 | 42 % | 0.5851999999999999 |
-| 30.7 | 42 % | 0.6507499999999999 |
-| 33.1 | 41 % | 0.70755 |
-| 35.4 | 40 % | 0.75065 |
-| 37.7 | 40 % | 0.7778499999999999 |
-| 40.0 | 39 % | 0.79315 |
-| 42.3 | 39 % | 0.8026 |
-| 44.7 | 38 % | 0.8044 |
-| 47.0 | 37 % | 0.80045 |
-| 49.3 | 37 % | 0.7922 |
-| 51.6 | 36 % | 0.77645 |
-| 53.9 | 35 % | 0.76195 |
-| 56.3 | 32 % | 0.77425 |
+| 0.6 | 123 % | 0.5644 |
+| 2.9 | 114 % | 0.3984 |
+| 5.2 | 106 % | 0.34975 |
+| 7.5 | 79 % | 0.33785 |
+| 9.9 | 64 % | 0.3391 |
+| 12.2 | 54 % | 0.34195 |
+| 14.5 | 50 % | 0.35105 |
+| 16.8 | 48 % | 0.36665000000000003 |
+| 19.1 | 47 % | 0.38945 |
+| 21.5 | 46 % | 0.4249 |
+| 23.8 | 45 % | 0.4711 |
+| 26.1 | 43 % | 0.526 |
+| 28.4 | 43 % | 0.58805 |
+| 30.7 | 42 % | 0.65225 |
+| 33.1 | 41 % | 0.7084 |
+| 35.4 | 41 % | 0.75065 |
+| 37.7 | 40 % | 0.7767 |
+| 40.0 | 39 % | 0.79085 |
+| 42.3 | 39 % | 0.7982 |
+| 44.7 | 38 % | 0.7979499999999999 |
+| 47.0 | 37 % | 0.79345 |
+| 49.3 | 37 % | 0.7853 |
+| 51.6 | 36 % | 0.7694000000000001 |
+| 53.9 | 35 % | 0.7551 |
+| 56.3 | 32 % | 0.76825 |
 
 </details>
 

@@ -146,6 +146,7 @@ def main():
     fr = int(0.03 * SR)  # tramos de 30 ms; solo cuentan los que tienen voz (Scribe alarga las palabras con el silencio de detrás)
     for x in W:
         i, j = int((x['s'] + lead) * SR), int((x['e'] + lead) * SR)
+        if x['e'] - x['s'] < 0.08: continue  # tramos de Scribe demasiado cortos: medida no fiable
         segs = [(k, k + fr) for k in range(i, max(i + 1, j - fr + 1), fr)]
         lv = [db(rms(V[a0:b0])) for a0, b0 in segs]
         if not lv or max(lv) < -45: continue

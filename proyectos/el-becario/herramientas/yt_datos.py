@@ -10,6 +10,7 @@ Uso (desde proyectos/el-becario/):
   python3 herramientas/yt_datos.py videos                # Shorts del canal + ids → youtube-ids.json
   python3 herramientas/yt_datos.py informe 002           # diagnóstico de un expediente (o un videoId)
   python3 herramientas/yt_datos.py canal                 # tabla comparando todos los expedientes
+  python3 herramientas/yt_datos.py audiencia             # países, edad, dispositivos, suscritos y arranque según día/hora → audiencia.md
 
 `informe` escribe NNN-slug/datos-youtube.md: métricas, fuentes de tráfico y la curva de retención
 cruzada con words.json (qué frase suena) y project.json (qué plano se ve) en cada caída.
@@ -336,6 +337,72 @@ def canal():
               f'{pct(T.get("likes", 0), n):.1f} | {1000 * T.get("shares", 0) / n if n else 0:.1f} | {1000 * T.get("subscribersGained", 0) / n if n else 0:.1f} |')
 
 
+def creport(metrics, dims=None, extra=None, start='2026-11-01', filters=None):
+    """Informe de TODO el canal (sin filtrar por vídeo)."""
+    p = dict(ids='channel==MINE', startDate=start, endDate=date.today().isoformat(), metrics=','.join(metrics))
+    if dims: p['dimensions'] = dims
+    if filters: p['filters'] = filters
+    p.update(extra or {})
+    r = get(ANALYTICS, p)
+    cols = [h['name'] for h in r.get('columnHeaders', [])]
+    return [dict(zip(cols, row)) for row in r.get('rows', [])]
+
+
+DIAS = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo']
+
+
+def audiencia():
+    """Quién ve el canal, desde dónde y cuándo: países, edad/sexo, dispositivos, suscritos o no, y cómo arranca cada vídeo
+    según el día y la hora a la que se publicó. Escribe audiencia.md. (La API no da la hora de visionado: solo el día.)"""
+    ch, vids = uploads(); ids = guess_ids(vids); inv = {v: k for k, v in ids.items()}
+    full = {}
+    for k in range(0, len(vids), 50):
+        r = get(DATA + 'videos', dict(part='snippet', id=','.join(v['id'] for v in vids[k:k + 50])))
+        full.update({v['id']: v['snippet']['publishedAt'] for v in r['items']})
+    L = [f'# Audiencia — {ch["snippet"]["title"]} · consultado {date.today().isoformat()}', '',
+         '> Analytics va con 24–72 h de retraso; con pocos vídeos, las conclusiones son orientativas.', '']
+    rows = creport(['views', 'averageViewPercentage', 'subscribersGained'], 'country', {'sort': '-views', 'maxResults': 12})
+    tot = sum(r['views'] for r in rows) or 1
+    L += ['## Países (top 12)', '| País | Vistas | % | % visto | Subs |', '|---|---|---|---|---|']
+    L += [f"| {r['country']} | {r['views']:,} | {100 * r['views'] / tot:.0f} % | {r['averageViewPercentage']:.0f} % | {r['subscribersGained']} |" for r in rows]
+    try:
+        rows = creport(['viewerPercentage'], 'ageGroup,gender', {'sort': 'ageGroup'})
+        L += ['', '## Edad y sexo (% de espectadores con sesión iniciada)', '| Edad | Hombres | Mujeres |', '|---|---|---|']
+        ages = sorted({r['ageGroup'] for r in rows})
+        for a in ages:
+            g = {r['gender']: r['viewerPercentage'] for r in rows if r['ageGroup'] == a}
+            L.append(f"| {a.replace('age', '')} | {g.get('male', 0):.1f} % | {g.get('female', 0):.1f} % |")
+    except RuntimeError as e:
+        L += ['', f'Edad y sexo: sin datos todavía ({str(e)[:80]})']
+    rows = creport(['views', 'averageViewPercentage'], 'deviceType', {'sort': '-views'})
+    tot = sum(r['views'] for r in rows) or 1
+    L += ['', '## Dispositivos', '| Dispositivo | % vistas | % visto |', '|---|---|---|']
+    L += [f"| {r['deviceType']} | {100 * r['views'] / tot:.0f} % | {r['averageViewPercentage']:.0f} % |" for r in rows]
+    rows = creport(['views', 'averageViewPercentage'], 'subscribedStatus')
+    L += ['', '## Suscritos frente a no suscritos', '| | Vistas | % visto |', '|---|---|---|']
+    L += [f"| {r['subscribedStatus']} | {r['views']:,} | {r['averageViewPercentage']:.0f} % |" for r in rows]
+    rows = creport(['views'], 'day', {'sort': 'day'})
+    L += ['', '## Vistas por día del canal', '| Día | Vistas |', '|---|---|']
+    L += [f"| {r['day']} ({DIAS[date.fromisoformat(r['day']).weekday()]}) | {r['views']:,} |" for r in rows]
+    L += ['', '## Arranque de cada vídeo según cuándo se publicó (hora de España)',
+          '| Exp | Publicado (día y hora ES) | Día 1 | Día 2 | Día 3 |', '|---|---|---|---|---|']
+    for v in vids:
+        ts = full.get(v['id'])
+        if not ts: continue
+        utc = datetime.fromisoformat(ts.replace('Z', '+00:00'))
+        es = utc.astimezone(timezone.utc).replace(tzinfo=None)
+        es = es.replace(hour=(es.hour + 1) % 24) if True else es  # España en noviembre = UTC+1
+        try:
+            d = report(v['id'], v['published'], ['views'], 'day', {'sort': 'day'})
+        except RuntimeError:
+            d = []
+        days = [f"{x['views']:,}" for x in d[:3]] + ['—'] * (3 - len(d[:3]))
+        L.append(f"| {inv.get(v['id'], '—')} | {DIAS[utc.weekday()]} {ts[:10]} {es.hour:02d}:{es.minute:02d} | " + ' | '.join(days) + ' |')
+    out = CANAL / 'audiencia.md'
+    out.write_text('\n'.join(L) + '\n')
+    print('\n'.join(L)); print('\n→', out)
+
+
 def videos():
     ch, vids = uploads(); ids = guess_ids(vids); inv = {v: k for k, v in ids.items()}
     print(f'Canal: {ch["snippet"]["title"]}')
@@ -350,4 +417,5 @@ if __name__ == '__main__':
     elif cmd == 'videos': videos()
     elif cmd == 'informe' and len(sys.argv) > 2: informe(sys.argv[2])
     elif cmd == 'canal': canal()
+    elif cmd == 'audiencia': audiencia()
     else: print(__doc__)

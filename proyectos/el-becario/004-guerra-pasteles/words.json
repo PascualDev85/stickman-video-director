@@ -51,654 +51,644 @@
    "end": 3.077
   },
   {
-   "word": "Expediente",
-   "start": 3.178,
-   "end": 3.87
-  },
-  {
-   "word": "004.",
-   "start": 3.947,
-   "end": 5.002
-  },
-  {
    "word": "Unos",
-   "start": 5.078,
-   "end": 5.232
+   "start": 3.278,
+   "end": 3.432
   },
   {
    "word": "oficiales",
-   "start": 5.309,
-   "end": 5.848
+   "start": 3.509,
+   "end": 4.048
   },
   {
    "word": "arrasan",
-   "start": 5.963,
-   "end": 6.309
+   "start": 4.163,
+   "end": 4.509
   },
   {
    "word": "la",
-   "start": 6.386,
-   "end": 6.463
+   "start": 4.586,
+   "end": 4.663
   },
   {
    "word": "pastelería",
-   "start": 6.54,
-   "end": 7.002
+   "start": 4.74,
+   "end": 5.202
   },
   {
    "word": "de",
-   "start": 7.04,
-   "end": 7.078
+   "start": 5.24,
+   "end": 5.278
   },
   {
    "word": "un",
-   "start": 7.117,
-   "end": 7.155
+   "start": 5.317,
+   "end": 5.355
   },
   {
    "word": "francés.",
-   "start": 7.232,
-   "end": 7.912
+   "start": 5.432,
+   "end": 6.112
   },
   {
    "word": "La",
-   "start": 7.95,
-   "end": 7.988
+   "start": 6.15,
+   "end": 6.188
   },
   {
    "word": "tienda",
-   "start": 8.065,
-   "end": 8.296
+   "start": 6.265,
+   "end": 6.496
   },
   {
    "word": "no",
-   "start": 8.335,
-   "end": 8.373
+   "start": 6.535,
+   "end": 6.573
   },
   {
    "word": "valía",
-   "start": 8.45,
-   "end": 8.681
+   "start": 6.65,
+   "end": 6.881
   },
   {
    "word": "ni",
-   "start": 8.758,
-   "end": 8.835
+   "start": 6.958,
+   "end": 7.035
   },
   {
    "word": "mil",
-   "start": 8.912,
-   "end": 9.065
+   "start": 7.112,
+   "end": 7.265
   },
   {
    "word": "pesos.",
-   "start": 9.142,
-   "end": 9.725
+   "start": 7.342,
+   "end": 7.925
   },
   {
    "word": "Pide...",
-   "start": 9.802,
-   "end": 10.571
+   "start": 8.002,
+   "end": 8.771
   },
   {
    "word": "espera,",
-   "start": 10.848,
-   "end": 11.109
+   "start": 9.048,
+   "end": 9.309
   },
   {
    "word": "que",
-   "start": 11.148,
-   "end": 11.186
+   "start": 9.348,
+   "end": 9.386
   },
   {
    "word": "lo",
-   "start": 11.263,
-   "end": 11.34
+   "start": 9.463,
+   "end": 9.54
   },
   {
    "word": "leo",
-   "start": 11.417,
-   "end": 11.494
+   "start": 9.617,
+   "end": 9.694
   },
   {
    "word": "bien...",
-   "start": 11.571,
-   "end": 12.34
+   "start": 9.771,
+   "end": 10.54
   },
   {
    "word": "sesenta",
-   "start": 12.455,
-   "end": 12.878
+   "start": 10.655,
+   "end": 11.078
   },
   {
    "word": "mil.",
-   "start": 13.032,
-   "end": 13.34
+   "start": 11.232,
+   "end": 11.54
   },
   {
    "word": "Francia",
-   "start": 13.495,
-   "end": 13.802
+   "start": 11.695,
+   "end": 12.002
   },
   {
    "word": "le",
-   "start": 13.841,
-   "end": 13.879
+   "start": 12.041,
+   "end": 12.079
   },
   {
    "word": "apoya.",
-   "start": 13.956,
-   "end": 14.341
+   "start": 12.156,
+   "end": 12.541
   },
   {
    "word": "Con",
-   "start": 14.725,
-   "end": 14.879
+   "start": 12.925,
+   "end": 13.079
   },
   {
    "word": "barcos.",
-   "start": 14.956,
-   "end": 15.54
+   "start": 13.156,
+   "end": 13.74
   },
   {
    "word": "Y",
-   "start": 15.714,
-   "end": 15.729
+   "start": 13.914,
+   "end": 13.929
   },
   {
    "word": "ya",
-   "start": 15.806,
-   "end": 15.883
+   "start": 14.006,
+   "end": 14.083
   },
   {
    "word": "puestos,",
-   "start": 15.922,
-   "end": 16.498
+   "start": 14.122,
+   "end": 14.698
   },
   {
    "word": "pide",
-   "start": 16.537,
-   "end": 16.729
+   "start": 14.737,
+   "end": 14.929
   },
   {
    "word": "seiscientos",
-   "start": 16.806,
-   "end": 17.191
+   "start": 15.006,
+   "end": 15.391
   },
   {
    "word": "mil.",
-   "start": 17.268,
-   "end": 17.73
+   "start": 15.468,
+   "end": 15.93
   },
   {
    "word": "Santa",
-   "start": 17.884,
-   "end": 18.038
+   "start": 16.084,
+   "end": 16.238
   },
   {
    "word": "Anna",
-   "start": 18.153,
-   "end": 18.268
+   "start": 16.353,
+   "end": 16.468
   },
   {
    "word": "defiende",
-   "start": 18.384,
-   "end": 18.653
+   "start": 16.584,
+   "end": 16.853
   },
   {
    "word": "Veracruz...",
-   "start": 18.73,
-   "end": 19.576
+   "start": 16.93,
+   "end": 17.776
   },
   {
    "word": "y",
-   "start": 19.615,
-   "end": 19.653
+   "start": 17.815,
+   "end": 17.853
   },
   {
    "word": "un",
-   "start": 19.692,
-   "end": 19.73
+   "start": 17.892,
+   "end": 17.93
   },
   {
    "word": "cañonazo",
-   "start": 19.807,
-   "end": 20.345
+   "start": 18.007,
+   "end": 18.545
   },
   {
    "word": "le",
-   "start": 20.422,
-   "end": 20.499
+   "start": 18.622,
+   "end": 18.699
   },
   {
    "word": "alcanza",
-   "start": 20.576,
-   "end": 20.884
+   "start": 18.776,
+   "end": 19.084
   },
   {
    "word": "la",
-   "start": 20.922,
-   "end": 20.961
+   "start": 19.122,
+   "end": 19.161
   },
   {
    "word": "pierna.",
-   "start": 21.038,
-   "end": 21.563
+   "start": 19.238,
+   "end": 19.763
   },
   {
    "word": "Se",
-   "start": 21.602,
-   "end": 21.64
+   "start": 19.802,
+   "end": 19.84
   },
   {
    "word": "la",
-   "start": 21.717,
-   "end": 21.768
+   "start": 19.917,
+   "end": 19.968
   },
   {
    "word": "amputan.",
-   "start": 21.82,
-   "end": 22.28
+   "start": 20.02,
+   "end": 20.48
   },
   {
    "word": "México",
-   "start": 22.453,
-   "end": 22.838
+   "start": 20.653,
+   "end": 21.038
   },
   {
    "word": "acaba",
-   "start": 22.915,
-   "end": 23.222
+   "start": 21.115,
+   "end": 21.422
   },
   {
    "word": "aceptando",
-   "start": 23.299,
-   "end": 23.684
+   "start": 21.499,
+   "end": 21.884
   },
   {
    "word": "pagar.",
-   "start": 23.761,
-   "end": 24.145
+   "start": 21.961,
+   "end": 22.345
   },
   {
    "word": "Pero",
-   "start": 24.343,
-   "end": 24.43
+   "start": 22.543,
+   "end": 22.63
   },
   {
    "word": "lo",
-   "start": 24.507,
-   "end": 24.584
+   "start": 22.707,
+   "end": 22.784
   },
   {
    "word": "raro",
-   "start": 24.661,
-   "end": 24.892
+   "start": 22.861,
+   "end": 23.092
   },
   {
    "word": "empieza",
-   "start": 24.968,
-   "end": 25.353
+   "start": 23.168,
+   "end": 23.553
   },
   {
    "word": "ahora.",
-   "start": 25.43,
-   "end": 25.738
+   "start": 23.63,
+   "end": 23.938
   },
   {
    "word": "La",
-   "start": 25.935,
-   "end": 26.012
+   "start": 24.135,
+   "end": 24.212
   },
   {
    "word": "entierra",
-   "start": 26.166,
-   "end": 26.551
+   "start": 24.366,
+   "end": 24.751
   },
   {
    "word": "con",
-   "start": 26.628,
-   "end": 26.705
+   "start": 24.828,
+   "end": 24.905
   },
   {
    "word": "honores",
-   "start": 26.782,
-   "end": 27.012
+   "start": 24.982,
+   "end": 25.212
   },
   {
    "word": "militares.",
-   "start": 27.089,
-   "end": 27.858
+   "start": 25.289,
+   "end": 26.058
   },
   {
    "word": "A",
-   "start": 28.074,
-   "end": 28.089
+   "start": 26.274,
+   "end": 26.289
   },
   {
    "word": "la",
-   "start": 28.166,
-   "end": 28.243
+   "start": 26.366,
+   "end": 26.443
   },
   {
    "word": "pierna.",
-   "start": 28.32,
-   "end": 28.705
+   "start": 26.52,
+   "end": 26.905
   },
   {
    "word": "Años",
-   "start": 28.899,
-   "end": 29.053
+   "start": 27.099,
+   "end": 27.253
   },
   {
    "word": "después,",
-   "start": 29.13,
-   "end": 29.592
+   "start": 27.33,
+   "end": 27.792
   },
   {
    "word": "la",
-   "start": 29.63,
-   "end": 29.668
+   "start": 27.83,
+   "end": 27.868
   },
   {
    "word": "desentierra",
-   "start": 29.745,
-   "end": 30.207
+   "start": 27.945,
+   "end": 28.407
   },
   {
    "word": "para",
-   "start": 30.284,
-   "end": 30.361
+   "start": 28.484,
+   "end": 28.561
   },
   {
    "word": "un",
-   "start": 30.438,
-   "end": 30.515
+   "start": 28.638,
+   "end": 28.715
   },
   {
    "word": "segundo",
-   "start": 30.592,
-   "end": 30.976
+   "start": 28.792,
+   "end": 29.176
   },
   {
    "word": "funeral:",
-   "start": 31.053,
-   "end": 31.615
+   "start": 29.253,
+   "end": 29.815
   },
   {
    "word": "carroza,",
-   "start": 31.692,
-   "end": 32.308
+   "start": 29.892,
+   "end": 30.508
   },
   {
    "word": "desfile,",
-   "start": 32.423,
-   "end": 33.0
+   "start": 30.623,
+   "end": 31.2
   },
   {
    "word": "discursos.",
-   "start": 33.115,
-   "end": 33.846
+   "start": 31.315,
+   "end": 32.046
   },
   {
    "word": "Para",
-   "start": 34.128,
-   "end": 34.154
+   "start": 32.328,
+   "end": 32.354
   },
   {
    "word": "una",
-   "start": 34.231,
-   "end": 34.385
+   "start": 32.431,
+   "end": 32.585
   },
   {
    "word": "pierna.",
-   "start": 34.462,
-   "end": 34.93
+   "start": 32.662,
+   "end": 33.13
   },
   {
    "word": "Hasta",
-   "start": 35.024,
-   "end": 35.255
+   "start": 33.224,
+   "end": 33.455
   },
   {
    "word": "que",
-   "start": 35.293,
-   "end": 35.332
+   "start": 33.493,
+   "end": 33.532
   },
   {
    "word": "una",
-   "start": 35.408,
-   "end": 35.562
+   "start": 33.608,
+   "end": 33.762
   },
   {
    "word": "turba",
-   "start": 35.639,
-   "end": 35.87
+   "start": 33.839,
+   "end": 34.07
   },
   {
    "word": "enfadada",
-   "start": 35.947,
-   "end": 36.332
+   "start": 34.147,
+   "end": 34.532
   },
   {
    "word": "con",
-   "start": 36.408,
-   "end": 36.562
+   "start": 34.608,
+   "end": 34.762
   },
   {
    "word": "él...",
-   "start": 36.678,
-   "end": 36.947
+   "start": 34.878,
+   "end": 35.147
   },
   {
    "word": "la",
-   "start": 36.985,
-   "end": 37.024
+   "start": 35.185,
+   "end": 35.224
   },
   {
    "word": "desentierra",
-   "start": 37.101,
-   "end": 37.716
+   "start": 35.301,
+   "end": 35.916
   },
   {
    "word": "otra",
-   "start": 37.793,
-   "end": 38.024
+   "start": 35.993,
+   "end": 36.224
   },
   {
    "word": "vez",
-   "start": 38.101,
-   "end": 38.332
+   "start": 36.301,
+   "end": 36.532
   },
   {
    "word": "y",
-   "start": 38.408,
-   "end": 38.447
+   "start": 36.608,
+   "end": 36.647
   },
   {
    "word": "la",
-   "start": 38.485,
-   "end": 38.562
+   "start": 36.685,
+   "end": 36.762
   },
   {
    "word": "pasea",
-   "start": 38.639,
-   "end": 38.908
+   "start": 36.839,
+   "end": 37.108
   },
   {
    "word": "por",
-   "start": 38.947,
-   "end": 39.024
+   "start": 37.147,
+   "end": 37.224
   },
   {
    "word": "la",
-   "start": 39.101,
-   "end": 39.178
+   "start": 37.301,
+   "end": 37.378
   },
   {
    "word": "calle.",
-   "start": 39.255,
-   "end": 39.51
+   "start": 37.455,
+   "end": 37.71
   },
   {
    "word": "¿Y",
-   "start": 39.62,
-   "end": 39.697
+   "start": 37.82,
+   "end": 37.897
   },
   {
    "word": "la",
-   "start": 39.774,
-   "end": 39.812
+   "start": 37.974,
+   "end": 38.012
   },
   {
    "word": "de",
-   "start": 39.851,
-   "end": 39.928
+   "start": 38.051,
+   "end": 38.128
   },
   {
    "word": "corcho?",
-   "start": 40.043,
-   "end": 40.4
+   "start": 38.243,
+   "end": 38.6
   },
   {
    "word": "Se",
-   "start": 40.53,
-   "end": 40.607
+   "start": 38.73,
+   "end": 38.807
   },
   {
    "word": "la",
-   "start": 40.645,
-   "end": 40.684
+   "start": 38.845,
+   "end": 38.884
   },
   {
    "word": "quitaron",
-   "start": 40.722,
-   "end": 41.068
+   "start": 38.922,
+   "end": 39.268
   },
   {
    "word": "los",
-   "start": 41.107,
-   "end": 41.145
+   "start": 39.307,
+   "end": 39.345
   },
   {
    "word": "estadounidenses,",
-   "start": 41.222,
-   "end": 42.222
+   "start": 39.422,
+   "end": 40.422
   },
   {
    "word": "dicen",
-   "start": 42.299,
-   "end": 42.453
+   "start": 40.499,
+   "end": 40.653
   },
   {
    "word": "que",
-   "start": 42.492,
-   "end": 42.53
+   "start": 40.692,
+   "end": 40.73
   },
   {
    "word": "mientras",
-   "start": 42.607,
-   "end": 42.838
+   "start": 40.807,
+   "end": 41.038
   },
   {
    "word": "comía",
-   "start": 42.915,
-   "end": 43.222
+   "start": 41.115,
+   "end": 41.422
   },
   {
    "word": "pollo.",
-   "start": 43.376,
-   "end": 43.838
+   "start": 41.576,
+   "end": 42.038
   },
   {
    "word": "Y",
-   "start": 43.902,
-   "end": 43.915
+   "start": 42.102,
+   "end": 42.115
   },
   {
    "word": "no",
-   "start": 44.068,
-   "end": 44.145
+   "start": 42.268,
+   "end": 42.345
   },
   {
    "word": "la",
-   "start": 44.222,
-   "end": 44.299
+   "start": 42.422,
+   "end": 42.499
   },
   {
    "word": "devuelven.",
-   "start": 44.376,
-   "end": 45.068
+   "start": 42.576,
+   "end": 43.268
   },
   {
    "word": "Expediente",
-   "start": 45.184,
-   "end": 45.607
+   "start": 43.384,
+   "end": 43.807
   },
   {
    "word": "cerrado.",
-   "start": 45.684,
-   "end": 46.286
+   "start": 43.884,
+   "end": 44.486
   },
   {
    "word": "Esa",
-   "start": 46.325,
-   "end": 46.517
+   "start": 44.525,
+   "end": 44.717
   },
   {
    "word": "pierna",
-   "start": 46.594,
-   "end": 46.825
+   "start": 44.794,
+   "end": 45.025
   },
   {
    "word": "tuvo",
-   "start": 46.902,
-   "end": 47.209
+   "start": 45.102,
+   "end": 45.409
   },
   {
    "word": "dos",
-   "start": 47.286,
-   "end": 47.44
+   "start": 45.486,
+   "end": 45.64
   },
   {
    "word": "funerales.",
-   "start": 47.517,
-   "end": 48.132
+   "start": 45.717,
+   "end": 46.332
   },
   {
    "word": "Yo",
-   "start": 49.094,
-   "end": 49.132
+   "start": 47.294,
+   "end": 47.332
   },
   {
    "word": "no",
-   "start": 49.171,
-   "end": 49.209
+   "start": 47.371,
+   "end": 47.409
   },
   {
    "word": "he",
-   "start": 49.248,
-   "end": 49.286
+   "start": 47.448,
+   "end": 47.486
   },
   {
    "word": "tenido",
-   "start": 49.363,
-   "end": 49.671
+   "start": 47.563,
+   "end": 47.871
   },
   {
    "word": "ni",
-   "start": 49.748,
-   "end": 49.825
+   "start": 47.948,
+   "end": 48.025
   },
   {
    "word": "una",
-   "start": 49.902,
-   "end": 50.132
+   "start": 48.102,
+   "end": 48.332
   },
   {
    "word": "nómina.",
-   "start": 50.209,
-   "end": 50.902
+   "start": 48.409,
+   "end": 49.102
   }
  ],
  "method": "ElevenLabs Scribe; acotaciones quitadas"

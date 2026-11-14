@@ -174,7 +174,7 @@ No mirar antes de 24 h ni cada hora: los datos bailan.
 | 4 | Visualizaciones | Vista general | Suben a saltos | Planas desde pronto | Si 1 y 2 están bien, es cuestión de tiempo |
 | 5 | Suscriptores ganados | Vista general | ~1 por cada 300–500 visitas | 0 con miles de visitas | Dar más presencia al Becario |
 
-**Lección 001 (datos):** después del gancho, ir directo a la historia. Nada de «Expediente NNN» + quién soy + gag del sueldo entre los segundos 4 y 10: el gag del sueldo va a mitad o al final. Pendiente confirmar con el 002 (solo dice «Expediente 002», sin sueldo).
+**Lección 001 (datos):** después del gancho, ir directo a la historia. Nada de «Expediente NNN» + quién soy + gag del sueldo entre los segundos 4 y 10: el gag del sueldo va a mitad o al final. **Confirmado con el 002 (14-nov):** solo «Expediente 002. Colorado, 1945» y aun así −30 pts en 4,5–7,5 s. Regla: **nada de «Expediente NNN» tras el gancho**; el gancho enlaza directo con la historia (005 ya sale así).
 
 Ignorar: términos de búsqueda (en Shorts son ruido), impresiones/CTR de miniatura (no aplican a Shorts) y la puntuación de vidIQ (orientativa).
 
@@ -184,6 +184,7 @@ Ignorar: términos de búsqueda (en Shorts son ruido), impresiones/CTR de miniat
 | 002 | ~1.350 (24 h, público) | ? | ? | ? | 2,4 % me gusta (001: 2,9 %). Pendiente informe con yt_datos |
 | 001 | ~1.480 (12 h) | 67,3 % | 0:28 de 0:58 (~49 %) | 2 | Gancho bueno; la historia pierde a la mitad (bloque de contexto 9–28 s muy cargado) |
 | 001 | 1.478 (3 días, yt_datos) | 61 % con interacción | 50 % | 2 | **Curva:** 106 % a los 5 s → 54 % a los 12 s. Se van en «Expediente 001. Yo llevo meses sin cobrar… así que quiero saber cómo» (−36 pts en 4,6–8,1 s). Desde los 15 s la curva es plana y la retención relativa sube a 0,8: **la historia engancha; lo que echa es la autopresentación tras el gancho** |
+| 002 | 1.350 (2,6 días, yt_datos) | 52 % con interacción | 62 % | 4 | **Curva:** 119 % a los 3 s → 76 % a los 8,5 s. Se van en «Expediente 002. Colorado, 1945» (−30 pts en 4,5–7,5 s). Desde los 15 s la relativa sube de 0,40 a 0,73: la historia engancha. 2,4 % me gusta, 0 comentarios |
 
 ## Orden de episodios
 | Nº | Historia | Estado |
@@ -191,7 +192,7 @@ Ignorar: términos de búsqueda (en Shorts son ruido), impresiones/CTR de miniat
 | 001 | El hombre que vendió la Torre Eiffel (Victor Lustig, 1925) | Publicado 9-nov-2026 |
 | 002 | Mike, el pollo sin cabeza (1945–1947) | Final aprobado (v10); publicar mié 11-nov 20:00 |
 | 003 | La guerra de los emús (1932) | Programado con vidIQ vie 13-nov 19:00 (YT/TikTok/IG) |
-| 004 | La Guerra de los Pasteles (1838-39): la pierna de Santa Anna | Final aprobado (13-nov); publicar lun 16-nov |
+| 004 | La Guerra de los Pasteles (1838-39): la pierna de Santa Anna | Final aprobado (13-nov); 14-nov: quitado «Expediente 004» tras el gancho (49,7 s). Borrador vidIQ listo; falta el «sí» de David |
 | 005 | Garbo, el español que engañó a Hitler con 27 espías inventados (Joan Pujol) | Final aprobado (13-nov, v4); publicar mié 18-nov (contador 223) |
 | 006 | La Guerra del Cerdo (San Juan, 1859-72): la única baja fue un cerdo | Propuesto |
 | reserva | Hiroo Onoda (29 años en la selva): tratar con cuidado, hubo víctimas civiles | Reserva |

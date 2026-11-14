@@ -3,7 +3,7 @@
 Para arrancar: «Sigue con el EXPEDIENTE 004: lee `proyectos/el-becario/004-guerra-pasteles/montaje.md`».
 Leer también, de la BIBLIA, solo «Densidad de humor y ritmo visual» y «Lecciones (no repetir)».
 
-## Estado (13-nov-2026): FINAL APROBADO Y RENDERIZADO → expedientes/004-guerra-pasteles/ (publicar lun 16-nov; texto en publicacion.md)
+## Estado (14-nov-2026): FINAL v4 sin «Expediente 004» (voz 3,12–4,92 s fuera; `T()` en scenes.mjs; música --duck 0.35 gain 0.2 + quiet en remates; audio con oido.py, 0 ✗) → expedientes/. Antes (13-nov): FINAL APROBADO Y RENDERIZADO → expedientes/004-guerra-pasteles/ (publicar lun 16-nov; texto en publicacion.md)
 - **v3:** Remontel en la proa con rodillo (el barco ya navega de proa), velas abombadas con vergas, caballo rehecho, cámara más cerca en calle/desfile/turba, contador DÍAS SIN COBRAR 220→221 (`PUB = '2026-11-16'` en scenes.mjs: **recalcular si cambia la fecha**) y pastel «NÓMINA DE NOVIEMBRE» en lugar de la cartera.
 - **Preview v3:** `output/preview.mp4` (51,47 s, −14,7 LUFS, zona segura **pass**, 34 planos). NO hay render final: necesita aprobación de David.
 - Voz: toma B ×1,04 + pausas recortadas (50,83 s). Original: `v1B.mp3`. Créditos ElevenLabs: 1.874 voz + 85 sfx (5 × 17).
