@@ -21,17 +21,33 @@ Documento de referencia para cada episodio. Lo que está aquí ya está decidido
 
 ## Estructura de un episodio (flexible, no plantilla rígida)
 1. **0–3 s — Gancho:** la promesa más fuerte de la historia, dicha y vista en el primer segundo. El primer fotograma debe valer como miniatura.
-2. **3–7 s — Expediente:** «Expediente cero cero X» + carpeta que cae + sello + una frase del Becario (máx. ~4 s).
-3. **Historia:** cada frase aporta información, humor o tensión. Un gag visual cada 2–3 s.
+2. **3 s en adelante — directo a la historia.** ~~«Expediente cero cero X» tras el gancho~~: **prohibido** (datos 001/002: −30/−36 pts en esos 3 s; quitado en 004 y 005). El número del expediente solo en imagen (carpeta, sello) si no frena, o al cierre.
+3. **Historia:** cada frase aporta información, humor o tensión. Un gag visual cada 2–3 s. **Bucles abiertos** (ver «Guion que retiene»).
 4. **Giro o remate:** el dato que no se espera.
 5. **Cierre fijo:** «Expediente cerrado.» + remate del Becario (por defecto: «¿Y yo? Sigo sin cobrar.»). Sello **CERRADO**.
 6. **Bucle:** el último fotograma enlaza con el primero.
+
+## Guion que retiene (añadido 15-nov; adaptado de un vídeo de un creador faceless, solo los principios, no sus cifras)
+- **El gancho cumple tres cosas en 3 s:** qué vas a ver, por qué te importa y por qué quedarte hasta el final. Y **repite la promesa del título** (si el título dice «27 espías», los primeros segundos también).
+- **Bucles abiertos encadenados:** cada vez que se cierra una pregunta, se abre otra antes de que el espectador piense «ya sé cómo acaba». Recursos que ya tenemos: los PASO 1-5 del 005, el contador de agentes, «espera, que lo leo bien…», «spoiler:», el remate que llega después del dato. Al revisar el guion, marcar dónde se abre y dónde se cierra cada pregunta: si hay un hueco de más de ~8 s sin pregunta abierta, ahí se van.
+- **Pase del «espectador que se aburre» (obligatorio, lo hace Claude antes de la voz):** leer el guion como alguien que desliza a la mínima y marcar cada frase en la que se iría (información que no aporta, contexto antes del chiste, frase que repite lo que ya se ve). Esas frases se cortan o se convierten en chiste. Se apunta en `guion.md`.
+- **Nada de relleno ni de alargar para llegar a una duración.** Mejor 42 s que retienen que 55 s con paja. La duración la manda la historia (objetivo 40-50 s).
+- **Al final, algo que pida reaccionar** (los «me gusta» van al 1-3 %, y lo bueno en Shorts es ≥ 4 %): una pregunta con respuesta fácil y opinable en el remate o en el comentario fijado, no «suscríbete».
+
+## Elegir el tema con datos, no con gusto (15-nov)
+- Antes de cada guion, 3 comprobaciones: **outliers** (vídeos con muchas más visitas que la media de su canal: el tema tira solo; `crecimiento.py virales` o vidIQ `outliers`), **temas que se repiten** en 3+ canales (es el público pidiéndolo) y **los comentarios** de esos vídeos (qué preguntan, qué echan en falta: ahí salen el gancho y el «dato que nadie cuenta»).
+- Lo que ya dice nuestro canal: el 003 (emús, absurdo que se entiende en 1 s) es el primero que salió de la tanda de prueba. Preferir historias que se entienden en una frase y son absurdas a primera vista.
+
+## Paciencia con los datos (15-nov)
+- YouTube enseña cada vídeo primero a una tanda pequeña (~1.300-1.500 en nuestro canal) y decide si lo amplía; a veces tarda días o semanas. **No borrar ni cambiar de tema por un vídeo plano**: es información para el siguiente. Cada vídeo, mejor que el anterior.
+- **Monetización:** los Shorts no suman a las 4.000 horas. Vía Shorts = 1.000 suscriptores + 10 M de visualizaciones de Shorts en 90 días. Si se quiere monetizar antes, la vía es un **vídeo largo** (4-8 min) de las historias que mejor funcionen como Short (candidatas: emús, Garbo). Decisión de David; proponerlo cuando haya 2-3 Shorts que salgan de la tanda de prueba.
+- **Pruebas A/B de título:** YouTube deja probar hasta 3 títulos (y miniaturas en vídeos largos) desde Studio en los vídeos que lo admiten; probarlo en cada vídeo donde aparezca la opción. Copiar la fórmula de los títulos ganadores, nunca el título.
 
 ## Densidad de humor y ritmo visual (lección EXP 003 v2→v3: «parece aburrido»)
 - **Un chiste cada ~5 s** (9-10 por Short), casi todos del Becario comparando con su vida laboral (impresora del Archivo, mi departamento, ni un sueldo) o de remate seco tras una pausa («Contra un pájaro… que no sabe volar»). La información va dentro del chiste, no antes.
 - **Tipos que funcionan (001-003):** comparación con el Archivo; remate tras `[beat]`; la repetición seca («Diez balas por emú. Diez.»); la autointerrupción del Becario («espera, que lo leo bien»); el «spoiler:»; la cita real absurda del protagonista.
 - **Ritmo visual:** un cambio cada 1,5-2,5 s (corte, zoom, slam, contador, sacudida, bocadillo, efecto); ningún plano quieto más de 3 s; el Becario reacciona en pantalla al menos 3 veces además del cierre.
-- **Checklist antes de la voz:** contar chistes (≥8), contar palabras (≤140 para Montero ≈ 50 s a 1,1x), comprobar que cada chiste tiene su golpe visual en el mapa.
+- **Checklist antes de la voz:** contar chistes (≥8), contar palabras (≤140 para Montero ≈ 50 s a 1,1x), comprobar que cada chiste tiene su golpe visual en el mapa, **pase del espectador que se aburre**, **bucles abiertos sin huecos de más de ~8 s**, **nada de «Expediente NNN» tras el gancho** y **pregunta o remate que pida reaccionar**.
 
 ## Rigor histórico
 - Cada dato del guion, contrastado en **al menos dos fuentes**, sin depender solo de Wikipedia.
