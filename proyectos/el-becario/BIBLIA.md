@@ -31,8 +31,29 @@ Documento de referencia para cada episodio. Lo que está aquí ya está decidido
 - **El gancho cumple tres cosas en 3 s:** qué vas a ver, por qué te importa y por qué quedarte hasta el final. Y **repite la promesa del título** (si el título dice «27 espías», los primeros segundos también).
 - **Bucles abiertos encadenados:** cada vez que se cierra una pregunta, se abre otra antes de que el espectador piense «ya sé cómo acaba». Recursos que ya tenemos: los PASO 1-5 del 005, el contador de agentes, «espera, que lo leo bien…», «spoiler:», el remate que llega después del dato. Al revisar el guion, marcar dónde se abre y dónde se cierra cada pregunta: si hay un hueco de más de ~8 s sin pregunta abierta, ahí se van.
 - **Pase del «espectador que se aburre» (obligatorio, lo hace Claude antes de la voz):** leer el guion como alguien que desliza a la mínima y marcar cada frase en la que se iría (información que no aporta, contexto antes del chiste, frase que repite lo que ya se ve). Esas frases se cortan o se convierten en chiste. Se apunta en `guion.md`.
-- **Nada de relleno ni de alargar para llegar a una duración.** Mejor 42 s que retienen que 55 s con paja. La duración la manda la historia (objetivo 40-50 s).
+- **Nada de relleno ni de alargar para llegar a una duración.** Mejor 40 s que retienen que 55 s con paja. La duración la manda la historia (objetivo 35-45 s en Shorts).
 - **Al final, algo que pida reaccionar** (los «me gusta» van al 1-3 %, y lo bueno en Shorts es ≥ 4 %): una pregunta con respuesta fácil y opinable en el remate o en el comentario fijado, no «suscríbete».
+
+## Shorts frente a vídeos largos: tácticas distintas (15-nov)
+El vídeo del creador faceless habla de **vídeos largos**. En Shorts cambia la mecánica: nadie hace clic, el vídeo arranca solo en el feed y se decide en 1-2 s.
+
+| | Shorts (lo nuestro) | Vídeo largo |
+|---|---|---|
+| Cómo llega la gente | Feed: se reproduce solo | Clic en título + miniatura |
+| Métrica que manda | **% que se queda** (frente a los que deslizan) en 1-2 s + % visto (≥ 80-100 %, con repeticiones) | CTR de la miniatura + minutos vistos (35-50 % ya es bueno) |
+| Gancho | **Visual primero**: algo se mueve y se entiende antes de 0,5 s, con el texto en pantalla; luego la frase | Promesa en los primeros 30 s, que repite título y miniatura |
+| Título y miniatura | Pesan poco (búsqueda, pestaña del canal); el primer fotograma es la «miniatura» | Lo son casi todo; pruebas A/B de títulos y miniaturas |
+| Bucles abiertos | **Una sola pregunta central** que se resuelve al final + micro-preguntas cada ~8 s | Varias preguntas grandes encadenadas durante minutos |
+| Final | **Cortar en el remate**, sin despedida: si el final enlaza con el principio, se repite y el % visto pasa del 100 % | Cierre + siguiente vídeo recomendado |
+| Duración | La más corta que cuente bien la historia (**objetivo 35-45 s**; 002 de 50 s = 62 % visto, 001 de 58 s = 50 %) | La que necesite el contenido (8-15 min), sin relleno |
+| Monetizar | 10 M de visualizaciones en 90 días (+1.000 subs) | 4.000 h (+1.000 subs) |
+| Frecuencia | Más vídeos = más oportunidades de salir de la tanda de prueba (3/semana si la calidad aguanta) | Menos vídeos, cada uno muy trabajado |
+
+**Qué cambiamos en nuestros Shorts por esto:**
+1. **El cierre se acorta.** «Expediente cerrado» + gag del sueldo + contador son 4-5 s después del remate de la historia, y es donde cae la curva (al final quedan 29 % en el 001 y 39 % en el 002). Probar en el 006: remate de la historia y gag del sueldo **en la misma frase**, y corte directo al bucle. Confirmar con la curva del 003 (cuánto se pierde en los últimos 5 s).
+2. **Objetivo 35-45 s** (≈100-120 palabras), no 50.
+3. **Primer fotograma con movimiento y texto** que se entienda sin sonido (ya lo hacemos: miniatura = fotograma 1; vigilar que algo se mueva antes de 0,5 s).
+4. **Si se hace un vídeo largo** (emús, Garbo…), enlazarlo desde el Short con «vídeo relacionado»: el Short lleva gente al largo, que es el que suma horas.
 
 ## Elegir el tema con datos, no con gusto (15-nov)
 - Antes de cada guion, 3 comprobaciones: **outliers** (vídeos con muchas más visitas que la media de su canal: el tema tira solo; `crecimiento.py virales` o vidIQ `outliers`), **temas que se repiten** en 3+ canales (es el público pidiéndolo) y **los comentarios** de esos vídeos (qué preguntan, qué echan en falta: ahí salen el gancho y el «dato que nadie cuenta»).
@@ -47,7 +68,7 @@ Documento de referencia para cada episodio. Lo que está aquí ya está decidido
 - **Un chiste cada ~5 s** (9-10 por Short), casi todos del Becario comparando con su vida laboral (impresora del Archivo, mi departamento, ni un sueldo) o de remate seco tras una pausa («Contra un pájaro… que no sabe volar»). La información va dentro del chiste, no antes.
 - **Tipos que funcionan (001-003):** comparación con el Archivo; remate tras `[beat]`; la repetición seca («Diez balas por emú. Diez.»); la autointerrupción del Becario («espera, que lo leo bien»); el «spoiler:»; la cita real absurda del protagonista.
 - **Ritmo visual:** un cambio cada 1,5-2,5 s (corte, zoom, slam, contador, sacudida, bocadillo, efecto); ningún plano quieto más de 3 s; el Becario reacciona en pantalla al menos 3 veces además del cierre.
-- **Checklist antes de la voz:** contar chistes (≥8), contar palabras (≤140 para Montero ≈ 50 s a 1,1x), comprobar que cada chiste tiene su golpe visual en el mapa, **pase del espectador que se aburre**, **bucles abiertos sin huecos de más de ~8 s**, **nada de «Expediente NNN» tras el gancho** y **pregunta o remate que pida reaccionar**.
+- **Checklist antes de la voz:** contar chistes (≥8), contar palabras (**≤120** para Montero ≈ 43 s; antes 140 ≈ 50 s), comprobar que cada chiste tiene su golpe visual en el mapa, **pase del espectador que se aburre**, **bucles abiertos sin huecos de más de ~8 s**, **nada de «Expediente NNN» tras el gancho** y **pregunta o remate que pida reaccionar**.
 
 ## Rigor histórico
 - Cada dato del guion, contrastado en **al menos dos fuentes**, sin depender solo de Wikipedia.
