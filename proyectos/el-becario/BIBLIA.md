@@ -50,7 +50,7 @@ El vídeo del creador faceless habla de **vídeos largos**. En Shorts cambia la 
 | Frecuencia | Más vídeos = más oportunidades de salir de la tanda de prueba (3/semana si la calidad aguanta) | Menos vídeos, cada uno muy trabajado |
 
 **Qué cambiamos en nuestros Shorts por esto:**
-1. **El cierre se acorta.** «Expediente cerrado» + gag del sueldo + contador son 4-5 s después del remate de la historia, y es donde cae la curva (al final quedan 29 % en el 001 y 39 % en el 002). Probar en el 006: remate de la historia y gag del sueldo **en la misma frase**, y corte directo al bucle. Confirmar con la curva del 003 (cuánto se pierde en los últimos 5 s).
+1. **El cierre se acorta.** «Expediente cerrado» + gag del sueldo + contador son 4-5 s después del remate de la historia, y es donde cae la curva (al final quedan 29 % en el 001 y 39 % en el 002). Probar en el 006: remate de la historia y gag del sueldo **en la misma frase**, y corte directo al bucle. Curva del 003: los últimos 12 s solo pierden 4 pts (31 % → 27 %), así que el cierre no es urgente; lo que más pesa sigue siendo el arranque.
 2. **Objetivo 35-45 s** (≈100-120 palabras), no 50.
 3. **Primer fotograma con movimiento y texto** que se entienda sin sonido (ya lo hacemos: miniatura = fotograma 1; vigilar que algo se mueva antes de 0,5 s).
 4. **Si se hace un vídeo largo** (emús, Garbo…), enlazarlo desde el Short con «vídeo relacionado»: el Short lleva gente al largo, que es el que suma horas.
@@ -222,6 +222,7 @@ Ignorar: términos de búsqueda (en Shorts son ruido), impresiones/CTR de miniat
 | 001 | ~1.480 (12 h) | 67,3 % | 0:28 de 0:58 (~49 %) | 2 | Gancho bueno; la historia pierde a la mitad (bloque de contexto 9–28 s muy cargado) |
 | 001 | 1.478 (3 días, yt_datos) | 61 % con interacción | 50 % | 2 | **Curva:** 106 % a los 5 s → 54 % a los 12 s. Se van en «Expediente 001. Yo llevo meses sin cobrar… así que quiero saber cómo» (−36 pts en 4,6–8,1 s). Desde los 15 s la curva es plana y la retención relativa sube a 0,8: **la historia engancha; lo que echa es la autopresentación tras el gancho** |
 | 002 | 1.350 (2,6 días, yt_datos) | 52 % con interacción | 62 % | 4 | **Curva:** 119 % a los 3 s → 76 % a los 8,5 s. Se van en «Expediente 002. Colorado, 1945» (−30 pts en 4,5–7,5 s). Desde los 15 s la relativa sube de 0,40 a 0,73: la historia engancha. 2,4 % me gusta, 0 comentarios |
+| 003 | 2.673 públicas (2,9 días; Analytics aún 1.242) | 63 % con interacción (el mejor) | 47 % | 3 | **Primero que sale de la tanda de prueba.** Curva: 116 % a los 3 s → 55 % a los 11 s. Se van en «Expediente 003. 20.000 emús…» (**−40 pts** en 5,2–8,3 s): tercera confirmación. Del s 15 al final baja suave (46 % → 27 %): el cierre no es un barranco. 1,4 % me gusta, 0 compartidos |
 
 ## Orden de episodios
 | Nº | Historia | Estado |
