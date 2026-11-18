@@ -188,8 +188,28 @@ def retime(mp3, wjson, scenes, cuts, inserts):
     print('hecho; original guardado en', tmp)
 
 
+def ritmo(src, dst, f, srt_in=None, srt_out=None):
+    """Acelera el vídeo YA montado (imagen + voz + música + SFX a la vez, sin cambiar el tono): todo sigue en
+    sincronía. El motor no cambia la velocidad del habla a propósito; esto es un paso de post. ~1,10-1,15."""
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-filter_complex',
+                    f'[0:v]setpts=PTS/{f},fps=30[v];[0:a]atempo={f}[a]', '-map', '[v]', '-map', '[a]',
+                    '-c:v', 'libx264', '-crf', '17', '-preset', 'medium', '-pix_fmt', 'yuv420p',
+                    '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', dst], check=True)
+    if srt_in:
+        def sc(m):
+            ms = (int(m[1]) * 3600 + int(m[2]) * 60 + int(m[3])) * 1000 + int(m[4])
+            ms = round(ms / f); h, ms = divmod(ms, 3600000); mi, ms = divmod(ms, 60000); s, ms = divmod(ms, 1000)
+            return f'{h:02d}:{mi:02d}:{s:02d},{ms:03d}'
+        txt = re.sub(r'(\d\d):(\d\d):(\d\d),(\d\d\d)', sc, open(srt_in).read())
+        open(srt_out, 'w').write(txt)
+    print(f'{dst} a {f}x')
+
+
 if __name__ == '__main__':
     cmd, *args = sys.argv[1:]
+    if cmd == 'ritmo':  # voz.py ritmo in.mp4 out.mp4 1.12 [in.srt out.srt]
+        ritmo(args[0], args[1], float(args[2]), *(args[3:5] if len(args) >= 5 else ()))
+        sys.exit()
     if cmd == 'words': words(args[0])
     elif cmd == 'mouth': mouth(args[0])
     elif cmd == 'gaps': gaps(args[0])

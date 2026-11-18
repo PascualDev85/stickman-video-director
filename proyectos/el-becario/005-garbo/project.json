@@ -7655,7 +7655,7 @@
             }
            ],
            "x": 640,
-           "y": 990,
+           "y": 925,
            "from": 0,
            "angle": -0.03490658503988659
           }
@@ -7668,38 +7668,38 @@
           {
            "type": "text",
            "text": "27 ESPÍAS",
-           "x": 100,
-           "y": 1050,
-           "size": 112,
+           "x": 61,
+           "y": 1030,
+           "size": 116,
            "bold": true,
            "color": "#ffd21f",
-           "w": 560,
+           "w": 579,
            "outline": "#151515",
-           "outlineWidth": 16
+           "outlineWidth": 18
           },
           {
            "type": "text",
            "text": "NINGUNO",
-           "x": 107,
-           "y": 1200,
-           "size": 104,
+           "x": 63,
+           "y": 1195,
+           "size": 110,
            "bold": true,
            "color": "#ffffff",
-           "w": 546,
+           "w": 575,
            "outline": "#151515",
-           "outlineWidth": 16
+           "outlineWidth": 18
           },
           {
            "type": "text",
            "text": "EXISTÍA",
-           "x": 175,
-           "y": 1310,
-           "size": 104,
+           "x": 109,
+           "y": 1325,
+           "size": 124,
            "bold": true,
            "color": "#ffffff",
-           "w": 411,
+           "w": 482,
            "outline": "#151515",
-           "outlineWidth": 16
+           "outlineWidth": 18
           }
          ],
          "angle": -0.06981317007977318
@@ -195432,7 +195432,7 @@
         },
         {
          "type": "text",
-         "text": "DÍAS SIN COBRAR: 222",
+         "text": "DÍAS SIN COBRAR: 223",
          "x": -180,
          "y": -30,
          "size": 34,
@@ -195463,7 +195463,7 @@
         },
         {
          "type": "text",
-         "text": "DÍAS SIN COBRAR: 223",
+         "text": "DÍAS SIN COBRAR: 224",
          "x": -180,
          "y": -30,
          "size": 34,
@@ -207427,7 +207427,7 @@
             }
            ],
            "x": 640,
-           "y": 990,
+           "y": 925,
            "from": 0,
            "angle": -0.03490658503988659
           }
@@ -207440,38 +207440,38 @@
           {
            "type": "text",
            "text": "27 ESPÍAS",
-           "x": 100,
-           "y": 1050,
-           "size": 112,
+           "x": 61,
+           "y": 1030,
+           "size": 116,
            "bold": true,
            "color": "#ffd21f",
-           "w": 560,
+           "w": 579,
            "outline": "#151515",
-           "outlineWidth": 16
+           "outlineWidth": 18
           },
           {
            "type": "text",
            "text": "NINGUNO",
-           "x": 107,
-           "y": 1200,
-           "size": 104,
+           "x": 63,
+           "y": 1195,
+           "size": 110,
            "bold": true,
            "color": "#ffffff",
-           "w": 546,
+           "w": 575,
            "outline": "#151515",
-           "outlineWidth": 16
+           "outlineWidth": 18
           },
           {
            "type": "text",
            "text": "EXISTÍA",
-           "x": 175,
-           "y": 1310,
-           "size": 104,
+           "x": 109,
+           "y": 1325,
+           "size": 124,
            "bold": true,
            "color": "#ffffff",
-           "w": 411,
+           "w": 482,
            "outline": "#151515",
-           "outlineWidth": 16
+           "outlineWidth": 18
           }
          ],
          "angle": -0.06981317007977318
