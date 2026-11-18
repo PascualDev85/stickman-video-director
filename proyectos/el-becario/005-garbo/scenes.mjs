@@ -65,9 +65,9 @@ const hookSet = (d, {bags, stamps, wink = false, officer = false, gestures, head
     armR: {shoulder: 110, elbow: 30, hold: [G([saco({scaleX: 0.6, scaleY: 0.6})], {y: 150})]}})] : []),
 ];
 const thumb = (d, fade = 0, t0 = 0) => {
-  const line = (text, y, size, color) => ({...ctext(text, 360, y, size, {maxW: 520, color}), outline: INK, outlineWidth: 16});
-  const body = G([G([tag('HISTORIA REAL · 1944', 990, 44, {pop: false, color: RED, tilt: -2})], {x: -280}),
-    G([line('27 ESPÍAS', 1050, 128, YEL), line('NINGUNO', 1200, 104, PAPER), line('EXISTÍA', 1310, 104, PAPER)], {angle: deg(-4)})]);
+  const line = (text, y, size, color) => ({...ctext(text, 330, y, size, {maxW: 540, color}), outline: INK, outlineWidth: 18});
+  const body = G([G([tag('HISTORIA REAL · 1944', 925, 44, {pop: false, color: RED, tilt: -2})], {x: -280}),
+    G([line('27 ESPÍAS', 1030, 150, YEL), line('NINGUNO', 1195, 124, PAPER), line('EXISTÍA', 1325, 124, PAPER)], {angle: deg(-4)})]);
   return fade ? G([body], {from: t0, keys: sample(t => ({alpha: (t - t0) / fade}), t0, Math.min(d, t0 + fade))}) : body;
 };
 /** Ventanita con el Becario reaccionando (de t0 al final del plano): primer plano de busto, para que se le lea la cara en el móvil. */
@@ -233,7 +233,7 @@ shot(48.60, 50.84, d => [camF([...spyRoom(d), ...tablon(d, {bags: () => 0, stamp
 // 50.84–LOOP · «Yo existo. [beat] Y nada.» — su ficha «BECARIO · EXISTE» sin saco; contador DÍAS SIN COBRAR; la cámara vuelve al tablón (bucle).
 const LOOP = VOICE;
 // Contador fijo (BIBLIA): N = 215 + días desde el 11-nov-2026 hasta la PUBLICACIÓN. Recalcular el día del render.
-const PUB = '2026-11-18', DAYS = 215 + Math.round((Date.parse(PUB) - Date.parse('2026-11-11')) / 864e5);
+const PUB = '2026-11-19', DAYS = 215 + Math.round((Date.parse(PUB) - Date.parse('2026-11-11')) / 864e5);
 const counter = (n, o = {}) => G([R(-210, -46, 420, 92, {radius: 10, fill: '#fff6d6', stroke: RED, lineWidth: 8}), ctext(`DÍAS SIN COBRAR: ${n}`, 0, -30, 40, {maxW: 380, color: RED})], o);
 const fichaBecario = o => G([R(-150, -380, 300, 400, {radius: 10, fill: '#fff6d6', lineWidth: 8}), R(-110, -340, 220, 220, {radius: 8, fill: '#c9d6e3', lineWidth: 6}),
   E(0, -230, 120, 110, {lineWidth: 6}), S([['M', -40, -282], ['L', -26, -312], ['L', -10, -286], ['L', 6, -318], ['L', 22, -286], ['L', 40, -300], ['L', 42, -276], ['Z']], INK, {lineWidth: 4}),
