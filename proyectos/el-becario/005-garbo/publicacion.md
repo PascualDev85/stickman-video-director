@@ -1,7 +1,7 @@
-# EXP 005 — Publicación (miércoles 18-nov-2026)
+# EXP 005 — Publicación (jueves 19-nov-2026, 20:00 ES)
 
 Archivos: `expedientes/005-garbo/` → `EXPEDIENTE-005-FINAL.mp4` (52,3 s), `EXPEDIENTE-005-subtitulos.srt`, `portadas-tiktok-ig/` (A «NINGUNO EXISTÍA», B «1 HOMBRE · 27 ESPÍAS»).
-⚠️ El contador del final dice **DÍAS SIN COBRAR: 223** = publicar el **18-nov**. Si cambia la fecha, avisar a Claude para recalcular y re-renderizar (`PUB` en `scenes.mjs`).
+⚠️ Contador en pantalla 223→224 = publicar el **19-nov**. Final a 1,10x (`voz.py ritmo`), portada nueva en el fotograma 0 (`portadas-tiktok-ig/exp005-portada-nueva.png`).
 
 ## Título (≤ 40 caracteres; `crecimiento.py titulo` sin avisos)
 - **El espía español que inventó 27 espías** (38)

@@ -32,6 +32,19 @@ export const camF = (layers, d, f, px = 640, py = 1000) => G(layers, {pivotX: px
 /** Default camera for a cut: 5% punch settling in 0.18 s, then a slow push. */
 export const cam = (layers, d, from = 1, to = 1.05, px = 640, py = 1000) => camF(layers, d, t => ({s: (t < 0.18 && d > 0.5 ? mix(from * 1.05, from, eOut(t / 0.18)) : mix(from, to, t / d))}), px, py);
 /** Text centred at (cx, cy) that slams in (scale `from` -> 1, ease back) at t0. */
+/** Movimientos de cámara con nombre (los 8 del videógrafo) para `camF(layers, d, move.xxx(d, ...), px, py)`. Todos opcionales; `camF`/`cam` no cambian.
+ *  pan = paneo (x), tilt (y), dolly = entrar/salir (escala), travelling = x lineal acompañando, orbit = «rodea» (x + roll leve + escala; aproximación 2D),
+ *  crane = grúa (y + escala a la vez), handheld = cámara en mano continua (a diferencia de `shake`, que solo es un golpe), zoom = cambio de lente (punch). */
+export const move = {
+  pan: (d, dx, s = 1.08, e = eInOut) => t => ({s, x: mix(-dx / 2, dx / 2, e(t / d))}),
+  tilt: (d, dy, s = 1.08, e = eInOut) => t => ({s, y: mix(-dy / 2, dy / 2, e(t / d))}),
+  dolly: (d, from = 1.0, to = 1.18, e = eInOut) => t => ({s: mix(from, to, e(t / d))}),
+  travelling: (d, dx, s = 1.1) => t => ({s, x: mix(-dx / 2, dx / 2, t / d)}),
+  orbit: (d, amp = 70, roll = 2.5, s = 1.12) => t => ({s: s + 0.03 * Math.sin(Math.PI * t / d), x: mix(-amp, amp, eInOut(t / d)), a: mix(-roll, roll, eInOut(t / d))}),
+  crane: (d, dy = 260, from = 1.0, to = 1.2) => t => ({s: mix(from, to, eInOut(t / d)), y: mix(dy / 2, -dy / 2, eInOut(t / d))}),
+  handheld: (d, amp = 7, s = 1.06) => t => ({s, x: (Math.sin(t * 7.3) * 0.6 + Math.sin(t * 13.1 + 1) * 0.4) * amp, y: (Math.sin(t * 5.9 + 2) * 0.6 + Math.sin(t * 11.7) * 0.4) * amp, a: Math.sin(t * 4.3) * 0.35}),
+  zoom: (d, from = 1.0, to = 1.35, len = 0.3) => t => ({s: t < len ? mix(from, to, eOut(t / len)) : to}),
+};
 export const layout = {titleDY: 0}; // desplaza títulos de arriba (tag y slams con cy < 760) si los subtítulos van arriba
 export function slam(text, cx, cy, size, t0, d, {color = INK, from = 1.6, tilt = 0, maxW = 900, stamp = false, until, outline = false} = {}) {
   if (cy < 760) cy += layout.titleDY;

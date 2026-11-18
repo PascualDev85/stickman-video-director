@@ -1,0 +1,600 @@
+{
+ "words": [
+  {
+   "word": "Dos",
+   "start": 0.226,
+   "end": 0.377
+  },
+  {
+   "word": "imperios.",
+   "start": 0.453,
+   "end": 1.283
+  },
+  {
+   "word": "Más",
+   "start": 1.509,
+   "end": 1.66
+  },
+  {
+   "word": "de",
+   "start": 1.736,
+   "end": 1.811
+  },
+  {
+   "word": "dos",
+   "start": 1.887,
+   "end": 1.962
+  },
+  {
+   "word": "mil",
+   "start": 2.113,
+   "end": 2.264
+  },
+  {
+   "word": "hombres.",
+   "start": 2.302,
+   "end": 2.906
+  },
+  {
+   "word": "Por",
+   "start": 3.17,
+   "end": 3.321
+  },
+  {
+   "word": "un",
+   "start": 3.396,
+   "end": 3.472
+  },
+  {
+   "word": "cerdo.",
+   "start": 3.623,
+   "end": 4.1
+  },
+  {
+   "word": "1859.",
+   "start": 4.293,
+   "end": 5.944
+  },
+  {
+   "word": "Un",
+   "start": 5.982,
+   "end": 6.02
+  },
+  {
+   "word": "granjero",
+   "start": 6.095,
+   "end": 6.397
+  },
+  {
+   "word": "americano",
+   "start": 6.472,
+   "end": 6.925
+  },
+  {
+   "word": "pilla",
+   "start": 7.076,
+   "end": 7.303
+  },
+  {
+   "word": "a",
+   "start": 7.328,
+   "end": 7.353
+  },
+  {
+   "word": "un",
+   "start": 7.378,
+   "end": 7.454
+  },
+  {
+   "word": "cerdo",
+   "start": 7.529,
+   "end": 7.831
+  },
+  {
+   "word": "comiéndose",
+   "start": 7.906,
+   "end": 8.284
+  },
+  {
+   "word": "sus",
+   "start": 8.397,
+   "end": 8.51
+  },
+  {
+   "word": "patatas.",
+   "start": 8.586,
+   "end": 9.265
+  },
+  {
+   "word": "Y",
+   "start": 9.328,
+   "end": 9.34
+  },
+  {
+   "word": "le",
+   "start": 9.378,
+   "end": 9.416
+  },
+  {
+   "word": "pega",
+   "start": 9.567,
+   "end": 9.718
+  },
+  {
+   "word": "un",
+   "start": 9.793,
+   "end": 9.869
+  },
+  {
+   "word": "tiro.",
+   "start": 9.944,
+   "end": 10.388
+  },
+  {
+   "word": "Era",
+   "start": 10.813,
+   "end": 10.964
+  },
+  {
+   "word": "de",
+   "start": 11.002,
+   "end": 11.04
+  },
+  {
+   "word": "una",
+   "start": 11.115,
+   "end": 11.191
+  },
+  {
+   "word": "empresa",
+   "start": 11.342,
+   "end": 11.493
+  },
+  {
+   "word": "británica.",
+   "start": 11.568,
+   "end": 12.398
+  },
+  {
+   "word": "Ofrece",
+   "start": 12.474,
+   "end": 12.851
+  },
+  {
+   "word": "diez",
+   "start": 12.927,
+   "end": 13.115
+  },
+  {
+   "word": "dólares.",
+   "start": 13.153,
+   "end": 13.908
+  },
+  {
+   "word": "Le",
+   "start": 13.971,
+   "end": 13.983
+  },
+  {
+   "word": "exigen",
+   "start": 14.059,
+   "end": 14.512
+  },
+  {
+   "word": "cien.",
+   "start": 14.587,
+   "end": 15.031
+  },
+  {
+   "word": "El",
+   "start": 15.106,
+   "end": 15.182
+  },
+  {
+   "word": "problema:",
+   "start": 15.257,
+   "end": 15.861
+  },
+  {
+   "word": "los",
+   "start": 15.936,
+   "end": 16.087
+  },
+  {
+   "word": "dos",
+   "start": 16.163,
+   "end": 16.238
+  },
+  {
+   "word": "países",
+   "start": 16.314,
+   "end": 16.691
+  },
+  {
+   "word": "reclamaban",
+   "start": 16.767,
+   "end": 17.219
+  },
+  {
+   "word": "aquella",
+   "start": 17.295,
+   "end": 17.521
+  },
+  {
+   "word": "isla.",
+   "start": 17.597,
+   "end": 17.985
+  },
+  {
+   "word": "Los",
+   "start": 18.061,
+   "end": 18.136
+  },
+  {
+   "word": "británicos",
+   "start": 18.212,
+   "end": 18.74
+  },
+  {
+   "word": "amenazan",
+   "start": 18.853,
+   "end": 19.193
+  },
+  {
+   "word": "con",
+   "start": 19.23,
+   "end": 19.268
+  },
+  {
+   "word": "detenerlo.",
+   "start": 19.344,
+   "end": 20.008
+  },
+  {
+   "word": "Los",
+   "start": 20.059,
+   "end": 20.109
+  },
+  {
+   "word": "americanos",
+   "start": 20.336,
+   "end": 20.713
+  },
+  {
+   "word": "mandan",
+   "start": 20.788,
+   "end": 21.015
+  },
+  {
+   "word": "soldados.",
+   "start": 21.128,
+   "end": 21.77
+  },
+  {
+   "word": "Los",
+   "start": 21.845,
+   "end": 21.921
+  },
+  {
+   "word": "británicos,",
+   "start": 21.996,
+   "end": 22.751
+  },
+  {
+   "word": "barcos.",
+   "start": 22.864,
+   "end": 23.385
+  },
+  {
+   "word": "Al",
+   "start": 23.461,
+   "end": 23.536
+  },
+  {
+   "word": "mando,",
+   "start": 23.687,
+   "end": 24.065
+  },
+  {
+   "word": "George",
+   "start": 24.14,
+   "end": 24.367
+  },
+  {
+   "word": "Pickett.",
+   "start": 24.518,
+   "end": 25.121
+  },
+  {
+   "word": "Sí,",
+   "start": 25.197,
+   "end": 25.574
+  },
+  {
+   "word": "el",
+   "start": 25.612,
+   "end": 25.65
+  },
+  {
+   "word": "de",
+   "start": 25.725,
+   "end": 25.801
+  },
+  {
+   "word": "Gettysburg.",
+   "start": 25.876,
+   "end": 26.706
+  },
+  {
+   "word": "Llega",
+   "start": 26.744,
+   "end": 26.933
+  },
+  {
+   "word": "un",
+   "start": 26.97,
+   "end": 27.008
+  },
+  {
+   "word": "almirante",
+   "start": 27.084,
+   "end": 27.461
+  },
+  {
+   "word": "británico,",
+   "start": 27.574,
+   "end": 28.291
+  },
+  {
+   "word": "mira",
+   "start": 28.329,
+   "end": 28.518
+  },
+  {
+   "word": "aquello…",
+   "start": 28.631,
+   "end": 29.272
+  },
+  {
+   "word": "y",
+   "start": 29.31,
+   "end": 29.348
+  },
+  {
+   "word": "se",
+   "start": 29.423,
+   "end": 29.574
+  },
+  {
+   "word": "niega",
+   "start": 29.65,
+   "end": 29.952
+  },
+  {
+   "word": "a",
+   "start": 29.989,
+   "end": 30.027
+  },
+  {
+   "word": "una",
+   "start": 30.102,
+   "end": 30.253
+  },
+  {
+   "word": "guerra",
+   "start": 30.329,
+   "end": 30.555
+  },
+  {
+   "word": "por",
+   "start": 30.631,
+   "end": 30.782
+  },
+  {
+   "word": "un",
+   "start": 30.819,
+   "end": 30.857
+  },
+  {
+   "word": "cerdo.",
+   "start": 31.084,
+   "end": 31.763
+  },
+  {
+   "word": "Acaban",
+   "start": 31.838,
+   "end": 32.065
+  },
+  {
+   "word": "compartiendo",
+   "start": 32.14,
+   "end": 32.593
+  },
+  {
+   "word": "la",
+   "start": 32.631,
+   "end": 32.668
+  },
+  {
+   "word": "isla",
+   "start": 32.744,
+   "end": 32.97
+  },
+  {
+   "word": "doce",
+   "start": 33.046,
+   "end": 33.272
+  },
+  {
+   "word": "años,",
+   "start": 33.348,
+   "end": 33.876
+  },
+  {
+   "word": "armados",
+   "start": 33.989,
+   "end": 34.48
+  },
+  {
+   "word": "y",
+   "start": 34.518,
+   "end": 34.555
+  },
+  {
+   "word": "sin",
+   "start": 34.631,
+   "end": 34.782
+  },
+  {
+   "word": "un",
+   "start": 34.857,
+   "end": 34.933
+  },
+  {
+   "word": "tiro.",
+   "start": 35.008,
+   "end": 35.536
+  },
+  {
+   "word": "Hasta",
+   "start": 35.574,
+   "end": 35.763
+  },
+  {
+   "word": "que",
+   "start": 35.801,
+   "end": 35.838
+  },
+  {
+   "word": "el",
+   "start": 35.876,
+   "end": 35.914
+  },
+  {
+   "word": "káiser",
+   "start": 35.989,
+   "end": 36.291
+  },
+  {
+   "word": "decide:",
+   "start": 36.367,
+   "end": 37.046
+  },
+  {
+   "word": "para",
+   "start": 37.121,
+   "end": 37.197
+  },
+  {
+   "word": "Estados",
+   "start": 37.31,
+   "end": 37.574
+  },
+  {
+   "word": "Unidos.",
+   "start": 37.65,
+   "end": 38.216
+  },
+  {
+   "word": "Bajas",
+   "start": 38.48,
+   "end": 38.706
+  },
+  {
+   "word": "militares:",
+   "start": 38.782,
+   "end": 39.612
+  },
+  {
+   "word": "cero.",
+   "start": 39.687,
+   "end": 40.216
+  },
+  {
+   "word": "El",
+   "start": 40.291,
+   "end": 40.367
+  },
+  {
+   "word": "cerdo,",
+   "start": 40.442,
+   "end": 41.046
+  },
+  {
+   "word": "una.",
+   "start": 41.121,
+   "end": 41.499
+  },
+  {
+   "word": "Por",
+   "start": 41.77,
+   "end": 41.801
+  },
+  {
+   "word": "él",
+   "start": 41.876,
+   "end": 41.952
+  },
+  {
+   "word": "pedían",
+   "start": 42.027,
+   "end": 42.329
+  },
+  {
+   "word": "cien",
+   "start": 42.404,
+   "end": 42.555
+  },
+  {
+   "word": "dólares;",
+   "start": 42.631,
+   "end": 43.31
+  },
+  {
+   "word": "por",
+   "start": 43.348,
+   "end": 43.385
+  },
+  {
+   "word": "mí,",
+   "start": 43.461,
+   "end": 43.838
+  },
+  {
+   "word": "ni",
+   "start": 43.914,
+   "end": 43.989
+  },
+  {
+   "word": "diez:",
+   "start": 44.065,
+   "end": 44.593
+  },
+  {
+   "word": "doscientos",
+   "start": 44.706,
+   "end": 45.084
+  },
+  {
+   "word": "veinticinco",
+   "start": 45.121,
+   "end": 45.65
+  },
+  {
+   "word": "días",
+   "start": 45.725,
+   "end": 45.952
+  },
+  {
+   "word": "sin",
+   "start": 46.027,
+   "end": 46.102
+  },
+  {
+   "word": "cobrar.",
+   "start": 46.178,
+   "end": 46.782
+  }
+ ],
+ "method": "ElevenLabs Scribe; acotaciones quitadas"
+}

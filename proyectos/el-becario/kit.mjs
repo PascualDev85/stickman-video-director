@@ -125,6 +125,11 @@ const OUTFITS = {
   soldadoDe1: {shirt: '#6b7563', sleeve: '#6b7563', pants: '#5a6352', shoe: INK, skin: PAPER, buttons: '#c9c9c9', hat: 'casco', hatColor: '#5f6857', torsoW: 160},
   soldadoDe2: {shirt: '#6b7563', sleeve: '#6b7563', pants: '#5a6352', shoe: INK, skin: PAPER, buttons: '#c9c9c9', hat: 'casco', hatColor: '#5f6857', stache: 'brush', torsoW: 170},
   escoces: {shirt: '#2e6b4a', sleeve: '#2e6b4a', pants: '#a83a2a', shoe: INK, skin: PAPER, hat: 'tam', hatColor: '#2b4a7a', stache: 'walrus', cheeks: true, torsoW: 186, belly: true},
+  // EXP 006 (San Juan, 1859-72): almirante británico, káiser (árbitro, 1872), casacas rojas
+  almirante: {shirt: '#1f2d52', sleeve: '#1f2d52', pants: '#1f2d52', shoe: INK, skin: PAPER, jacket: true, buttons: '#e9c46a', collar: '#e9c46a', epaulettes: '#e9c46a', hat: 'peaked', hatColor: '#1f2d52', band: '#e9c46a', stache: 'walrus', cheeks: true, torsoW: 190},
+  kaiser: {shirt: '#4a5a7a', sleeve: '#4a5a7a', pants: '#8a8f98', shoe: INK, skin: PAPER, jacket: true, buttons: '#e9c46a', collar: '#c8202a', epaulettes: '#e9c46a', sash: '#e9c46a', hat: 'picos', hatColor: '#2a2d36', stache: 'curl', torsoW: 178},
+  casaca1: {shirt: '#c8202a', sleeve: '#c8202a', pants: '#f1ece0', shoe: INK, skin: PAPER, jacket: true, buttons: '#e9c46a', collar: PAPER, hat: 'shako', hatColor: '#1b1d26', band: '#e9c46a', torsoW: 164},
+  casaca2: {shirt: '#c8202a', sleeve: '#c8202a', pants: '#f1ece0', shoe: INK, skin: PAPER, jacket: true, buttons: '#e9c46a', collar: PAPER, hat: 'shako', hatColor: '#1b1d26', band: '#e9c46a', stache: 'brush', torsoW: 174},
 };
 const STACHE = {
   pencil: () => [S([['M', -2, -90], ['Q', -30, -98, -52, -86], ['Q', -68, -80, -70, -96], ['Q', -60, -74, -40, -80], ['Q', -20, -84, -2, -82], ['Z']], INK, {lineWidth: 4}),
@@ -168,6 +173,9 @@ function hatOf(o) {
   if (o.hat === 'veil') return [E(0, -254, 300, 40, {fill: c}), R(-70, -320, 140, 70, {radius: 20, fill: c, lineWidth: 7}),
     S([['M', -140, -250], ['L', 140, -250], ['L', 128, -110], ['L', -128, -110], ['Z']], 'rgba(20,20,24,0.45)', {lineWidth: 4}), S([['M', 40, -330], ['Q', 90, -380, 110, -330], ['Q', 80, -320, 40, -330], ['Z']], '#3a3a44', {lineWidth: 4})];
   if (o.hat === 'tam') return [E(10, -262, 290, 84, {fill: c}), R(-112, -262, 224, 28, {radius: 8, fill: '#c8202a', lineWidth: 6}), E(16, -314, 46, 46, {fill: '#c8202a', lineWidth: 5})];
+  if (o.hat === 'picos') return [S([['M', -96, -244], ['Q', -110, -370, 0, -376], ['Q', 110, -370, 96, -244], ['Z']], c, {lineWidth: 7}), R(-102, -262, 204, 24, {radius: 6, fill: c, lineWidth: 6}),
+    S([['M', 10, -246], ['Q', 140, -250, 150, -238], ['Q', 90, -222, 10, -226], ['Z']], INK, {lineWidth: 5}), S([['M', -22, -290], ['L', 0, -340], ['L', 22, -290], ['Z']], '#e9c46a', {lineWidth: 5}),
+    R(-8, -420, 16, 50, {radius: 4, fill: '#e9c46a', lineWidth: 5})];
   if (o.hat === 'kepi') return [S([['M', -50, -242], ['Q', 60, -250, 132, -236], ['Q', 104, -214, 20, -220], ['Z']], INK, {lineWidth: 5}), S([['M', -88, -244], ['L', -78, -362], ['L', 78, -362], ['L', 88, -244], ['Z']], c, {lineWidth: 7}), R(-85, -284, 170, 30, {fill: o.band || '#c8202a', lineWidth: 6}), E(0, -362, 156, 20, {fill: c, lineWidth: 6}), E(0, -300, 20, 20, {fill: '#e9c46a', lineWidth: 4})];
   return [];
 }
@@ -565,3 +573,6 @@ export const ingles = a => person({...a, who: 'ingles'});
 export const viuda = a => person({...a, who: 'viuda'});
 export const soldadoDe = (n, a) => person({...a, who: 'soldadoDe' + n});
 export const escoces = a => person({...a, who: 'escoces'});
+export const almirante = a => person({...a, who: 'almirante'});
+export const kaiser = a => person({...a, who: 'kaiser'});
+export const casaca = (n, a) => person({...a, who: 'casaca' + n});

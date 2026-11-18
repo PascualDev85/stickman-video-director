@@ -190,6 +190,10 @@ Para no repetir pruebas ni gastar créditos/tokens. Todo sale de los EXP 001 y 0
 - **El brazo izquierdo se dibuja detrás de la cabeza:** para «taparse los ojos» se ponen manos como capa encima (004, «Se la amputan»).
 - **Primeros planos de un objeto:** quitar del set a los personajes que se cuelan (`funeral(d, {sa: false})`).
 
+- **EXP 006 (16-nov):** Montero lee ~**2,4 palabras/s**: 120 palabras = 50 s, no 43. Para ≤45 s hacen falta ≈100-105 palabras o atempo 1,06 + pausas recortadas. Una pausa de efecto se inserta con `voz.py retime --insert T:0.35`; el disparo va en la pausa, nunca sobre la palabra. vidIQ puede quedarse sin créditos (renuevan el 22-nov): `yt-dlp --flat-playlist --dump-json "ytsearchN:…"` da visitas y duración públicas. Cifras de ejércitos discrepan entre fuentes: en pantalla/voz decir «más de»; en descripción, «según varias fuentes».
+- **EXP 006 v2 (17-nov):** antes de enseñar, regla de pies (`FT = 1680`: ningún personaje ni objeto importante por debajo de y≈1690) y ningún plano > 3 s. Si un efecto se nombra en la historia como «no pasó» (no hubo tiros), no se dibuja (fuera humo de cañones). Un SFX de animal de ElevenLabs cuesta 17 créditos: recortar al primer golpe (0,3-0,4 s) para que quepa en la pausa. Si se sube la música, `--quiet` en cada remate que oido.py marque con ✗.
+- **Cámara (motor, 16-nov):** `lib.mjs` → `move.pan/tilt/dolly/travelling/orbit/crane/handheld/zoom(d, …)` para `camF(layers, d, move.xxx(d, …), px, py)` (los 8 movimientos de videógrafo; orbit es aproximación 2D). `handheld` es continuo (`shake` es solo un golpe). Usar un movimiento distinto por escena: dolly en confrontación, handheld en tensión, crane para abrir plano, pan en el mapa/campamentos.
+
 ### Motor y ahorro (acordado con David, 10-nov-2026)
 - Si una mejora del motor es buena para los Shorts, **se hace** y se le cuenta a David (qué, por qué, coste). Las propuestas de mejora del motor se le van diciendo para ir mejorándolo.
 - Ahorrar tokens/créditos en cada vídeo: reutilizar lib.mjs/kit.mjs/voz.py, QA con una sola hoja de fotogramas, no regenerar voz si basta con recortar/insertar silencios, Scribe (0 créditos) para tiempos.
@@ -242,7 +246,7 @@ Ignorar: términos de búsqueda (en Shorts son ruido), impresiones/CTR de miniat
 | 003 | La guerra de los emús (1932) | Programado con vidIQ vie 13-nov 19:00 (YT/TikTok/IG) |
 | 004 | La Guerra de los Pasteles (1838-39): la pierna de Santa Anna | Final aprobado (13-nov); 14-nov: quitado «Expediente 004» tras el gancho (49,7 s). Programado con vidIQ mar 17-nov 01:00 ES (= lun 18:00 CDMX; prueba de hora LatAm) en YT/TikTok/IG |
 | 005 | Garbo, el español que engañó a Hitler con 27 espías inventados (Joan Pujol) | Final aprobado (13-nov, v4); publicar mié 18-nov (contador 223) |
-| 006 | La Guerra del Cerdo (San Juan, 1859-72): la única baja fue un cerdo | Propuesto |
+| 006 | La Guerra del Cerdo (San Juan, 1859-72): la única baja fue un cerdo | Preview v2 (17-nov, 47 s); pendiente aprobación de David; publicar sáb 21-nov (contador 225) |
 | reserva | Hiroo Onoda (29 años en la selva): tratar con cuidado, hubo víctimas civiles | Reserva |
 
 Ideas de personajes (más adelante, con datos de ~10 vídeos): secundario recurrente en el Archivo (el Jefe que nunca paga), no un segundo narrador. Los personajes españoles/latinos entran por las historias (Garbo, Remontel/Santa Anna).
