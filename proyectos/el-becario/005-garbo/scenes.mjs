@@ -70,6 +70,13 @@ const thumb = (d, fade = 0, t0 = 0) => {
     G([line('27 ESPÍAS', 1030, 150, YEL), line('NINGUNO', 1195, 124, PAPER), line('EXISTÍA', 1325, 124, PAPER)], {angle: deg(-4)})]);
   return fade ? G([body], {from: t0, keys: sample(t => ({alpha: (t - t0) / fade}), t0, Math.min(d, t0 + fade))}) : body;
 };
+/** Portada (fotograma 0, 18-nov): rayos rojos, Garbo en primer plano guiñando, fichas volando, sacos de oro y título arriba. */
+const thumbCard = d => [...rays(d, '#a82a22', '#d4463a', 640, 1150, 10, 14),
+  ...[[150, 900, -14, 3], [1130, 880, 12, 7], [140, 1200, 9, 11], [1140, 1190, -10, 15]].map(([x, y, a, n]) => G([ficha(n, {scaleX: 0.85, scaleY: 0.85})], {x, y, angle: deg(a)})),
+  G([saco({scaleX: 1.5, scaleY: 1.5})], {x: 170, y: 1480, angle: deg(-8)}), G([saco({scaleX: 1.3, scaleY: 1.3})], {x: 1110, y: 1500, angle: deg(10)}),
+  pujol({x: 640, y: 2520, scale: 2.2, bust: true, expr: 'picaro', look: 0, idle: {dur: d}})];
+const thumbTitle = () => { const line = (text, y, size, color) => ({...ctext(text, 600, y, size, {maxW: 880, color}), outline: INK, outlineWidth: 22});
+  return G([G([tag('HISTORIA REAL · 1944', 330, 46, {pop: false, color: RED, tilt: -2})], {x: -40}), G([line('27 ESPÍAS', 420, 190, YEL), line('NINGUNO EXISTÍA', 620, 120, PAPER)], {angle: deg(-3)})]); };
 /** Ventanita con el Becario reaccionando (de t0 al final del plano): primer plano de busto, para que se le lea la cara en el móvil. */
 const becCam = (t0, d, expr, {x = 200, y = 700, look = 1, s: sc = 1} = {}) => G([R(-170, -235, 340, 470, {radius: 24, fill: '#e8e2d0', lineWidth: 10}), R(-120, -200, 110, 150, {radius: 4, fill: '#c9d6e3', lineWidth: 6}),
   becario({x: 0, y: 440, scale: 0.85, expr, look, bust: true, idle: {dur: d}, headKeys: [{t: 0, angle: 0}, {t: t0 + 0.25, angle: 0}, {t: t0 + 0.4, angle: deg(-6 * look)}, {t: d, angle: deg(-6 * look)}]}),
@@ -90,7 +97,7 @@ const BAG = i => 0.55 + ((i * 11) % 27) * 0.045; // sacos que caen en orden salt
 
 // ================= SHOTS =================
 // 0–1.10 · «Los nazis pagaban» — miniatura; empiezan a caer sacos de dinero en las fichas.
-shot(0, 1.10, d => [camF(hookSet(d, {bags: BAG}), d, t => ({s: mix(1.0, 1.04, t / d)}), 640, 1100), G([thumb(d)], {to: 1.0})]);
+shot(0, 1.10, d => [camF(thumbCard(d), d, t => ({s: mix(1.0, 1.04, t / d)}), 640, 1100), thumbTitle()]);
 // 1.10–3.05 · «a veintisiete espías. [beat]» — el oficial de la Abwehr entra con más sacos; la cámara se acerca al tablón.
 shot(1.10, 3.05, d => [camF(hookSet(d, {bags: i => Math.max(0, BAG(i) - 1.1), officer: true}), d, t => ({s: mix(1.0, 1.08, eInOut(t / d))}), 640, 700),
   tag('ESPIONAJE NAZI · 1941', 420, 54, {t0: 0.15, tilt: 2})]);
