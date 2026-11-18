@@ -22,6 +22,10 @@ pasados a español y a Shorts. Las fórmulas de gancho están en ganchos.json.
       [{"canal": "...", "titulo": "...", "vistas": 41200, "url": "..."}, ...]  (mín. 4 por canal)
       Solo listados públicos (p. ej. `yt-dlp --flat-playlist -J URL_DEL_CANAL` desde el Mac).
       Nunca con la cuenta de Apify del bot de Telegram.
+
+  python3 crecimiento.py competencia @historiaslocasok
+      Radiografía de los Shorts de un canal (yt-dlp, sin claves): ritmo de publicación, mediana,
+      duración, destacados frente a su propia mediana con fórmula de título y % de me gusta.
 """
 import csv, json, os, re, statistics, sys
 
@@ -151,7 +155,44 @@ def virales(args):
     print('  (La fórmula es un juicio sobre el TÍTULO, no la razón de que funcionara.)\n')
 
 
+def competencia(args):
+    """Radiografía de los Shorts de un canal público con yt-dlp (tarda ~2 s por vídeo)."""
+    import subprocess
+    h = args[0].lstrip('@')
+    url = h if h.startswith('http') else f'https://www.youtube.com/@{h}/shorts'
+    campos = '%(upload_date)s|%(duration)s|%(view_count)s|%(like_count)s|%(channel_follower_count)s|%(id)s|%(title)s'
+    r = subprocess.run(['yt-dlp', '--no-update', '--skip-download', '--ignore-errors', '--print', campos, url],
+                       capture_output=True, text=True)
+    vids = []
+    for l in r.stdout.splitlines():
+        p = l.split('|', 6)
+        if len(p) < 7 or not p[2].isdigit(): continue
+        num = lambda x: int(x) if x.isdigit() else 0
+        vids.append(dict(fecha=p[0], dur=num(p[1]), vistas=num(p[2]), likes=num(p[3]), subs=num(p[4]), id=p[5],
+                         titulo=re.sub(r'\s*#\S+', '', p[6]).strip()))
+    if len(vids) < 4: sys.exit(f'Solo {len(vids)} vídeos leídos. ¿URL correcta? {r.stderr[-300:]}')
+    vids.sort(key=lambda v: v['fecha'])
+    med = statistics.median(v['vistas'] for v in vids) or 1
+    dias = {}
+    for v in vids: dias[v['fecha']] = dias.get(v['fecha'], 0) + 1
+    print(f'\n  @{h}: {vids[-1]["subs"]:,} subs · {len(vids)} Shorts del {vids[0]["fecha"]} al {vids[-1]["fecha"]}'
+          f' ({len(vids) / len(dias):.1f}/día publicando) · mediana {int(med):,} vistas'
+          f' · duración mediana {statistics.median(v["dur"] for v in vids):.0f} s')
+    top = sorted(vids, key=lambda v: -v['vistas'])
+    print(f'\n  Destacados (≥ 2x su mediana):')
+    for v in [v for v in top if v['vistas'] >= 2 * med][:15]:
+        fs = formulas_de(v['titulo'])
+        lk = f'{100 * v["likes"] / v["vistas"]:.1f} %' if v['vistas'] else '-'
+        print(f'  {v["vistas"] / med:5.1f}x {v["vistas"]:>9,}  {v["dur"]:>3} s  ♥{lk:>6}  {v["fecha"]}  {v["titulo"][:50]}'
+              f'\n         {fs[0]["nombre"] if fs else "sin clasificar"} · youtu.be/{v["id"]}')
+    flojos = [v for v in vids if v['vistas'] < med / 4]
+    print(f'\n  Flojos (< 1/4 de la mediana): {len(flojos)} de {len(vids)}'
+          f' · duración mediana destacados {statistics.median([v["dur"] for v in top[:max(3, len(top) // 5)]]):.0f} s')
+    print('  Guion de uno: yt-dlp --skip-download --write-auto-subs --sub-langs "es.*" URL (YouTube bloquea bajar el vídeo).\n')
+
+
 if __name__ == '__main__':
     if len(sys.argv) < 3: sys.exit(__doc__)
     cmd, args = sys.argv[1], sys.argv[2:]
-    {'retencion': retencion, 'gancho': gancho, 'titulo': titulo, 'virales': virales}.get(cmd, lambda a: sys.exit(__doc__))(args)
+    {'retencion': retencion, 'gancho': gancho, 'titulo': titulo, 'virales': virales,
+     'competencia': competencia}.get(cmd, lambda a: sys.exit(__doc__))(args)
