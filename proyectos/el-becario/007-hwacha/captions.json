@@ -2,27 +2,17 @@
  {
   "start": 0.03,
   "end": 1.38,
-  "text": "Metió cien flechas"
+  "text": "Metió 100 flechas"
  },
  {
   "start": 1.39,
-  "end": 1.9,
-  "text": "en un carro"
- },
- {
-  "start": 1.91,
   "end": 2.884,
-  "text": "de madera."
+  "text": "en un carro de madera."
  },
  {
   "start": 2.894,
-  "end": 3.58,
-  "text": "Y lo apuntó"
- },
- {
-  "start": 3.59,
   "end": 4.5,
-  "text": "a treinta mil"
+  "text": "Y lo apuntó a 30.000"
  },
  {
   "start": 4.51,
@@ -46,13 +36,8 @@
  },
  {
   "start": 8.99,
-  "end": 9.62,
-  "text": "con dos mil"
- },
- {
-  "start": 9.63,
   "end": 11.113,
-  "text": "trescientos hombres."
+  "text": "con 2.300 hombres."
  },
  {
   "start": 11.123,
@@ -77,7 +62,7 @@
  {
   "start": 14.63,
   "end": 16.14,
-  "text": "más de diez a uno."
+  "text": "más de 10 a 1."
  },
  {
   "start": 16.15,
@@ -152,7 +137,7 @@
  {
   "start": 29.47,
   "end": 30.5,
-  "text": "Y salen las cien"
+  "text": "Y salen las 100"
  },
  {
   "start": 30.51,
@@ -162,7 +147,7 @@
  {
   "start": 31.39,
   "end": 32.1,
-  "text": "Cien."
+  "text": "100."
  },
  {
   "start": 32.11,
@@ -196,18 +181,13 @@
  },
  {
   "start": 38.27,
-  "end": 38.57,
-  "text": "Hasta que"
+  "end": 39.24,
+  "text": "Hasta que a los coreanos"
  },
  {
-  "start": 38.57,
-  "end": 39.46,
-  "text": "a los coreanos se les"
- },
- {
-  "start": 39.47,
+  "start": 39.24,
   "end": 40.74,
-  "text": "acaban las flechas."
+  "text": "se les acaban las flechas."
  },
  {
   "start": 40.75,
@@ -256,13 +236,13 @@
  },
  {
   "start": 49.39,
-  "end": 50.46,
-  "text": "que las mujeres subían"
+  "end": 50.12,
+  "text": "que las mujeres"
  },
  {
-  "start": 50.47,
+  "start": 50.12,
   "end": 50.86,
-  "text": "piedras"
+  "text": "subían piedras"
  },
  {
   "start": 50.87,
@@ -301,13 +281,8 @@
  },
  {
   "start": 57.23,
-  "end": 58.78,
-  "text": "de setenta y seis años"
- },
- {
-  "start": 58.79,
   "end": 59.26,
-  "text": "antes."
+  "text": "de 76 años antes."
  },
  {
   "start": 59.27,
@@ -322,17 +297,12 @@
  {
   "start": 62.51,
   "end": 63.7,
-  "text": "Cien cohetes,"
+  "text": "100 cohetes,"
  },
  {
   "start": 63.71,
-  "end": 64.42,
-  "text": "treinta mil"
- },
- {
-  "start": 64.43,
   "end": 65.247,
-  "text": "enemigos..."
+  "text": "30.000 enemigos..."
  },
  {
   "start": 65.257,
@@ -351,17 +321,7 @@
  },
  {
   "start": 68.75,
-  "end": 69.38,
-  "text": "Doscientos"
- },
- {
-  "start": 69.39,
-  "end": 70.46,
-  "text": "veintisiete días"
- },
- {
-  "start": 70.47,
   "end": 71.82,
-  "text": "sin cobrar."
+  "text": "227 días sin cobrar."
  }
 ]

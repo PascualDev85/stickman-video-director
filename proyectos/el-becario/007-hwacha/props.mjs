@@ -90,3 +90,13 @@ export const trapo = (o = {}) => G([S([['M', -150, -110], ['L', 150, -120], ['Q'
 /** Impresora del Archivo (de EXP 003). */
 export const printer = (x, y, s = 1) => G([R(-170, -150, 340, 150, {radius: 14, fill: '#c9ced3'}), R(-120, -190, 240, 50, {radius: 8, fill: '#9aa3ab'}), R(-110, -60, 220, 18, {radius: 4, fill: '#2b2b2b', stroke: 'none'}),
   S([['M', -90, -46], ['L', 90, -46], ['L', 70, 40], ['L', -70, 40], ['Z']], PAPER, {lineWidth: 6}), E(120, -110, 24, 24, {fill: RED, lineWidth: 4})], {x, y, scaleX: s, scaleY: s});
+
+/** Yari (lanza de ashigaru), en la mano: apunta hacia arriba. */
+export const yari = (o = {}) => G([R(-5, -330, 10, 420, {radius: 4, fill: '#5a3a22', lineWidth: 4}), S([['M', -12, -330], ['L', 0, -400], ['L', 12, -330], ['Z']], '#9aa3ab', {lineWidth: 4})], o);
+/** Escalera de asalto (apoyada, inclinada). h: largo. */
+export const escalera = (h = 700, o = {}) => G([R(-60, -h, 16, h, {radius: 4, fill: WOOD2, lineWidth: 5}), R(44, -h, 16, h, {radius: 4, fill: WOOD2, lineWidth: 5}),
+  ...Array.from({length: Math.floor(h / 90)}, (_, i) => R(-50, -h + 40 + i * 90, 100, 12, {radius: 3, fill: WOOD, lineWidth: 4}))], o);
+/** Araña que baja de su hilo (gag de la caja vacía). */
+export const arana = (x, y0, y1, t0, d) => G([P([['M', 0, -2000], ['L', 0, 0]], {stroke: '#9a9a9a', lineWidth: 3}), E(0, 0, 34, 28, {fill: INK, stroke: 'none'}),
+  ...[-1, 1].flatMap(sd => [0, 1, 2].map(k => P([['M', 0, 0], ['L', sd * 26, -10 + k * 10], ['L', sd * 34, 4 + k * 10]], {lineWidth: 3}))), E(-7, -4, 8, 8, {fill: PAPER, stroke: 'none'}), E(7, -4, 8, 8, {fill: PAPER, stroke: 'none'})],
+  {x, from: r3(t0), keys: sample(t => ({y: mix(y0, y1, eOut((t - t0) / 0.6)) + Math.sin(t * 4) * 6}), r3(t0), d)});

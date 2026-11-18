@@ -3,7 +3,7 @@
 import fs from 'node:fs';
 import {becario, gwonYul, soldadoKr, monje, ashigaru, samurai, coreana, P, E, R, G, S, deg, INK, PAPER, ctext} from '../kit.mjs';
 import {RED, YEL, tag, captionTrack, fill, band, mix, r3, eOut, eInOut, eBack, shake, sample, camF as camF0, slam, rays, flash, cloud, office, desk, makeEpisode, F, bubble, move} from '../lib.mjs';
-import {hwacha, singijeon, volley, humo, empalizada, nobori, haz, caja, barca, piedra, libro, trapo, printer} from './props.mjs';
+import {hwacha, singijeon, volley, humo, empalizada, nobori, haz, caja, barca, piedra, libro, trapo, printer, yari, escalera, arana} from './props.mjs';
 const ZOOM = 1.1; // como el 006: personajes más grandes en el móvil
 const camF = (layers, d, f, px, py) => camF0(layers, d, t => { const v = f(t); return {...v, s: (v.s ?? 1) * ZOOM}; }, px, py);
 
@@ -36,7 +36,7 @@ const ladera = (d, {sky = SKY, fort = true} = {}) => [fill(sky), cloud(900, 260,
 /** Ejército japonés en la ladera: filas de ashigaru que suben a la izquierda. rows: [[x0, n, dy, scale]]. climb: px que suben en el plano. */
 const ejercito = (d, rows, {climb = 0, look = -1, expr = 'serio', walk = true, banners = true} = {}) => rows.flatMap(([x0, n, dy, sc], r) => Array.from({length: n}, (_, i) => {
   const x = x0 + i * 120 * sc / 0.45, y = slopeY(x) + dy, dx = climb, dyc = climb * 620 / 1400;
-  const who = i % 3 === 2 && banners ? null : ashigaru(1 + ((i + r) % 2), {x, y, scale: sc, expr, look, idle: {dur: d}, ...(walk ? {walk: {dur: d, period: 0.42, stride: 14}, move: [{t: 0, x: x + dx, y: y + dyc}, {t: d, x, y}]} : {})});
+  const who = i % 3 === 2 && banners ? null : ashigaru(1 + ((i + r) % 2), {x, y, scale: sc, expr, look, idle: {dur: d}, ...((i + r) % 2 ? {armR: {shoulder: 20, elbow: 150, hold: [yari({x: -10, y: 40})]}} : {}), ...(walk ? {walk: {dur: d, period: 0.42, stride: 14}, move: [{t: 0, x: x + dx, y: y + dyc}, {t: d, x, y}]} : {})});
   return who || nobori({x, y, h: 420 * sc / 0.45, dur: d, keys: [{t: 0, x: x + dx, y: y + dyc}, {t: d, x, y}]});
 }));
 const antorcha = (o = {}) => G([R(-8, -10, 16, 150, {radius: 5, fill: '#7d5229', lineWidth: 5}), S([['M', -26, -10], ['Q', -30, -70, 0, -110], ['Q', 30, -70, 26, -10], ['Z']], '#ffb21f', {lineWidth: 5}), S([['M', -10, -14], ['Q', -10, -50, 0, -70], ['Q', 10, -50, 10, -14], ['Z']], '#fff2b0', {stroke: 'none'})], o);
@@ -112,9 +112,13 @@ shot(18.43, 21.2, d => [camF([...cima(d), hwacha({x: 1060, y: FT + 80, scale: 1.
 // 21.2–22.36 · «"Que se acerquen."» — Gwon Yul, primer plano, levanta la mano: quietos.
 shot(21.2, 22.36, d => [camF([...cima(d), gwonYul({x: 640, y: 2050, scale: 1.9, bust: true, expr: 'serio', look: 1, idle: {dur: d}})], d, move.zoom(d, 1.0, 1.1, 0.4), 640, 1300),
   bubble('QUE SE ACERQUEN.', 600, 560, 640, 760, 0.05, d, {size: 72, maxW: 820})]);
-// 22.36–24.89 · «Y suben. Oleada tras oleada.» — la ladera: oleadas que suben (cámara en mano).
-shot(22.36, 24.89, d => [camF([...ladera(d), ...ejercito(d, [[420, 7, 80, 0.34], [300, 8, 260, 0.42], [140, 8, 480, 0.52], [60, 7, 760, 0.62]], {climb: 160})],
-  d, move.handheld(d, 9, 1.06), 640, 1300)]);
+// 22.36–24.89 · «Y suben. Oleada tras oleada.» — encuadre nuevo (autocrítica): la empalizada de cerca, escaleras apoyadas y ashigaru trepando hacia la cámara.
+const trepa = (x, y0, y1, t0, d, sc, k) => ashigaru(1 + (k % 2), {x, y: y0, scale: sc, expr: k % 2 ? 'serio' : 'nervioso', look: 0, idle: {dur: d}, armL: {shoulder: 160, elbow: 20}, armR: {shoulder: 150, elbow: 30},
+  move: keysIn(d, [{t: 0, x, y: y0}, {t: r3(t0), x, y: y0}, {t: d, x, y: y1}])});
+shot(22.36, 24.89, d => [camF([fill(SKY), cloud(300, 300, 0.8, d, 50), montes(760), band(780, 1600, GRASS), empalizada(-60, 1340, 1380, {h: 520, step: 70}),
+  escalera(900, {x: 280, y: 1700, angle: deg(-8)}), escalera(900, {x: 700, y: 1700, angle: deg(6)}), escalera(900, {x: 1080, y: 1700, angle: deg(-5)}),
+  trepa(280, 2100, 1500, 0.0, d, 0.75, 0), trepa(700, 2200, 1450, 0.5, d, 0.75, 1), trepa(1080, 2150, 1550, 1.0, d, 0.75, 2)],
+  d, move.handheld(d, 9, 1.04), 640, 1300)]);
 // 24.89–26.26 · «"¿Ahora, general?"» — el soldado de la antorcha, sudando.
 shot(24.89, 26.26, d => [camF([...cima(d), soldadoKr(2, {x: 560, y: FT + 120, scale: 1.6, expr: 'nervioso', look: 1, idle: {dur: d}, armR: {shoulder: 120, elbow: 40, hold: [antorcha({x: 0, y: 40})]}, headKeys: laugh(d, 0.1, 1.2, 3, 0.12)})],
   d, move.handheld(d, 5, 1.08), 640, 1300), bubble('¿AHORA, GENERAL?', 600, 560, 600, 780, 0.05, d, {size: 72, maxW: 820})]);
@@ -142,31 +146,34 @@ shot(32.91, 35.71, d => [camF([...office(d), desk(), printer(860, 1150, 1.0), G(
   ...smokePuffs(900, 960, 1.1, d, 5),
   becario({x: 470, y: 1440, scale: 1.0, expr: 'agobiado', look: 1, idle: {dur: d}, talk: mouth(32.91, 35.71), poses: {R: [{t: 0, shoulder: 75, elbow: 10}, ...BANG.flatMap(t => [{t: r3(t), shoulder: 150, elbow: 30}, {t: r3(t + 0.15), shoulder: 75, elbow: 10}])]}})],
   d, t => ({s: mix(1.3, 1.4, t / d), ...shake(t, 1.3, 0.12, 8), ...shake(t, 1.9, 0.3, 10)}), 720, 1050), tag('EL ARCHIVO', 420, 60, {t0: 0.05, tilt: -2})]);
-// 35.71–38.27 · «Vuelven a atacar. Una y otra vez.» — nuevas oleadas suben; desde arriba caen flechas.
-shot(35.71, 38.27, d => [camF([...ladera(d), ...ejercito(d, [[460, 7, 60, 0.34], [320, 8, 250, 0.44], [160, 8, 480, 0.54], [60, 7, 760, 0.64]], {climb: 200}),
-  ...volley(-100, 500, 0.4, d, {n: 10, angle: 28, spread: 14, speed: 1000, drop: 100, s: 0.6}), ...volley(-100, 500, 1.6, d, {n: 10, angle: 28, spread: 14, speed: 1000, drop: 100, s: 0.6})],
-  d, move.handheld(d, 9, 1.06), 640, 1300)]);
+// 35.71–38.27 · «Vuelven a atacar. Una y otra vez.» — encuadre nuevo: tres viñetas que entran una tras otra (oleadas), cada una con su rótulo.
+const vineta = (k, t0, d, label) => G([R(0, 0, 1180, 560, {radius: 10, fill: SKY, lineWidth: 10}), S([['M', 0, 300], ['L', 1180, 560], ['L', 0, 560], ['Z']], GRASS, {lineWidth: 6}),
+  ...Array.from({length: 6}, (_, i) => ashigaru(1 + ((i + k) % 2), {x: 120 + i * 180, y: 470 + i * 14, scale: 0.36, expr: k === 2 ? 'cansado' : 'serio', look: -1, idle: {dur: d}, walk: {dur: d, period: 0.42, stride: 12},
+    ...((i + k) % 2 ? {armR: {shoulder: 20, elbow: 150, hold: [yari({x: -10, y: 40})]}} : {})})),
+  R(0, 0, 1180, 560, {radius: 10, fill: 'none', lineWidth: 12}), G([tag(label, 90, 64, {pop: false, tilt: -3, color: RED})], {from: r3(t0 + 0.26)})],
+  {y: 380 + k * 600, from: r3(t0), keys: sample(t => ({x: mix(k % 2 ? -1300 : 1300, 50, eOut((t - t0) / 0.25))}), r3(t0), d)});
+shot(35.71, 38.27, d => [fill('#2b2b2b'), vineta(0, 0.0, d, 'OLEADA'), vineta(1, 0.95, d, 'OTRA'), vineta(2, 1.6, d, 'Y OTRA')]);
 // 38.27–40.75 · «Hasta que a los coreanos se les acaban las flechas.» — el soldado mete la mano en la caja: vacía, con telaraña.
-shot(38.27, 40.75, d => [camF([...cima(d), caja(true, {x: 800, y: FT, scaleX: 1.6, scaleY: 1.6, to: 1.1}), caja(false, {x: 800, y: FT, scaleX: 1.6, scaleY: 1.6, from: 1.1}),
+shot(38.27, 40.75, d => [camF([...cima(d), caja(true, {x: 800, y: FT, scaleX: 1.6, scaleY: 1.6, to: 1.1}), caja(false, {x: 800, y: FT, scaleX: 1.6, scaleY: 1.6, from: 1.1}), G([arana(450, 300, 665, 1.5, d)], {scaleX: 2, scaleY: 2}),
   soldadoKr(1, {x: 360, y: FT, scale: 1.25, expr: 'serio', look: 1, idle: {dur: d}, gestures: [{t0: 0.2, t1: 0.9, arm: 'R', shoulder: 70, elbow: 10}, {t0: 1.2, t1: 2.2, arm: 'R', shoulder: 50, elbow: 5}], headKeys: nod(d, [1.3], 10, 0.2)})],
   d, move.dolly(d, 1.0, 1.12), 700, 1400), slam('0', 820, 760, 220, 1.2, d, {outline: true, color: RED, tilt: -6, from: 1.3})]);
 // 40.75–42.73 · «"General... se han acabado."» — el soldado le enseña la caja vacía al general, que traga saliva.
 shot(40.75, 42.73, d => [camF([...cima(d), caja(false, {x: 470, y: 1500, scaleX: 1.1, scaleY: 1.1}),
   soldadoKr(1, {x: 330, y: FT, scale: 1.15, expr: 'miedo', look: 1, idle: {dur: d}, armL: {shoulder: 60, elbow: 60}, armR: {shoulder: 60, elbow: 60}}),
-  gwonYul({x: 930, y: FT, scale: 1.25, expr: 'nervioso', look: -1, idle: {dur: d}, headKeys: nod(d, [1.2], -8, 0.2)})], d, move.dolly(d, 1.0, 1.08), 640, 1300),
-  bubble('SE HAN ACABADO…', 560, 560, 380, 860, 0.1, d, {size: 72, maxW: 820})]);
+  gwonYul({x: 930, y: FT, scale: 1.25, expr: 'nervioso', look: -1, idle: {dur: d}, headKeys: nod(d, [1.2], -8, 0.2)})], d, t => ({s: t < 1.15 ? mix(1.0, 1.04, t / 1.15) : 1.16, x: 0, ...shake(t, 1.15, 0.3, 14)}), 640, 1300),
+  bubble('SE HAN ACABADO…', 720, 560, 420, 860, 0.1, d, {size: 72, maxW: 600}), becCam(0.9, d, 'agobiado', {x: 220, y: 430, s: 0.85, look: 1})]);
 // 42.73–44.9 · «Y por el río aparecen barcos.» — por el río Han llegan dos barcas; en la orilla, los soldados saltan.
 shot(42.73, 44.9, d => [camF([fill(SKY), cloud(300, 300, 0.8, d, 50), montes(900), band(940, 900, '#5fa3cf'), band(940, 12, '#3a7aa8'), band(1560, 900, GRASS), band(1560, 14, GRASS2),
   barca({x: 400, y: 1380, scale: 0.75, dur: d, keys: [{t: 0, x: -400}, {t: d, x: 420}]}), barca({x: 900, y: 1200, scale: 0.5, dur: d, keys: [{t: 0, x: -200}, {t: d, x: 980}]}),
   ...[0, 1, 2].map(i => soldadoKr(1 + (i % 2), {x: 300 + i * 320, y: FT, scale: 0.8, expr: 'contento', look: -1, idle: {dur: d}, move: hop(d, 300 + i * 320, FT, [1.0 + i * 0.08, 1.6 + i * 0.08], 50)}))],
-  d, move.pan(d, 90, 1.05), 640, 1300)]);
+  d, t => ({...move.pan(d, 90, 1.05)(t), s: t < 1.91 ? 1.05 : mix(1.05, 1.22, eOut((t - 1.91) / 0.15))}), 640, 1350)]);
 // 44.9–46.51 · «Cargados de flechas.» — primer plano de la barca llena de haces; el general sonríe.
-shot(44.9, 46.51, d => [camF([fill(SKY), band(900, 1600, '#5fa3cf'), barca({x: 600, y: 1480, scale: 1.5, dur: d}),
+shot(44.9, 46.51, d => [camF([fill(SKY), band(900, 1600, '#5fa3cf'), barca({x: 600, y: 1480, scale: 1.5, dur: d}), G([tag('ENVÍO URGENTE', 760, 60, {pop: false, tilt: -6, color: RED})], {x: 0, y: 0, keys: sample(t => ({x: 0, y: Math.sin(t * 2.4) * 8}), 0, d)}),
   gwonYul({x: 1030, y: FT + 60, scale: 1.0, expr: 'contento', look: -1, idle: {dur: d}, headKeys: nod(d, [0.6], 7)})], d, move.zoom(d, 1.0, 1.1, 0.3), 640, 1300)]);
 // 46.51–48.83 · «Al anochecer, los japoneses se retiran.» — atardecer: bajan la ladera; el samurái, el último.
 shot(46.51, 48.83, d => [camF([...atardecer(d), ...ejercito(d, [[360, 7, 120, 0.4], [180, 8, 380, 0.52]], {climb: -220, look: 1, expr: 'cansado'}),
-  samurai({x: 520, y: FT, scale: 1.0, expr: 'cansado', look: 1, idle: {dur: d}, walk: {dur: d, period: 0.5, stride: 14}, move: [{t: 0, x: 420}, {t: d, x: 760}]})],
-  d, move.travelling(d, 120, 1.06), 640, 1300), tag('AL ANOCHECER', 420, 62, {t0: 0.1, tilt: -2})]);
+  samurai({x: 520, y: FT, scale: 1.0, expr: 'miedo', look: -1, idle: {dur: d}, walk: {dur: d, period: 0.5, stride: 14}, move: [{t: 0, x: 420}, {t: d, x: 760}]})],
+  d, move.travelling(d, 120, 1.06), 640, 1300), tag('AL ANOCHECER', 420, 62, {t0: 0.1, tilt: -2}), becCam(0.8, d, 'contento', {x: 1000, y: 860, s: 0.85, look: -1})]);
 // 48.83–51.82 · «Y cuentan que las mujeres subían piedras en el delantal...» — dos mujeres suben con piedras en el delantal.
 shot(48.83, 51.82, d => [camF([...ladera(d, {fort: true}), ...[0, 1].map(i => G([coreana(1 + i, {x: 0, y: 0, scale: 1.0, expr: 'serio', look: -1, idle: {dur: d}, walk: {dur: d, period: 0.5, stride: 14}, armL: {shoulder: 30, elbow: 100}, armR: {shoulder: 30, elbow: 100}}),
   piedra({x: -30, y: -300}), piedra({x: 24, y: -290, scaleX: 0.8, scaleY: 0.8})], {keys: [{t: 0, x: 760 + i * 300, y: slopeY(760 + i * 300) + 700}, {t: d, x: 560 + i * 300, y: slopeY(560 + i * 300) + 700}]}))],
@@ -229,6 +236,7 @@ const sfx = [
   F(28.45, 'whoosh', 0.25, 0.6),
   F(35.38, 'impresora', 0.5, 0.3),
   F(40.5, 'drop', 0.3, 0.3),
+  F(44.64, 'crowd', 0.14, 0.9),
   F(54.42, 'scratch', 0.25, 0.3),
   F(60.7, 'drop', 0.25, 0.25),
   F(67.68, 'puf', 0.4, 0.33),

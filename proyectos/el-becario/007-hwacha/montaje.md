@@ -14,3 +14,10 @@
 - Bocadillos a 72 px (antes 50-56: no se leían en el móvil).
 - «Son cohetes»: hwacha más grande en el centro, fogonazo y andanada que se ve salir.
 - Velocidad: `preview-x1.12.mp4` (64,2 s, 2,9 pal/s) y `preview-x1.2.mp4` (59,9 s, 3,2 pal/s; @historiaslocasok ~3,5).
+
+## v3 (18-nov, autocrítica 2)
+- Ladera menos repetida: «Y suben» = empalizada de cerca con 3 escaleras y ashigaru trepando; «Vuelven a atacar» = 3 viñetas que entran (OLEADA / OTRA / Y OTRA). Lanzas (yari) en la mitad de los ashigaru.
+- Cifras en los subtítulos (rojas): words.json con números fusionados (100, 30.000, 2.300, 10 a 1, 76, 227); original en `words-letras.json`. Bloques de subtítulo de < 0,45 s re-cortados.
+- Chistes visuales en el tramo 36-46 s sin chistes: viñetas, araña que baja a la caja vacía, «ENVÍO URGENTE» en la barca.
+- Ojo: `validate` sin `--seconds` no detectó dos errores del árbol B3 que sí rompían la preview (rect de alto 0 y anidación > 8). Tras cambiar planos, lanzar la preview (o `validate --seconds N`).
+- v3b: tramo 40-49 s (final 34-41 s): ventanita del Becario agobiado en «se han acabado» (con golpe de zoom y sacudida en el general) y contento diciendo adiós en la retirada; samurái con miedo; zoom tras «barcos.» con vítores (crowd 0,14). Bucle comprobado: el último fotograma = portada (solo cambia el giro de los rayos).
