@@ -68,7 +68,7 @@ export function loadProject(file, {seconds} = {}) {
   const voiceTrimStart = p.voice.trim_start ?? 0;
   number(voiceTrimStart, 'voice trim_start', 0, Math.min(5, voiceDuration - 0.01));
   const duration = voiceDuration - voiceTrimStart + lead + tail;
-  if (seconds !== undefined) number(seconds, 'preview length', 0.001, 60);
+  if (seconds !== undefined) number(seconds, 'preview length', 0.001, Math.min(180, Number(process.env.PREVIEW_MAX) || 60)); // PREVIEW_MAX opcional (Shorts largos)
   const rangeEnd = Math.min(duration, seconds ?? duration);
   const scoped = seconds !== undefined;
   const vertical = p.height > p.width;

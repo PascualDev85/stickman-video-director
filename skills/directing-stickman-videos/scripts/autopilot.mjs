@@ -7,6 +7,8 @@ import {SHORTS} from './shorts.mjs';
 
 const [command, ...args] = process.argv.slice(2);
 const option = (flag, fallback) => args.includes(flag) ? args[args.indexOf(flag) + 1] : fallback;
+// Tope de preview/tramo: 60 s por defecto; PREVIEW_MAX=90 (opcional) para Shorts largos de 60-90 s. Sin la variable, todo igual.
+const PREVIEW_MAX = Math.min(180, Number(process.env.PREVIEW_MAX) || 60);
 async function main() {
   if (command === 'doctor') {
     const checks = {node: Number(process.versions.node.split('.')[0]) >= 20};
@@ -34,7 +36,7 @@ async function main() {
   } else if (['validate', 'preview', 'approve', 'render'].includes(command)) {
     const scoped = command === 'preview' || command === 'validate' && args.includes('--seconds');
     const seconds = scoped ? Number(option('--seconds', 20)) : undefined;
-    if (scoped && (!Number.isFinite(seconds) || seconds <= 0 || seconds > 60)) throw new Error('Preview length must be greater than 0 and at most 60 seconds');
+    if (scoped && (!Number.isFinite(seconds) || seconds <= 0 || seconds > PREVIEW_MAX)) throw new Error(`Preview length must be greater than 0 and at most ${PREVIEW_MAX} seconds`);
     let p;
     if (command !== 'approve') p = loadProject(args[0], scoped ? {seconds} : {});
     if (command === 'validate') {
@@ -52,7 +54,7 @@ async function main() {
       if (!fs.existsSync(reportPath)) throw new Error('Render and review a preview first');
       report = json(reportPath);
       const error = command === 'render' ? 'Approval invalidated; preview and user approval required again' : 'Preview changed; render/review it again';
-      if (!Number.isFinite(report.preview_seconds) || report.preview_seconds <= 0 || report.preview_seconds > 60) throw new Error(error);
+      if (!Number.isFinite(report.preview_seconds) || report.preview_seconds <= 0 || report.preview_seconds > PREVIEW_MAX) throw new Error(error);
       reviewed = loadProject(args[0], {seconds: report.preview_seconds});
       outputDir(reviewed);
       if (report.fingerprint !== reviewed.fingerprint || report.output !== path.join(out, 'preview.mp4') || !fs.existsSync(report.output) || hashFile(report.output) !== report.output_sha256) throw new Error(error);
@@ -72,7 +74,7 @@ async function main() {
   } else if (command === 'tramo') {
     // Quick look at a stretch [--from A, --to B] (B <= 60 s): output/tramo.mp4 with its audio. Not a preview: cannot be approved.
     const from = Number(option('--from', 0)), to = Number(option('--to', from + 5));
-    if (!(from >= 0 && to > from && to <= 60)) throw new Error('tramo needs 0 <= --from < --to <= 60');
+    if (!(from >= 0 && to > from && to <= PREVIEW_MAX)) throw new Error(`tramo needs 0 <= --from < --to <= ${PREVIEW_MAX}`);
     const p = loadProject(args[0], {seconds: to});
     const {render} = await import('./autopilot-render.mjs'); console.log(JSON.stringify(await render(p, {seconds: to, from, replace: true}), null, 2));
   } else if (command === 'safezone') {

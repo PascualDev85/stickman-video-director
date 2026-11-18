@@ -130,6 +130,17 @@ const OUTFITS = {
   kaiser: {shirt: '#4a5a7a', sleeve: '#4a5a7a', pants: '#8a8f98', shoe: INK, skin: PAPER, jacket: true, buttons: '#e9c46a', collar: '#c8202a', epaulettes: '#e9c46a', sash: '#e9c46a', hat: 'picos', hatColor: '#2a2d36', stache: 'curl', torsoW: 178},
   casaca1: {shirt: '#c8202a', sleeve: '#c8202a', pants: '#f1ece0', shoe: INK, skin: PAPER, jacket: true, buttons: '#e9c46a', collar: PAPER, hat: 'shako', hatColor: '#1b1d26', band: '#e9c46a', torsoW: 164},
   casaca2: {shirt: '#c8202a', sleeve: '#c8202a', pants: '#f1ece0', shoe: INK, skin: PAPER, jacket: true, buttons: '#e9c46a', collar: PAPER, hat: 'shako', hatColor: '#1b1d26', band: '#e9c46a', stache: 'brush', torsoW: 174},
+  // EXP 007 (Haengju, Corea, 1593): general Gwon Yul, soldados y monjes coreanos, ashigaru y jefe samurái, mujeres con delantal
+  gwonYul: {shirt: '#b5332a', sleeve: '#b5332a', pants: '#2a3550', shoe: INK, skin: PAPER, collar: '#1f3a6e', sash: '#e9c46a', lames: '#8a2219', hat: 'jeonrip', hatColor: '#1b1b1f', band: '#c8202a', stache: 'walrus', beard: '#2a2a2a', torsoW: 188},
+  soldadoKr1: {shirt: '#2f5a8a', sleeve: '#2f5a8a', pants: '#e9e2cf', shoe: INK, skin: PAPER, sash: '#c8202a', hat: 'jeonrip', hatColor: '#1b1b1f', band: '#c8202a', torsoW: 160},
+  soldadoKr2: {shirt: '#3a6a9a', sleeve: '#3a6a9a', pants: '#e9e2cf', shoe: INK, skin: PAPER, sash: '#c8202a', hat: 'jeonrip', hatColor: '#1b1b1f', band: '#c8202a', stache: 'brush', torsoW: 170},
+  monje1: {shirt: '#8a8478', sleeve: '#8a8478', pants: '#6b665c', shoe: '#3a2a1e', skin: PAPER, bald: true, sash: '#c9622a', torsoW: 170},
+  monje2: {shirt: '#8a8478', sleeve: '#8a8478', pants: '#6b665c', shoe: '#3a2a1e', skin: PAPER, bald: true, sash: '#c9622a', cheeks: true, torsoW: 182, belly: true},
+  ashigaru1: {shirt: '#3a2e2a', sleeve: '#3a2e2a', pants: '#5a4636', shoe: INK, skin: PAPER, lames: '#7a1f1f', hat: 'jingasa', hatColor: '#2a2a2a', torsoW: 160},
+  ashigaru2: {shirt: '#3a2e2a', sleeve: '#3a2e2a', pants: '#5a4636', shoe: INK, skin: PAPER, lames: '#7a1f1f', hat: 'jingasa', hatColor: '#2a2a2a', stache: 'brush', torsoW: 170},
+  samurai: {shirt: '#1b1b1f', sleeve: '#1b1b1f', pants: '#3a2e2a', shoe: INK, skin: PAPER, lames: '#c8202a', hat: 'kabuto', hatColor: '#1b1b1f', stache: 'curl', torsoW: 190},
+  coreana1: {shirt: '#f1ece0', sleeve: '#f1ece0', pants: '#c8202a', shoe: INK, skin: PAPER, bun: '#1b1b1f', apron: '#e9e2cf', cheeks: true, torsoW: 172},
+  coreana2: {shirt: '#f2d06b', sleeve: '#f2d06b', pants: '#2f5a8a', shoe: INK, skin: PAPER, bun: '#1b1b1f', apron: '#e9e2cf', cheeks: true, torsoW: 180},
 };
 const STACHE = {
   pencil: () => [S([['M', -2, -90], ['Q', -30, -98, -52, -86], ['Q', -68, -80, -70, -96], ['Q', -60, -74, -40, -80], ['Q', -20, -84, -2, -82], ['Z']], INK, {lineWidth: 4}),
@@ -177,6 +188,17 @@ function hatOf(o) {
     S([['M', 10, -246], ['Q', 140, -250, 150, -238], ['Q', 90, -222, 10, -226], ['Z']], INK, {lineWidth: 5}), S([['M', -22, -290], ['L', 0, -340], ['L', 22, -290], ['Z']], '#e9c46a', {lineWidth: 5}),
     R(-8, -420, 16, 50, {radius: 4, fill: '#e9c46a', lineWidth: 5})];
   if (o.hat === 'kepi') return [S([['M', -50, -242], ['Q', 60, -250, 132, -236], ['Q', 104, -214, 20, -220], ['Z']], INK, {lineWidth: 5}), S([['M', -88, -244], ['L', -78, -362], ['L', 78, -362], ['L', 88, -244], ['Z']], c, {lineWidth: 7}), R(-85, -284, 170, 30, {fill: o.band || '#c8202a', lineWidth: 6}), E(0, -362, 156, 20, {fill: c, lineWidth: 6}), E(0, -300, 20, 20, {fill: '#e9c46a', lineWidth: 4})];
+  if (o.hat === 'jeonrip') return [ // sombrero militar coreano (Joseon): ala ancha negra, copa redonda, borla roja
+    E(0, -238, 360, 48, {fill: c}), S([['M', -84, -244], ['Q', -84, -344, 0, -348], ['Q', 84, -344, 84, -244], ['Z']], c, {lineWidth: 7}),
+    R(-86, -270, 172, 22, {radius: 6, fill: o.band || '#c8202a', lineWidth: 5}), E(0, -352, 30, 22, {fill: '#e9c46a', lineWidth: 4}),
+    S([['M', -8, -358], ['Q', -40, -420, 6, -440], ['Q', 30, -400, 8, -358], ['Z']], o.band || '#c8202a', {lineWidth: 5})];
+  if (o.hat === 'jingasa') return [ // jingasa: sombrero cónico plano de ashigaru, con mon dorado
+    S([['M', -200, -222], ['L', 0, -332], ['L', 200, -222], ['Q', 0, -246, -200, -222], ['Z']], c, {lineWidth: 7}), E(0, -286, 50, 30, {fill: '#e9c46a', lineWidth: 4})];
+  if (o.hat === 'kabuto') return [ // kabuto: cuenco, protector de nuca y media luna dorada
+    S([['M', -170, -170], ['Q', -190, -220, -120, -240], ['L', 120, -240], ['Q', 190, -220, 170, -170], ['Q', 0, -210, -170, -170], ['Z']], c, {lineWidth: 7}),
+    S([['M', -116, -244], ['Q', -116, -360, 0, -362], ['Q', 116, -360, 116, -244], ['Z']], c, {lineWidth: 7}),
+    P([['M', -110, -280], ['Q', 0, -300, 110, -280]], {stroke: '#c8202a', lineWidth: 6}),
+    S([['M', -130, -420], ['Q', -60, -340, 0, -336], ['Q', 60, -340, 130, -420], ['Q', 60, -366, 0, -366], ['Q', -60, -366, -130, -420], ['Z']], '#e9c46a', {lineWidth: 6})];
   return [];
 }
 function jacketParts(o, torsoW) {
@@ -258,9 +280,11 @@ export function person({who = 'becario', x = 0, y = 0, scale = 1, expr = 'cansad
   if (o.collar) torso.push(R(-46, -486, 92, 34, {radius: 8, fill: o.collar, lineWidth: 6}));
   if (o.sash) torso.push(S([['M', -torsoW / 2 + 8, -440], ['L', -torsoW / 2 + 40, -470], ['L', torsoW / 2 - 6, -270], ['L', torsoW / 2 - 40, -246], ['Z']], o.sash, {lineWidth: 6}), E(torsoW / 2 - 30, -258, 34, 34, {fill: o.sash, lineWidth: 5}));
   if (o.apron) torso.push(S([['M', -torsoW / 2 + 16, -380], ['L', torsoW / 2 - 16, -380], ['L', torsoW / 2 + 6, -120], ['L', -torsoW / 2 - 6, -120], ['Z']], o.apron, {lineWidth: 7}), R(-36, -350, 72, 46, {radius: 6, fill: o.apron, lineWidth: 5}), P([['M', -torsoW / 2, -380], ['L', torsoW / 2, -380]], {stroke: '#d6d6d6', lineWidth: 8}));
+  if (o.lames) torso.push(...[-430, -390, -350, -310].map(yy => P([['M', -torsoW / 2 + 10, yy], ['L', torsoW / 2 - 10, yy]], {stroke: o.lames, lineWidth: 7})));
   if (o.scarf) torso.push(S([['M', -44, -472], ['L', 44, -472], ['L', 0, -418], ['Z']], o.scarf, {lineWidth: 6}));
   const f = face(expr, look, isFarmer);
   if (o.cheeks) f.rest.unshift(E(-78, -96, 46, 26, {fill: '#f2a0a0', stroke: 'none'}), E(78, -96, 46, 26, {fill: '#f2a0a0', stroke: 'none'}));
+  if (o.beard) f.rest.push(S([['M', -30, -40], ['Q', 0, 30, 30, -40], ['Q', 0, -20, -30, -40], ['Z']], o.beard, {lineWidth: 5}));
   if (o.stache) f.rest.push(...STACHE[o.stache]());
   if (o.glasses) f.rest.push(E(-50, -135, 62, 58, {fill: 'none', lineWidth: 5}), E(50, -135, 62, 58, {fill: 'none', lineWidth: 5}), P([['M', -19, -138], ['L', 19, -138]], {lineWidth: 5}));
   if (o.monocle) f.rest.push(E(50, -136, 70, 70, {fill: 'rgba(200,230,255,0.25)', stroke: '#e9b93a', lineWidth: 6}), P([['M', 84, -124], ['Q', 108, -40, 80, 10]], {stroke: '#e9b93a', lineWidth: 4}));
@@ -268,7 +292,7 @@ export function person({who = 'becario', x = 0, y = 0, scale = 1, expr = 'cansad
   if (o.hairUnder) f.rest.push(S([['M', -138, -140], ['Q', -152, -262, 0, -268], ['Q', 152, -262, 138, -140], ['L', 120, -166], ['L', 104, -204], ['L', 66, -194], ['L', 36, -214], ['L', 6, -196], ['L', -26, -216], ['L', -58, -198], ['L', -98, -208], ['L', -120, -166], ['Z']], o.hairUnder, {lineWidth: 6}));
   if (o.slick) f.rest.unshift(S([['M', -136, -150], ['Q', -132, -230, -60, -246], ['L', -120, -200], ['Z']], INK, {lineWidth: 4}), S([['M', 136, -150], ['Q', 132, -230, 60, -246], ['L', 120, -200], ['Z']], INK, {lineWidth: 4}));
   const eyesG = G(f.eyes, {pivotX: 0, pivotY: -138, ...(m.blink ? {keys: m.blink} : {})});
-  const hair = (isFarmer || o.hat) ? [] : o.bun ? [E(0, -246, 252, 92, {fill: o.bun, lineWidth: 7}), E(0, -306, 104, 92, {fill: o.bun, lineWidth: 7}), P([['M', -30, -300], ['Q', 0, -322, 30, -300]], {stroke: '#7d828b', lineWidth: 5})] : [S([['M', -64, -232], ['L', -44, -284], ['L', -22, -240], ['L', 0, -296], ['L', 20, -242], ['L', 48, -280], ['L', 56, -230], ['Z']], INK, {lineWidth: 6})];
+  const hair = (isFarmer || o.hat || o.bald) ? [] : o.bun ? [E(0, -246, 252, 92, {fill: o.bun, lineWidth: 7}), E(0, -306, 104, 92, {fill: o.bun, lineWidth: 7}), P([['M', -30, -300], ['Q', 0, -322, 30, -300]], {stroke: '#7d828b', lineWidth: 5})] : [S([['M', -64, -232], ['L', -44, -284], ['L', -22, -240], ['L', 0, -296], ['L', 20, -242], ['L', 48, -280], ['L', 56, -230], ['Z']], INK, {lineWidth: 6})];
   const hat = isFarmer ? [E(0, -232, 380, 66, {fill: '#e9c46a'}), R(-98, -318, 196, 98, {radius: 34, fill: '#e9c46a'}), P([['M', -96, -248], ['L', 96, -248]], {stroke: '#9c4a1a', lineWidth: 14}),
     ...[-60, -20, 20, 60].map(xx => P([['M', xx, -312], ['L', xx + 8, -256]], {stroke: '#c9a24a', lineWidth: 4}))] : o.hatY ? [G(hatOf(o), {y: o.hatY})] : hatOf(o);
   const head = G([...hair, E(0, -130, 272, 250), eyesG, ...f.rest, ...(talk && (talk.length || talk.env) ? [talkingMouth(talk, talkDur ?? idle?.dur ?? walk?.dur)] : []), ...hat],
@@ -576,3 +600,10 @@ export const escoces = a => person({...a, who: 'escoces'});
 export const almirante = a => person({...a, who: 'almirante'});
 export const kaiser = a => person({...a, who: 'kaiser'});
 export const casaca = (n, a) => person({...a, who: 'casaca' + n});
+// EXP 007 (Haengju, 1593)
+export const gwonYul = a => person({...a, who: 'gwonYul'});
+export const soldadoKr = (n, a) => person({...a, who: 'soldadoKr' + n});
+export const monje = (n, a) => person({...a, who: 'monje' + n});
+export const ashigaru = (n, a) => person({...a, who: 'ashigaru' + n});
+export const samurai = a => person({...a, who: 'samurai'});
+export const coreana = (n, a) => person({...a, who: 'coreana' + n});
