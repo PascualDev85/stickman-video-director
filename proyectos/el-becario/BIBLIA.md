@@ -247,6 +247,7 @@ Ignorar: términos de búsqueda (en Shorts son ruido), impresiones/CTR de miniat
 | 004 | La Guerra de los Pasteles (1838-39): la pierna de Santa Anna | Final aprobado (13-nov); 14-nov: quitado «Expediente 004» tras el gancho (49,7 s). Programado con vidIQ mar 17-nov 01:00 ES (= lun 18:00 CDMX; prueba de hora LatAm) en YT/TikTok/IG |
 | 005 | Garbo, el español que engañó a Hitler con 27 espías inventados (Joan Pujol) | Final aprobado (13-nov, v4); publicar mié 18-nov (contador 223) |
 | 006 | La Guerra del Cerdo (San Juan, 1859-72): la única baja fue un cerdo | Preview v2 (17-nov, 47 s); pendiente aprobación de David; publicar sáb 21-nov (contador 225) |
+| 007 | **Prueba del formato de la competencia** (tema de @historiaslocasok, real y con fuentes). Candidato: el carro de cohetes coreano (hwacha) en la batalla de Haengju, 1593 (su «82 hoyos contra un ejército» tuvo 465k). Otros: el zapatero que se hizo capitán (Köpenick, 1906), los bueyes de Aníbal (217 a. C.) | Por preparar en sesión nueva; publicar **lun 23-nov 20:00 ES** (contador 227). Aplicar: gancho `accion-rara`, 60-70 s contado como cuento con giro final, ~3 pal/s (o `voz.py ritmo`), receta de portada |
 | reserva | Hiroo Onoda (29 años en la selva): tratar con cuidado, hubo víctimas civiles | Reserva |
 
 Ideas de personajes (más adelante, con datos de ~10 vídeos): secundario recurrente en el Archivo (el Jefe que nunca paga), no un segundo narrador. Los personajes españoles/latinos entran por las historias (Garbo, Remontel/Santa Anna).
