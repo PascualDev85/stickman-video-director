@@ -1,0 +1,121 @@
+// EXPEDIENTE 008 — «Blas de Lezo en Cartagena de Indias» (Historias Sin Cabeza). Short 9:16, ~59 s.
+// Guion v2 (18-nov-2026), toma A de ElevenLabs sin recortar. Tiempos = words.json (Scribe).
+// Publica: miércoles 25-nov-2026 · contador 229 (PUB/DAYS).
+import fs from 'node:fs';
+import {becario, almirante, casaca, soldadoDe, lezo, vernon, E, R, G, P, S, deg, INK, PAPER, ctext, sign} from '../kit.mjs';
+import {GROUND, RED, YEL, tag, captionTrack, layout, fill, band, lin, mix, r3, eOut, eInOut, shake, sample, camF, cam, slam, popIn, flash, rays, office, makeEpisode, F} from '../lib.mjs';
+import {ukFlag} from '../006-guerra-cerdo/props.mjs';
+import {mar, agua, barcoX, fuerte, tumba, medalla, plan, sudor, llamas, esFlag} from './props.mjs';
+
+const {WORDS, shots, shot, mouth} = makeEpisode('words.json');
+layout.titleDY = 0;
+const VOICE = 59.12, END = 59.4; // VOICE = duración real de narration.mp3
+const DAYS = 229; // contador «DÍAS SIN COBRAR» (PUB = mié 25-nov-2026)
+const NAVY = '#1f3a6e';
+const FY = GROUND + 120; // pies de los personajes
+
+// ---------- sets y utilidades ----------
+const cubierta = () => [band(GROUND + 80, 900, '#9a6a3c'), band(GROUND + 80, 10, '#5a3a1e'), ...[0, 1, 2, 3].map(i => P([['M', 100 + i * 330, GROUND + 160], ['L', 260 + i * 330, GROUND + 160]], {stroke: '#7d5229', lineWidth: 6}))];
+const tierra = (c = '#b5a07a') => [band(GROUND + 80, 900, c), band(GROUND + 80, 10, '#6b5a3a')];
+const noche = d => [fill('#141a36'), band(820, 400, '#1f2650'), ...[[120, 520], [300, 620], [520, 480], [760, 600], [880, 470], [1180, 560], [420, 760]].map(([x, y], i) => E(x, y, 10, 10, {fill: '#fff6c8', stroke: 'none', keys: sample(t => ({alpha: 0.65 + 0.35 * Math.sin(t * (1.4 + i * 0.2))}), 0, d)})), E(1040, 380, 130, 130, {fill: '#f4f1d0', lineWidth: 8})];
+const counter = (n, o = {}) => G([R(-210, -46, 420, 92, {radius: 10, fill: '#fff6d6', stroke: RED, lineWidth: 8}), ctext(`DÍAS SIN COBRAR: ${n}`, 0, -30, 40, {maxW: 380, color: RED})], o);
+const fila = (fn, n, x0, dx, y, s, extra = () => ({})) => Array.from({length: n}, (_, i) => fn(i, {x: x0 + i * dx, y: y + (i % 2) * 14, scale: s, ...extra(i)}));
+const LZ = (d, a, b, o = {}) => lezo({x: 640, y: FY, scale: 1.25, expr: 'serio', idle: {dur: d}, talk: mouth(a, b), ...o});
+
+// Gancho: 6 barcos españoles contra un bosque de barcos ingleses (también es el último fotograma: bucle).
+const hookSet = d => [...mar(d),
+  ...[0, 1, 2].flatMap(r => Array.from({length: 7}, (_, i) => barcoX({x: 560 + i * 110 + (r % 2) * 40, y: 1010 + r * 85, scale: 0.2, flag: 'uk', flip: true, dur: d}))),
+  ...Array.from({length: 6}, (_, i) => barcoX({x: 110 + i * 70, y: 1190 + (i % 2) * 20, scale: 0.24, flag: 'es', dur: d}))];
+
+// ---------- planos ----------
+// 0.19–2.57 · «Seis barcos contra más de cien.»
+shot(0, 2.57, d => [camF(hookSet(d), d, t => ({s: mix(1.35, 1.0, eOut(t / 0.5))}), 300, 1150), flash(0, 0.12, PAPER, 0.8), tag('SEIS CONTRA MÁS DE CIEN', 357, 72, {pop: false})]);
+// 2.57–3.99 · «¡Hundan los nuestros!»
+shot(2.57, 3.99, d => [camF([...mar(d, {sky: '#f6d9a8'}), ...cubierta(), LZ(d, 2.57, 3.99, {expr: 'sorpresa', scale: 1.4}), flash(0, 0.1, '#ffffff', 0.7)], d, t => ({s: mix(1.08, 1.2, t / d), ...shake(t, 0, 0.4, 14)}), 640, 1000)]);
+// 3.99–6.27 · «¿Perdón, almirante? ¿Los nuestros?»
+shot(3.99, 6.27, d => [cam([...mar(d), ...cubierta(),
+  almirante({x: 380, y: FY, scale: 1.2, expr: 'sorpresa', look: 1, idle: {dur: d}, talk: mouth(3.99, 6.27)}),
+  lezo({x: 900, y: FY, scale: 1.2, expr: 'serio', look: -1, idle: {dur: d}})], d, 1.0, 1.08)]);
+// 6.27–8.89 · «En la entrada de la bahía. Que les estorben.»
+shot(6.27, 8.89, d => [cam([...mar(d), ...fila((i, o) => barcoX({...o, flag: 'es', dur: d, sink: {t0: 1.0 + i * 0.3, len: 1.0, depth: 120, tilt: 0.25 * (i % 2 ? -1 : 1)}}), 3, 380, 250, 1130, 0.3),
+  ...agua(1150), G([LZ(d, 6.27, 8.89, {x: 190, scale: 0.9})]), slam('HUNDIRSE VOLUNTARIAMENTE', 600, 700, 42, 1.4, d, {stamp: true, color: RED, tilt: -4, maxW: 700})], d, 1.0, 1.06)]);
+// 8.95–10.6 · «Se llama Blas de Lezo.»
+shot(8.95, 10.6, d => [camF([...rays(d, '#cfe3f7', '#e6f1fb', 640, 1100, 12, 12), LZ(d, 8.95, 10.6, {y: FY + 40, scale: 1.4})], d, t => ({s: mix(1.0, 1.15, eOut(t / d))}), 640, 900), tag('BLAS DE LEZO', 357, 80)]);
+// 10.6–12.4 · «Cojo, tuerto y manco.»
+shot(10.6, 12.4, d => [cam([...rays(d, '#cfe3f7', '#e6f1fb', 640, 1100, 12, 12), LZ(d, 10.6, 12.4, {y: FY + 40, scale: 1.35}),
+  G([popIn(sign('COJO', -150, -55, 300, 110, {size: 70, color: RED}), 0.05, d)], {x: 450, y: 1555}), G([popIn(sign('TUERTO', -180, -55, 360, 110, {size: 70, color: RED}), 0.62, d)], {x: 780, y: 755}), G([popIn(sign('MANCO', -155, -55, 310, 110, {size: 70, color: RED}), 1.18, d)], {x: 480, y: 1105})], d, 1.0, 1.05)]);
+// 12.4–14.0 · «Tiene unos tres mil hombres.»
+shot(12.4, 14.0, d => [cam([fill('#e8dcc0'), ...tierra(), ...fila((i, o) => soldadoDe(1 + (i % 2), {...o, expr: 'serio', idle: {dur: d}}), 7, 200, 140, FY, 0.42), slam('≈ 3.000', 640, 700, 170, 0.1, d, {color: NAVY, outline: true})], d, 1.0, 1.06)]);
+// 14.0–16.54 · «Delante, Vernon, con más de veinte mil.»
+shot(14.0, 16.54, d => [cam([fill('#e8dcc0'), ...tierra('#a89a6a'), ...[0, 1, 2].flatMap(r => fila((i, o) => casaca(1 + (i % 2), {...o, expr: 'serio', idle: {dur: d}}), 8, 90 + (r % 2) * 60, 150, FY - 300 + r * 90, 0.3)),
+  vernon({x: 640, y: FY + 40, scale: 1.2, expr: 'contento', idle: {dur: d}, talk: mouth(14.0, 16.54)}), slam('+ 20.000', 600, 600, 130, 1.5, d, {color: RED, outline: true})], d, 1.0, 1.06)]);
+// 16.55–18.5 · «Dos barcos se hunden en Bocachica.»
+shot(16.55, 18.5, d => [cam([...mar(d), barcoX({x: 380, y: 1120, scale: 0.5, flag: 'es', dur: d, sink: {t0: 0.3, len: 1.3, depth: 170, tilt: -0.3}}), barcoX({x: 880, y: 1120, scale: 0.5, flag: 'es', dur: d, sink: {t0: 0.6, len: 1.3, depth: 170, tilt: 0.3}}), ...agua(1150), tag('BOCACHICA', 357, 84)], d, 1.0, 1.06)]);
+// 18.5–19.85 · «Otro lo queman.»
+shot(18.5, 19.85, d => [cam([...mar(d, {sky: '#f2c9a0'}), barcoX({x: 640, y: 1130, scale: 0.7, flag: 'es', dur: d, fire: true}), ...agua(1150)], d, 1.0, 1.1)]);
+// 19.85–21.82 · «Y los ingleses entran igual.»
+shot(19.85, 21.82, d => [cam([...mar(d),
+  G([0, 1, 2].map(i => barcoX({x: 1500 - i * 420, y: 1120 + (i % 2) * 40, scale: 0.5, flag: 'uk', flip: true, dur: d})), {keys: lin(d, 0, -1100, 'x')}),
+  ...agua(1170), vernon({x: 1000, y: FY + 60, scale: 0.9, expr: 'picaro', idle: {dur: d}, talk: mouth(19.85, 21.82)})], d, 1.0, 1.05)]);
+// 21.83–23.86 · «Almirante, han pasado.»
+shot(21.83, 23.86, d => [cam([...mar(d), ...fila((i, o) => barcoX({...o, flag: 'uk', flip: true, dur: d}), 3, 900, 150, 1090, 0.3), ...cubierta(),
+  almirante({x: 400, y: FY, scale: 1.25, expr: 'miedo', look: 1, idle: {dur: d}, talk: mouth(21.83, 23.86)}), lezo({x: 900, y: FY, scale: 1.25, expr: 'serio', look: -1, idle: {dur: d}})], d, 1.0, 1.08)]);
+// 23.87–26.6 · «Ya lo veo. El plan tenía letra pequeña.»
+shot(23.87, 26.6, d => [camF([...rays(d, '#e9e2cf', '#f4efe4', 640, 1100, 10, 12), LZ(d, 23.87, 26.6, {x: 400, scale: 1.3, expr: 'sarcastico'}),
+  G([popIn(plan({}), 1.7, d)], {x: 880, y: 1050, scaleX: 0.75, scaleY: 0.75})], d, t => ({s: t < 1.8 ? mix(1.0, 1.05, t / 1.8) : mix(1.05, 1.3, eInOut((t - 1.8) / 0.8)), x: t < 1.8 ? 0 : mix(0, -300, eInOut((t - 1.8) / 0.8))}), 640, 1000)]);
+// 26.61–28.24 · «Aun así, resiste.»
+shot(26.61, 28.24, d => [cam([...mar(d, {sky: '#cfe9f7'}), ...tierra('#c9b48a'), fuerte({x: 400, y: GROUND + 60, scaleX: 1.1, scaleY: 1.1}), lezo({x: 940, y: FY, scale: 1.2, expr: 'serio', idle: {dur: d}, talk: mouth(26.61, 28.24)})], d, 1.0, 1.08)]);
+// 28.25–31.8 · «Una madrugada, los ingleses asaltan el fuerte de San Felipe»
+shot(28.25, 31.8, d => [camF([...noche(d), ...tierra('#3a3a52'), fuerte({x: 640, y: GROUND + 60, scaleX: 1.2, scaleY: 1.2}),
+  ...fila((i, o) => casaca(1 + (i % 2), {...o, expr: 'nervioso', idle: {dur: d}}), 5, 150, 250, FY + 30, 0.5)], d, t => ({s: mix(1.0, 1.12, t / d)}), 640, 1100), tag('MADRUGADA · SAN FELIPE', 357, 62, {t0: 0.2})]);
+// 31.8–32.64 · «y fracasan.»
+shot(31.8, 32.64, d => [cam([...noche(d), ...tierra('#3a3a52'), fuerte({x: 640, y: GROUND + 60, scaleX: 1.2, scaleY: 1.2}),
+  ...fila((i, o) => casaca(1 + (i % 2), {...o, expr: 'miedo', angle: deg(60 - i * 18)}), 4, 220, 250, FY + 90, 0.5), slam('FRACASAN', 640, 700, 130, 0.04, d, {color: RED, stamp: true, outline: true, tilt: -4}), flash(0, 0.1, PAPER, 0.7)], d, 1.0, 1.05)]);
+// 32.65–34.4 · «Unas seiscientas bajas.»
+shot(32.65, 34.4, d => [cam([fill('#e8dcc0'), ...tierra('#a89a6a'), ...fila((i, o) => tumba({x: o.x, y: o.y + 100, scaleX: 1.2, scaleY: 1.2}), 5, 160, 240, 1150), slam('600 BAJAS', 640, 640, 160, 0.9, d, {color: RED, outline: true})], d, 1.0, 1.06)]);
+// 34.41–36.56 · «Pasan las semanas, llega la fiebre»
+shot(34.41, 36.56, d => [cam([fill('#dfe9d2'), ...tierra('#a89a6a'), casaca(1, {x: 640, y: FY, scale: 1.3, expr: 'agobiado', idle: {dur: d}}), sudor(520, 560, 0.3), sudor(780, 580, 0.7), sudor(560, 580, 1.1),
+  G([popIn(sign('FIEBRE', -200, -60, 400, 120, {size: 80, color: '#2e6b4a'}), 1.2, d)], {x: 640, y: 1160})], d, 1.0, 1.1), tag('PASAN LAS SEMANAS', 357, 66)]);
+// 36.57–38.22 · «mueren miles de ingleses»
+shot(36.57, 38.22, d => [cam([fill('#cfd6dc'), ...tierra('#8f9aa6'), ...[0, 1, 2, 3, 4, 5].map(i => popIn(tumba({x: 130 + i * 200, y: 1250 + (i % 2) * 110, scaleX: 1.1, scaleY: 1.1}), 0.1 + i * 0.18, d))], d, 1.0, 1.06), tag('MUEREN MILES', 357, 80)]);
+// 38.23–40.68 · «Después de más de dos meses, se van.»
+shot(38.23, 40.68, d => [cam([...mar(d), G([...[0, 1, 2].map(i => barcoX({x: 800 - i * 380, y: 1120 + (i % 2) * 40, scale: 0.5, flag: 'uk', dur: d}))], {keys: lin(d, 0, 1000, 'x')}), ...agua(1170), slam('+ 2 MESES', 600, 650, 120, 0.2, d, {color: NAVY, outline: true})], d, 1.0, 1.05)]);
+// 40.69–42.7 · «Entonces, ¿hemos ganado?»
+shot(40.69, 42.7, d => [cam([...mar(d), ...cubierta(), almirante({x: 380, y: FY, scale: 1.2, expr: 'contento', look: 1, idle: {dur: d}, talk: mouth(40.69, 42.7)}), lezo({x: 900, y: FY, scale: 1.2, expr: 'sarcastico', look: -1, idle: {dur: d}})], d, 1.0, 1.08)]);
+// 42.71–45.32 · «Espera, mira lo que habían hecho en Inglaterra.»
+shot(42.71, 45.32, d => [cam([...office(d), G([ukFlag({}, 420)], {x: 640, y: 560, keys: sample(t => ({angle: Math.sin(t * 3) * 0.04}), 0, d)}),
+  becario({x: 640, y: FY, scale: 1.25, expr: 'sarcastico', look: 0, idle: {dur: d}, talk: mouth(42.71, 45.32)})], d, 1.0, 1.08), tag('INGLATERRA', 357, 84)]);
+// 45.33–46.3 · «Medallas.»
+shot(45.33, 46.3, d => [camF([...rays(d, '#fff1b5', '#ffe36b', 640, 1000, 14, 14), G([medalla({})], {x: 640, y: 1000}), flash(0, 0.12, PAPER, 0.8)], d, t => ({s: mix(0.7, 1.0, eOut(t / 0.3))}), 640, 1000)]);
+// 46.31–48.35 · «Vernon, de pie, y Lezo,»
+shot(46.31, 48.35, d => [camF([...rays(d, '#fff1b5', '#ffe36b', 640, 1000, 14, 14), G([medalla({})], {x: 640, y: 1000})], d, t => ({s: mix(1.0, 2.2, eInOut(t / d)), x: mix(0, 220, eInOut(t / d))}), 640, 1000)]);
+// 48.35–50.74 · «de rodillas, entregándole la espada.»
+shot(48.35, 50.74, d => [camF([...rays(d, '#fff1b5', '#ffe36b', 640, 1000, 14, 14), G([medalla({})], {x: 640, y: 1000})], d, t => ({s: mix(2.2, 2.6, t / d), x: mix(220, -260, eInOut(t / d))}), 640, 1000), slam('¿PERO QUÉ…?', 600, 560, 88, 1.6, d, {color: RED, stamp: true, outline: true, tilt: 3, maxW: 700})]);
+// 50.75–53.98 · «Las acuñaron antes de ganar. Y no ganaron.»
+shot(50.75, 53.98, d => [cam([...rays(d, '#fff1b5', '#ffe36b', 640, 1000, 14, 14), G([medalla({})], {x: 640, y: 1000, scaleX: 0.9, scaleY: 0.9}), slam('ANTES DE GANAR', 560, 400, 72, 1.05, d, {color: NAVY, stamp: true, outline: true, tilt: -4, until: 2.0}), slam('NO GANARON', 560, 1500, 96, 2.05, d, {color: RED, stamp: true, outline: true, tilt: 4}), flash(2.05, 0.12, PAPER, 0.6)], d, 1.0, 1.05)]);
+// 53.99–59.12 · «Una victoria imaginaria, como mi nómina. Doscientos veintinueve días sin cobrar.»
+shot(53.99, VOICE, d => [camF([...office(d), counter(DAYS, {x: 640, y: 500, scaleX: 1.6, scaleY: 1.6}),
+  becario({x: 640, y: FY, scale: 1.25, expr: 'cansado', look: 0, idle: {dur: d}, talk: mouth(53.99, VOICE), headKeys: [{t: 0, angle: deg(4)}, {t: 3.0, angle: deg(8)}, {t: d, angle: deg(-4)}]})],
+d, t => ({s: mix(1.0, 1.15, eInOut(t / d))}), 640, 1000)]);
+// Bucle: vuelve al primer fotograma.
+shot(VOICE, END, d => [camF(hookSet(d), d, t => ({s: mix(1.2, 1.0, eOut(t / 0.2))}), 300, 1150), flash(0, 0.12, PAPER, 0.8), tag('SEIS CONTRA MÁS DE CIEN', 357, 72, {pop: false})]);
+
+// Planos contiguos: el hueco de 0,01 s entre palabras se absorbe en el plano anterior.
+for (let i = 1; i < shots.length; i++) shots[i - 1].end = shots[i].start;
+
+// Subtítulos karaoke (motor: burnCaptions false; exporta el .srt)
+const captions = JSON.parse(fs.readFileSync('captions.json', 'utf8'));
+const cap = captionTrack(WORDS, captions);
+for (const s of shots) s.layers.push(...cap(s.start, s.end));
+// Efectos: ligeros, en huecos de la voz.
+const sfx = [
+  F(2.57, 'whoosh', 0.25), F(3.6, 'canon', 0.3), F(3.99, 'whoosh', 0.2), F(6.27, 'whoosh', 0.2), F(7.7, 'drop', 0.35), F(8.4, 'scratch', 0.3),
+  F(8.95, 'whoosh', 0.2), F(10.6, 'whoosh', 0.15), F(12.4, 'whoosh', 0.2), F(14.0, 'whoosh', 0.2), F(16.55, 'whoosh', 0.2), F(17.0, 'drop', 0.4), F(17.5, 'drop', 0.35),
+  F(18.5, 'whoosh', 0.2), F(18.7, 'puf', 0.3), F(19.85, 'whoosh', 0.2), F(21.83, 'whoosh', 0.2), F(22.2, 'boing', 0.3), F(23.87, 'whoosh', 0.15), F(25.7, 'scratch', 0.3),
+  F(26.61, 'whoosh', 0.2), F(28.25, 'whoosh', 0.2), F(29.5, 'canon', 0.3), F(31.8, 'whoosh', 0.25), F(31.84, 'boing', 0.4), F(32.65, 'whoosh', 0.2), F(33.55, 'drop', 0.4),
+  F(34.41, 'whoosh', 0.15), F(36.57, 'whoosh', 0.2), F(36.7, 'drop', 0.25), F(38.23, 'whoosh', 0.2), F(40.69, 'whoosh', 0.2), F(42.71, 'whoosh', 0.2),
+  F(45.33, 'whoosh', 0.3), F(45.4, 'impresora', 0.25), F(46.31, 'whoosh', 0.2), F(48.35, 'whoosh', 0.2), F(50.35, 'boing', 0.4), F(50.75, 'whoosh', 0.2),
+  F(51.8, 'drop', 0.4), F(52.8, 'drop', 0.5), F(53.99, 'whoosh', 0.2), F(59.12, 'whoosh', 0.3),
+];
+fs.writeFileSync('project.json', JSON.stringify({version: 1, style: 'B3', width: 1080, height: 1920, fps: 30, voice: {path: 'narration.mp3', lead: 0, tail: r3(END - VOICE)}, television: {enabled: false}, music: {path: 'music-duck.wav', gain: 0.17}, burnCaptions: false, captions, shots, sfx}, null, 1));
+console.log('shots', shots.length, 'end', END);

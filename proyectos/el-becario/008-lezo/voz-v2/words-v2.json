@@ -1,0 +1,730 @@
+{
+ "words": [
+  {
+   "word": "Seis",
+   "start": 0.24,
+   "end": 0.48
+  },
+  {
+   "word": "barcos",
+   "start": 0.58,
+   "end": 0.94
+  },
+  {
+   "word": "contra",
+   "start": 1.02,
+   "end": 1.28
+  },
+  {
+   "word": "más",
+   "start": 1.38,
+   "end": 1.54
+  },
+  {
+   "word": "de",
+   "start": 1.58,
+   "end": 1.66
+  },
+  {
+   "word": "cien.",
+   "start": 1.78,
+   "end": 2.12
+  },
+  {
+   "word": "¡Hundan",
+   "start": 2.62,
+   "end": 2.9
+  },
+  {
+   "word": "los",
+   "start": 2.96,
+   "end": 3.06
+  },
+  {
+   "word": "nuestros!",
+   "start": 3.1,
+   "end": 3.6
+  },
+  {
+   "word": "¿Perdón,",
+   "start": 4.04,
+   "end": 4.36
+  },
+  {
+   "word": "almirante?",
+   "start": 4.44,
+   "end": 4.9
+  },
+  {
+   "word": "¿Los",
+   "start": 5.22,
+   "end": 5.38
+  },
+  {
+   "word": "nuestros?",
+   "start": 5.48,
+   "end": 5.92
+  },
+  {
+   "word": "En",
+   "start": 6.32,
+   "end": 6.38
+  },
+  {
+   "word": "la",
+   "start": 6.42,
+   "end": 6.44
+  },
+  {
+   "word": "entrada",
+   "start": 6.46,
+   "end": 6.82
+  },
+  {
+   "word": "de",
+   "start": 6.86,
+   "end": 6.92
+  },
+  {
+   "word": "la",
+   "start": 6.96,
+   "end": 7.0
+  },
+  {
+   "word": "bahía,",
+   "start": 7.06,
+   "end": 7.38
+  },
+  {
+   "word": "que",
+   "start": 7.72,
+   "end": 7.78
+  },
+  {
+   "word": "les",
+   "start": 7.82,
+   "end": 7.92
+  },
+  {
+   "word": "estorben.",
+   "start": 7.96,
+   "end": 8.44
+  },
+  {
+   "word": "Se",
+   "start": 9.0,
+   "end": 9.08
+  },
+  {
+   "word": "llama",
+   "start": 9.12,
+   "end": 9.38
+  },
+  {
+   "word": "Blas",
+   "start": 9.54,
+   "end": 9.78
+  },
+  {
+   "word": "de",
+   "start": 9.84,
+   "end": 9.9
+  },
+  {
+   "word": "Lezo.",
+   "start": 9.96,
+   "end": 10.26
+  },
+  {
+   "word": "Cojo,",
+   "start": 10.66,
+   "end": 10.94
+  },
+  {
+   "word": "tuerto",
+   "start": 11.22,
+   "end": 11.6
+  },
+  {
+   "word": "y",
+   "start": 11.64,
+   "end": 11.68
+  },
+  {
+   "word": "manco.",
+   "start": 11.78,
+   "end": 12.1
+  },
+  {
+   "word": "Tiene",
+   "start": 12.44,
+   "end": 12.62
+  },
+  {
+   "word": "unos",
+   "start": 12.64,
+   "end": 12.88
+  },
+  {
+   "word": "tres",
+   "start": 12.92,
+   "end": 13.08
+  },
+  {
+   "word": "mil",
+   "start": 13.18,
+   "end": 13.34
+  },
+  {
+   "word": "hombres.",
+   "start": 13.4,
+   "end": 13.78
+  },
+  {
+   "word": "Delante,",
+   "start": 14.06,
+   "end": 14.46
+  },
+  {
+   "word": "Vernon,",
+   "start": 14.76,
+   "end": 15.1
+  },
+  {
+   "word": "con",
+   "start": 15.26,
+   "end": 15.4
+  },
+  {
+   "word": "más",
+   "start": 15.46,
+   "end": 15.6
+  },
+  {
+   "word": "de",
+   "start": 15.64,
+   "end": 15.7
+  },
+  {
+   "word": "veinte",
+   "start": 15.72,
+   "end": 15.96
+  },
+  {
+   "word": "mil.",
+   "start": 16.02,
+   "end": 16.219
+  },
+  {
+   "word": "Dos",
+   "start": 16.6,
+   "end": 16.74
+  },
+  {
+   "word": "barcos",
+   "start": 16.82,
+   "end": 17.14
+  },
+  {
+   "word": "se",
+   "start": 17.18,
+   "end": 17.28
+  },
+  {
+   "word": "hunden",
+   "start": 17.3,
+   "end": 17.54
+  },
+  {
+   "word": "en",
+   "start": 17.58,
+   "end": 17.64
+  },
+  {
+   "word": "Bocachica.",
+   "start": 17.68,
+   "end": 18.2
+  },
+  {
+   "word": "Otro",
+   "start": 18.56,
+   "end": 18.8
+  },
+  {
+   "word": "lo",
+   "start": 19.02,
+   "end": 19.14
+  },
+  {
+   "word": "queman.",
+   "start": 19.18,
+   "end": 19.5
+  },
+  {
+   "word": "Y",
+   "start": 19.9,
+   "end": 19.96
+  },
+  {
+   "word": "los",
+   "start": 20.0,
+   "end": 20.12
+  },
+  {
+   "word": "ingleses",
+   "start": 20.16,
+   "end": 20.64
+  },
+  {
+   "word": "entran",
+   "start": 20.72,
+   "end": 21.02
+  },
+  {
+   "word": "igual.",
+   "start": 21.06,
+   "end": 21.42
+  },
+  {
+   "word": "Almirante,",
+   "start": 21.88,
+   "end": 22.4
+  },
+  {
+   "word": "han",
+   "start": 22.86,
+   "end": 22.98
+  },
+  {
+   "word": "pasado.",
+   "start": 23.06,
+   "end": 23.46
+  },
+  {
+   "word": "Ya",
+   "start": 23.92,
+   "end": 24.0
+  },
+  {
+   "word": "lo",
+   "start": 24.06,
+   "end": 24.12
+  },
+  {
+   "word": "veo.",
+   "start": 24.16,
+   "end": 24.42
+  },
+  {
+   "word": "El",
+   "start": 24.82,
+   "end": 24.88
+  },
+  {
+   "word": "plan",
+   "start": 24.98,
+   "end": 25.2
+  },
+  {
+   "word": "tenía",
+   "start": 25.26,
+   "end": 25.52
+  },
+  {
+   "word": "letra",
+   "start": 25.56,
+   "end": 25.76
+  },
+  {
+   "word": "pequeña.",
+   "start": 25.82,
+   "end": 26.22
+  },
+  {
+   "word": "Aun",
+   "start": 26.66,
+   "end": 26.82
+  },
+  {
+   "word": "así,",
+   "start": 26.88,
+   "end": 27.12
+  },
+  {
+   "word": "resiste.",
+   "start": 27.48,
+   "end": 28.0
+  },
+  {
+   "word": "Una",
+   "start": 28.3,
+   "end": 28.4
+  },
+  {
+   "word": "madrugada,",
+   "start": 28.46,
+   "end": 28.94
+  },
+  {
+   "word": "los",
+   "start": 29.1,
+   "end": 29.2
+  },
+  {
+   "word": "ingleses",
+   "start": 29.24,
+   "end": 29.66
+  },
+  {
+   "word": "asaltan",
+   "start": 29.72,
+   "end": 30.18
+  },
+  {
+   "word": "el",
+   "start": 30.22,
+   "end": 30.34
+  },
+  {
+   "word": "fuerte",
+   "start": 30.4,
+   "end": 30.64
+  },
+  {
+   "word": "de",
+   "start": 30.68,
+   "end": 30.74
+  },
+  {
+   "word": "San",
+   "start": 30.78,
+   "end": 30.9
+  },
+  {
+   "word": "Felipe",
+   "start": 30.96,
+   "end": 31.32
+  },
+  {
+   "word": "y",
+   "start": 31.66,
+   "end": 31.7
+  },
+  {
+   "word": "fracasan.",
+   "start": 31.82,
+   "end": 32.36
+  },
+  {
+   "word": "Unas",
+   "start": 32.7,
+   "end": 32.9
+  },
+  {
+   "word": "seiscientas",
+   "start": 32.96,
+   "end": 33.64
+  },
+  {
+   "word": "bajas.",
+   "start": 33.7,
+   "end": 34.1
+  },
+  {
+   "word": "Pasan",
+   "start": 34.46,
+   "end": 34.72
+  },
+  {
+   "word": "las",
+   "start": 34.74,
+   "end": 34.86
+  },
+  {
+   "word": "semanas,",
+   "start": 34.9,
+   "end": 35.36
+  },
+  {
+   "word": "llega",
+   "start": 35.64,
+   "end": 35.84
+  },
+  {
+   "word": "la",
+   "start": 35.88,
+   "end": 36.0
+  },
+  {
+   "word": "fiebre,",
+   "start": 36.04,
+   "end": 36.36
+  },
+  {
+   "word": "mueren",
+   "start": 36.62,
+   "end": 36.88
+  },
+  {
+   "word": "miles",
+   "start": 37.02,
+   "end": 37.34
+  },
+  {
+   "word": "de",
+   "start": 37.38,
+   "end": 37.44
+  },
+  {
+   "word": "ingleses.",
+   "start": 37.48,
+   "end": 38.0
+  },
+  {
+   "word": "Después",
+   "start": 38.28,
+   "end": 38.56
+  },
+  {
+   "word": "de",
+   "start": 38.58,
+   "end": 38.7
+  },
+  {
+   "word": "más",
+   "start": 38.76,
+   "end": 38.92
+  },
+  {
+   "word": "de",
+   "start": 38.96,
+   "end": 39.04
+  },
+  {
+   "word": "dos",
+   "start": 39.08,
+   "end": 39.2
+  },
+  {
+   "word": "meses,",
+   "start": 39.28,
+   "end": 39.64
+  },
+  {
+   "word": "se",
+   "start": 39.88,
+   "end": 39.98
+  },
+  {
+   "word": "van.",
+   "start": 40.02,
+   "end": 40.24
+  },
+  {
+   "word": "Entonces,",
+   "start": 40.74,
+   "end": 41.36
+  },
+  {
+   "word": "¿hemos",
+   "start": 41.7,
+   "end": 41.94
+  },
+  {
+   "word": "ganado?",
+   "start": 42.0,
+   "end": 42.32
+  },
+  {
+   "word": "Espera,",
+   "start": 42.76,
+   "end": 43.08
+  },
+  {
+   "word": "mira",
+   "start": 43.48,
+   "end": 43.66
+  },
+  {
+   "word": "lo",
+   "start": 43.7,
+   "end": 43.74
+  },
+  {
+   "word": "que",
+   "start": 43.8,
+   "end": 43.84
+  },
+  {
+   "word": "habían",
+   "start": 43.86,
+   "end": 44.12
+  },
+  {
+   "word": "hecho",
+   "start": 44.14,
+   "end": 44.3
+  },
+  {
+   "word": "en",
+   "start": 44.32,
+   "end": 44.38
+  },
+  {
+   "word": "Inglaterra.",
+   "start": 44.42,
+   "end": 44.92
+  },
+  {
+   "word": "Medallas.",
+   "start": 45.38,
+   "end": 45.96
+  },
+  {
+   "word": "Vernon,",
+   "start": 46.36,
+   "end": 46.72
+  },
+  {
+   "word": "de",
+   "start": 46.92,
+   "end": 46.98
+  },
+  {
+   "word": "pie,",
+   "start": 47.06,
+   "end": 47.22
+  },
+  {
+   "word": "y",
+   "start": 47.58,
+   "end": 47.62
+  },
+  {
+   "word": "Lezo,",
+   "start": 47.7,
+   "end": 47.98
+  },
+  {
+   "word": "de",
+   "start": 48.4,
+   "end": 48.46
+  },
+  {
+   "word": "rodillas,",
+   "start": 48.52,
+   "end": 49.06
+  },
+  {
+   "word": "entregándole",
+   "start": 49.32,
+   "end": 49.92
+  },
+  {
+   "word": "la",
+   "start": 49.96,
+   "end": 50.0
+  },
+  {
+   "word": "espada.",
+   "start": 50.02,
+   "end": 50.4
+  },
+  {
+   "word": "Las",
+   "start": 50.8,
+   "end": 50.92
+  },
+  {
+   "word": "acuñaron",
+   "start": 50.96,
+   "end": 51.56
+  },
+  {
+   "word": "antes",
+   "start": 51.64,
+   "end": 51.92
+  },
+  {
+   "word": "de",
+   "start": 51.94,
+   "end": 52.02
+  },
+  {
+   "word": "ganar.",
+   "start": 52.04,
+   "end": 52.38
+  },
+  {
+   "word": "Y",
+   "start": 52.8,
+   "end": 52.84
+  },
+  {
+   "word": "no",
+   "start": 52.96,
+   "end": 53.1
+  },
+  {
+   "word": "ganaron.",
+   "start": 53.12,
+   "end": 53.54
+  },
+  {
+   "word": "Una",
+   "start": 54.04,
+   "end": 54.18
+  },
+  {
+   "word": "victoria",
+   "start": 54.22,
+   "end": 54.58
+  },
+  {
+   "word": "imaginaria,",
+   "start": 54.62,
+   "end": 55.24
+  },
+  {
+   "word": "como",
+   "start": 55.62,
+   "end": 55.8
+  },
+  {
+   "word": "mi",
+   "start": 55.82,
+   "end": 55.9
+  },
+  {
+   "word": "nómina.",
+   "start": 55.94,
+   "end": 56.3
+  },
+  {
+   "word": "Doscientos",
+   "start": 56.66,
+   "end": 57.3
+  },
+  {
+   "word": "veintinueve",
+   "start": 57.36,
+   "end": 58.0
+  },
+  {
+   "word": "días",
+   "start": 58.04,
+   "end": 58.28
+  },
+  {
+   "word": "sin",
+   "start": 58.34,
+   "end": 58.48
+  },
+  {
+   "word": "cobrar",
+   "start": 58.5,
+   "end": 58.88
+  }
+ ],
+ "method": "ElevenLabs Scribe; acotaciones quitadas"
+}
