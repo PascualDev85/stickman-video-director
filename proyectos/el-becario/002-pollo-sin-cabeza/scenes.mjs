@@ -1,6 +1,6 @@
 // EXPEDIENTE 002 — «Mike, el pollo sin cabeza» (Historias Sin Cabeza). Short 9:16, ~48 s.
 // Guion v3 (aprobado 10-nov-2026). Cortes sobre los tiempos reales de la toma A (ElevenLabs Scribe).
-// Reaprovecha sets y planos del piloto 01-pollo-sin-cabeza; sin sangre ni corte visible.
+// Sin sangre ni corte visible.
 import fs from 'node:fs';
 import {becario, granjero, person, mike, axeProp, caseFolder, osc, P, E, R, G, S, deg, INK, PAPER, TIE, ctext, sign, choppingBlock, featherBurst, dropperProp} from '../kit.mjs';
 import {H, GROUND, RED, YEL, T, tag, captionTrack, layout, fill, band, lin, mix, r3, eOut, eInOut, eBack, shake, jit, sample, camF, cam, slam, popIn, flash, rays, speedLines, cloud, office, desk, makeEpisode, F} from '../lib.mjs';
