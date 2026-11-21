@@ -26,15 +26,19 @@ Fuentes:
 • J. M. Serrano Álvarez, revista Vegueta (ULPGC, 2016)
 • Informe hidrográfico sobre los pecios de Bocachica (2022)
 
-#historia #curiosidades #shorts #blasdelezo
+#BlasDeLezo #CartagenaDeIndias #historia #curiosidades #shorts
 
-## Etiquetas
-Blas de Lezo, Cartagena de Indias, 1741, Vernon, medallas de Vernon, Mediohombre, historia de España, historias reales, historia absurda, curiosidades, Historias Sin Cabeza, El Becario
+## Etiquetas (SEO 21-nov: sugerencias de búsqueda de YouTube; vidIQ sin créditos)
+Blas de Lezo, Blas de Lezo Cartagena de Indias, batalla de Cartagena de Indias, sitio de Cartagena de Indias 1741, Cartagena de Indias 1741, Blas de Lezo historia, Medio Hombre, Edward Vernon, medallas de Vernon, historia de España, historias reales, historia absurda, curiosidades, Historias Sin Cabeza, El Becario
+Búsquedas reales: «blas de lezo», «blas de lezo cartagena de indias», «batalla/sitio de cartagena de indias 1741», «medio hombre blas de lezo». «medallas de vernon» no tiene búsquedas (solo gancho).
 
 ## Comentario fijado
 Inglaterra imprimió las medallas antes de ganar. Yo llevo 229 días imprimiendo nóminas que nadie paga. 🖨️
 ¿Lo conocías o lo has descubierto hoy? 👇
 
 ## TikTok / Instagram (texto)
-Hicieron las medallas de la victoria… y luego perdieron. ⚓ ¿Conocías a Blas de Lezo? Historia completa en YouTube.
-#historia #curiosidades #blasdelezo #cartagena
+Blas de Lezo, 1741: Inglaterra hizo las medallas de la victoria… antes de la batalla. ⚓ (IG añade: «Seis barcos contra más de cien en Cartagena de Indias.») ¿Lo conocías o lo descubres hoy? 👇 Expediente completo en YouTube.
+#BlasDeLezo #CartagenaDeIndias #historia #curiosidades #historiadeespaña
+
+## vidIQ
+**PROGRAMADO 21-nov** (YT zATkBj41sc4, privado hasta la hora). postId b4d974cf-df89-49d5-9519-0ab9fad73584 (YT público cat. 27, TikTok público + comentarios + música OK + marca IA, IG), 25-nov 20:00 ES.

@@ -254,7 +254,7 @@ Ignorar: términos de búsqueda (en Shorts son ruido), impresiones/CTR de miniat
 | 005 | Garbo, el español que engañó a Hitler con 27 espías inventados (Joan Pujol) | Final aprobado (13-nov, v4); publicar mié 18-nov (contador 223) |
 | 006 | La Guerra del Cerdo (San Juan, 1859-72): la única baja fue un cerdo | Preview v2 (17-nov, 47 s); pendiente aprobación de David; publicar sáb 21-nov (contador 225) |
 | 007 | El hwacha de Haengju (Corea, 1593): prueba del formato de @historiaslocasok (gancho `accion-rara`, cuento con diálogos, giro final). Carpeta `007-hwacha/` | **Programado con vidIQ** lun 23-nov 20:00 ES (19:00Z) en YT (NkHfipeWUCI)/TikTok/IG; v3 ×1,2 = 60 s, contador 227. Comparar con 005/006 a 24 h, 48 h y 7 días |
-| 008 | Blas de Lezo en Cartagena de Indias (1741): hundió sus propios barcos; Inglaterra acuñó las medallas de la victoria antes de ganar. Mismo formato que el 007 para confirmar. Carpeta `008-lezo/` | **Final aprobado** (21-nov, v6, ×1,2 = 48,3 s) en `expedientes/008-lezo/`; publicar mié 25-nov 20:00 (contador 229). Ficha en `008-lezo/publicacion.md` |
+| 008 | Blas de Lezo en Cartagena de Indias (1741): hundió sus propios barcos; Inglaterra acuñó las medallas de la victoria antes de ganar. Mismo formato que el 007 para confirmar. Carpeta `008-lezo/` | **Programado con vidIQ** mié 25-nov 20:00 ES en YT (zATkBj41sc4)/TikTok/IG; v6 ×1,2 = 48,3 s (contador 229). Ficha en `008-lezo/publicacion.md` |
 | 009 | La primera huelga de la historia (Deir el-Medina, ~1157 a. C., Papiro de la Huelga de Turín): **debut del Jefe** (español, el que no paga) en el gag del sueldo | Por preparar; antes, hoja con 2-3 diseños del Jefe |
 | reserva | Hiroo Onoda (29 años en la selva): tratar con cuidado, hubo víctimas civiles | Reserva |
 
